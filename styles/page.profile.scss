@@ -1,0 +1,137 @@
+.profile-page {
+  .content {
+    @include flexbox($align-items: stretch);
+
+    &.centered {
+      justify-content: center;
+    }
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 26px;
+    color: $black;
+    text-transform: capitalize;
+  }
+
+  .block {
+    width: 48%;
+    background-color: #ffffff;
+    @include flexbox($align-items: center);
+    margin: 20px 0;
+    padding: 35px 25px;
+    border-radius: 5px;
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
+
+    .block-top {
+      width: 100%;
+      min-height: 34px;
+      @include flexbox($align-items: center);
+      margin-bottom: 15px;
+    }
+  }
+
+  .break {
+    height: 0;
+    flex-basis: 100%;
+  }
+
+  .block-info {
+    .block-info-top {
+      .status {
+        margin-left: 10px;
+        margin-right: auto;
+
+        span {
+          background-color: $pink;
+          padding: 2px 6px;
+          border-radius: 3px;
+          font-size: 12px;
+          font-weight: 300;
+          line-height: 20px;
+          color: $red;
+
+          &.verified {
+            background-color: $light-green;
+            color: $brand-green;
+          }
+        }
+      }
+    }
+
+    .field {
+      width: 100%;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 26px;
+      color: $text-gray;
+
+      &.email-field {
+        @include flexbox($justify-content: flex-start, $align-items: center);
+
+        .email {
+          background-image: url("../public/icons/email.svg");
+          background-size: 24px 24px;
+          background-repeat: no-repeat;
+          background-position: 0 center;
+          padding-left: 34px;
+        }
+
+        .verify-btn {
+          margin-left: 10px;
+          font-size: 12px;
+          font-weight: 300;
+          line-height: 20px;
+          color: $black;
+          text-decoration: underline;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+
+  .block-start-working {
+    width: 100%;
+    @include flexbox($justify-content: center);
+    margin-bottom: 20px;
+
+    a {
+      margin: 0 10px;
+    }
+  }
+
+  .block-delete-account {
+    width: 100%;
+    @include flexbox($justify-content: center);
+    margin-top: 20px;
+  }
+
+  @media screen and (max-width: 767px) {
+    .content {
+      .block {
+        width: 100%;
+      }
+    }
+  }
+
+  @media screen and (max-width: 428px) {
+    .content {
+      .block-start-working {
+        @include flexbox(
+          $justify-content: center,
+          $align-items: center,
+          $flex-direction: column
+        );
+        margin-bottom: 10px;
+
+        a {
+          margin: 10px 0;
+        }
+      }
+    }
+  }
+}

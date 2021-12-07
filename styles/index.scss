@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap");
+
+$headerHeight: 124px;
+$footerHeight: 84px;
+
+@import "colors";
+@import "rest";
+@import "mixins";
+@import "default";
+@import "blocks/buttons";
+@import "blocks/header";
+@import "blocks/modal";
+@import "blocks/footer";
+@import "page";
+@import "page.landing";
+@import "page.api-docs";
+@import "page.auth";
+@import "page.profile";
+@import "page.static";
+@import "page.error";
+
+section {
+  padding-top: $headerHeight;
+}

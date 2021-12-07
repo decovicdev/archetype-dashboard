@@ -1,2 +1,2 @@
-# redesigned-tribble
-The website.
+# Archetype
+Based on NextJS framework.

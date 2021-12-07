@@ -1,0 +1,60 @@
+.btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  transition: background 0.2s, color 0.2s;
+  color: $black;
+  text-align: center;
+
+  &.small {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  &.large {
+    padding: 12px 24px;
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  &.black {
+    background-color: rgb(25, 28, 31);
+    color: #ffffff;
+
+    &:hover {
+      background-color: rgb(25, 28, 31, 0.95);
+    }
+  }
+
+  &.grey {
+    background-color: rgba(230, 230, 230, 0.6);
+
+    &:hover {
+      background-color: rgba(230, 230, 230, 0.8);
+    }
+  }
+
+  &.green {
+    background-color: $green;
+    color: #ffffff;
+
+    &:disabled {
+      background-color: rgba(60, 179, 113, 0.8);
+    }
+  }
+
+  &.red {
+    background-color: pink;
+    color: $red;
+  }
+}
+
+.app-store-btn {
+  width: 162px;
+  height: 48px;
+  display: block;
+}
