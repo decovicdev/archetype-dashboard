@@ -1,50 +1,47 @@
-import config from "../../../config";
-
 import { useContext, useCallback } from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 import styles from "./footer.module.scss";
+
+import UserService from "../../../services/user.service";
 
 import { AuthContext } from "../../../context/auth";
 import { HelperContext } from "../../../context/helper";
 
 const Footer = () => {
-  const router = useRouter();
-
   const { currentUser } = useContext(AuthContext);
-  const { isMobile } = useContext(HelperContext);
+  const { isMobile, showAlert } = useContext(HelperContext);
+
+  const clickSignOut = useCallback(async () => {
+    await UserService.logout();
+
+    showAlert("Logged out", true);
+  }, [showAlert]);
 
   const renderBottomPanel = useCallback(() => {
     if (!isMobile) {
       return null;
     }
 
-    let actionBtn = (
-      <Link href="/account/signup">
-        <a className="btn grey">Sign Up</a>
-      </Link>
-    );
-    if (router.pathname === "/account/signup") {
-      actionBtn = (
-        <Link href="/account/login">
-          <a className="btn grey">Login</a>
-        </Link>
-      );
-    }
-
     return (
       <div className="bottom-panel">
         {currentUser ? (
-          <Link href="/profile">
-            <a className="btn grey">Profile</a>
-          </Link>
+          <button type={"button"} className="btn grey" onClick={clickSignOut}>
+            Sign Out
+          </button>
         ) : (
-          actionBtn
+          <>
+            <Link href="/account/signup">
+              <a className="btn black">Sign Up</a>
+            </Link>
+            <Link href="/account/login">
+              <a className="btn grey">Login</a>
+            </Link>
+          </>
         )}
       </div>
     );
-  }, [router.pathname, currentUser, isMobile]);
+  }, [currentUser, isMobile, clickSignOut]);
 
   return (
     <>

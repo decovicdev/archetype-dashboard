@@ -1,10 +1,6 @@
-.profile-page {
+.settings-page {
   .content {
-    @include flexbox($align-items: stretch);
-
-    &.centered {
-      justify-content: center;
-    }
+    @include flexbox($justify-content: center, $align-items: stretch);
   }
 
   h3 {
@@ -39,6 +35,8 @@
 
   .block-info {
     .block-info-top {
+      @include flexbox($align-items: center);
+
       .status {
         margin-left: 10px;
         margin-right: auto;
@@ -94,14 +92,10 @@
     }
   }
 
-  .block-start-working {
+  .block-stripe {
     width: 100%;
     @include flexbox($justify-content: center);
-    margin-bottom: 20px;
-
-    a {
-      margin: 0 10px;
-    }
+    margin-top: 20px;
   }
 
   .block-delete-account {
@@ -119,19 +113,5 @@
   }
 
   @media screen and (max-width: 428px) {
-    .content {
-      .block-start-working {
-        @include flexbox(
-          $justify-content: center,
-          $align-items: center,
-          $flex-direction: column
-        );
-        margin-bottom: 10px;
-
-        a {
-          margin: 10px 0;
-        }
-      }
-    }
   }
 }

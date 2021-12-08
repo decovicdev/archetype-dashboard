@@ -23,7 +23,7 @@ const Component = () => {
 
   useEffect(() => {
     if (currentUser) {
-      router.push("/profile");
+      router.push("/settings");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -51,7 +51,7 @@ const Component = () => {
         setAuthEmail("");
         setAuthPassword("");
 
-        router.push("/profile");
+        router.push("/settings");
       } catch (e) {
         showAlert(e.message);
 

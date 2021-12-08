@@ -32,11 +32,12 @@ const Component = () => {
   const [inProgress, setProgress] = useState(false);
   const [agreedTerms, setAgreedTerms] = useState(false);
   const [fullName, setFullname] = useState("");
+  const [company, setCompany] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(authPassword);
 
   useEffect(() => {
     if (currentUser) {
-      router.push("/profile");
+      router.push("/settings");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -80,7 +81,7 @@ const Component = () => {
       setAuthEmail("");
       setAuthPassword("");
 
-      router.push("/profile");
+      router.push("/settings");
     } catch (e) {
       showAlert(e.message);
 
@@ -109,6 +110,23 @@ const Component = () => {
       {inProgress ? <Spinner /> : null}
       <div className="page signup-page">
         <div className="content">
+          <div className="info-block">
+            <h2>Some text here</h2>
+            <ul>
+              <li>
+                <h3>Item 1</h3>
+                <p>Important text here</p>
+              </li>
+              <li>
+                <h3>Item 1</h3>
+                <p>Important text here</p>
+              </li>
+              <li>
+                <h3>Item 1</h3>
+                <p>Important text here</p>
+              </li>
+            </ul>
+          </div>
           <div className="form-block">
             <div className="top-info">
               <h2>Create your account</h2>
@@ -138,6 +156,17 @@ const Component = () => {
                   value={authEmail}
                   id="userEmail"
                   onChange={(e) => setAuthEmail(e.target.value)}
+                />
+              </div>
+              <div className="field">
+                <label htmlFor="company">
+                  Company <span>(optional)</span>
+                </label>
+                <input
+                  type="text"
+                  value={company}
+                  id="company"
+                  onChange={(e) => setCompany(e.target.value)}
                 />
               </div>
               <div className="field">
@@ -179,7 +208,7 @@ const Component = () => {
                 </span>
               </div>
               <button type="submit" className="btn green">
-                Register
+                Sign Up
               </button>
             </form>
             <div className="bottom-info">

@@ -139,7 +139,7 @@ const Component = () => {
               unauthorizedClick={() => {
                 showAlert("Authorization is required");
 
-                router.push("/profile");
+                router.push("/settings");
               }}
             />
           );

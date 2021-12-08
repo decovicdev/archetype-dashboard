@@ -76,7 +76,7 @@ const Component = () => {
             <div className="bottom-info">
               <span>Go back to</span>
               {currentUser ? (
-                <Link href="/profile">
+                <Link href="/settings">
                   <a>Profile</a>
                 </Link>
               ) : (
