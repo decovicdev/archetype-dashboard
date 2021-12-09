@@ -3,8 +3,7 @@
   min-height: calc(100vh - #{$headerHeight});
   background-color: #f3f4f5;
   background-image: linear-gradient(35deg, #ffffff, #f3f4f5);
-  display: flex;
-  align-items: center;
+  @include flexbox($align-items: center);
   position: relative;
   z-index: 1;
   overflow: hidden;
@@ -14,6 +13,12 @@
     max-width: 1280px;
     margin: 0 auto;
     padding: 60px 40px;
+
+    h1 {
+      font-size: 24px;
+      line-height: 32px;
+      color: $dark-gray;
+    }
   }
 
   @media screen and (max-width: 428px) {

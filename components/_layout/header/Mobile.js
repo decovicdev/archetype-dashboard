@@ -1,11 +1,10 @@
 import { useRef, useState } from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import classnames from "classnames";
 
-const Component = () => {
-  const router = useRouter();
+import Links from "./links";
 
+const Component = () => {
   const _header = useRef(null);
 
   const [menuVisible, setMenuVisible] = useState(false);
@@ -30,66 +29,7 @@ const Component = () => {
         </button>
         <div className="nav-block">
           <div className="top-menu">
-            <Link href="/">
-              <a
-                className={classnames("btn large", {
-                  green: router.pathname === "/",
-                })}
-                onClick={clickMenuLink}
-              >
-                Home
-              </a>
-            </Link>
-            <Link href="/api-docs">
-              <a
-                className={classnames("btn large", {
-                  green: router.pathname === "/api-docs",
-                })}
-                onClick={clickMenuLink}
-              >
-                Documentation
-              </a>
-            </Link>
-            <Link href="/pricing">
-              <a
-                className={classnames("btn large", {
-                  green: router.pathname === "/pricing",
-                })}
-                onClick={clickMenuLink}
-              >
-                Pricing
-              </a>
-            </Link>
-            <Link href="/endpoints">
-              <a
-                className={classnames("btn large", {
-                  green: router.pathname === "/endpoints",
-                })}
-                onClick={clickMenuLink}
-              >
-                Endpoints
-              </a>
-            </Link>
-            <Link href="/users">
-              <a
-                className={classnames("btn large", {
-                  green: router.pathname === "/users",
-                })}
-                onClick={clickMenuLink}
-              >
-                Users
-              </a>
-            </Link>
-            <Link href="/settings">
-              <a
-                className={classnames("btn large", {
-                  green: router.pathname === "/settings",
-                })}
-                onClick={clickMenuLink}
-              >
-                Settings
-              </a>
-            </Link>
+            <Links onClickItem={clickMenuLink} />
           </div>
         </div>
       </nav>

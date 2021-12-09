@@ -1,4 +1,5 @@
 import Firebase, { AuthPersistance } from "../firebase.js";
+import http from "../helpers/http";
 
 export default class UserService {
   static async signUp(email, password, displayName) {
@@ -35,5 +36,9 @@ export default class UserService {
 
   static async deleteAccount() {
     return await Firebase.auth().signOut();
+  }
+
+  static async getList() {
+    return http.get(`users`);
   }
 }

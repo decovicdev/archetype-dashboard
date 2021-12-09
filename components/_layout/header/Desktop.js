@@ -1,7 +1,7 @@
 import { useRef, useContext, useEffect, useCallback } from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
-import classnames from "classnames";
+
+import Links from "./links";
 
 import UserService from "../../../services/user.service";
 
@@ -9,8 +9,6 @@ import { AuthContext } from "../../../context/auth";
 import { HelperContext } from "../../../context/helper";
 
 const Component = () => {
-  const router = useRouter();
-
   const _header = useRef(null);
 
   const { currentUser } = useContext(AuthContext);
@@ -78,60 +76,7 @@ const Component = () => {
           <a className="logo-link" />
         </Link>
         <div className="left-menu">
-          <Link href="/">
-            <a
-              className={classnames({
-                active: router.pathname === "/",
-              })}
-            >
-              Home
-            </a>
-          </Link>
-          <Link href="/api-docs">
-            <a
-              className={classnames({
-                active: router.pathname === "/api-docs",
-              })}
-            >
-              Documentation
-            </a>
-          </Link>
-          <Link href="/pricing">
-            <a
-              className={classnames({
-                active: router.pathname === "/pricing",
-              })}
-            >
-              Pricing
-            </a>
-          </Link>
-          <Link href="/endpoints">
-            <a
-              className={classnames({
-                active: router.pathname === "/endpoints",
-              })}
-            >
-              Endpoints
-            </a>
-          </Link>
-          <Link href="/users">
-            <a
-              className={classnames({
-                active: router.pathname === "/users",
-              })}
-            >
-              Users
-            </a>
-          </Link>
-          <Link href="/settings">
-            <a
-              className={classnames({
-                active: router.pathname === "/settings",
-              })}
-            >
-              Settings
-            </a>
-          </Link>
+          <Links />
         </div>
         {renderLinks()}
       </div>
