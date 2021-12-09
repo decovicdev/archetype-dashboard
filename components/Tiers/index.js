@@ -1,6 +1,7 @@
 import config from "../../config";
 
 import Head from "next/head";
+import Link from "next/link";
 
 const Users = () => {
   return (
@@ -26,7 +27,9 @@ const Users = () => {
                 Quota: <span>1000/day</span>
               </div>
             </div>
-            <button type={"button"} className={"edit-btn"} />
+            <Link href={`/tiers/1`}>
+              <a className={"edit-btn"} />
+            </Link>
           </div>
           <div className={"tiers-list-item"}>
             <div className={"top-content"}>
@@ -39,7 +42,9 @@ const Users = () => {
                 Quota: <span>5000/day</span>
               </div>
             </div>
-            <button type={"button"} className={"edit-btn"} />
+            <Link href={`/tiers/2`}>
+              <a className={"edit-btn"} />
+            </Link>
           </div>
           <div className={"tiers-list-item"}>
             <div className={"top-content"}>
@@ -52,7 +57,9 @@ const Users = () => {
                 Quota: <span>25000/day</span>
               </div>
             </div>
-            <button type={"button"} className={"edit-btn"} />
+            <Link href={`/tiers/3`}>
+              <a className={"edit-btn"} />
+            </Link>
           </div>
         </div>
       </div>
