@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap");
+
+$headerHeight: 84px;
+$footerHeight: 84px;
+
+@import "colors";
+@import "rest";
+@import "mixins";
+@import "default";
+@import "blocks/buttons";
+@import "blocks/header";
+@import "blocks/modal";
+@import "blocks/footer";
+@import "page";
+@import "page.landing";
+@import "page.api-docs";
+@import "page.auth";
+@import "page.settings";
+@import "page.static";
+@import "page.tiers.details";
+@import "page.tiers";
+@import "page.users";
+@import "page.error";
+
+section {
+  padding-top: $headerHeight;
+}

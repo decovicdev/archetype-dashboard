@@ -1,0 +1,20 @@
+.bottom-panel {
+  width: 100%;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  padding: 20px 0;
+  box-shadow: rgb(25 28 31 / 4%) 0px -4px 8px, rgb(25 28 31 / 4%) 0px -1px 0px;
+
+  a,
+  button {
+    &:first-child {
+      margin-right: 15px;
+    }
+  }
+}

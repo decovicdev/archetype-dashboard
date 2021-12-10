@@ -1,0 +1,38 @@
+.error-page {
+  min-height: calc(100vh - #{$headerHeight});
+  @include flexbox($justify-content: center, $align-items: center);
+  padding-top: 80px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 80px;
+
+  h1 {
+    margin-bottom: 25px;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 46px;
+    text-transform: capitalize;
+    color: $black;
+  }
+
+  p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 26px;
+    color: $text-gray;
+  }
+
+  a {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 26px;
+    color: $black;
+    margin-bottom: 22px;
+  }
+
+  @media screen and (max-width: 428px) {
+    min-height: calc(100vh - #{$headerHeight} - #{$footerHeight});
+    text-align: center;
+  }
+}

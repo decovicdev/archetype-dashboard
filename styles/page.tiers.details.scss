@@ -1,0 +1,89 @@
+.tiers-details-page {
+  .content {
+    @include flexbox($justify-content: center, $align-items: flex-start);
+  }
+
+  .tier-details-block {
+    width: 100%;
+    max-width: 560px;
+    background-color: #ffffff;
+    margin: 20px;
+    padding: 25px;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    position: relative;
+
+    .name,
+    .price,
+    .quota {
+      @include flexbox();
+      font-size: 14px;
+      line-height: 22px;
+      color: $text-gray;
+
+      span:nth-child(2) {
+        color: $black;
+      }
+    }
+
+    .endpoints {
+      .endpoints-top-block {
+        @include flexbox();
+        margin-top: 20px;
+
+        span {
+          font-size: 14px;
+          line-height: 22px;
+          color: $text-gray;
+        }
+
+        .add-btn {
+          width: 18px;
+          height: 18px;
+          background-image: url("../public/icons/add.svg");
+          background-size: cover;
+          background-position: center;
+        }
+      }
+
+      .endpoints-list-data {
+        .endpoints-list-item {
+          @include flexbox($align-items: center);
+          margin-top: 10px;
+
+          input[type="text"] {
+            width: 100%;
+            padding: 9px 15px;
+            border-radius: 7px;
+            border: solid 1px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 24px;
+            color: $black;
+          }
+
+          .item-name,
+          .item-url {
+            width: calc(50% - 20px);
+          }
+
+          .delete-btn {
+            width: 18px;
+            height: 18px;
+            background-image: url("../public/icons/trash.svg");
+            background-size: cover;
+            background-position: center;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+  }
+
+  @media screen and (max-width: 428px) {
+  }
+}
