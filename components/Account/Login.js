@@ -104,7 +104,7 @@ const Component = () => {
                   onChange={(e) => setAuthPassword(e.target.value)}
                 />
               </div>
-              <button type="submit" className="btn green">
+              <button type="submit" className="btn gradient-pink">
                 Login
               </button>
             </form>

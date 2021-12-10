@@ -52,16 +52,16 @@ const Component = () => {
     return (
       <div className="right-menu">
         {currentUser ? (
-          <button type={"button"} className="btn grey" onClick={clickSignOut}>
+          <button type={"button"} className="btn light-blue" onClick={clickSignOut}>
             Sign Out
           </button>
         ) : (
           <>
             <Link href="/account/signup">
-              <a className="btn black">Sign Up</a>
+              <a className="btn gradient-pink">Sign Up</a>
             </Link>
             <Link href="/account/login">
-              <a className="btn grey">Login</a>
+              <a className="btn light-blue">Login</a>
             </Link>
           </>
         )}
@@ -73,7 +73,7 @@ const Component = () => {
     <header ref={_header} className="desktop">
       <div className="content">
         <Link href="/">
-          <a className="logo-link" />
+          <a className="logo-link">Archetype</a>
         </Link>
         <div className="left-menu">
           <Links />

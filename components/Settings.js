@@ -126,7 +126,7 @@ const Component = () => {
             </div>
           </div>
           <div className={"block-stripe"}>
-            <button type="button" className={"btn green small"}>
+            <button type="button" className={"btn gradient-pink small"}>
               {" "}
               Connect your Stripe account
             </button>
@@ -169,7 +169,7 @@ const Component = () => {
           </button>
           <button
             type="button"
-            className="btn green"
+            className="btn gradient-pink"
             onClick={clickDeleteAccount}
           >
             Yes, Delete

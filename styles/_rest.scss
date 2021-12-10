@@ -1,7 +1,7 @@
 .loading-screen {
   width: 100%;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,7 +96,8 @@
   z-index: 9999;
 
   &.isSuccess {
-    background: $green;
+    background: $purple;
+    background: linear-gradient(96.76deg, #fdc043 14.9%, #e543e8 92.22%);
     color: #ffffff;
 
     .close {

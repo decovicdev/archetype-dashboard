@@ -25,8 +25,7 @@ const Component = () => {
     if (!currentUser) {
       router.push("/account/signup");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentUser]);
 
   const submitForm = useCallback(async () => {
     try {
@@ -111,7 +110,7 @@ const Component = () => {
                   onChange={(e) => setCompanyName(e.target.value)}
                 />
               </div>
-              <button type="submit" className="btn green">
+              <button type="submit" className="btn gradient-pink">
                 Create
               </button>
             </form>

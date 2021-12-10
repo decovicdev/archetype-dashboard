@@ -73,7 +73,7 @@ const Component = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <button type="submit" className="btn green">
+              <button type="submit" className="btn gradient-pink">
                 Send Link
               </button>
             </form>

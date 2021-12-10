@@ -1,8 +1,8 @@
 .btn {
-  padding: 10px 20px;
+  padding: 8px 20px;
   border-radius: 10px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 24px;
   transition: background 0.2s, color 0.2s;
   color: $black;
@@ -50,6 +50,21 @@
   &.red {
     background-color: pink;
     color: $red;
+  }
+
+  &.light-blue {
+    background: $light-blue;
+    color: $pink;
+  }
+
+  &.gradient-pink {
+    background: linear-gradient(96.76deg, #fdc043 14.9%, #e543e8 92.22%);
+    color: #ffffff;
+  }
+
+  &.clean-white {
+    background: transparent;
+    color: #ffffff;
   }
 }
 

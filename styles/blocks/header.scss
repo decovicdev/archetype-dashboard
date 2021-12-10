@@ -1,6 +1,7 @@
 header {
   width: 100%;
-  background-color: #ffffff;
+  background-color: $purple;
+  background: linear-gradient(175deg, #4b466c, #1b2145);
   display: flex;
   justify-content: center;
   position: absolute;
@@ -9,7 +10,7 @@ header {
   z-index: 3;
 
   &.desktop {
-    padding: 40px 0;
+    padding: 20px 0;
 
     &.floating {
       padding: 20px 0;
@@ -28,13 +29,12 @@ header {
       padding: 0 40px;
 
       .logo-link {
-        min-width: 32px;
-        width: 32px;
-        height: 50px;
-        background-image: url("../../public/icons/icon.svg");
-        background-position: center;
-        background-size: cover;
-        background-position: -9px center;
+        background: linear-gradient(180deg, #fdc043 0%, #e543e8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 36px;
+        font-weight: 600;
+        line-height: 44px;
       }
 
       .left-menu {
@@ -44,8 +44,9 @@ header {
         a {
           margin-left: 55px;
           font-size: 16px;
+          font-weight: 500;
           line-height: 24px;
-          color: $text-gray;
+          color: #ffffff;
           transition: color 0.3s;
 
           &:first-child {
@@ -54,7 +55,7 @@ header {
 
           &.active,
           &:hover {
-            color: $black;
+            color: $pink;
           }
         }
       }

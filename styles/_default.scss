@@ -47,7 +47,7 @@ img {
   vertical-align: top;
   background: none;
   text-decoration: none;
-  color: #aaa;
+  color: #ffffff;
 }
 a,
 button,
@@ -93,11 +93,12 @@ section {
 }
 html,
 body {
-  background: #fff;
+  background-color: $purple;
   margin: 0;
   padding: 0;
-  font-family: "Inter", "Segoe UI", "Roboto", "Oxygen";
+  font-family: "Montserrat", "Segoe UI", "Roboto", "Oxygen";
   font-weight: 400;
+  color: #ffffff;
 }
 h1,
 h2,
