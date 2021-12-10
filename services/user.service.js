@@ -35,6 +35,8 @@ export default class UserService {
   }
 
   static async deleteAccount() {
+    await http.post(`delete-customer`);
+
     return await Firebase.auth().signOut();
   }
 

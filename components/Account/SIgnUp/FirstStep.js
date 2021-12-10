@@ -1,4 +1,4 @@
-import config from "../../config";
+import config from "../../../config";
 import React, {
   useContext,
   useState,
@@ -11,12 +11,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import OpraAgreement from "./OpraAgreement";
-import Spinner from "../_common/Spinner";
+import Spinner from "../../_common/Spinner";
 
-import UserService from "../../services/user.service.js";
+import UserService from "../../../services/user.service.js";
 
-import { AuthContext } from "../../context/auth";
-import { HelperContext } from "../../context/helper";
+import { AuthContext } from "../../../context/auth";
+import { HelperContext } from "../../../context/helper";
 
 let agreedOpra = false;
 
@@ -32,12 +32,11 @@ const Component = () => {
   const [inProgress, setProgress] = useState(false);
   const [agreedTerms, setAgreedTerms] = useState(false);
   const [fullName, setFullname] = useState("");
-  const [company, setCompany] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(authPassword);
 
   useEffect(() => {
     if (currentUser) {
-      router.push("/settings");
+      router.push("/settings/create-api");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -81,7 +80,7 @@ const Component = () => {
       setAuthEmail("");
       setAuthPassword("");
 
-      router.push("/settings");
+      router.push("/account/signup/create-api");
     } catch (e) {
       showAlert(e.message);
 
@@ -104,8 +103,6 @@ const Component = () => {
     <>
       <Head>
         <title>Sign Up - {config.meta.title}</title>
-        <meta name="description" content={config.meta.description} />
-        <meta name="keywords" content={config.meta.keywords} />
       </Head>
       {inProgress ? <Spinner /> : null}
       <div className="page signup-page">
@@ -156,17 +153,6 @@ const Component = () => {
                   value={authEmail}
                   id="userEmail"
                   onChange={(e) => setAuthEmail(e.target.value)}
-                />
-              </div>
-              <div className="field">
-                <label htmlFor="company">
-                  Company <span>(optional)</span>
-                </label>
-                <input
-                  type="text"
-                  value={company}
-                  id="company"
-                  onChange={(e) => setCompany(e.target.value)}
                 />
               </div>
               <div className="field">

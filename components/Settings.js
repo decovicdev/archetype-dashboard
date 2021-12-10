@@ -131,22 +131,20 @@ const Component = () => {
               Connect your Stripe account
             </button>
           </div>
-          {currentUser.emailVerified && (
-            <div className={"block-delete-account"}>
-              <button
-                type="button"
-                className={"btn red small"}
-                onClick={() => {
-                  if (_deleteAccount.current) {
-                    _deleteAccount.current.show();
-                  }
-                }}
-              >
-                {" "}
-                Delete Account
-              </button>
-            </div>
-          )}
+          <div className={"block-delete-account"}>
+            <button
+              type="button"
+              className={"btn red small"}
+              onClick={() => {
+                if (_deleteAccount.current) {
+                  _deleteAccount.current.show();
+                }
+              }}
+            >
+              {" "}
+              Delete Account
+            </button>
+          </div>
         </div>
       </div>
       <Modal ref={_deleteAccount} isBusy={isDeleting}>

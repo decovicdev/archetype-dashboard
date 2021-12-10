@@ -1,6 +1,6 @@
 import React, { forwardRef, useRef } from "react";
 
-import Modal from "../_common/Modal";
+import Modal from "../../_common/Modal";
 
 const Component = forwardRef(({ fullName, clickAgree }, ref) => {
   const _content = useRef(null);
