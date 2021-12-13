@@ -52,7 +52,11 @@ const Component = () => {
     return (
       <div className="right-menu">
         {currentUser ? (
-          <button type={"button"} className="btn light-blue" onClick={clickSignOut}>
+          <button
+            type={"button"}
+            className="btn light-blue"
+            onClick={clickSignOut}
+          >
             Sign Out
           </button>
         ) : (

@@ -1,16 +1,9 @@
 import config from "../../../config";
-import React, {
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-} from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import OpraAgreement from "./OpraAgreement";
 import Spinner from "../../_common/Spinner";
 
 import UserService from "../../../services/user.service.js";
@@ -18,12 +11,8 @@ import UserService from "../../../services/user.service.js";
 import { AuthContext } from "../../../context/auth";
 import { HelperContext } from "../../../context/helper";
 
-let agreedOpra = false;
-
 const Component = () => {
   const router = useRouter();
-
-  const _opraAgreement = useRef(null);
 
   const { currentUser } = useContext(AuthContext);
   const { authEmail, setAuthEmail, authPassword, setAuthPassword, showAlert } =
@@ -64,9 +53,6 @@ const Component = () => {
       if (!agreedTerms) {
         return showAlert("Did you read our Terms and Privacy Policy?");
       }
-      if (!agreedOpra) {
-        return _opraAgreement.current.show();
-      }
 
       setProgress(true);
 
@@ -94,7 +80,6 @@ const Component = () => {
     showAlert,
     inProgress,
     agreedTerms,
-    agreedOpra,
     fullName,
     confirmPassword,
   ]);
@@ -206,15 +191,6 @@ const Component = () => {
           </div>
         </div>
       </div>
-      <OpraAgreement
-        ref={_opraAgreement}
-        fullName={fullName}
-        clickAgree={() => {
-          agreedOpra = true;
-
-          submitForm();
-        }}
-      />
     </>
   );
 };
