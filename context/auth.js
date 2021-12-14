@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 
 import Firebase from "../firebase.js";
 import Analytics from "../helpers/analytics";
+import AccountService from "../services/account.service";
 
 export const AuthContext = React.createContext();
 
@@ -25,11 +26,16 @@ export const AuthProvider = ({ children }) => {
           displayName: user.displayName || "",
         });
 
-        user.getIdToken().then((token) => {
-          sessionStorage.setItem("token", token);
+        user
+          .getIdToken()
+          .then((token) => {
+            sessionStorage.setItem("token", token);
 
-          setAuthPending(false);
-        });
+            //return AccountService.getAppId();
+          })
+          .then((data) => {
+            setAuthPending(false);
+          });
       });
     } catch (e) {
       console.warn(e);

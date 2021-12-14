@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import styles from "./footer.module.scss";
 
-import UserService from "../../../services/user.service";
+import AccountService from "../../../services/account.service";
 
 import { AuthContext } from "../../../context/auth";
 import { HelperContext } from "../../../context/helper";
@@ -13,7 +13,7 @@ const Footer = () => {
   const { isMobile, showAlert } = useContext(HelperContext);
 
   const clickSignOut = useCallback(async () => {
-    await UserService.logout();
+    await AccountService.logout();
 
     showAlert("Logged out", true);
   }, [showAlert]);

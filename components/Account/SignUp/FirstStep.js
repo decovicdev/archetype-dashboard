@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 import Spinner from "../../_common/Spinner";
 
-import UserService from "../../../services/user.service.js";
+import AccountService from "../../../services/account.service.js";
 
 import { AuthContext } from "../../../context/auth";
 import { HelperContext } from "../../../context/helper";
@@ -56,7 +56,7 @@ const Component = () => {
 
       setProgress(true);
 
-      await UserService.signUp(authEmail, authPassword, fullName);
+      await AccountService.signUp(authEmail, authPassword, fullName);
 
       showAlert(
         "We have sent a confirmation email to verify your account",

@@ -5,7 +5,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import UserService from "../../services/user.service.js";
+import AccountService from "../../services/account.service.js";
 
 import Spinner from "../_common/Spinner";
 
@@ -37,7 +37,7 @@ const Component = () => {
         }
         setProgress(true);
 
-        await UserService.verifyEmail(oobCode);
+        await AccountService.verifyEmail(oobCode);
 
         showAlert("Your email is now verified", true);
 
