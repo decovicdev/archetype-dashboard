@@ -10,9 +10,13 @@ $api.interceptors.request.use((config) => {
   }
 
   const token = sessionStorage.getItem("token");
-
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  const appId = sessionStorage.getItem("appId");
+  if (appId) {
+    config.headers["X-Archetype-AppID"] = appId;
   }
 
   return config;

@@ -29,9 +29,7 @@ header {
       padding: 0 40px;
 
       .logo-link {
-        background: linear-gradient(180deg, #fdc043 0%, #e543e8 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        @include pinkGradientText();
         font-size: 36px;
         font-weight: 600;
         line-height: 44px;

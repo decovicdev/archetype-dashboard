@@ -10,3 +10,9 @@
   align-items: $align-items;
   flex-direction: $flex-direction;
 }
+
+@mixin pinkGradientText() {
+  background: linear-gradient(180deg, #fdc043 0%, #e543e8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
