@@ -52,7 +52,7 @@ const Component = () => {
       if (response.connect_url) {
         setTimeout(() => {
           window.location.replace(
-            `${response.connect_url}?success_url=${config}settings`
+            `${response.connect_url}?success_url=${config.app_url}settings`
           );
         }, 1000);
       }
