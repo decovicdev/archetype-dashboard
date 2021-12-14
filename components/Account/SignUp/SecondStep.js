@@ -1,4 +1,5 @@
 import config from "../../../config";
+
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import Link from "next/link";
@@ -41,17 +42,23 @@ const Component = () => {
 
       setProgress(true);
 
-      await ApiService.createOne({
+      const response = await ApiService.createOne({
         name: apiName,
         company: companyName,
       });
 
       showAlert("API is successfully created", true);
 
-      router.push("/settings");
+      if (response.connect_url) {
+        setTimeout(() => {
+          window.location.replace(
+            `${response.connect_url}?success_url=${config}settings`
+          );
+        }, 1000);
+      }
     } catch (e) {
       showAlert(e.message);
-
+    } finally {
       setProgress(false);
     }
   }, [showAlert, inProgress, apiName, companyName]);

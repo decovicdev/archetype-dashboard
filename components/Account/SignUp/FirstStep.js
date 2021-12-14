@@ -69,7 +69,7 @@ const Component = () => {
       router.push("/account/signup/next");
     } catch (e) {
       showAlert(e.message);
-
+    } finally {
       setProgress(false);
     }
   }, [
