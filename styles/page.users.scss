@@ -1,4 +1,12 @@
 .users-page {
+  @include flexbox($align-items: flex-start);
+
+  .top-block {
+    width: 100%;
+    @include flexbox($justify-content: flex-end);
+    margin-bottom: 30px;
+  }
+
   @media screen and (max-width: 767px) {
   }
 

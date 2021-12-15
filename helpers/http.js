@@ -14,7 +14,7 @@ $api.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
-  const appId = sessionStorage.getItem("appId");
+  const appId = getAppId();
   if (appId) {
     config.headers["X-Archetype-AppID"] = appId;
   }
@@ -36,5 +36,9 @@ $api.interceptors.response.use(
     );
   }
 );
+
+export function getAppId() {
+  return sessionStorage.getItem("appId") || null;
+}
 
 export default $api;
