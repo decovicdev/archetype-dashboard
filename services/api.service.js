@@ -1,23 +1,20 @@
 import http from "../helpers/http";
 
 export default class ApiService {
-  static async get() {
-    return http.get(`api`);
+  static async createNew(params) {
+    const response = await http.post(`create-api`, params);
+
+    if (response.app_id) {
+      sessionStorage.setItem("appId", response.app_id);
+    }
   }
 
-  static async createOne(params) {
-    return http.post(`create-api`, params);
-  }
+  static async getCurrent() {
+    const appId = sessionStorage.getItem("appId");
+    if (!appId) {
+      return null;
+    }
 
-  static async getOne(appId) {
     return http.get(`api/${appId}`);
-  }
-
-  static async updateOne(appId, params) {
-    return http.put(`api/${appId}`, params);
-  }
-
-  static async deleteOne(appId) {
-    return http.delete(`api/${appId}`);
   }
 }

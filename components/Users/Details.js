@@ -4,18 +4,24 @@ import { useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
+import Spinner from "../_common/Spinner";
+
 import UserService from "../../services/user.service";
 
 const Component = ({}) => {
   const router = useRouter();
 
-  const [data, setData] = useState([]);
+  const [inProgress, setProgress] = useState(false);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     async function fetch() {
-      const response = await UserService.getById(router.query.userId);
+      setProgress(true);
 
+      const response = await UserService.getById(router.query.userId);
       setData(response);
+
+      setProgress(false);
     }
 
     fetch();
@@ -26,6 +32,7 @@ const Component = ({}) => {
       <Head>
         <title>User Details - {config.meta.title}</title>
       </Head>
+      {inProgress && <Spinner />}
       <div className={"content"}>User Details</div>
     </div>
   );

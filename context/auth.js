@@ -25,13 +25,11 @@ export const AuthProvider = ({ children }) => {
           displayName: user.displayName || "",
         });
 
-        user
-          .getIdToken()
-          .then((token) => {
-            sessionStorage.setItem("token", token);
+        user.getIdToken().then((token) => {
+          sessionStorage.setItem("token", token);
 
-            setAuthPending(false);
-          });
+          setAuthPending(false);
+        });
       });
     } catch (e) {
       console.warn(e);

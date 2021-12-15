@@ -1,10 +1,33 @@
 import config from "../../config";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+import Spinner from "../_common/Spinner";
+
+import TierService from "../../services/tier.service";
 
 const Component = () => {
+  const router = useRouter();
+
+  const [inProgress, setProgress] = useState(false);
+  const [data, setData] = useState(null);
   const [endpointsList, setEndpointsList] = useState([]);
+
+  useEffect(() => {
+    async function fetch() {
+      setProgress(true);
+
+      const response = await TierService.getById(router.query.tierId);
+      setData(response);
+
+      setProgress(false);
+    }
+
+    fetch();
+  }, []);
 
   const onChangeVal = useCallback(
     (key, name, val) => {
@@ -71,28 +94,37 @@ const Component = () => {
     );
   }, [endpointsList, clickAdd]);
 
+  const renderContent = useCallback(() => {
+    if (!data) {
+      return null;
+    }
+
+    return (
+      <div className={"tier-details-block"}>
+        <div className={"name"}>
+          <span>Tier name:</span>
+          <span>Name</span>
+        </div>
+        <div className={"price"}>
+          <span>Price:</span>
+          <span>$0 / month</span>
+        </div>
+        <div className={"quota"}>
+          <span>Quota:</span>
+          <span>0 / day</span>
+        </div>
+        {renderTable()}
+      </div>
+    );
+  }, [data]);
+
   return (
     <div className="page tiers-details-page">
       <Head>
         <title>Edit Tier - {config.meta.title}</title>
       </Head>
-      <div className={"content"}>
-        <div className={"tier-details-block"}>
-          <div className={"name"}>
-            <span>Tier name:</span>
-            <span>Name</span>
-          </div>
-          <div className={"price"}>
-            <span>Price:</span>
-            <span>$0 / month</span>
-          </div>
-          <div className={"quota"}>
-            <span>Quota:</span>
-            <span>0 / day</span>
-          </div>
-          {renderTable()}
-        </div>
-      </div>
+      {inProgress && <Spinner />}
+      <div className={"content"}>{renderContent()}</div>
     </div>
   );
 };

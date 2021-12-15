@@ -42,20 +42,14 @@ const Component = () => {
 
       setProgress(true);
 
-      const response = await ApiService.createOne({
+      await ApiService.createNew({
         name: apiName,
         company: companyName,
       });
 
       showAlert("API is successfully created", true);
 
-      if (response.connect_url) {
-        setTimeout(() => {
-          window.location.replace(
-            `${response.connect_url}?success_url=${config.app_url}settings`
-          );
-        }, 1000);
-      }
+      router.push("/settings");
     } catch (e) {
       showAlert(e.message);
     } finally {

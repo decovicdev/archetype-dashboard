@@ -98,12 +98,6 @@
     margin-top: 20px;
   }
 
-  .block-delete-account {
-    width: 100%;
-    @include flexbox($justify-content: center);
-    margin-top: 20px;
-  }
-
   @media screen and (max-width: 767px) {
     .content {
       .block {

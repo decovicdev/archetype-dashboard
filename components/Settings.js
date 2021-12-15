@@ -1,11 +1,10 @@
 import config from "./../config";
-import { useRef, useContext, useState, useEffect, useCallback } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import classnames from "classnames";
 
 import Spinner from "./_common/Spinner";
-import Modal from "./_common/Modal";
 
 import Analytics from "./../helpers/analytics";
 import ApiService from "../services/api.service";
@@ -17,20 +16,17 @@ import { HelperContext } from "../context/helper";
 const Component = () => {
   const router = useRouter();
 
-  const _deleteAccount = useRef(null);
-
   const { currentUser } = useContext(AuthContext);
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
-  const [isDeleting, setDeleting] = useState(false);
   const [linkSent, setLinkSent] = useState(false);
-  const [apiKey, setApiKey] = useState("None");
-  const [plan, setPlan] = useState("Free");
+  const [apiKey, setApiKey] = useState(null);
+  const [plan, setPlan] = useState(null);
 
   useEffect(() => {
     async function fetch() {
-      await ApiService.getOne(1);
+      const data = await ApiService.getCurrent();
     }
 
     fetch();
@@ -64,29 +60,23 @@ const Component = () => {
 
       showAlert("Verification link sent, please check your mailbox", true);
 
-      setProgress(false);
       setLinkSent(true);
     } catch (e) {
       showAlert(e.message);
-
+    } finally {
       setProgress(false);
     }
   }, [currentUser, inProgress, showAlert]);
 
-  const clickDeleteAccount = useCallback(async () => {
+  const connectStripe = useCallback(async () => {
     try {
-      if (isDeleting) {
-        return;
-      }
-      setDeleting(true);
-
-      showAlert("Not implemented", false);
+      const response = await AccountService.stripeCheckout();
     } catch (e) {
       showAlert(e.message);
     } finally {
-      setDeleting(false);
+      setProgress(false);
     }
-  }, [isDeleting, showAlert]);
+  }, [inProgress, showAlert]);
 
   return (
     <>
@@ -133,56 +123,17 @@ const Component = () => {
             </div>
           </div>
           <div className={"block-stripe"}>
-            <button type="button" className={"btn gradient-pink small"}>
+            <button
+              type="button"
+              className={"btn gradient-pink small"}
+              onClick={connectStripe}
+            >
               {" "}
               Connect your Stripe account
             </button>
           </div>
-          <div className={"block-delete-account"}>
-            <button
-              type="button"
-              className={"btn red small"}
-              onClick={() => {
-                if (_deleteAccount.current) {
-                  _deleteAccount.current.show();
-                }
-              }}
-            >
-              {" "}
-              Delete Account
-            </button>
-          </div>
         </div>
       </div>
-      <Modal ref={_deleteAccount} isBusy={isDeleting}>
-        <div className="data">
-          <h1>Delete Account</h1>
-          <p>
-            Are you sure you want to delete your account and lose access to all
-            of your data?
-          </p>
-        </div>
-        <div className="btns">
-          <button
-            type="button"
-            className="btn grey"
-            onClick={() => {
-              if (_deleteAccount.current) {
-                _deleteAccount.current.hide();
-              }
-            }}
-          >
-            No, Cancel
-          </button>
-          <button
-            type="button"
-            className="btn gradient-pink"
-            onClick={clickDeleteAccount}
-          >
-            Yes, Delete
-          </button>
-        </div>
-      </Modal>
     </>
   );
 };

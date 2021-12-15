@@ -34,7 +34,12 @@ export default class AccountService {
     }
   }
 
-  static async getAppId() {
-    return await http.post(`authorize`);
+  static async stripeCheckout() {
+    const appId = sessionStorage.getItem("appId");
+    if (!appId) {
+      return null;
+    }
+
+    return await http.post(`checkout/${appId}`);
   }
 }

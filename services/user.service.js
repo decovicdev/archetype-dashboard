@@ -18,6 +18,6 @@ export default class UserService {
   }
 
   static async getList() {
-    return await http.delete(`users`);
+    return await http.delete(`users/`);
   }
 }

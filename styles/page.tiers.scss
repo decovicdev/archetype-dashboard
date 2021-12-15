@@ -1,7 +1,5 @@
 .tiers-page {
-  .content {
-    @include flexbox($align-items: flex-start);
-  }
+  @include flexbox($align-items: flex-start);
 
   .tiers-top-block {
     width: 100%;
