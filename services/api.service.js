@@ -1,6 +1,10 @@
 import http from "../helpers/http";
 
 export default class ApiService {
+  static async get() {
+    return http.get(`api`);
+  }
+
   static async createOne(params) {
     return http.post(`create-api`, params);
   }
