@@ -2,6 +2,10 @@ import Firebase, { AuthPersistance } from "../firebase.js";
 import http from "../helpers/http";
 
 export default class AccountService {
+  static async getDetails() {
+    return await http.get(`lost-api`);
+  }
+
   static async signUp(email, password, displayName) {
     await Firebase.auth().setPersistence(AuthPersistance.LOCAL);
 
