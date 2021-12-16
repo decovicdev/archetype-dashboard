@@ -1,0 +1,56 @@
+.form {
+  @include flexbox($justify-content: space-between);
+
+  .field {
+    width: 100%;
+    margin-top: 15px;
+
+    &.half {
+      width: 46%;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 21px;
+      color: #ffffff;
+
+      span {
+        color: $text-gray;
+      }
+    }
+
+    select,
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      min-height: 44px;
+      margin-top: 5px;
+      padding: 9px 15px;
+      border-radius: 7px;
+      border: solid 1px rgba(0, 0, 0, 0.1);
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 24px;
+      color: $black;
+      transition: border 0.3s;
+
+      &:focus {
+        border: solid 1px rgba(0, 0, 0, 0.2);
+      }
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus {
+        -webkit-text-fill-color: $black !important;
+        -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+        transition: background-color 5000s ease-in-out 0s;
+      }
+    }
+
+    select {
+      padding: 9px 0;
+    }
+  }
+}

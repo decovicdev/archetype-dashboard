@@ -1,19 +1,16 @@
 import config from "../../config";
 
-import { useRef, useState, useEffect, useCallback, useContext } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
 import Spinner from "../_common/Spinner";
-import Modal from "../_common/Modal";
 
 import TierService from "../../services/tier.service";
 
 import { HelperContext } from "../../context/helper";
 
 const Component = () => {
-  const _addTier = useRef();
-
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
@@ -74,38 +71,12 @@ const Component = () => {
       {inProgress && <Spinner />}
       <div className={"content"}>
         <div className={"top-block"}>
-          <button
-            type={"button"}
-            className={"btn gradient-pink"}
-            onClick={() => {
-              if (_addTier.current) {
-                _addTier.current.show();
-              }
-            }}
-          >
-            Add new tier
-          </button>
+          <Link href={"/tiers/add"}>
+            <a className={"btn gradient-pink"}>Add new tier</a>
+          </Link>
         </div>
         {renderContent()}
       </div>
-      <Modal ref={_addTier}>
-        <div className={"data"}>
-          <h1>Add new tier</h1>
-        </div>
-        <div className={"btns"}>
-          <button
-            type={"button"}
-            className={"btn light-blue"}
-            onClick={() => {
-              if (_addTier.current) {
-                _addTier.current.hide();
-              }
-            }}
-          >
-            Close
-          </button>
-        </div>
-      </Modal>
     </div>
   );
 };

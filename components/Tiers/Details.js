@@ -2,7 +2,6 @@ import config from "../../config";
 
 import { useState, useCallback, useEffect } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 import Spinner from "../_common/Spinner";
@@ -121,7 +120,7 @@ const Component = () => {
   return (
     <div className="page tiers-details-page">
       <Head>
-        <title>Edit Tier - {config.meta.title}</title>
+        <title>Tier Details - {config.meta.title}</title>
       </Head>
       {inProgress && <Spinner />}
       <div className={"content"}>{renderContent()}</div>
