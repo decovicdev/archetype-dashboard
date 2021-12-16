@@ -1,4 +1,4 @@
-import http, { getAppId } from "../helpers/http";
+import http from "../helpers/http";
 
 export default class UserService {
   static async getById(id) {
@@ -18,7 +18,6 @@ export default class UserService {
   }
 
   static async getList() {
-    const appId = getAppId();
-    return await http.delete(`users/${appId}`);
+    return await http.get(`api/users`);
   }
 }

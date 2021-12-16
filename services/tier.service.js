@@ -1,9 +1,8 @@
-import http, { getAppId } from "../helpers/http";
+import http from "../helpers/http";
 
 export default class TierService {
   static async getList() {
-    const appId = getAppId();
-    return http.get(`tiers/${appId}`);
+    return http.get(`api/tiers`);
   }
 
   static async getById(id) {

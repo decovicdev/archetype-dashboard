@@ -1,4 +1,5 @@
 import config from "./../config";
+
 import { useContext, useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -8,7 +9,6 @@ import Spinner from "./_common/Spinner";
 
 import Analytics from "./../helpers/analytics";
 import ApiService from "../services/api.service";
-import AccountService from "../services/account.service";
 
 import { AuthContext } from "../context/auth";
 import { HelperContext } from "../context/helper";
@@ -38,7 +38,7 @@ const Component = () => {
     if (message) {
       showAlert(message, status === "success");
 
-      router.replace("/profile");
+      router.replace("/settings");
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,7 +70,22 @@ const Component = () => {
 
   const connectStripe = useCallback(async () => {
     try {
-      const response = await AccountService.stripeCheckout();
+      if (inProgress) {
+        return;
+      }
+      setProgress(true);
+
+      const response = await ApiService.stripeCheckout();
+
+      if (!response.connect_url) {
+        throw new Error("Oops, could not get enough data to proceed");
+      }
+
+      const redirectUrl = `${config.app_url}settings`;
+
+      window.location.replace(
+        `${response.connect_url}?return_url=${redirectUrl}&refresh_url=${redirectUrl}`
+      );
     } catch (e) {
       showAlert(e.message);
     } finally {
@@ -82,8 +97,6 @@ const Component = () => {
     <>
       <Head>
         <title>Settings - {config.meta.title}</title>
-        <meta name="description" content={config.meta.description} />
-        <meta name="keywords" content={config.meta.keywords} />
       </Head>
       {inProgress && <Spinner />}
       <div className="page settings-page">

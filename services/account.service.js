@@ -37,13 +37,4 @@ export default class AccountService {
       await Firebase.auth().currentUser.reload();
     }
   }
-
-  static async stripeCheckout() {
-    const appId = sessionStorage.getItem("appId");
-    if (!appId) {
-      return null;
-    }
-
-    return await http.post(`checkout/${appId}`);
-  }
 }

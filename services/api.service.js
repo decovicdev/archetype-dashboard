@@ -10,11 +10,10 @@ export default class ApiService {
   }
 
   static async getCurrent() {
-    const appId = sessionStorage.getItem("appId");
-    if (!appId) {
-      return null;
-    }
+    return http.get(`api`);
+  }
 
-    return http.get(`api/${appId}`);
+  static async stripeCheckout() {
+    return await http.post(`api/checkout`);
   }
 }
