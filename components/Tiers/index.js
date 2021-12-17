@@ -35,7 +35,7 @@ const Component = () => {
 
   const renderContent = useCallback(() => {
     if (!data.length) {
-      return <div>No tiers added yet.</div>;
+      return <div>No products added yet.</div>;
     }
 
     return (
@@ -66,13 +66,13 @@ const Component = () => {
   return (
     <div className="page tiers-page">
       <Head>
-        <title>Tiers - {config.meta.title}</title>
+        <title>Products - {config.meta.title}</title>
       </Head>
       {inProgress && <Spinner />}
       <div className={"content"}>
         <div className={"top-block"}>
           <Link href={"/tiers/add"}>
-            <a className={"btn gradient-pink"}>Add new tier</a>
+            <a className={"btn gradient-pink"}>Add product</a>
           </Link>
         </div>
         {renderContent()}

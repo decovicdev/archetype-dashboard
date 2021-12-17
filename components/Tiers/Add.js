@@ -1,6 +1,6 @@
 import config from "../../config";
 
-import { useState, useCallback, useContext } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import Head from "next/head";
 
 import Spinner from "../_common/Spinner";
@@ -8,11 +8,36 @@ import Spinner from "../_common/Spinner";
 import TierService from "../../services/tier.service";
 
 import { HelperContext } from "../../context/helper";
+import Link from "next/link";
 
 const Component = () => {
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
+  const [fields, setFields] = useState({
+    name: "",
+    description: "",
+    statementDescriptor: "",
+    endpoints: null,
+    quota: 0,
+    pricingModel: "Standard Pricing",
+    price: "0",
+    billingPeriod: "Monthly",
+    meteredUsage: false,
+    meteredUsageBy: "Integer entry for the Quota limit",
+    priceDescription: "",
+    priceLen: 0,
+    priceType: "month",
+  });
+
+  const changeField = useCallback(
+    (field, value) => {
+      const result = { ...fields };
+      result[field] = value;
+      setFields(result);
+    },
+    [fields]
+  );
 
   const submitForm = useCallback(async () => {
     try {
@@ -22,13 +47,13 @@ const Component = () => {
       setProgress(true);
 
       await TierService.createNew({
-        name: "",
-        description: "",
-        price: 0,
+        name: fields.name,
+        description: fields.description,
+        price: fields.price,
         has_trial: true,
-        period: "month",
+        period: fields.billingPeriod,
         currency: "usd",
-        quota: 0,
+        quota: billingPeriod.quota,
         trial_time_frame: "month",
         trial_length: 0,
         has_quota: true,
@@ -49,85 +74,184 @@ const Component = () => {
       </Head>
       {inProgress && <Spinner />}
       <div className={"content"}>
-        <div className={"data"}>
-          <h1>Add new tier</h1>
-          <form
-            className={"form"}
-            onSubmit={(e) => {
-              e.preventDefault();
-              submitForm();
-            }}
-          >
-            <div className={"field half"}>
-              <label>Name</label>
-              <input type={"text"} />
-            </div>
-            <div className={"field half"}>
-              <label>Price</label>
-              <input type={"text"} />
-            </div>
-            <div className={"field"}>
-              <label>Description</label>
-              <input type={"text"} />
-            </div>
-            <div className={"field half"}>
-              <label>Has trial</label>
-              <select>
-                <option>yes</option>
-                <option>no</option>
-              </select>
-            </div>
-            <div className={"field half"}>
-              <label>Period</label>
-              <select>
-                <option>month</option>
-              </select>
-            </div>
-            <div className={"field half"}>
-              <label>Currency</label>
-              <select>
-                <option>USD</option>
-              </select>
-            </div>
-            <div className={"field half"}>
-              <label>Quota</label>
-              <input type={"text"} />
-            </div>
-            <div className={"field half"}>
-              <label>Trial time frame</label>
-              <select>
-                <option>month</option>
-              </select>
-            </div>
-            <div className={"field half"}>
-              <label>Trial length</label>
-              <select>
-                <option>1</option>
-              </select>
-            </div>
-            <div className={"field half"}>
-              <label>Has quota</label>
-              <select>
-                <option>yes</option>
-                <option>no</option>
-              </select>
-            </div>
-          </form>
+        <div className={"bread-crumbs"}>
+          <Link href={"/tiers"}>
+            <a>Products</a>
+          </Link>
+          <span>{">"}</span>
+          <Link href={"/tiers/add"}>
+            <a className={"active"}>Add Product</a>
+          </Link>
         </div>
+        <form
+          className={"form"}
+          onSubmit={(e) => {
+            e.preventDefault();
+            submitForm();
+          }}
+        >
+          <h2>Product Information</h2>
+          <div className={"field"}>
+            <label>Name</label>
+            <input
+              type={"text"}
+              value={fields.name}
+              onChange={(e) => changeField("name", e.target.value)}
+            />
+          </div>
+          <div className={"group-fields"}>
+            <div className={"field description"}>
+              <label>Description</label>
+              <textarea
+                value={fields.description}
+                onChange={(e) => changeField("description", e.target.value)}
+              />
+            </div>
+            <div className={"field image"}>
+              <label>Image</label>
+              <div className={"upload"}>
+                <span>Upload</span>
+              </div>
+            </div>
+          </div>
+          <div className={"field"}>
+            <label>Statement Descriptor</label>
+            <input
+              type={"text"}
+              value={fields.statementDescriptor}
+              onChange={(e) =>
+                changeField("statementDescriptor", e.target.value)
+              }
+            />
+          </div>
+          <div className={"field"}>
+            <label>Add endpoints</label>
+            <select
+              selected={fields.endpoints}
+              onChange={(e) => changeField("endpoints", e.target.selected)}
+            >
+              <option value={"All"}>All</option>
+              <option value={"None"}>None</option>
+              <option value={"Other"}>Other</option>
+            </select>
+          </div>
+          <div className={"field"}>
+            <label>Quota</label>
+            <input
+              type={"number"}
+              value={fields.quota}
+              onChange={(e) => changeField("quota", e.target.value)}
+            />
+          </div>
+          <div className={"some-space"} />
+          <div className={"add-options"}>
+            <button type={"button"}>Additional options {">"}</button>
+          </div>
+          <div className={"line"} />
+          <h2>Price Information</h2>
+          <h3>Pricing details</h3>
+          <div className={"field"}>
+            <label>Pricing model</label>
+            <select
+              selected={fields.pricingModel}
+              onChange={(e) => changeField("pricingModel", e.target.selected)}
+            >
+              <option value={"Standart Pricing"}>Standart Pricing</option>
+            </select>
+          </div>
+          <div className={"field"}>
+            <label>Price</label>
+            <input
+              type={"number"}
+              value={fields.price}
+              onChange={(e) => changeField("price", e.target.value)}
+            />
+          </div>
+          <div className={"field"}>
+            <div className={"choose-block"}>
+              <button type={"button"} className={"active"}>
+                Recuring
+              </button>
+              <button type={"button"}>One time</button>
+            </div>
+          </div>
+          <div className={"field"}>
+            <label>Billing period</label>
+            <select
+              selected={fields.billingPeriod}
+              onChange={(e) => changeField("billingPeriod", e.target.selected)}
+            >
+              <option value={"Monthly"}>Monthly</option>
+            </select>
+          </div>
+          <div className="box">
+            <input
+              type="checkbox"
+              checked={fields.meteredUsage}
+              onChange={(e) => changeField("meteredUsage", e.target.checked)}
+            />
+            <span>Usage is metered</span>
+          </div>
+          {!!fields.meteredUsage && (
+            <div className={"field"}>
+              <label>Charge for metered usage by</label>
+              <select
+                selected={fields.meteredUsageBy}
+                onChange={(e) =>
+                  changeField("meteredUsageBy", e.target.selected)
+                }
+              >
+                <option>Integer entry for the Quota limit</option>
+              </select>
+            </div>
+          )}
+          <div className={"field"}>
+            <label>Price description</label>
+            <input
+              type={"text"}
+              value={fields.priceDescription}
+              onChange={(e) => changeField("priceDescription", e.target.value)}
+            />
+          </div>
+          <div className={"field"}>
+            <button type={"button"} className={"btn small light-blue"}>
+              + Add free trial
+            </button>
+          </div>
+          <div style={{ width: "65%" }} className={"group-fields"}>
+            <div className={"field price-len"}>
+              <label>Length</label>
+              <input
+                type={"number"}
+                value={fields.priceLen}
+                onChange={(e) => changeField("priceLen", e.target.value)}
+              />
+            </div>
+            <div className={"field price-type"}>
+              <label>Type</label>
+              <select
+                selected={fields.priceType}
+                onChange={(e) => changeField("priceType", e.target.selected)}
+              >
+                <option>month</option>
+              </select>
+            </div>
+          </div>
+        </form>
+        <div className={"line"} />
         <div className={"btns"}>
-          <button type={"submit"} className={"btn light-blue"}>
-            Create
+          <button type={"button"} className={"btn clean-white add-price-btn"}>
+            + Add another price
           </button>
           <button
             type={"button"}
-            className={"btn clean-white"}
-            onClick={() => {
-              if (_addTier.current) {
-                _addTier.current.hide();
-              }
-            }}
+            className={"btn light-blue"}
+            onClick={() => submitForm()}
           >
-            Close
+            Create
+          </button>
+          <button type={"button"} className={"btn clean-white"}>
+            Cancel
           </button>
         </div>
       </div>
