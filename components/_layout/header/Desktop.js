@@ -77,7 +77,7 @@ const Component = () => {
     <header ref={_header} className="desktop">
       <div className="content">
         <Link href="/">
-          <a className="logo-link">Archetype</a>
+          <a className="logo-link" />
         </Link>
         <div className="left-menu">
           <Links />

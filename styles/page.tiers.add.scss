@@ -17,14 +17,12 @@
   }
 
   .form {
-    max-width: 600px;
+    max-width: 450px;
 
     .field {
-      width: 65%;
+      width: 100%;
 
       &.description {
-        width: 65%;
-
         textarea {
           height: 150px;
         }

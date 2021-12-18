@@ -22,9 +22,13 @@ const timeFrames = {
 };
 
 const billingOptions = {
-  WEEK: "week",
   MONTH: "month",
   YEAR: "year",
+};
+
+const pricingModelOptions = {
+  1: "Subscription",
+  2: "Pay as you go",
 };
 
 const Component = () => {
@@ -37,11 +41,10 @@ const Component = () => {
     statementDescriptor: "",
     endpoints: "",
     quota: 0,
-    pricingModel: "Standard Pricing",
+    pricingModel: 1,
     price: 0,
     billingPeriod: "MONTH",
     meteredUsage: false,
-    meteredUsageBy: "Integer entry for the Quota limit",
     hasTrial: false,
     trialLen: 0,
     trialTimeFrame: null,
@@ -126,13 +129,7 @@ const Component = () => {
             <a className={"active"}>Add Product</a>
           </Link>
         </div>
-        <form
-          className={"form"}
-          onSubmit={(e) => {
-            e.preventDefault();
-            submitForm();
-          }}
-        >
+        <div className={"form"}>
           <h2>Product Information</h2>
           <div className={"field"}>
             <label>Name</label>
@@ -142,20 +139,12 @@ const Component = () => {
               onChange={(e) => changeFields("name", e.target.value)}
             />
           </div>
-          <div className={"group-fields"}>
-            <div className={"field description"}>
-              <label>Description</label>
-              <textarea
-                value={fields.description}
-                onChange={(e) => changeFields("description", e.target.value)}
-              />
-            </div>
-            <div className={"field image"}>
-              <label>Image</label>
-              <div className={"upload"}>
-                <span>Upload</span>
-              </div>
-            </div>
+          <div className={"field description"}>
+            <label>Description</label>
+            <textarea
+              value={fields.description}
+              onChange={(e) => changeFields("description", e.target.value)}
+            />
           </div>
           <div className={"field"}>
             <label>Statement Descriptor</label>
@@ -190,7 +179,9 @@ const Component = () => {
           <div className={"add-options"}>
             <button type={"button"}>Additional options {">"}</button>
           </div>
-          <div className={"line"} />
+        </div>
+        <div className={"line"} />
+        <div className={"form"}>
           <h2>Price Information</h2>
           <h3>Pricing details</h3>
           <div className={"field"}>
@@ -199,7 +190,13 @@ const Component = () => {
               value={fields.pricingModel}
               onChange={(e) => changeFields("pricingModel", e.target.selected)}
             >
-              <option value={"Standart Pricing"}>Standart Pricing</option>
+              {Object.entries(pricingModelOptions).map(([key, val]) => {
+                return (
+                  <option key={key} value={key}>
+                    {val}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className={"field"}>
@@ -233,19 +230,6 @@ const Component = () => {
             />
             <span>Usage is metered</span>
           </div>
-          {!!fields.meteredUsage && (
-            <div className={"field"}>
-              <label>Charge for metered usage by</label>
-              <select
-                value={fields.meteredUsageBy}
-                onChange={(e) =>
-                  changeFields("meteredUsageBy", e.target.selected)
-                }
-              >
-                <option>Integer entry for the Quota limit</option>
-              </select>
-            </div>
-          )}
           <div className={"field"}>
             <button
               type={"button"}
@@ -287,7 +271,7 @@ const Component = () => {
               </div>
             </div>
           )}
-        </form>
+        </div>
         <div className={"line"} />
         <div className={"btns"}>
           <button
