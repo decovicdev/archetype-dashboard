@@ -1,8 +1,10 @@
-import config from "./../config";
 import { useRef, useContext, useState, useEffect, useCallback } from "react";
-import Head from "next/head";
 import { useRouter } from "next/router";
-import classnames from "classnames";
+import Image from "next/image";
+
+import KeyIcon from "../public/icons/key.svg";
+import AuthIcon from "../public/icons/auth.svg";
+import DeleteIcon from "./_icons/DeleteIcon";
 
 import Spinner from "./_common/Spinner";
 import Modal from "./_common/Modal";
@@ -83,70 +85,66 @@ const Component = () => {
 
   return (
     <>
-      <Head>
-        <title>Settings - {config.meta.title}</title>
-        <meta name="description" content={config.meta.description} />
-        <meta name="keywords" content={config.meta.keywords} />
-      </Head>
       {inProgress && <Spinner />}
-      <div className="page settings-page">
-        <div className={classnames("content")}>
-          <div className="block block-info">
-            <div className="block-info-top">
-              <h3>Settings</h3>
-              <div className="status">
-                {currentUser.emailVerified ? (
-                  <span className="verified">Verified</span>
-                ) : (
-                  <span>Unverified</span>
-                )}
-              </div>
-            </div>
-            <div className="field email-field">
-              <div className="email">{currentUser.email}</div>
-              {!currentUser.emailVerified && !linkSent && (
-                <button
-                  type="button"
-                  className="verify-btn"
-                  onClick={sendEmail}
-                >
-                  Resend verification link
-                </button>
-              )}
-            </div>
-            <div className="field">
-              <div>
-                Your API key: <b>{apiKey}</b>
-              </div>
-            </div>
-            <div className="field">
-              <div>
-                StartUp plan: <b>{plan}</b>
-              </div>
-            </div>
-          </div>
-          <div className={"block-stripe"}>
-            <button type="button" className={"btn gradient-pink small"}>
-              {" "}
-              Connect your Stripe account
-            </button>
-          </div>
-          <div className={"block-delete-account"}>
-            <button
-              type="button"
-              className={"btn red small"}
-              onClick={() => {
-                if (_deleteAccount.current) {
-                  _deleteAccount.current.show();
-                }
-              }}
-            >
-              {" "}
-              Delete Account
-            </button>
-          </div>
+
+      <div className="block">
+        <Image
+          className={"icon"}
+          src={KeyIcon}
+          alt="Key"
+          width={18}
+          height={18}
+        />{" "}
+        <span>Your API key: {apiKey}</span>
+        <a className="link">Create a new secret key</a>
+      </div>
+
+      <div className="block">
+        <Image
+          className={"icon"}
+          src={AuthIcon}
+          alt="User"
+          width={18}
+          height={18}
+        />{" "}
+        Change auth type
+        <div className="auth-types">
+          <input type="radio" name="authType" value={"No auth"} id="noAuth" />{" "}
+          <label htmlFor="noAuth">No auth</label>
+          <br />
+          <input type="radio" name="authType" value={"URL"} id="url" />{" "}
+          <label htmlFor="url">URL</label>
+          <br />
+          <input
+            type="radio"
+            name="authType"
+            value={"Header"}
+            id="header"
+          />{" "}
+          <label htmlFor="header">Header</label>
+          <br />
+          <input type="radio" name="authType" value={"Body"} id="body" />{" "}
+          <label htmlFor="body">Body</label>
         </div>
       </div>
+
+      <div className="block">
+        <DeleteIcon gradient />
+        <a
+          onClick={() => {
+            if (_deleteAccount.current) {
+              _deleteAccount.current.show();
+            }
+          }}
+        >
+          Delete App
+        </a>
+      </div>
+
+      <button type="button" className="btn grey delete-btn">
+        Connect your stripe account
+      </button>
+
       <Modal ref={_deleteAccount} isBusy={isDeleting}>
         <div className="data">
           <h1>Delete Account</h1>

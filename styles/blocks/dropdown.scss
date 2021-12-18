@@ -1,0 +1,34 @@
+.dropdown {
+  position: relative;
+  &Content {
+    position: absolute;
+    display: none;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0) 100%
+      ),
+      rgba(255, 255, 255, 0.09);
+    background-color: #1a2145;
+    padding: 10px;
+    border-radius: 6px;
+    right: 0;
+    width: 220px;
+    z-index: 10;
+  }
+  &Btn {
+    padding: 7px 10px;
+    border: 1px solid transparent;
+    display: flex;
+    justify-content: center;
+    border-radius: 7px;
+  }
+  &.opened {
+    .dropdownContent {
+      display: block;
+    }
+    .dropdownBtn {
+      border-color: currentColor;
+    }
+  }
+}

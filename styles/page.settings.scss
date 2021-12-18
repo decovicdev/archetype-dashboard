@@ -1,107 +1,82 @@
 .settings-page {
+  align-items: flex-start;
   .content {
     @include flexbox($justify-content: center, $align-items: stretch);
   }
 
-  h3 {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 26px;
-    color: $black;
-    text-transform: capitalize;
+  .tabs {
+    @include flexbox($justify-content: flex-start);
+    gap: 35px;
+    width: 100%;
+    list-style: none;
+  }
+
+  .tab {
+    color: #9599b1;
+    cursor: pointer;
+    padding: 5px;
+    border-bottom: 1px solid transparent;
+    &:hover {
+      border-bottom-color: #9599b1;
+    }
+    &.active {
+      color: #ffffff;
+      border-bottom-color: #ffffff;
+    }
+  }
+
+  .tab-content {
+    width: 100%;
   }
 
   .block {
-    width: 48%;
-    background-color: #ffffff;
-    @include flexbox($align-items: center);
-    margin: 20px 0;
-    padding: 35px 25px;
-    border-radius: 5px;
-    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
-
-    .block-top {
-      width: 100%;
-      min-height: 34px;
-      @include flexbox($align-items: center);
-      margin-bottom: 15px;
-    }
+    padding-block: 30px;
+    border-bottom: 1px solid;
+    @include flexbox($justify-content: flex-start, $align-items: center);
+    gap: 10px;
   }
 
-  .break {
-    height: 0;
-    flex-basis: 100%;
+  .link {
+    text-decoration: underline;
   }
 
-  .block-info {
-    .block-info-top {
-      @include flexbox($align-items: center);
-
-      .status {
-        margin-left: 10px;
-        margin-right: auto;
-
-        span {
-          background-color: $pink;
-          padding: 2px 6px;
-          border-radius: 3px;
-          font-size: 12px;
-          font-weight: 300;
-          line-height: 20px;
-          color: #ffffff;
-
-          &.verified {
-            background-color: $light-green;
-            color: $brand-green;
-          }
-        }
-      }
-    }
-
-    .field {
-      width: 100%;
-      font-size: 14px;
-      font-weight: 300;
-      line-height: 26px;
-      color: $text-gray;
-
-      &.email-field {
-        @include flexbox($justify-content: flex-start, $align-items: center);
-
-        .email {
-          background-image: url("../public/icons/email.svg");
-          background-size: 24px 24px;
-          background-repeat: no-repeat;
-          background-position: 0 center;
-          padding-left: 34px;
-        }
-
-        .verify-btn {
-          margin-left: 10px;
-          font-size: 12px;
-          font-weight: 300;
-          line-height: 20px;
-          color: $black;
-          text-decoration: underline;
-
-          &:hover {
-            text-decoration: none;
-          }
-        }
-      }
-    }
-  }
-
-  .block-stripe {
-    width: 100%;
-    @include flexbox($justify-content: center);
+  .delete-btn {
+    margin-inline-start: auto;
     margin-top: 20px;
+    width: 30%;
   }
 
-  .block-delete-account {
+  .auth-types {
     width: 100%;
-    @include flexbox($justify-content: center);
+    input {
+      display: inline-block;
+      margin-left: 25px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    label {
+      cursor: pointer;
+    }
+  }
+
+  .badge {
+    border-radius: 10px;
+    padding: 2px 10px;
+    &.success {
+      color: $green;
+      background-color: rgba($green, 0.19);
+    }
+    &.error {
+      color: $red;
+      background-color: rgba($red, 0.19);
+    }
+  }
+
+  .btns {
+    @include flexbox($justify-content: flex-end);
     margin-top: 20px;
+    gap: 10px;
   }
 
   @media screen and (max-width: 767px) {

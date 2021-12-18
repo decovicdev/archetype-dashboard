@@ -206,3 +206,19 @@
     }
   }
 }
+
+.prev-arrow {
+  border: solid #eff2ff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(135deg);
+  padding: 3px;
+  margin-left: 5px;
+}
+
+.next-arrow {
+  border: solid #eff2ff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(-45deg);
+  padding: 3px;
+  margin-right: 4px;
+}
