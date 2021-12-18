@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/router";
 
 import Firebase from "../firebase.js";
 import Analytics from "../helpers/analytics";
@@ -7,6 +8,8 @@ import AccountService from "../services/account.service";
 export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
+  const router = useRouter();
+
   const [authPending, setAuthPending] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -31,7 +34,12 @@ export const AuthProvider = ({ children }) => {
           .then((token) => {
             sessionStorage.setItem("token", token);
 
-            if (!sessionStorage.getItem("appId")) {
+            if (
+              !sessionStorage.getItem("appId") &&
+              !["/account/signup", "/account/signup/next"].includes(
+                router.pathname
+              )
+            ) {
               return AccountService.getDetails();
             }
           })

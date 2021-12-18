@@ -2,19 +2,26 @@ import config from "../../config";
 
 import React, { useState, useCallback, useContext } from "react";
 import Head from "next/head";
+import Link from "next/link";
+import classnames from "classnames";
 
 import Spinner from "../_common/Spinner";
 
 import TierService from "../../services/tier.service";
 
 import { HelperContext } from "../../context/helper";
-import Link from "next/link";
 
 const timeFrames = {
   DAY: "day",
   MINUTE: "minute",
   HOUR: "hour",
   SECOND: "second",
+  WEEK: "week",
+  MONTH: "month",
+  YEAR: "year",
+};
+
+const billingOptions = {
   WEEK: "week",
   MONTH: "month",
   YEAR: "year",
@@ -32,7 +39,7 @@ const Component = () => {
     quota: 0,
     pricingModel: "Standard Pricing",
     price: 0,
-    billingPeriod: "Monthly",
+    billingPeriod: "MONTH",
     meteredUsage: false,
     meteredUsageBy: "Integer entry for the Quota limit",
     hasTrial: false,
@@ -67,23 +74,25 @@ const Component = () => {
       await TierService.createNew({
         name: fields.name,
         description: fields.description,
-        price: fields.price,
-        period: fields.billingPeriod,
+        price: parseInt(fields.price),
+        period: billingOptions[fields.billingPeriod],
         currency: "usd",
-        has_quota: parseInt(fields.billingPeriod.quota) > 0,
-        quota: fields.billingPeriod.quota,
+        has_quota: parseInt(fields.quota) > 0,
+        quota: fields.quota,
         has_trial: fields.hasTrial,
         trial_length: fields.trialLen,
-        trial_time_frame: fields.trialTimeFrame,
+        trial_time_frame: timeFrames[fields.trialTimeFrame],
       });
 
       showAlert("Success", true);
+
+      router.push("/tiers");
     } catch (e) {
       showAlert(e.message);
     } finally {
       setProgress(false);
     }
-  }, [inProgress, showAlert]);
+  }, [timeFrames, billingOptions, inProgress, showAlert]);
 
   const clickAddTrial = useCallback(() => {
     if (fields.hasTrial) {
@@ -207,7 +216,13 @@ const Component = () => {
               value={fields.billingPeriod}
               onChange={(e) => changeFields("billingPeriod", e.target.selected)}
             >
-              <option value={"Monthly"}>Monthly</option>
+              {Object.entries(billingOptions).map(([key, val]) => {
+                return (
+                  <option key={key} value={key}>
+                    {val}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="box">
@@ -234,10 +249,13 @@ const Component = () => {
           <div className={"field"}>
             <button
               type={"button"}
-              className={"btn small light-blue"}
+              className={classnames("btn small", {
+                "light-blue": !fields.hasTrial,
+                "gradient-pink": fields.hasTrial,
+              })}
               onClick={clickAddTrial}
             >
-              + Add free trial
+              {fields.hasTrial ? "- Remove" : "+ Add"} free trial
             </button>
           </div>
           {fields.hasTrial && (

@@ -39,27 +39,31 @@ const Component = () => {
     }
 
     return (
-      <div className={"tiers-list-data"}>
-        {data.map((item, i) => {
-          return (
-            <div key={i} className={"tiers-list-item"}>
-              <div className={"top-content"}>
-                <div className={"name"}>Basic</div>
-                <button type={"button"} className={"delete-btn"} />
+      <>
+        <div className={"tiers-list-header"}>
+          <div className={"col"}>Type product</div>
+          <div className={"col"}>Price</div>
+          <div className={"col"}>Length</div>
+          <div className={"col"}>Trial</div>
+          <div className={"col"}>Current subscribers</div>
+          <div className={"col"}>Quota</div>
+        </div>
+        <div className={"tiers-list-data"}>
+          {data.map((item, i) => {
+            return (
+              <div key={i} className={"row"}>
+                <div className={"col"}>{item.name}</div>
+                <div className={"col"}>${item.price}</div>
+                <div className={"col"}>{item.trial_length}</div>
+                <div className={"col"}>{item.trial_time_frame}</div>
+                <div className={"col"}>{item.users.length} users</div>
+                <div className={"col"}>{item.quota}/day</div>
+                <button type={"button"} className={"dots"} />
               </div>
-              <div className={"bottom-content"}>
-                <div className={"price"}>$99</div>
-                <div className={"quota"}>
-                  Quota: <span>1000/day</span>
-                </div>
-              </div>
-              <Link href={`/tiers/${i}`}>
-                <a className={"edit-btn"} />
-              </Link>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      </>
     );
   }, [data]);
 
@@ -71,8 +75,12 @@ const Component = () => {
       {inProgress && <Spinner />}
       <div className={"content"}>
         <div className={"top-block"}>
+          <h1>List products</h1>
+          <button type={"button"} className={"filter-btn"}>
+            Filter
+          </button>
           <Link href={"/tiers/add"}>
-            <a className={"btn gradient-pink"}>Add product</a>
+            <a className={"add-product-btn"}>Add product</a>
           </Link>
         </div>
         {renderContent()}
