@@ -41,10 +41,15 @@ export const AuthProvider = ({ children }) => {
             }
 
             setAuthPending(false);
+          })
+          .catch((e) => {
+            console.error(e);
+
+            setAuthPending(false);
           });
       });
     } catch (e) {
-      console.warn(e);
+      console.error(e);
 
       setAuthPending(false);
     }

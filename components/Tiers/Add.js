@@ -10,6 +10,16 @@ import TierService from "../../services/tier.service";
 import { HelperContext } from "../../context/helper";
 import Link from "next/link";
 
+const timeFrames = {
+  DAY: "day",
+  MINUTE: "minute",
+  HOUR: "hour",
+  SECOND: "second",
+  WEEK: "week",
+  MONTH: "month",
+  YEAR: "year",
+};
+
 const Component = () => {
   const { showAlert } = useContext(HelperContext);
 
@@ -18,22 +28,30 @@ const Component = () => {
     name: "",
     description: "",
     statementDescriptor: "",
-    endpoints: null,
+    endpoints: "",
     quota: 0,
     pricingModel: "Standard Pricing",
-    price: "0",
+    price: 0,
     billingPeriod: "Monthly",
     meteredUsage: false,
     meteredUsageBy: "Integer entry for the Quota limit",
-    priceDescription: "",
-    priceLen: 0,
-    priceType: "month",
+    hasTrial: false,
+    trialLen: 0,
+    trialTimeFrame: null,
   });
 
-  const changeField = useCallback(
-    (field, value) => {
+  const changeFields = useCallback(
+    (field, value, obj) => {
       const result = { ...fields };
-      result[field] = value;
+
+      if (!field && !value && obj) {
+        for (let key in obj) {
+          result[key] = obj[key];
+        }
+      } else {
+        result[field] = value;
+      }
+
       setFields(result);
     },
     [fields]
@@ -50,13 +68,13 @@ const Component = () => {
         name: fields.name,
         description: fields.description,
         price: fields.price,
-        has_trial: true,
         period: fields.billingPeriod,
         currency: "usd",
-        quota: billingPeriod.quota,
-        trial_time_frame: "month",
-        trial_length: 0,
-        has_quota: true,
+        has_quota: parseInt(fields.billingPeriod.quota) > 0,
+        quota: fields.billingPeriod.quota,
+        has_trial: fields.hasTrial,
+        trial_length: fields.trialLen,
+        trial_time_frame: fields.trialTimeFrame,
       });
 
       showAlert("Success", true);
@@ -66,6 +84,22 @@ const Component = () => {
       setProgress(false);
     }
   }, [inProgress, showAlert]);
+
+  const clickAddTrial = useCallback(() => {
+    if (fields.hasTrial) {
+      changeFields(null, null, {
+        hasTrial: false,
+        trialLen: 0,
+        trialTimeFrame: null,
+      });
+    } else {
+      changeFields(null, null, {
+        hasTrial: true,
+        trialLen: 1,
+        trialTimeFrame: "MONTH",
+      });
+    }
+  }, [fields, changeFields]);
 
   return (
     <div className="page tiers-add-page">
@@ -96,7 +130,7 @@ const Component = () => {
             <input
               type={"text"}
               value={fields.name}
-              onChange={(e) => changeField("name", e.target.value)}
+              onChange={(e) => changeFields("name", e.target.value)}
             />
           </div>
           <div className={"group-fields"}>
@@ -104,7 +138,7 @@ const Component = () => {
               <label>Description</label>
               <textarea
                 value={fields.description}
-                onChange={(e) => changeField("description", e.target.value)}
+                onChange={(e) => changeFields("description", e.target.value)}
               />
             </div>
             <div className={"field image"}>
@@ -120,15 +154,15 @@ const Component = () => {
               type={"text"}
               value={fields.statementDescriptor}
               onChange={(e) =>
-                changeField("statementDescriptor", e.target.value)
+                changeFields("statementDescriptor", e.target.value)
               }
             />
           </div>
           <div className={"field"}>
             <label>Add endpoints</label>
             <select
-              selected={fields.endpoints}
-              onChange={(e) => changeField("endpoints", e.target.selected)}
+              value={fields.endpoints}
+              onChange={(e) => changeFields("endpoints", e.target.selected)}
             >
               <option value={"All"}>All</option>
               <option value={"None"}>None</option>
@@ -140,7 +174,7 @@ const Component = () => {
             <input
               type={"number"}
               value={fields.quota}
-              onChange={(e) => changeField("quota", e.target.value)}
+              onChange={(e) => changeFields("quota", e.target.value)}
             />
           </div>
           <div className={"some-space"} />
@@ -153,8 +187,8 @@ const Component = () => {
           <div className={"field"}>
             <label>Pricing model</label>
             <select
-              selected={fields.pricingModel}
-              onChange={(e) => changeField("pricingModel", e.target.selected)}
+              value={fields.pricingModel}
+              onChange={(e) => changeFields("pricingModel", e.target.selected)}
             >
               <option value={"Standart Pricing"}>Standart Pricing</option>
             </select>
@@ -164,22 +198,14 @@ const Component = () => {
             <input
               type={"number"}
               value={fields.price}
-              onChange={(e) => changeField("price", e.target.value)}
+              onChange={(e) => changeFields("price", e.target.value)}
             />
-          </div>
-          <div className={"field"}>
-            <div className={"choose-block"}>
-              <button type={"button"} className={"active"}>
-                Recuring
-              </button>
-              <button type={"button"}>One time</button>
-            </div>
           </div>
           <div className={"field"}>
             <label>Billing period</label>
             <select
-              selected={fields.billingPeriod}
-              onChange={(e) => changeField("billingPeriod", e.target.selected)}
+              value={fields.billingPeriod}
+              onChange={(e) => changeFields("billingPeriod", e.target.selected)}
             >
               <option value={"Monthly"}>Monthly</option>
             </select>
@@ -188,7 +214,7 @@ const Component = () => {
             <input
               type="checkbox"
               checked={fields.meteredUsage}
-              onChange={(e) => changeField("meteredUsage", e.target.checked)}
+              onChange={(e) => changeFields("meteredUsage", e.target.checked)}
             />
             <span>Usage is metered</span>
           </div>
@@ -196,9 +222,9 @@ const Component = () => {
             <div className={"field"}>
               <label>Charge for metered usage by</label>
               <select
-                selected={fields.meteredUsageBy}
+                value={fields.meteredUsageBy}
                 onChange={(e) =>
-                  changeField("meteredUsageBy", e.target.selected)
+                  changeFields("meteredUsageBy", e.target.selected)
                 }
               >
                 <option>Integer entry for the Quota limit</option>
@@ -206,43 +232,46 @@ const Component = () => {
             </div>
           )}
           <div className={"field"}>
-            <label>Price description</label>
-            <input
-              type={"text"}
-              value={fields.priceDescription}
-              onChange={(e) => changeField("priceDescription", e.target.value)}
-            />
-          </div>
-          <div className={"field"}>
-            <button type={"button"} className={"btn small light-blue"}>
+            <button
+              type={"button"}
+              className={"btn small light-blue"}
+              onClick={clickAddTrial}
+            >
               + Add free trial
             </button>
           </div>
-          <div style={{ width: "65%" }} className={"group-fields"}>
-            <div className={"field price-len"}>
-              <label>Length</label>
-              <input
-                type={"number"}
-                value={fields.priceLen}
-                onChange={(e) => changeField("priceLen", e.target.value)}
-              />
+          {fields.hasTrial && (
+            <div style={{ width: "65%" }} className={"group-fields"}>
+              <div className={"field price-len"}>
+                <label>Length</label>
+                <input
+                  type={"number"}
+                  value={fields.trialLen}
+                  onChange={(e) => changeFields("trialLen", e.target.value)}
+                />
+              </div>
+              <div className={"field price-type"}>
+                <label>Type</label>
+                <select
+                  value={fields.trialTimeFrame}
+                  onChange={(e) =>
+                    changeFields("trialTimeFrame", e.target.selected)
+                  }
+                >
+                  {Object.entries(timeFrames).map(([key, val]) => {
+                    return (
+                      <option key={key} value={key}>
+                        {val}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
             </div>
-            <div className={"field price-type"}>
-              <label>Type</label>
-              <select
-                selected={fields.priceType}
-                onChange={(e) => changeField("priceType", e.target.selected)}
-              >
-                <option>month</option>
-              </select>
-            </div>
-          </div>
+          )}
         </form>
         <div className={"line"} />
         <div className={"btns"}>
-          <button type={"button"} className={"btn clean-white add-price-btn"}>
-            + Add another price
-          </button>
           <button
             type={"button"}
             className={"btn light-blue"}
