@@ -49,18 +49,25 @@ const Component = () => {
         >
           <div className="name">{item.name}</div>
           <div className="description">{item.description}</div>
-          <div className="mtr">{item.mtr}</div>
-          <div className="mtr-text">{item.mtrText}</div>
-          {!currentUser && (
-            <div className={"signup-required"}>
-              <Link href="/account/signup">
-                <a className="btn green">Sign Up</a>
-              </Link>
+          {!item.mtr && !item.mtrText ? (
+            <div className={"contact"}>
+              <button type={"button"}>Contact sales ></button>
             </div>
+          ) : (
+            <>
+              <div className="mtr">{item.mtr}</div>
+              <div className="mtr-text">{item.mtrText}</div>
+            </>
           )}
-          <button type={"button"} className={"action-btn"}>
-            Upgrade
-          </button>
+          {!currentUser ? (
+            <Link href="/account/signup">
+              <a className={"action-btn"}>Sign Up</a>
+            </Link>
+          ) : (
+            <button type={"button"} className={"action-btn"}>
+              Upgrade
+            </button>
+          )}
         </div>
       );
     });

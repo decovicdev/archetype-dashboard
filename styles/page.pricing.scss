@@ -70,6 +70,15 @@
       text-align: center;
     }
 
+    .contact {
+      button {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+        color: white;
+      }
+    }
+
     .action-btn {
       min-width: 190px;
       background: linear-gradient(175deg, #4b466c, #1b2145);
@@ -80,17 +89,7 @@
       font-weight: 500;
       line-height: 26px;
       color: white;
-    }
-
-    .signup-required {
-      margin-top: 15px;
-      margin-bottom: 20px;
       text-align: center;
-
-      a {
-        width: inherit;
-        display: block;
-      }
     }
   }
 
