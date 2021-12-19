@@ -25,7 +25,7 @@ const Component = () => {
       document.body.scrollTop ||
       0;
 
-    _header.current.className = top > 20 ? "desktop floating" : "desktop";
+    _header.current.className = top > 0 ? "desktop floating" : "desktop";
   }, [_header]);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Component = () => {
         {currentUser ? (
           <button
             type={"button"}
-            className="btn light-blue"
+            className="btn gradient-pink"
             onClick={clickSignOut}
           >
             Sign Out
@@ -62,10 +62,11 @@ const Component = () => {
         ) : (
           <>
             <Link href="/account/signup">
-              <a className="btn gradient-pink">Sign Up</a>
+              <a>Sign Up</a>
             </Link>
+            <span>|</span>
             <Link href="/account/login">
-              <a className="btn light-blue">Login</a>
+              <a>Login</a>
             </Link>
           </>
         )}

@@ -57,16 +57,6 @@ const Component = ({ onClickItem }) => {
           Users
         </a>
       </Link>
-      <Link href="/settings">
-        <a
-          className={classnames({
-            active: router.pathname === "/settings",
-          })}
-          onClick={onClickItem}
-        >
-          Settings
-        </a>
-      </Link>
     </>
   );
 };
