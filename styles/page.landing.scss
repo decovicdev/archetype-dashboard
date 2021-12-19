@@ -49,9 +49,10 @@
       .block-data {
         background: linear-gradient(175deg, #4b466c, #1b2145);
         @include flexbox($align-items: center);
-        border-radius: 20px;
         padding: 110px 90px;
+        border-radius: 18px;
         position: relative;
+        @include borderGradient();
 
         &:after {
           width: 55%;
@@ -151,26 +152,26 @@
         z-index: 1;
         margin-top: -124px;
 
-        &.on-the-right {
-          left: auto;
-          right: 100px;
-
-          &:after {
-            left: -30px;
-            right: auto;
-          }
-        }
-
-        &:after {
+        .inner-square {
           width: 228px;
           height: 228px;
           background: linear-gradient(175deg, #4b466c, #1b2145);
-          border-radius: 20px;
+          border-radius: 18px;
           position: absolute;
           top: -30px;
           right: -30px;
           content: "";
-          z-index: 1;
+          @include borderGradient();
+        }
+
+        &.on-the-right {
+          left: auto;
+          right: 100px;
+
+          .inner-square {
+            left: -30px;
+            right: auto;
+          }
         }
       }
 
@@ -212,7 +213,7 @@
     }
 
     .content {
-      min-height: 50vh;
+      min-height: 80vh;
     }
   }
 

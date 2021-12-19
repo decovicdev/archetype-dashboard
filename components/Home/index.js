@@ -66,7 +66,9 @@ const Component = () => {
       </div>
       <div className={"block info-block"}>
         <div className={"content"}>
-          <div className={"square"} />
+          <div className={"square"}>
+            <div className={"inner-square"} />
+          </div>
           <div className={"left-side"}></div>
           <div className={"right-side"}>
             <h3>Creation</h3>
@@ -80,7 +82,9 @@ const Component = () => {
       </div>
       <div className={"block info-block"}>
         <div className={"content"}>
-          <div className={"square on-the-right"} />
+          <div className={"square on-the-right"}>
+            <div className={"inner-square"} />
+          </div>
           <div className={"left-side"}>
             <h3>Monetization</h3>
             <p>
@@ -94,7 +98,9 @@ const Component = () => {
       </div>
       <div className={"block info-block"}>
         <div className={"content"}>
-          <div className={"square"} />
+          <div className={"square"}>
+            <div className={"inner-square"} />
+          </div>
           <div className={"left-side"}></div>
           <div className={"right-side"}>
             <h3>Management</h3>
@@ -108,7 +114,9 @@ const Component = () => {
       </div>
       <div className={"block info-block"}>
         <div className={"content"}>
-          <div className={"square on-the-right"} />
+          <div className={"square on-the-right"}>
+            <div className={"inner-square"} />
+          </div>
           <div className={"left-side"}>
             <h3>Build</h3>
             <p>
