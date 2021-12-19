@@ -52,7 +52,11 @@ const Component = () => {
           {data.map((item, i) => {
             return (
               <div key={i} className={"row"}>
-                <div className={"col"}>{item.name}</div>
+                <div className={"col"}>
+                  <Link href={`/tiers/${item.tier_id}`}>
+                    <a>{item.name}</a>
+                  </Link>
+                </div>
                 <div className={"col"}>${item.price}</div>
                 <div className={"col"}>{item.trial_length}</div>
                 <div className={"col"}>{item.trial_time_frame}</div>

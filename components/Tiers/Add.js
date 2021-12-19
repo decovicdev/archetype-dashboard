@@ -3,6 +3,7 @@ import config from "../../config";
 import React, { useState, useCallback, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import classnames from "classnames";
 
 import {
@@ -17,6 +18,8 @@ import TierService from "../../services/tier.service";
 import { HelperContext } from "../../context/helper";
 
 const Component = () => {
+  const router = useRouter();
+
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
@@ -146,11 +149,7 @@ const Component = () => {
             <select
               value={fields.endpoints}
               onChange={(e) => changeFields("endpoints", e.target.selected)}
-            >
-              <option value={"All"}>All</option>
-              <option value={"None"}>None</option>
-              <option value={"Other"}>Other</option>
-            </select>
+            ></select>
           </div>
           <div className={"field"}>
             <label>Quota</label>
@@ -266,9 +265,9 @@ const Component = () => {
           >
             Create
           </button>
-          <button type={"button"} className={"btn clean-white"}>
-            Cancel
-          </button>
+          <Link href={`/tiers`}>
+            <a className={"btn clean-white"}>Cancel</a>
+          </Link>
         </div>
       </div>
     </div>

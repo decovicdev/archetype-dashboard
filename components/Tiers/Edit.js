@@ -40,7 +40,21 @@ const Component = () => {
         setProgress(true);
 
         const response = await TierService.getById(router.query.tierId);
-        setFields(response);
+
+        setFields({
+          name: response.name,
+          description: response.description,
+          statementDescriptor: "",
+          endpoints: "",
+          quota: response.quota,
+          pricingModel: 1,
+          price: response.price,
+          billingPeriod: response.period,
+          meteredUsage: false,
+          hasTrial: response.has_trial,
+          trialLen: response.trial_length,
+          trialTimeFrame: response.trial_time_frame,
+        });
       } catch (e) {
         showAlert(e.message);
       } finally {
@@ -153,11 +167,7 @@ const Component = () => {
             <select
               value={fields.endpoints}
               onChange={(e) => changeFields("endpoints", e.target.selected)}
-            >
-              <option value={"All"}>All</option>
-              <option value={"None"}>None</option>
-              <option value={"Other"}>Other</option>
-            </select>
+            ></select>
           </div>
           <div className={"field"}>
             <label>Quota</label>
@@ -275,9 +285,9 @@ const Component = () => {
           >
             Save
           </button>
-          <button type={"button"} className={"btn clean-white"}>
-            Cancel
-          </button>
+          <Link href={`/tiers/${router.query.tierId}`}>
+            <a className={"btn clean-white"}>Cancel</a>
+          </Link>
         </div>
       </>
     );
@@ -285,7 +295,7 @@ const Component = () => {
 
   return (
     <>
-      <div className="page tiers-details-page">
+      <div className="page tiers-edit-page">
         <Head>
           <title>Edit Product - {config.meta.title}</title>
         </Head>

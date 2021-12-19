@@ -6,7 +6,7 @@ export default class TierService {
   }
 
   static async getById(id) {
-    return http.get(`tiers/${id}`);
+    return http.get(`tier/${id}`);
   }
 
   static async addNew(params) {
@@ -14,6 +14,6 @@ export default class TierService {
   }
 
   static async updateById(id, params) {
-    return await http.put(`tiers/${id}`, params);
+    return await http.put(`tier/${id}`, params);
   }
 }
