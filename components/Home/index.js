@@ -1,10 +1,22 @@
 import config from "../../config";
 import { useState, useCallback, useContext } from "react";
+import classnames from "classnames";
 
 import Head from "next/head";
 import Link from "next/link";
 
 import { HelperContext } from "../../context/helper";
+
+const Square = ({ reversed }) => {
+  return (
+    <div className={classnames("square", { "on-the-right": reversed })}>
+      <div className={"inner-square"} />
+      <div className={"circ1"} />
+      <div className={"circ2"} />
+      <div className={"circ3"} />
+    </div>
+  );
+};
 
 const Component = () => {
   const { showAlert } = useContext(HelperContext);
@@ -66,9 +78,7 @@ const Component = () => {
       </div>
       <div className={"block info-block"}>
         <div className={"content"}>
-          <div className={"square"}>
-            <div className={"inner-square"} />
-          </div>
+          <Square />
           <div className={"left-side"}></div>
           <div className={"right-side"}>
             <h3>Creation</h3>
@@ -82,9 +92,7 @@ const Component = () => {
       </div>
       <div className={"block info-block"}>
         <div className={"content"}>
-          <div className={"square on-the-right"}>
-            <div className={"inner-square"} />
-          </div>
+          <Square reversed />
           <div className={"left-side"}>
             <h3>Monetization</h3>
             <p>
@@ -98,9 +106,7 @@ const Component = () => {
       </div>
       <div className={"block info-block"}>
         <div className={"content"}>
-          <div className={"square"}>
-            <div className={"inner-square"} />
-          </div>
+          <Square />
           <div className={"left-side"}></div>
           <div className={"right-side"}>
             <h3>Management</h3>
@@ -114,9 +120,7 @@ const Component = () => {
       </div>
       <div className={"block info-block"}>
         <div className={"content"}>
-          <div className={"square on-the-right"}>
-            <div className={"inner-square"} />
-          </div>
+          <Square reversed />
           <div className={"left-side"}>
             <h3>Build</h3>
             <p>
@@ -133,6 +137,11 @@ const Component = () => {
           <div className={"text"}>
             Say bye to building your own
             <br /> billing, permissions, or quota systems.{" "}
+          </div>
+          <div className={"link"}>
+            <Link href={"/account/signup"}>
+              <a>Start now</a>
+            </Link>
           </div>
         </div>
       </div>
