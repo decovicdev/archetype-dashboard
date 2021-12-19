@@ -1,8 +1,6 @@
 import { useContext, useCallback } from "react";
 import Link from "next/link";
 
-import styles from "./footer.module.scss";
-
 import AccountService from "../../../services/account.service";
 
 import { AuthContext } from "../../../context/auth";
@@ -26,16 +24,16 @@ const Footer = () => {
     return (
       <div className="bottom-panel">
         {currentUser ? (
-          <button type={"button"} className="btn grey" onClick={clickSignOut}>
+          <button type={"button"} className="btn" onClick={clickSignOut}>
             Sign Out
           </button>
         ) : (
           <>
             <Link href="/account/signup">
-              <a className="btn black">Sign Up</a>
+              <a className="btn">Sign Up</a>
             </Link>
             <Link href="/account/login">
-              <a className="btn grey">Login</a>
+              <a className="btn">Login</a>
             </Link>
           </>
         )}
@@ -45,17 +43,13 @@ const Footer = () => {
 
   return (
     <>
-      <footer id="footer" className={styles.footer}>
-        <div className={styles.contanier}>
-          <div className={styles.main}>
-            <p>Some text here.</p>
-          </div>
-          <div className={styles.links}>
-            <div className={styles.block}>
-              <div className={styles.title}>Contact Us</div>
-            </div>
-            <div className={styles.block}>
-              <div className={styles.title}>Legal</div>
+      <footer id="footer">
+        <div className={"top-block"}>
+          <div className={"content"}>
+            <Link href="/">
+              <a className="logo-link" />
+            </Link>
+            <div className={"nav-links"}>
               <Link href="/privacy-policy">
                 <a>Privacy Policy</a>
               </Link>
@@ -63,6 +57,16 @@ const Footer = () => {
                 <a>Terms of Service</a>
               </Link>
             </div>
+            <div className={"socials"}>
+              <Link href={"/"}>
+                <a className={"twitter"}>Twitter</a>
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className={"bottom-block"}>
+          <div className={"content"}>
+            <div className={"copyright"}>&copy; 2021 Archetype</div>
           </div>
         </div>
       </footer>

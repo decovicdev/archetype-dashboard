@@ -35,7 +35,7 @@ const Component = () => {
 
   const renderContent = useCallback(() => {
     if (!data.length) {
-      return <div>No products added yet.</div>;
+      return <div className={"no-content"}>No products added yet.</div>;
     }
 
     return (

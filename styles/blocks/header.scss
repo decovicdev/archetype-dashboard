@@ -1,7 +1,6 @@
 header {
   width: 100%;
-  background-color: $purple;
-  background: linear-gradient(175deg, #4b466c, #1b2145);
+  background: $purple;
   display: flex;
   justify-content: center;
   position: absolute;
@@ -15,17 +14,14 @@ header {
     &.floating {
       padding: 20px 0;
       position: fixed;
-      box-shadow: rgb(25 28 31 / 4%) 0px 8px 16px,
-        rgb(25 28 31 / 4%) 0px -1px 0px;
+      box-shadow: rgb(0 0 0 / 10%) 0px 8px 16px, rgb(0 0 0 / 10%) 0px -1px 0px;
     }
 
     .content {
       width: 100%;
       max-width: 1280px;
       height: 44px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      @include flexbox($justify-content: space-between, $align-items: center);
       padding: 0 40px;
 
       .logo-link {
@@ -43,10 +39,11 @@ header {
         margin-right: auto;
 
         a {
-          margin-left: 55px;
-          font-size: 16px;
+          margin: 0 20px;
+          padding-bottom: 2px;
+          font-size: 18px;
           font-weight: 500;
-          line-height: 24px;
+          line-height: 26px;
           color: #ffffff;
           transition: color 0.3s;
 
@@ -56,18 +53,45 @@ header {
 
           &.active,
           &:hover {
-            color: $pink;
+            border-bottom: solid 1px white;
           }
         }
       }
 
       .right-menu {
-        display: flex;
-        align-items: center;
+        @include flexbox($justify-content: center, $align-items: center);
 
         a,
         button {
-          margin-left: 15px;
+          margin: 0 15px;
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 26px;
+          color: white;
+        }
+
+        .profile-block {
+          @include flexbox($justify-content: flex-end, $align-items: center);
+
+          .avatar {
+            width: 36px;
+            height: 36px;
+            display: block;
+            background-image: url("../../public/icons/user.svg");
+            background-position: center;
+            background-size: 20px 20px;
+            background-color: $light-blue;
+            background-repeat: no-repeat;
+            border-radius: 18px;
+          }
+
+          .name {
+            margin: 0 0 0 10px;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            color: white;
+          }
         }
       }
     }

@@ -9,7 +9,7 @@ export default class UserService {
     return await http.get(`create-user`, params);
   }
 
-  static async updateById(params) {
+  static async updateById(id, params) {
     return await http.put(`user/${id}`, params);
   }
 

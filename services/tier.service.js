@@ -9,7 +9,11 @@ export default class TierService {
     return http.get(`tiers/${id}`);
   }
 
-  static async createNew(params) {
+  static async addNew(params) {
     return http.post(`create-tier`, params);
+  }
+
+  static async updateById(id, params) {
+    return await http.put(`tiers/${id}`, params);
   }
 }

@@ -1,4 +1,6 @@
 .tiers-add-page {
+  @include flexbox($align-items: flex-start);
+
   h2 {
     width: 100%;
     font-size: 28px;
