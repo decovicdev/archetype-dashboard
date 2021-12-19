@@ -16,3 +16,21 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+@mixin borderGradient() {
+  background-clip: padding-box;
+  border: solid 2px transparent;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin: -2px;
+    border-radius: inherit;
+    background: linear-gradient(95deg, #fdc043 14.9%, #e543e8 92.22%);
+  }
+}
