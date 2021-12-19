@@ -41,8 +41,9 @@ const Component = () => {
           <ul className="tabs">
             {Object.keys(tabs).map((tab) => (
               <li
-                className={classnames("tab", { active: selectedTab === tab })}
                 id={tab}
+                key={tab}
+                className={classnames("tab", { active: selectedTab === tab })}
                 onClick={selectTab}
               >
                 {tabs[tab].title}

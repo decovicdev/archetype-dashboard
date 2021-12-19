@@ -11,10 +11,11 @@ const options = {
   },
   backgroundColor: "transparent",
   hAxis: {
-    baselineColor: "#ffffff",
     gridlines: {
       color: "transparent",
     },
+    baseline: [11, 0, 0],
+    baselineColor: "#ffffff",
     textStyle: {
       color: "#ffffff",
     },
@@ -25,6 +26,7 @@ const options = {
     gridlines: {
       color: "transparent",
     },
+    baselineColor: "#ffffff",
     textStyle: {
       color: "#ffffff",
     },
@@ -98,6 +100,7 @@ const Component = () => {
               options={{
                 ...options,
                 title: "Average latency over time",
+                chartArea: { width: "85%", height: "70%" },
                 colors: ["#9BA8F6"],
                 bar: {
                   groupWidth: 15,
@@ -130,12 +133,15 @@ const Component = () => {
                 title: "Error type over time",
                 legend: {
                   position: "top",
+                  alignment: "center",
                   textStyle: {
                     color: "#ffffff",
+                    fontSize: 16,
                   },
                 },
                 pointShape: "square",
                 pointSize: 40,
+                chartArea: { width: "85%", height: "65%" },
                 colors: ["#FDC043", "#E545E7", "#606BF1", "#6BD689"],
               }}
             />

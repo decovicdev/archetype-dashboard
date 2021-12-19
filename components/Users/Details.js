@@ -51,7 +51,7 @@ const Component = () => {
         <title>Customer Information - {config.meta.title}</title>
       </Head>
       <div className={"content"}>
-        <ul class="breadcrumb">
+        <ul className="breadcrumb">
           <li>
             <Link href="/users">Customers</Link>
           </li>

@@ -16,57 +16,8 @@ import Dropdown from "../_common/Dropdown";
 
 import DeleteModal from "./DeleteModal";
 
-const data = [
-  {
-    id: "13467425",
-    apiKey: "WL278DXkowQDZ7kETED3W54iBE2",
-    tier: { id: 1, title: "basic" },
-    lastSeenDate: "08/12/2021",
-    status: "active",
-    spent: 99,
-    percent: 10,
-  },
-  {
-    id: "13467425",
-    apiKey: "WL278DXkowQDZ7kETED3W54iBE2",
-    tier: { id: 2, title: "advanced" },
-    lastSeenDate: "08/12/2021",
-    status: "expired",
-    spent: 200,
-    percent: 10,
-  },
-  {
-    id: "13467425",
-    apiKey: "WL278DXkowQDZ7kETED3W54iBE2",
-    tier: null,
-    lastSeenDate: "08/12/2021",
-    status: "active",
-    spent: 99,
-    percent: 10,
-  },
-  {
-    id: "13467425",
-    apiKey: "WL278DXkowQDZ7kETED3W54iBE2",
-    tier: { id: 3, title: "enterprise" },
-    lastSeenDate: "08/12/2021",
-    status: "active",
-    spent: 99,
-    percent: 10,
-  },
-  {
-    id: "13467425",
-    apiKey: "WL278DXkowQDZ7kETED3W54iBE2",
-    tier: { id: 1, title: "basic" },
-    lastSeenDate: "08/12/2021",
-    status: "active",
-    spent: 99,
-    percent: 10,
-  },
-];
-
-const Users = () => {
+const Users = ({ data }) => {
   const _deleteModal = useRef(null);
-
   return (
     <div className="page users-page">
       <Head>
@@ -105,7 +56,7 @@ const Users = () => {
             <span>2</span>
           </div>
           <div className="card">
-            <span>Active supscriptions</span>
+            <span>Active subscriptions</span>
             <span>8</span>
           </div>
           <div className="card">
@@ -122,51 +73,62 @@ const Users = () => {
               <th>Last seen date</th>
               <th>Status</th>
               <th>Spent</th>
-              <th>% of qouta</th>
+              <th>% of quota</th>
               <th></th>
             </tr>
-            {data.map((customer) => (
-              <tr>
-                <td>ID: {customer.id}</td>
-                <td>{customer.apiKey}</td>
-                <td>
-                  {customer.tier ? (
-                    <Link href={`tiers/${customer.tier.id}`}>
-                      {customer.tier.title}
-                    </Link>
-                  ) : (
-                    "--"
-                  )}
-                </td>
-                <td>{customer.lastSeenDate}</td>
-                <td>{customer.status}</td>
-                <td>${customer.spent}</td>
-                <td>{customer.percent}%</td>
-                <td>
-                  <Dropdown
-                    title={<Image src={MenuIcon} width={3} height={18} />}
-                  >
-                    <Link href={`users/${customer.id}`}>
-                      <a className="dropdownLink">
-                        <EditIcon fill="#ffffff" />
-                        Edit a customer
-                      </a>
-                    </Link>
-                    <a
-                      className="dropdownLink"
-                      onClick={() => {
-                        if (_deleteModal.current) {
-                          _deleteModal.current.show();
-                        }
-                      }}
+            {data.map((customer) => {
+              const lastSeenDate = new Date(customer.last_seen * 1000);
+              const [month, day, year] = [
+                lastSeenDate.getMonth(),
+                lastSeenDate.getDate(),
+                lastSeenDate.getFullYear(),
+              ];
+
+              return (
+                <tr key={customer.uid}>
+                  <td>ID: {customer.uid}</td>
+                  <td>{customer.apikey}</td>
+                  <td>
+                    {customer.tier ? (
+                      <Link href={`tiers/${customer.tier_id}`}>
+                        {customer.tier_id}
+                      </Link>
+                    ) : (
+                      "--"
+                    )}
+                  </td>
+                  <td>{`${day}/${month + 1}/${year}`}</td>
+                  <td>{customer.status}</td>
+                  {/* spent value not provided */}
+                  <td>$0</td>
+                  {/* percent value not provided */}
+                  <td>{customer.quota}%</td>
+                  <td>
+                    <Dropdown
+                      title={<Image src={MenuIcon} width={3} height={18} />}
                     >
-                      <DeleteIcon fill="#ffffff" />
-                      Delete a customer
-                    </a>
-                  </Dropdown>
-                </td>
-              </tr>
-            ))}
+                      <Link href={`users/${customer.id}`}>
+                        <a className="dropdownLink">
+                          <EditIcon fill="#ffffff" />
+                          Edit a customer
+                        </a>
+                      </Link>
+                      <a
+                        className="dropdownLink"
+                        onClick={() => {
+                          if (_deleteModal.current) {
+                            _deleteModal.current.show();
+                          }
+                        }}
+                      >
+                        <DeleteIcon fill="#ffffff" />
+                        Delete a customer
+                      </a>
+                    </Dropdown>
+                  </td>
+                </tr>
+              );
+            })}
           </table>
           <div className="paging">
             <a className="pageIcon active">1</a>

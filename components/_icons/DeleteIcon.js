@@ -20,8 +20,8 @@ const Component = (props) => {
           y2="20"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FDC043" />
-          <stop offset="1" stop-color="#E543E8" />
+          <stop stopColor="#FDC043" />
+          <stop offset="1" stopColor="#E543E8" />
         </linearGradient>
       </defs>
     </svg>

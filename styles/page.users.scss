@@ -118,6 +118,12 @@
       &:not(:first-of-type):not(:last-of-type) {
         border-bottom: 1px solid #9ba8f6;
       }
+
+      td {
+        &:first-of-type {
+          white-space: nowrap;
+        }
+      }
     }
     .paging {
       @include flexbox($justify-content: flex-end);

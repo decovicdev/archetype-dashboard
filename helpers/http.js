@@ -5,14 +5,24 @@ import axios from "axios";
 const $api = axios.create(config.axios);
 
 $api.interceptors.request.use((config) => {
+  console.log({ sessionStorage });
+
   if (typeof window === "undefined") {
     return config;
   }
 
   const token = sessionStorage.getItem("token");
+  console.log({ sessionStorage });
+  // const appID = sessionStorage.getItem();
+  const appID = "4380c54d277b45589891115bef535d21";
+  console.log({ appID });
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  if (appID) {
+    config.headers["X-Archetype-AppID"] = appID;
   }
 
   return config;

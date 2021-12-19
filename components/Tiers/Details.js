@@ -43,7 +43,7 @@ const Component = () => {
         <div className={"endpoints-list-data"}>
           {endpointsList.map((item, i) => {
             return (
-              <div className={"endpoints-list-item"}>
+              <div key={`${item.name}-${i}`} className={"endpoints-list-item"}>
                 <div className={"item-name"}>
                   <input
                     type={"text"}
