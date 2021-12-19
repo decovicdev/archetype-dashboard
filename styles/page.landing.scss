@@ -24,13 +24,20 @@
         }
 
         .link {
-          margin-top: 40px;
+          margin-top: 50px;
 
           a {
-            border-radius: 24px;
+            background: linear-gradient(
+              96.76deg,
+              #fdc043 14.9%,
+              #e543e8 92.22%
+            );
+            border-radius: 6px;
             padding: 9px 40px;
             font-size: 24px;
+            font-weight: 600;
             line-height: 32px;
+            color: white;
           }
         }
       }
@@ -40,14 +47,78 @@
       @include flexbox($align-items: center);
 
       .block-data {
-        background-color: $purple;
         background: linear-gradient(175deg, #4b466c, #1b2145);
+        @include flexbox($align-items: center);
         border-radius: 20px;
+        padding: 110px 90px;
+        position: relative;
+
+        &:after {
+          width: 55%;
+          height: 35%;
+          background: #21274b;
+          border-radius: 10px;
+          position: absolute;
+          top: 70px;
+          right: 70px;
+          content: "";
+          z-index: 1;
+        }
+
+        form {
+          margin-top: 35px;
+
+          .text {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            color: white;
+          }
+
+          .field {
+            @include flexbox(
+              $justify-content: space-between,
+              $align-items: center
+            );
+            margin-top: 12px;
+
+            input[type="text"] {
+              width: calc(100% - 120px);
+              background-color: transparent;
+              padding: 8px 15px;
+              border: solid 1px white;
+              border-radius: 4px;
+              font-size: 14px;
+              line-height: 22px;
+              color: white;
+
+              &::placeholder {
+                color: $light-blue;
+              }
+            }
+
+            button {
+              background: linear-gradient(
+                96.76deg,
+                #fdc043 14.9%,
+                #e543e8 92.22%
+              );
+              padding: 8px 20px;
+              border-radius: 3px;
+              font-size: 16px;
+              font-weight: 600;
+              line-height: 24px;
+              color: white;
+            }
+          }
+        }
       }
 
       .left-side,
       .right-side {
         width: 50%;
+        position: relative;
+        z-index: 2;
 
         h2 {
           font-size: 36px;
@@ -64,21 +135,61 @@
     &.info-block {
       @include flexbox($align-items: center);
 
+      .content {
+        position: relative;
+      }
+
+      .square {
+        width: 248px;
+        height: 248px;
+        background-color: $dark-blue;
+        border-radius: 20px;
+        position: absolute;
+        top: 50%;
+        left: 100px;
+        content: "";
+        z-index: 1;
+        margin-top: -124px;
+
+        &.on-the-right {
+          left: auto;
+          right: 100px;
+
+          &:after {
+            left: -30px;
+            right: auto;
+          }
+        }
+
+        &:after {
+          width: 228px;
+          height: 228px;
+          background: linear-gradient(175deg, #4b466c, #1b2145);
+          border-radius: 20px;
+          position: absolute;
+          top: -30px;
+          right: -30px;
+          content: "";
+          z-index: 1;
+        }
+      }
+
       .left-side,
       .right-side {
         width: 50%;
+        position: relative;
+        z-index: 2;
 
         h3 {
           @include pinkGradientText();
           font-size: 42px;
           line-height: 50px;
-          text-align: center;
+          text-align: left;
         }
 
         p {
           margin-top: 50px;
           font-size: 28px;
-          font-size: 400;
           line-height: 32px;
           color: #ffffff;
         }
@@ -86,6 +197,22 @@
     }
 
     &.last-block {
+      .content {
+        @include flexbox($justify-content: center, $align-items: center);
+        padding: 110px 90px;
+      }
+
+      .text {
+        font-size: 36px;
+        font-weight: 500;
+        line-height: 44px;
+        color: white;
+        text-align: center;
+      }
+    }
+
+    .content {
+      min-height: 50vh;
     }
   }
 
