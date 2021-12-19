@@ -1,6 +1,12 @@
 import config from "../../config";
 
-import React, { useState, useEffect, useCallback, useContext } from "react";
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  useContext,
+} from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,12 +18,15 @@ import {
   PRICING_MODEL_OPTIONS,
 } from "./assets";
 import Spinner from "../_common/Spinner";
+import Modal from "../_common/Modal";
 
 import TierService from "../../services/tier.service";
 
 import { HelperContext } from "../../context/helper";
 
 const Component = () => {
+  const _saveProduct = useRef(null);
+
   const router = useRouter();
 
   const { showAlert } = useContext(HelperContext);
@@ -260,7 +269,9 @@ const Component = () => {
           <button
             type={"button"}
             className={"btn light-blue"}
-            onClick={() => submitForm()}
+            onClick={() => {
+              _saveProduct.current?.show();
+            }}
           >
             Save
           </button>
@@ -273,24 +284,54 @@ const Component = () => {
   }, [fields]);
 
   return (
-    <div className="page tiers-details-page">
-      <Head>
-        <title>Edit Product - {config.meta.title}</title>
-      </Head>
-      {inProgress && <Spinner />}
-      <div className={"content"}>
-        <div className={"bread-crumbs"}>
-          <Link href={"/tiers"}>
-            <a>Products</a>
-          </Link>
-          <span>{">"}</span>
-          <Link href={router.pathname}>
-            <a className={"active"}>Edit Product</a>
-          </Link>
+    <>
+      <div className="page tiers-details-page">
+        <Head>
+          <title>Edit Product - {config.meta.title}</title>
+        </Head>
+        {inProgress && <Spinner />}
+        <div className={"content"}>
+          <div className={"bread-crumbs"}>
+            <Link href={"/tiers"}>
+              <a>Products</a>
+            </Link>
+            <span>{">"}</span>
+            <Link href={router.pathname}>
+              <a className={"active"}>Edit Product</a>
+            </Link>
+          </div>
+          {renderContent()}
         </div>
-        {renderContent()}
       </div>
-    </div>
+      <Modal ref={_saveProduct} title={"Save product?"}>
+        <div className={"data"}>
+          <p>
+            Do you want <span>to save</span> the changes?
+          </p>
+          <p>
+            If you choose <span>not to save</span> changes will be lost
+          </p>
+        </div>
+        <div className={"btns"}>
+          <button
+            type={"button"}
+            className={"half-width action"}
+            onClick={submitForm}
+          >
+            Save
+          </button>
+          <button
+            type={"button"}
+            className={"half-width"}
+            onClick={() => {
+              _saveProduct.current?.hide();
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      </Modal>
+    </>
   );
 };
 
