@@ -17,7 +17,7 @@
   -webkit-text-fill-color: transparent;
 }
 
-@mixin borderGradient() {
+@mixin borderGradient($colorA: #fdc043, $colorB: #e543e8) {
   background-clip: padding-box;
   border: solid 2px transparent;
 
@@ -31,6 +31,6 @@
     z-index: -1;
     margin: -2px;
     border-radius: inherit;
-    background: linear-gradient(95deg, #fdc043 14.9%, #e543e8 92.22%);
+    background: linear-gradient(95deg, $colorA 14.9%, $colorB 92.22%);
   }
 }

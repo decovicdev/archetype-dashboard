@@ -3,6 +3,9 @@
 
   h2 {
     width: 100%;
+    margin-top: 25px;
+    padding-bottom: 15px;
+    border-bottom: solid 1px #2f3a71;
     font-size: 28px;
     font-weight: 500;
     line-height: 36px;
@@ -18,100 +21,122 @@
     color: #ffffff;
   }
 
-  .form {
-    max-width: 450px;
+  .field {
+    @include flexbox($justify-content: flex-start, $align-items: center);
+    margin-top: 15px;
 
-    .field {
-      width: 100%;
-
-      &.description {
-        textarea {
-          height: 150px;
-        }
-      }
-
-      &.image {
-        width: 30%;
-
-        .upload {
-          width: 100%;
-          height: 150px;
-          @include flexbox($justify-content: center, $align-items: center);
-          background-size: 20px 20px;
-          background-image: url("../public/icons/download.svg");
-          background-position: center;
-          background-repeat: no-repeat;
-          border-radius: 5px;
-          border: solid 1px $second-text;
-          margin-top: 5px;
-
-          span {
-            padding-top: 40px;
-            font-size: 14px;
-            line-height: 22px;
-            color: white;
-          }
-        }
-      }
-
-      &.price-len {
-        width: 35%;
-      }
-
-      &.price-type {
-        width: 60%;
-      }
-
-      .choose-block {
-        @include flexbox($justify-content: flex-start);
-
-        button {
-          margin-right: 25px;
-          padding: 10px 16px;
-          border-radius: 5px;
-          border: solid 1px $second-text;
-          font-size: 14px;
-          line-height: 22px;
-          color: white;
-
-          &.active {
-            border: solid 1px #ffffff;
-          }
-        }
-      }
-    }
-
-    .btns {
-      width: 100%;
-    }
-  }
-
-  .some-space {
-    width: 100%;
-    height: 30px;
-  }
-
-  .add-options {
-    width: 100%;
-
-    button {
-      @include pinkGradientText();
+    span {
+      margin-right: 15px;
       font-size: 16px;
       line-height: 24px;
+      color: $second-text;
+
+      &:last-child {
+        color: white;
+      }
+
+      &.colored {
+        background: linear-gradient(175deg, #4b466c, #1b2145);
+        padding: 4px 12px;
+        border-radius: 4px;
+        color: white;
+      }
     }
   }
 
-  .line {
-    width: 100%;
-    height: 1px;
-    background: #2f3a71;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  .basic-info-block {
+    @include flexbox($justify-content: space-between, $align-items: center);
+
+    .left-side {
+      @include flexbox($align-items: center);
+
+      .pic {
+        width: 50px;
+        height: 50px;
+        background: $pink;
+        margin-right: 17px;
+        border-radius: 6px;
+      }
+
+      .data {
+        .name {
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 26px;
+          color: white;
+        }
+
+        .price {
+          margin-top: 5px;
+          font-size: 16px;
+          line-height: 24px;
+          color: white;
+
+          span {
+            color: $second-text;
+          }
+        }
+      }
+    }
+
+    .right-side {
+    }
+
+    .bottom-side {
+      width: 100%;
+      margin-top: 15px;
+      border-top: solid 1px #2f3a71;
+    }
   }
 
-  .btns {
-    @include flexbox($justify-content: flex-end);
-    margin-top: 30px;
+  .details-block {
+  }
+
+  .pricing-block {
+    .delete-btn {
+      width: 20px;
+      height: 20px;
+      background: url("../public/icons/trash.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+
+  .metadata-block {
+    p {
+      margin-top: 15px;
+    }
+  }
+
+  .logs-block {
+    ul {
+      list-style: none;
+
+      li {
+        margin-top: 15px;
+
+        span {
+          &.status {
+            background: linear-gradient(175deg, #4b466c, #1b2145);
+            margin-right: 15px;
+            padding: 2px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 22px;
+          }
+        }
+      }
+    }
+  }
+
+  .events-block {
+    ul {
+      list-style: none;
+
+      li {
+        margin-top: 15px;
+      }
+    }
   }
 
   @media screen and (max-width: 767px) {
