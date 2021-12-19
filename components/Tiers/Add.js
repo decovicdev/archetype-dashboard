@@ -5,31 +5,16 @@ import Head from "next/head";
 import Link from "next/link";
 import classnames from "classnames";
 
+import {
+  TIME_FRAMES_OPTIONS,
+  BILLING_OPTIONS,
+  PRICING_MODEL_OPTIONS,
+} from "./assets";
 import Spinner from "../_common/Spinner";
 
 import TierService from "../../services/tier.service";
 
 import { HelperContext } from "../../context/helper";
-
-const timeFrames = {
-  DAY: "day",
-  MINUTE: "minute",
-  HOUR: "hour",
-  SECOND: "second",
-  WEEK: "week",
-  MONTH: "month",
-  YEAR: "year",
-};
-
-const billingOptions = {
-  MONTH: "month",
-  YEAR: "year",
-};
-
-const pricingModelOptions = {
-  1: "Subscription",
-  2: "Pay as you go",
-};
 
 const Component = () => {
   const { showAlert } = useContext(HelperContext);
@@ -74,17 +59,17 @@ const Component = () => {
       }
       setProgress(true);
 
-      await TierService.createNew({
+      await TierService.addNew({
         name: fields.name,
         description: fields.description,
         price: parseInt(fields.price),
-        period: billingOptions[fields.billingPeriod],
+        period: BILLING_OPTIONS[fields.billingPeriod],
         currency: "usd",
         has_quota: parseInt(fields.quota) > 0,
         quota: fields.quota,
         has_trial: fields.hasTrial,
         trial_length: fields.trialLen,
-        trial_time_frame: timeFrames[fields.trialTimeFrame],
+        trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame],
       });
 
       showAlert("Success", true);
@@ -95,7 +80,7 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [timeFrames, billingOptions, inProgress, showAlert]);
+  }, [inProgress, showAlert]);
 
   const clickAddTrial = useCallback(() => {
     if (fields.hasTrial) {
@@ -116,7 +101,7 @@ const Component = () => {
   return (
     <div className="page tiers-add-page">
       <Head>
-        <title>Edit Tier - {config.meta.title}</title>
+        <title>Add Product - {config.meta.title}</title>
       </Head>
       {inProgress && <Spinner />}
       <div className={"content"}>
@@ -190,7 +175,7 @@ const Component = () => {
               value={fields.pricingModel}
               onChange={(e) => changeFields("pricingModel", e.target.selected)}
             >
-              {Object.entries(pricingModelOptions).map(([key, val]) => {
+              {Object.entries(PRICING_MODEL_OPTIONS).map(([key, val]) => {
                 return (
                   <option key={key} value={key}>
                     {val}
@@ -213,7 +198,7 @@ const Component = () => {
               value={fields.billingPeriod}
               onChange={(e) => changeFields("billingPeriod", e.target.selected)}
             >
-              {Object.entries(billingOptions).map(([key, val]) => {
+              {Object.entries(BILLING_OPTIONS).map(([key, val]) => {
                 return (
                   <option key={key} value={key}>
                     {val}
@@ -260,7 +245,7 @@ const Component = () => {
                     changeFields("trialTimeFrame", e.target.selected)
                   }
                 >
-                  {Object.entries(timeFrames).map(([key, val]) => {
+                  {Object.entries(TIME_FRAMES_OPTIONS).map(([key, val]) => {
                     return (
                       <option key={key} value={key}>
                         {val}

@@ -52,13 +52,12 @@ const Component = () => {
     return (
       <div className="right-menu">
         {currentUser ? (
-          <button
-            type={"button"}
-            className="btn gradient-pink"
-            onClick={clickSignOut}
-          >
-            Sign Out
-          </button>
+          <div className={"profile-block"}>
+            <div className={"avatar"} />
+            <Link href="/settings">
+              <a className={"name"}>{currentUser.displayName}</a>
+            </Link>
+          </div>
         ) : (
           <>
             <Link href="/account/signup">
