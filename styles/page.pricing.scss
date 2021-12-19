@@ -1,0 +1,107 @@
+.pricing-page {
+  .content {
+    @include flexbox($align-items: flex-start);
+  }
+
+  .top-block {
+    width: 100%;
+    @include flexbox($justify-content: flex-end);
+    margin-bottom: 40px;
+
+    h1 {
+      margin-right: auto;
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 36px;
+      color: white;
+    }
+  }
+
+  .plan-blocks {
+    width: 100%;
+    @include flexbox($justify-content: center, $align-items: stretch);
+  }
+
+  .plan-block {
+    width: calc(25% - 40px);
+    min-width: 280px;
+    background: linear-gradient(175deg, #4b466c, #1b2145);
+    @include flexbox($align-items: center, $flex-direction: column);
+    margin: 20px 10px;
+    padding: 30px 20px;
+    border-radius: 6px;
+    border: solid 2px transparent;
+    cursor: pointer;
+    position: relative;
+    @include borderGradient($colorA: #4b466c, $colorB: #1b2145);
+
+    &.selected {
+      @include borderGradient();
+    }
+
+    .name {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 28px;
+      color: white;
+      text-align: center;
+    }
+
+    .description {
+      margin-top: 100px;
+      font-size: 16px;
+      line-height: 24px;
+      color: white;
+    }
+
+    .mtr {
+      margin-top: 70px;
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 40px;
+      color: white;
+      text-align: center;
+    }
+
+    .mtr-text {
+      font-size: 16px;
+      line-height: 24px;
+      color: white;
+      text-align: center;
+    }
+
+    .action-btn {
+      min-width: 190px;
+      background: linear-gradient(175deg, #4b466c, #1b2145);
+      margin: 30px auto 0 auto;
+      padding: 5px 15px;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 26px;
+      color: white;
+    }
+
+    .signup-required {
+      margin-top: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+
+      a {
+        width: inherit;
+        display: block;
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+  }
+
+  @media screen and (max-width: 428px) {
+    .plan-block {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+}
