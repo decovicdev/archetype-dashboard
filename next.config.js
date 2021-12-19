@@ -10,7 +10,7 @@ module.exports = withPlugins([
   {
     webpack5: true,
     publicRuntimeConfig: {
-      URL: process.env.URL,
+      APP_URL: process.env.APP_URL,
       API_BASE_URL: process.env.API_BASE_URL,
       API_TIMEOUT: process.env.API_TIMEOUT,
 

@@ -2,6 +2,7 @@ import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 
 const config = {
+  app_url: publicRuntimeConfig.APP_URL,
   meta: {
     title: "Archetype",
     description: "",

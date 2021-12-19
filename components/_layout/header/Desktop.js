@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import Links from "./links";
 
-import UserService from "../../../services/user.service";
+import AccountService from "../../../services/account.service";
 
 import { AuthContext } from "../../../context/auth";
 import { HelperContext } from "../../../context/helper";
@@ -43,7 +43,7 @@ const Component = () => {
   }, []);
 
   const clickSignOut = useCallback(async () => {
-    await UserService.logout();
+    await AccountService.logout();
 
     showAlert("Logged out", true);
   }, [showAlert]);
@@ -52,7 +52,11 @@ const Component = () => {
     return (
       <div className="right-menu">
         {currentUser ? (
-          <button type={"button"} className="btn light-blue" onClick={clickSignOut}>
+          <button
+            type={"button"}
+            className="btn light-blue"
+            onClick={clickSignOut}
+          >
             Sign Out
           </button>
         ) : (
@@ -73,7 +77,7 @@ const Component = () => {
     <header ref={_header} className="desktop">
       <div className="content">
         <Link href="/">
-          <a className="logo-link">Archetype</a>
+          <a className="logo-link" />
         </Link>
         <div className="left-menu">
           <Links />

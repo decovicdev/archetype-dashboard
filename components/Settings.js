@@ -1,14 +1,14 @@
 import config from "./../config";
-import { useRef, useContext, useState, useEffect, useCallback } from "react";
+
+import { useContext, useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import classnames from "classnames";
 
 import Spinner from "./_common/Spinner";
-import Modal from "./_common/Modal";
 
 import Analytics from "./../helpers/analytics";
-import UserService from "./../services/user.service";
+import ApiService from "../services/api.service";
 
 import { AuthContext } from "../context/auth";
 import { HelperContext } from "../context/helper";
@@ -16,16 +16,21 @@ import { HelperContext } from "../context/helper";
 const Component = () => {
   const router = useRouter();
 
-  const _deleteAccount = useRef(null);
-
   const { currentUser } = useContext(AuthContext);
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
-  const [isDeleting, setDeleting] = useState(false);
   const [linkSent, setLinkSent] = useState(false);
-  const [apiKey, setApiKey] = useState("None");
-  const [plan, setPlan] = useState("Free");
+  const [apiKey, setApiKey] = useState(null);
+  const [plan, setPlan] = useState(null);
+
+  useEffect(() => {
+    async function fetch() {
+      const data = await ApiService.getCurrent();
+    }
+
+    fetch();
+  }, []);
 
   useEffect(() => {
     const { message, status } = router.query;
@@ -33,7 +38,7 @@ const Component = () => {
     if (message) {
       showAlert(message, status === "success");
 
-      router.replace("/profile");
+      router.replace("/settings");
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,38 +60,43 @@ const Component = () => {
 
       showAlert("Verification link sent, please check your mailbox", true);
 
-      setProgress(false);
       setLinkSent(true);
     } catch (e) {
       showAlert(e.message);
-
+    } finally {
       setProgress(false);
     }
   }, [currentUser, inProgress, showAlert]);
 
-  const clickDeleteAccount = useCallback(async () => {
+  const connectStripe = useCallback(async () => {
     try {
-      if (isDeleting) {
+      if (inProgress) {
         return;
       }
-      setDeleting(true);
+      setProgress(true);
 
-      await UserService.deleteAccount();
+      const response = await ApiService.stripeCheckout();
 
-      showAlert("Deleted Account", true);
+      if (!response.connect_url) {
+        throw new Error("Oops, could not get enough data to proceed");
+      }
+
+      const redirectUrl = `${config.app_url}settings`;
+
+      window.location.replace(
+        `${response.connect_url}?return_url=${redirectUrl}&refresh_url=${redirectUrl}`
+      );
     } catch (e) {
       showAlert(e.message);
-
-      setDeleting(false);
+    } finally {
+      setProgress(false);
     }
-  }, [isDeleting, showAlert]);
+  }, [inProgress, showAlert]);
 
   return (
     <>
       <Head>
         <title>Settings - {config.meta.title}</title>
-        <meta name="description" content={config.meta.description} />
-        <meta name="keywords" content={config.meta.keywords} />
       </Head>
       {inProgress && <Spinner />}
       <div className="page settings-page">
@@ -126,56 +136,17 @@ const Component = () => {
             </div>
           </div>
           <div className={"block-stripe"}>
-            <button type="button" className={"btn gradient-pink small"}>
+            <button
+              type="button"
+              className={"btn gradient-pink small"}
+              onClick={connectStripe}
+            >
               {" "}
               Connect your Stripe account
             </button>
           </div>
-          <div className={"block-delete-account"}>
-            <button
-              type="button"
-              className={"btn red small"}
-              onClick={() => {
-                if (_deleteAccount.current) {
-                  _deleteAccount.current.show();
-                }
-              }}
-            >
-              {" "}
-              Delete Account
-            </button>
-          </div>
         </div>
       </div>
-      <Modal ref={_deleteAccount} isBusy={isDeleting}>
-        <div className="data">
-          <h1>Delete Account</h1>
-          <p>
-            Are you sure you want to delete your account and lose access to all
-            of your data?
-          </p>
-        </div>
-        <div className="btns">
-          <button
-            type="button"
-            className="btn grey"
-            onClick={() => {
-              if (_deleteAccount.current) {
-                _deleteAccount.current.hide();
-              }
-            }}
-          >
-            No, Cancel
-          </button>
-          <button
-            type="button"
-            className="btn gradient-pink"
-            onClick={clickDeleteAccount}
-          >
-            Yes, Delete
-          </button>
-        </div>
-      </Modal>
     </>
   );
 };

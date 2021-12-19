@@ -44,7 +44,7 @@ const Component = ({ onClickItem }) => {
           })}
           onClick={onClickItem}
         >
-          Tiers
+          Products
         </a>
       </Link>
       <Link href="/users">

@@ -1,0 +1,93 @@
+.form {
+  @include flexbox($justify-content: space-between);
+
+  .group-fields {
+    width: 100%;
+    @include flexbox($justify-content: space-between);
+  }
+
+  .field {
+    width: 100%;
+    margin-top: 20px;
+
+    &.half {
+      width: 46%;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 21px;
+      color: #ffffff;
+
+      span {
+        color: $text-gray;
+      }
+    }
+
+    select,
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      min-height: 44px;
+      background-color: transparent;
+      margin-top: 5px;
+      padding: 9px 15px;
+      border-radius: 5px;
+      border: solid 1px $second-text;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 24px;
+      color: #ffffff;
+      transition: border 0.3s;
+
+      &:focus {
+        border: solid 1px white;
+      }
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus {
+        -webkit-text-fill-color: $black !important;
+        -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+        transition: background-color 5000s ease-in-out 0s;
+      }
+    }
+
+    select {
+      padding: 9px 0 9px 12px;
+    }
+
+    textarea {
+      resize: none;
+    }
+  }
+
+  .box {
+    width: 100%;
+    margin-top: 20px;
+    @include flexbox(
+      $justify-content: flex-start,
+      $align-items: center,
+      $flex-wrap: nowrap
+    );
+
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    span {
+      font-size: 14px;
+      line-height: 22px;
+      color: white;
+
+      a {
+        font-weight: 600;
+        color: white;
+      }
+    }
+  }
+}

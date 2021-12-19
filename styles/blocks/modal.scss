@@ -24,7 +24,7 @@
   .modal-content {
     width: calc(100% - 40px);
     max-width: 680px;
-    background: #fff;
+    background: $purple;
     padding: 60px 40px;
     border-radius: 4px;
     position: relative;
@@ -63,8 +63,9 @@
       h1 {
         margin-bottom: 15px;
         font-size: 22px;
+        font-weight: 500;
         line-height: 30px;
-        color: $black;
+        color: $pink;
       }
 
       h2 {

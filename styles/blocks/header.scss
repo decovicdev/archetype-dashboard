@@ -29,12 +29,13 @@ header {
       padding: 0 40px;
 
       .logo-link {
-        background: linear-gradient(180deg, #fdc043 0%, #e543e8 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 36px;
-        font-weight: 600;
-        line-height: 44px;
+        min-width: 173px;
+        width: 173px;
+        height: 36px;
+        display: block;
+        background-image: url("../../public/logo.svg");
+        background-position: center;
+        background-size: cover;
       }
 
       .left-menu {
@@ -74,14 +75,6 @@ header {
 
   &.mobile {
     .logo-link {
-      width: 50px;
-      height: 50px;
-      background-image: url("../../public/icons/icon.svg");
-      background-position: center;
-      background-size: cover;
-      position: absolute;
-      top: 35px;
-      left: 20px;
     }
 
     nav {

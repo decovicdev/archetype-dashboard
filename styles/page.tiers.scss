@@ -1,85 +1,109 @@
 .tiers-page {
-  .content {
-    @include flexbox($align-items: flex-start);
-  }
+  @include flexbox($align-items: flex-start);
 
-  .tiers-top-block {
+  .top-block {
     width: 100%;
     @include flexbox($justify-content: flex-end);
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+
+    h1 {
+      margin-right: auto;
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 36px;
+      color: white;
+    }
+
+    .filter-btn,
+    .add-product-btn {
+      background-size: cover;
+      background-position: center;
+      background-size: 18px 18px;
+      background-repeat: no-repeat;
+      background-position: 10px 50%;
+      margin-left: 15px;
+      padding: 6px 12px 6px 36px;
+      border: solid 1px white;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 26px;
+      color: white;
+    }
+
+    .filter-btn {
+      background-image: url("../public/icons/filter.svg");
+    }
+
+    .add-product-btn {
+      background-image: url("../public/icons/plus.svg");
+    }
+  }
+
+  .tiers-list-header {
+    width: 100%;
+    background: linear-gradient(175deg, #4b466c, #1b2145);
+    @include flexbox($justify-content: space-between, $align-items: center);
+    padding: 16px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+
+    .col {
+      width: calc(100% / 6);
+      font-size: 18px;
+      line-height: 26px;
+      color: white;
+    }
   }
 
   .tiers-list-data {
-    @include flexbox($justify-content: center, $align-items: stretch);
+    width: 100%;
 
-    .tiers-list-item {
-      width: calc(25% - 40px);
-      min-width: 260px;
-      background-color: #ffffff;
-      margin: 20px;
-      padding: 25px 25px 75px 25px;
-      border-radius: 5px;
-      border: 1px solid #ffffff;
-      box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
-      transition: all 0.3s;
+    .row {
+      @include flexbox($justify-content: space-between, $align-items: center);
+      margin-top: 12px;
+      padding: 23px 16px;
       position: relative;
 
-      &.active {
-        border: 1px solid $green;
-        transform: translateY(-15px);
-        box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
-      }
-
-      .top-content {
-        @include flexbox();
-
-        .name {
-          font-size: 16px;
-          line-height: 24px;
-          color: $black;
-        }
-
-        .delete-btn {
-          width: 18px;
-          height: 18px;
-          background-image: url("../public/icons/trash.svg");
-          background-size: cover;
-          background-position: center;
-        }
-      }
-
-      .bottom-content {
-        margin-top: 25px;
-
-        .price {
-          text-align: right;
-          font-size: 14px;
-          line-height: 22px;
-          color: $text-gray;
-        }
-
-        .quota {
-          font-size: 14px;
-          line-height: 22px;
-          color: $black;
-        }
-      }
-
-      .edit-btn {
-        width: 16px;
-        height: 16px;
-        display: block;
-        background-image: url("../public/icons/edit.svg");
-        background-size: cover;
-        background-position: center;
+      &:before {
+        width: 100%;
+        height: 1px;
+        background-color: #9ba8f6;
         position: absolute;
-        bottom: 25px;
-        right: 25px;
-        filter: grayscale(100);
+        top: -6px;
+        left: 0;
+        content: "";
+      }
 
-        &:hover {
-          filter: grayscale(0);
+      &:first-child {
+        margin-top: 6px;
+
+        &:before {
+          height: 0px;
         }
+      }
+
+      &:hover {
+        background: #1a2145;
+      }
+
+      .col {
+        width: calc(100% / 6);
+        font-size: 16px;
+        line-height: 24px;
+        color: white;
+      }
+
+      .dots {
+        width: 10px;
+        height: 16px;
+        background-image: url("../public/icons/dots.svg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        margin-top: -8px;
       }
     }
   }
