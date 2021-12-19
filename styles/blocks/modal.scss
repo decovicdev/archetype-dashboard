@@ -1,7 +1,6 @@
 .modal-layer {
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -23,10 +22,8 @@
 
   .modal-content {
     width: calc(100% - 40px);
-    max-width: 680px;
-    background: $purple;
-    padding: 60px 40px;
-    border-radius: 4px;
+    max-width: 450px;
+    border-radius: 6px;
     position: relative;
 
     .close-btn {
@@ -37,8 +34,8 @@
       background-image: url(../../public/icons/clear_x.svg);
       background-position: center;
       position: absolute;
-      top: 20px;
-      right: 20px;
+      top: 12px;
+      right: 12px;
     }
 
     .loading-bar {
@@ -59,24 +56,31 @@
       }
     }
 
-    .data {
-      h1 {
-        margin-bottom: 15px;
-        font-size: 22px;
-        font-weight: 500;
-        line-height: 30px;
-        color: $pink;
-      }
+    .tit {
+      background: $dark-blue;
+      padding: 8px 16px;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 26px;
+      color: white;
+    }
 
-      h2 {
-        margin-bottom: 10px;
-      }
+    .data {
+      background: $light-blue;
+      padding: 16px;
 
       p {
         margin-top: 15px;
-        font-size: 15px;
-        line-height: 23px;
-        color: $black;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        color: $black-blue;
+
+        span {
+          font-weight: 500;
+        }
       }
 
       ul,
@@ -96,12 +100,24 @@
     }
 
     .btns {
+      background: $light-blue;
       @include flexbox($justify-content: center);
-      margin-top: 30px;
+      padding: 16px;
 
       button {
-        margin-left: 10px;
-        margin-right: 10px;
+        padding: 5px 0;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 26px;
+        color: $black-blue;
+
+        &.half-width {
+          width: 50%;
+        }
+
+        &.action {
+          background: #e0e6ff;
+        }
       }
     }
   }

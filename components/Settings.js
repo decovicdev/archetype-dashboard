@@ -8,6 +8,7 @@ import classnames from "classnames";
 import Spinner from "./_common/Spinner";
 
 import Analytics from "./../helpers/analytics";
+import AccountService from "../services/account.service";
 import ApiService from "../services/api.service";
 
 import { AuthContext } from "../context/auth";
@@ -133,6 +134,17 @@ const Component = () => {
               <div>
                 StartUp plan: <b>{plan}</b>
               </div>
+            </div>
+            <div className="field">
+              <button
+                type={"button"}
+                className={"btn small light-blue"}
+                onClick={() => {
+                  AccountService.logout();
+                }}
+              >
+                Sign Out
+              </button>
             </div>
           </div>
           <div className={"block-stripe"}>

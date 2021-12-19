@@ -37,6 +37,7 @@ class Modal extends Component {
         })}
       >
         <div className="modal-content">
+          {this.props.title && <div className={"tit"}>{this.props.title}</div>}
           {this.props.children}
           {!this.props.alwaysVisible && (
             <button type="button" className="close-btn" onClick={this.hide} />
