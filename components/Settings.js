@@ -10,7 +10,7 @@ import Spinner from "./_common/Spinner";
 import Modal from "./_common/Modal";
 
 import Analytics from "./../helpers/analytics";
-import UserService from "./../services/user.service";
+import ApiService from "./../services/api.service";
 
 import { AuthContext } from "../context/auth";
 import { HelperContext } from "../context/helper";
@@ -85,9 +85,7 @@ const Component = () => {
       }
       setDeleting(true);
 
-      await UserService.deleteAccount();
-
-      showAlert("Deleted Account", true);
+      sshowAlert("Not implemented");
     } catch (e) {
       showAlert(e.message);
 

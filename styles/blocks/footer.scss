@@ -1,3 +1,82 @@
+footer {
+  width: 100%;
+  background: $dark-blue;
+
+  .content {
+    width: 100%;
+    max-width: 1280px;
+    @include flexbox();
+    padding: 0 40px;
+  }
+
+  .top-block {
+    width: 100%;
+    @include flexbox($justify-content: center);
+    padding: 45px 0 65px 0;
+
+    .logo-link {
+      min-width: 173px;
+      width: 173px;
+      height: 36px;
+      display: block;
+      background-image: url("../../public/logo.svg");
+      background-position: center;
+      background-size: cover;
+    }
+
+    .nav-links {
+      a {
+        margin: 0 20px;
+        padding-bottom: 2px;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 26px;
+        color: #ffffff;
+        transition: color 0.3s;
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &.active,
+        &:hover {
+          border-bottom: solid 1px white;
+        }
+      }
+    }
+
+    .socials {
+      .twitter {
+        width: 36px;
+        height: 36px;
+        display: block;
+        background-image: url("../../public/icons/twitter.svg");
+        background-position: center;
+        background-size: 20px 20px;
+        background-color: $light-blue;
+        background-repeat: no-repeat;
+        border-radius: 18px;
+        text-indent: -9999px;
+      }
+    }
+  }
+
+  .bottom-block {
+    width: 100%;
+    @include flexbox($justify-content: center);
+    padding: 10px 0;
+    border-top: 1px solid #eff2ff;
+
+    .copyright {
+      width: 100%;
+      font-size: 16px;
+      line-height: 24px;
+      color: white;
+      text-align: right;
+    }
+  }
+}
+
 .bottom-panel {
   width: 100%;
   background: #ffffff;

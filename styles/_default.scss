@@ -66,6 +66,8 @@ textarea {
   margin: 0;
   padding: 0;
   font-size: 100%;
+  font-family: "Montserrat", "Segoe UI", "Roboto", "Oxygen";
+  font-weight: 400;
   outline: none;
   border: 0;
   box-sizing: border-box;
@@ -93,7 +95,7 @@ section {
 }
 html,
 body {
-  background-color: $purple;
+  background: $purple;
   margin: 0;
   padding: 0;
   font-family: "Montserrat", "Segoe UI", "Roboto", "Oxygen";
