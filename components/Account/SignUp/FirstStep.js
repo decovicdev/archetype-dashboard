@@ -1,29 +1,18 @@
 import config from "../../../config";
-import React, {
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-} from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import OpraAgreement from "./OpraAgreement";
 import Spinner from "../../_common/Spinner";
 
-import UserService from "../../../services/user.service.js";
+import AccountService from "../../../services/account.service.js";
 
 import { AuthContext } from "../../../context/auth";
 import { HelperContext } from "../../../context/helper";
 
-let agreedOpra = false;
-
 const Component = () => {
   const router = useRouter();
-
-  const _opraAgreement = useRef(null);
 
   const { currentUser } = useContext(AuthContext);
   const { authEmail, setAuthEmail, authPassword, setAuthPassword, showAlert } =
@@ -36,7 +25,7 @@ const Component = () => {
 
   useEffect(() => {
     if (currentUser) {
-      router.push("/settings/create-api");
+      router.push("/settings");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -64,13 +53,10 @@ const Component = () => {
       if (!agreedTerms) {
         return showAlert("Did you read our Terms and Privacy Policy?");
       }
-      if (!agreedOpra) {
-        return _opraAgreement.current.show();
-      }
 
       setProgress(true);
 
-      await UserService.signUp(authEmail, authPassword, fullName);
+      await AccountService.signUp(authEmail, authPassword, fullName);
 
       showAlert(
         "We have sent a confirmation email to verify your account",
@@ -80,10 +66,10 @@ const Component = () => {
       setAuthEmail("");
       setAuthPassword("");
 
-      router.push("/account/signup/create-api");
+      router.push("/account/signup/next");
     } catch (e) {
       showAlert(e.message);
-
+    } finally {
       setProgress(false);
     }
   }, [
@@ -94,7 +80,6 @@ const Component = () => {
     showAlert,
     inProgress,
     agreedTerms,
-    agreedOpra,
     fullName,
     confirmPassword,
   ]);
@@ -206,15 +191,6 @@ const Component = () => {
           </div>
         </div>
       </div>
-      <OpraAgreement
-        ref={_opraAgreement}
-        fullName={fullName}
-        clickAgree={() => {
-          agreedOpra = true;
-
-          submitForm();
-        }}
-      />
     </>
   );
 };

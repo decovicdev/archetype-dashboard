@@ -3,6 +3,20 @@
 
   .content {
     @include flexbox($justify-content: center, $align-items: stretch);
+    position: relative;
+
+    &:before {
+      width: 100%;
+      height: 400px;
+      background-image: url("../public/images/landing/illustration_numbers.svg");
+      background-repeat: no-repeat;
+      background-position: top 0 left 0;
+      background-size: auto 400px;
+      position: absolute;
+      top: 0;
+      left: -100px;
+      content: "";
+    }
   }
 
   .block {

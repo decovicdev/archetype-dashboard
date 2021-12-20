@@ -1,6 +1,5 @@
 header {
   width: 100%;
-  background: $purple;
   display: flex;
   justify-content: center;
   position: absolute;
@@ -12,6 +11,7 @@ header {
     padding: 20px 0;
 
     &.floating {
+      background: $purple;
       padding: 20px 0;
       position: fixed;
       box-shadow: rgb(0 0 0 / 10%) 0px 8px 16px, rgb(0 0 0 / 10%) 0px -1px 0px;
