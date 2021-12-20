@@ -7,10 +7,10 @@ import Link from "next/link";
 
 import { HelperContext } from "../../context/helper";
 
-const Square = ({ reversed }) => {
+const Square = ({ reversed, children }) => {
   return (
     <div className={classnames("square", { "on-the-right": reversed })}>
-      <div className={"inner-square"} />
+      <div className={"inner-square"}>{children}</div>
       <div className={"circ1"} />
       <div className={"circ2"} />
       <div className={"circ3"} />
@@ -46,12 +46,12 @@ const Component = () => {
               </Link>
             </div>
           </div>
-          <div className={"right-side"}></div>
         </div>
       </div>
       <div className={"block code-example-block"}>
         <div className={"content"}>
           <div className={"block-data"}>
+            <div className={"sphere"} />
             <div className={"left-side"}>
               <h2>
                 Deploy your <span className={"yellow"}>API</span> in a couple of
@@ -78,7 +78,9 @@ const Component = () => {
       </div>
       <div className={"block info-block"}>
         <div className={"content"}>
-          <Square />
+          <Square>
+            <div className={"info-icon creation"} />
+          </Square>
           <div className={"left-side"}></div>
           <div className={"right-side"}>
             <h3>Creation</h3>
@@ -92,7 +94,9 @@ const Component = () => {
       </div>
       <div className={"block info-block"}>
         <div className={"content"}>
-          <Square reversed />
+          <Square reversed>
+            <div className={"info-icon monetization"} />
+          </Square>
           <div className={"left-side"}>
             <h3>Monetization</h3>
             <p>
@@ -106,7 +110,9 @@ const Component = () => {
       </div>
       <div className={"block info-block"}>
         <div className={"content"}>
-          <Square />
+          <Square>
+            <div className={"info-icon management"} />
+          </Square>
           <div className={"left-side"}></div>
           <div className={"right-side"}>
             <h3>Management</h3>
