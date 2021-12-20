@@ -48,6 +48,7 @@ const Component = () => {
           }}
         >
           <div className="name">{item.name}</div>
+          <div className={classnames("icon", `puzzle-${i}`)} />
           <div className="description">{item.description}</div>
           {!item.mtr && !item.mtrText ? (
             <div className={"contact"}>

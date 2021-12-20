@@ -28,6 +28,10 @@ const Component = () => {
   useEffect(() => {
     async function fetch() {
       const data = await ApiService.getCurrent();
+
+      if (data?.public_key) {
+        setApiKey(data.public_key);
+      }
     }
 
     fetch();
