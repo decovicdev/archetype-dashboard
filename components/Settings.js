@@ -10,7 +10,7 @@ import Spinner from "./_common/Spinner";
 import Modal from "./_common/Modal";
 
 import Analytics from "./../helpers/analytics";
-import UserService from "./../services/user.service";
+import ApiService from "./../services/api.service";
 
 import { AuthContext } from "../context/auth";
 import { HelperContext } from "../context/helper";
@@ -26,8 +26,20 @@ const Component = () => {
   const [inProgress, setProgress] = useState(false);
   const [isDeleting, setDeleting] = useState(false);
   const [linkSent, setLinkSent] = useState(false);
-  const [apiKey, setApiKey] = useState("None");
-  const [plan, setPlan] = useState("Free");
+  const [apiKey, setApiKey] = useState(null);
+  const [plan, setPlan] = useState(null);
+
+  useEffect(() => {
+    async function fetch() {
+      const data = await ApiService.getCurrent();
+
+      if (data?.public_key) {
+        setApiKey(data.public_key);
+      }
+    }
+
+    fetch();
+  }, []);
 
   useEffect(() => {
     const { message, status } = router.query;
@@ -73,9 +85,7 @@ const Component = () => {
       }
       setDeleting(true);
 
-      await UserService.deleteAccount();
-
-      showAlert("Deleted Account", true);
+      sshowAlert("Not implemented");
     } catch (e) {
       showAlert(e.message);
 

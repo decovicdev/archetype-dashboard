@@ -44,7 +44,7 @@ const Component = ({ onClickItem }) => {
           })}
           onClick={onClickItem}
         >
-          Tiers
+          Products
         </a>
       </Link>
       <Link href="/users">
@@ -55,16 +55,6 @@ const Component = ({ onClickItem }) => {
           onClick={onClickItem}
         >
           Users
-        </a>
-      </Link>
-      <Link href="/settings">
-        <a
-          className={classnames({
-            active: router.pathname === "/settings",
-          })}
-          onClick={onClickItem}
-        >
-          Settings
         </a>
       </Link>
     </>

@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import PrivateRoute from "../../components/_common/PrivateRoute";
 import Spinner from "../../components/_common/Spinner";
-import Tiers from "../../components/Tiers";
+import AddTier from "../../components/Tiers/Add";
 
 import { AuthContext } from "../../context/auth";
 
@@ -19,7 +19,7 @@ const Component = () => {
 
   return (
     <PrivateRoute>
-      <Tiers />
+      <AddTier />
     </PrivateRoute>
   );
 };
