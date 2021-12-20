@@ -1,93 +1,53 @@
 .form {
-  @include flexbox($justify-content: space-between);
-
-  .group-fields {
-    width: 100%;
-    @include flexbox($justify-content: space-between);
-  }
+  width: 100%;
 
   .field {
-    width: 100%;
-    margin-top: 20px;
+    margin-top: 15px;
 
-    &.half {
-      width: 46%;
+    &:first-child {
+      margin-top: 0;
     }
 
     label {
       font-size: 13px;
       font-weight: 500;
       line-height: 21px;
-      color: #ffffff;
 
       span {
         color: $text-gray;
       }
     }
 
-    select,
     input[type="text"],
     input[type="email"],
     input[type="password"],
     input[type="number"],
-    textarea {
-      width: 100%;
-      min-height: 44px;
-      background-color: transparent;
+    input[type="date"],
+    select {
+      width: 340px;
       margin-top: 5px;
       padding: 9px 15px;
-      border-radius: 5px;
-      border: solid 1px $second-text;
+      border-radius: 7px;
+      border: solid 1px #ffffff;
+      color: #ffffff;
       font-size: 16px;
       font-weight: 300;
       line-height: 24px;
-      color: #ffffff;
       transition: border 0.3s;
+      background-color: transparent;
 
       &:focus {
-        border: solid 1px white;
+        border: solid 1px rgba(0, 0, 0, 0.2);
       }
 
-      &:-webkit-autofill,
-      &:-webkit-autofill:hover,
-      &:-webkit-autofill:focus {
-        -webkit-text-fill-color: $black !important;
-        -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
-        transition: background-color 5000s ease-in-out 0s;
+      &:disabled {
+        opacity: 0.7;
       }
     }
 
-    select {
-      padding: 9px 0 9px 12px;
-    }
-
-    textarea {
-      resize: none;
-    }
-  }
-
-  .box {
-    width: 100%;
-    margin-top: 20px;
-    @include flexbox(
-      $justify-content: flex-start,
-      $align-items: center,
-      $flex-wrap: nowrap
-    );
-
-    input[type="checkbox"] {
-      margin-right: 10px;
-    }
-
-    span {
-      font-size: 14px;
-      line-height: 22px;
-      color: white;
-
-      a {
-        font-weight: 600;
-        color: white;
-      }
+    option {
+      background-color: #1a2145;
+      color: #ffffff;
     }
   }
 }

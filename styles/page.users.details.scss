@@ -1,0 +1,59 @@
+.users-details-page {
+  .header {
+    @include flexbox();
+    h1 {
+      color: #ffffff;
+    }
+  }
+  .btns {
+    @include flexbox($justify-content: flex-end);
+    margin-top: 20px;
+    gap: 10px;
+  }
+
+  .copy-input {
+    background-image: url("../public/icons/delete.svg");
+    background-repeat: no-repeat;
+    background-size: 22px 22px;
+    background-position: calc(100% - 10px) 50%;
+    padding-right: 30px !important;
+  }
+
+  .react-select__control {
+    width: 340px;
+    background-color: transparent;
+    border: 1px solid;
+    border-radius: 7px;
+    color: #ffffff;
+    padding: 0px 5px;
+  }
+
+  .react-select__single-value {
+    color: #ffffff;
+  }
+
+  .react-select__menu {
+    width: 340px;
+    background-color: #1a2145;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+  }
+
+  .react-select__option {
+    border-radius: 4px;
+    &--is-selected {
+      background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0) 100%
+        ),
+        rgba(255, 255, 255, 0.09);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+  }
+
+  @media screen and (max-width: 428px) {
+  }
+}

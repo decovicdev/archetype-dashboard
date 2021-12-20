@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import Links from "./links";
 
-import AccountService from "../../../services/account.service";
+import UserService from "../../../services/user.service";
 
 import { AuthContext } from "../../../context/auth";
 import { HelperContext } from "../../../context/helper";
@@ -25,7 +25,7 @@ const Component = () => {
       document.body.scrollTop ||
       0;
 
-    _header.current.className = top > 0 ? "desktop floating" : "desktop";
+    _header.current.className = top > 20 ? "desktop floating" : "desktop";
   }, [_header]);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const Component = () => {
   }, []);
 
   const clickSignOut = useCallback(async () => {
-    await AccountService.logout();
+    await UserService.logout();
 
     showAlert("Logged out", true);
   }, [showAlert]);
@@ -52,20 +52,16 @@ const Component = () => {
     return (
       <div className="right-menu">
         {currentUser ? (
-          <div className={"profile-block"}>
-            <div className={"avatar"} />
-            <Link href="/settings">
-              <a className={"name"}>{currentUser.displayName}</a>
-            </Link>
-          </div>
+          <button type={"button"} className="btn light-blue" onClick={clickSignOut}>
+            Sign Out
+          </button>
         ) : (
           <>
             <Link href="/account/signup">
-              <a>Sign Up</a>
+              <a className="btn gradient-pink">Sign Up</a>
             </Link>
-            <span>|</span>
             <Link href="/account/login">
-              <a>Login</a>
+              <a className="btn light-blue">Login</a>
             </Link>
           </>
         )}
@@ -77,7 +73,7 @@ const Component = () => {
     <header ref={_header} className="desktop">
       <div className="content">
         <Link href="/">
-          <a className="logo-link" />
+          <a className="logo-link">Archetype</a>
         </Link>
         <div className="left-menu">
           <Links />

@@ -86,7 +86,7 @@
   box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.05);
   font-size: 16px;
   line-height: 24px;
-  color: #ffffff;
+  color: $red;
   text-align: center;
   position: fixed;
   top: -100px;
@@ -205,4 +205,20 @@
       }
     }
   }
+}
+
+.prev-arrow {
+  border: solid #eff2ff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(135deg);
+  padding: 3px;
+  margin-left: 5px;
+}
+
+.next-arrow {
+  border: solid #eff2ff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(-45deg);
+  padding: 3px;
+  margin-right: 4px;
 }

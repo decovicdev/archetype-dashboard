@@ -1,97 +1,150 @@
+import { useRef } from "react";
 import config from "../../config";
 
-import { useRef, useState, useEffect, useCallback, useContext } from "react";
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 
-import Spinner from "../_common/Spinner";
-import Modal from "../_common/Modal";
+import MenuIcon from "../../public/icons/menu.svg";
+import FilterIcon from "../../public/icons/filter.svg";
+import ListViewIcon from "../../public/icons/list-view.svg";
+import CardViewIcon from "../../public/icons/card-view.svg";
 
-import UserService from "../../services/user.service";
+import EditIcon from "../_icons/EditIcon";
+import DeleteIcon from "../_icons/DeleteIcon";
+import Dropdown from "../_common/Dropdown";
 
-import { HelperContext } from "../../context/helper";
+import DeleteModal from "./DeleteModal";
 
-const Component = () => {
-  const _addUser = useRef();
-
-  const { showAlert } = useContext(HelperContext);
-
-  const [inProgress, setProgress] = useState(false);
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    async function fetch() {
-      try {
-        setProgress(true);
-
-        const response = await UserService.getList();
-        setData(response);
-      } catch (e) {
-        showAlert(e.message);
-      } finally {
-        setProgress(false);
-      }
-    }
-
-    fetch();
-  }, []);
-
-  const renderContent = useCallback(() => {
-    if (!data.length) {
-      return <div>No users added yet.</div>;
-    }
-
-    return data.map((item, i) => {
-      return (
-        <div key={i} className={"users-list-item"}>
-          User
-        </div>
-      );
-    });
-  }, [data]);
-
+const Users = ({ data }) => {
+  const _deleteModal = useRef(null);
   return (
     <div className="page users-page">
       <Head>
         <title>Users - {config.meta.title}</title>
       </Head>
-      {inProgress && <Spinner />}
       <div className={"content"}>
-        <div className={"top-block"}>
-          <button
-            type={"button"}
-            className={"btn gradient-pink"}
-            onClick={() => {
-              if (_addUser.current) {
-                _addUser.current.show();
-              }
-            }}
-          >
-            Add new user
+        <div className="header">
+          <h1>Customers</h1>
+          <input
+            className="searchInput"
+            type="text"
+            placeholder="Find customer"
+          />
+
+          <button className="btn filter-btn">
+            <Image src={FilterIcon} width={17} height={17} />
+            Filter
           </button>
+
+          <div className="btn-group">
+            <button className="btn">
+              <Image src={CardViewIcon} width={15} height={15} />
+            </button>
+            <button className="btn active">
+              <Image src={ListViewIcon} width={15} height={15} />
+            </button>
+          </div>
         </div>
-        {renderContent()}
+        <div className="cards">
+          <div className="card">
+            <span>Total customers</span>
+            <span>10</span>
+          </div>
+          <div className="card">
+            <span>Active trials</span>
+            <span>2</span>
+          </div>
+          <div className="card">
+            <span>Active subscriptions</span>
+            <span>8</span>
+          </div>
+          <div className="card">
+            <span>Total revenue</span>
+            <span>$590</span>
+          </div>
+        </div>
+        <div className="list">
+          <table>
+            <tr>
+              <th>Customers</th>
+              <th>API Key</th>
+              <th>Tier</th>
+              <th>Last seen date</th>
+              <th>Status</th>
+              <th>Spent</th>
+              <th>% of quota</th>
+              <th></th>
+            </tr>
+            {data.map((customer) => {
+              const lastSeenDate = new Date(customer.last_seen * 1000);
+              const [month, day, year] = [
+                lastSeenDate.getMonth(),
+                lastSeenDate.getDate(),
+                lastSeenDate.getFullYear(),
+              ];
+
+              return (
+                <tr key={customer.uid}>
+                  <td>ID: {customer.uid}</td>
+                  <td>{customer.apikey}</td>
+                  <td>
+                    {customer.tier ? (
+                      <Link href={`tiers/${customer.tier_id}`}>
+                        {customer.tier_id}
+                      </Link>
+                    ) : (
+                      "--"
+                    )}
+                  </td>
+                  <td>{`${day}/${month + 1}/${year}`}</td>
+                  <td>{customer.status}</td>
+                  {/* spent value not provided */}
+                  <td>$0</td>
+                  {/* percent value not provided */}
+                  <td>{customer.quota}%</td>
+                  <td>
+                    <Dropdown
+                      title={<Image src={MenuIcon} width={3} height={18} />}
+                    >
+                      <Link href={`users/${customer.id}`}>
+                        <a className="dropdownLink">
+                          <EditIcon fill="#ffffff" />
+                          Edit a customer
+                        </a>
+                      </Link>
+                      <a
+                        className="dropdownLink"
+                        onClick={() => {
+                          if (_deleteModal.current) {
+                            _deleteModal.current.show();
+                          }
+                        }}
+                      >
+                        <DeleteIcon fill="#ffffff" />
+                        Delete a customer
+                      </a>
+                    </Dropdown>
+                  </td>
+                </tr>
+              );
+            })}
+          </table>
+          <div className="paging">
+            <a className="pageIcon active">1</a>
+            <a className="pageIcon">2</a>
+            <a className="pageIcon">3</a>
+            <a className="pageIcon">4</a>
+            <a className="pageIcon">5</a>
+            <a className="pageIcon">
+              <i className="next-arrow"></i>
+            </a>
+          </div>
+        </div>
       </div>
-      <Modal ref={_addUser}>
-        <div className={"data"}>
-          <h1>Add new user</h1>
-        </div>
-        <div className={"btns"}>
-          <button
-            type={"button"}
-            className={"btn light-blue"}
-            onClick={() => {
-              if (_addUser.current) {
-                _addUser.current.hide();
-              }
-            }}
-          >
-            Close
-          </button>
-        </div>
-      </Modal>
+      <DeleteModal modalRef={_deleteModal} />
     </div>
   );
 };
 
-export default Component;
+export default Users;

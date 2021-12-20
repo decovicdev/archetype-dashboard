@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 import Spinner from "../_common/Spinner";
 
-import AccountService from "../../services/account.service.js";
+import UserService from "../../services/user.service.js";
 
 import { AuthContext } from "../../context/auth";
 import { HelperContext } from "../../context/helper";
@@ -44,7 +44,7 @@ const Component = () => {
         }
         setProgress(true);
 
-        await AccountService.login(authEmail, authPassword);
+        await UserService.login(authEmail, authPassword);
 
         showAlert("Successfuly logged in", true);
 
