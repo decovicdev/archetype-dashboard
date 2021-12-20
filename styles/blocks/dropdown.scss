@@ -10,6 +10,7 @@
       ),
       rgba(255, 255, 255, 0.09);
     background-color: #1a2145;
+    margin-top: 10px;
     padding: 10px;
     border-radius: 6px;
     right: 0;
@@ -17,7 +18,7 @@
     z-index: 10;
   }
   &Btn {
-    padding: 7px 10px;
+    padding: 6px;
     border: 1px solid transparent;
     display: flex;
     justify-content: center;

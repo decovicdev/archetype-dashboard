@@ -140,7 +140,7 @@ const Component = () => {
           <button className="btn border-white">Cancel</button>
         </div>
       </div>
-      <DeleteModal modalRef={_deleteModal} />
+      <DeleteModal ref={_deleteModal} />
     </div>
   );
 };

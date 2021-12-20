@@ -16,4 +16,8 @@ export default class TierService {
   static async updateById(id, params) {
     return await http.put(`tier/${id}`, params);
   }
+
+  static async deleteById(id) {
+    return await http.delete(`tier/${id}`);
+  }
 }

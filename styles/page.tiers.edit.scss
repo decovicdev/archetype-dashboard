@@ -80,10 +80,6 @@
         }
       }
     }
-
-    .btns {
-      width: 100%;
-    }
   }
 
   .some-space {
@@ -112,6 +108,11 @@
   .btns {
     @include flexbox($justify-content: flex-end);
     margin-top: 30px;
+
+    a,
+    button {
+      margin-left: 15px;
+    }
   }
 
   @media screen and (max-width: 767px) {
