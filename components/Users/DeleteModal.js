@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 
 import Modal from "../_common/Modal";
 
-const Component = ({ modalRef }) => {
+const Component = forwardRef(({}, ref) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const clickDeleteAccount = () => {};
 
   return (
     <div className="delete-user-modal">
-      <Modal ref={modalRef} isBusy={isDeleting}>
+      <Modal ref={ref} isBusy={isDeleting}>
         <div className="data">
           <h1>Delete a customer?</h1>
           <div className="body">
@@ -54,8 +54,8 @@ const Component = ({ modalRef }) => {
             type="button"
             className="btn grey"
             onClick={() => {
-              if (modalRef.current) {
-                modalRef.current.hide();
+              if (ref.current) {
+                ref.current.hide();
               }
             }}
           >
@@ -65,6 +65,6 @@ const Component = ({ modalRef }) => {
       </Modal>
     </div>
   );
-};
+});
 
 export default Component;

@@ -278,7 +278,7 @@ const Component = () => {
         <div className={"btns"}>
           <button
             type={"button"}
-            className={"btn light-blue"}
+            className={"btn gradient-blue"}
             onClick={() => {
               _saveProduct.current?.show();
             }}
@@ -286,7 +286,7 @@ const Component = () => {
             Save
           </button>
           <Link href={`/tiers/${router.query.tierId}`}>
-            <a className={"btn clean-white"}>Cancel</a>
+            <a className={"btn purple-w-border"}>Cancel</a>
           </Link>
         </div>
       </>

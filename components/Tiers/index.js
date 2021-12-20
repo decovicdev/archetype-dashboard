@@ -1,20 +1,25 @@
 import config from "../../config";
 
-import { useState, useEffect, useCallback, useContext } from "react";
+import { useRef, useState, useEffect, useCallback, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
 import Spinner from "../_common/Spinner";
+import Dropdown from "../_common/Dropdown";
+import DeleteModal from "./DeleteModal";
 
 import TierService from "../../services/tier.service";
 
 import { HelperContext } from "../../context/helper";
 
 const Component = () => {
+  const _deleteProduct = useRef(null);
+
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
   const [data, setData] = useState([]);
+  const [selectedTier, setSelectedTier] = useState(null);
 
   useEffect(() => {
     async function fetch() {
@@ -61,35 +66,55 @@ const Component = () => {
                 <div className={"col"}>{item.trial_length}</div>
                 <div className={"col"}>{item.trial_time_frame}</div>
                 <div className={"col"}>{item.users.length} users</div>
-                <div className={"col"}>{item.quota}/day</div>
-                <button type={"button"} className={"dots"} />
+                <div className={"col"}>
+                  <div>{item.quota}/day</div>
+                  <Dropdown title={<div className={"dots"} />}>
+                    <Link href={`/tiers/edit/${item.tier_id}`}>
+                      <a className={"edit-btn"}>Edit a product</a>
+                    </Link>
+                    <button
+                      type={"button"}
+                      className={"delete-btn"}
+                      onClick={() => {
+                        setSelectedTier(item.tier_id);
+
+                        _deleteProduct.current?.show();
+                      }}
+                    >
+                      Delete a product
+                    </button>
+                  </Dropdown>
+                </div>
               </div>
             );
           })}
         </div>
       </>
     );
-  }, [data]);
+  }, [_deleteProduct, data]);
 
   return (
-    <div className="page tiers-page">
-      <Head>
-        <title>Products - {config.meta.title}</title>
-      </Head>
-      {inProgress && <Spinner />}
-      <div className={"content"}>
-        <div className={"top-block"}>
-          <h1>List products</h1>
-          <button type={"button"} className={"filter-btn"}>
-            Filter
-          </button>
-          <Link href={"/tiers/add"}>
-            <a className={"add-product-btn"}>Add product</a>
-          </Link>
+    <>
+      <div className="page tiers-page">
+        <Head>
+          <title>Products - {config.meta.title}</title>
+        </Head>
+        {inProgress && <Spinner />}
+        <div className={"content"}>
+          <div className={"top-block"}>
+            <h1>List products</h1>
+            <button type={"button"} className={"filter-btn"}>
+              Filter
+            </button>
+            <Link href={"/tiers/add"}>
+              <a className={"add-product-btn"}>Add product</a>
+            </Link>
+          </div>
+          {renderContent()}
         </div>
-        {renderContent()}
       </div>
-    </div>
+      <DeleteModal ref={_deleteProduct} id={selectedTier} />
+    </>
   );
 };
 

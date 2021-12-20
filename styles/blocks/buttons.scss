@@ -1,6 +1,8 @@
 .btn {
+  min-width: 130px;
   padding: 8px 20px;
-  border-radius: 10px;
+  box-sizing: border-box;
+  border-radius: 6px;
   font-size: 18px;
   font-weight: 500;
   line-height: 26px;
@@ -22,6 +24,17 @@
   &.light-blue {
     background: $light-blue;
     color: $pink;
+  }
+
+  &.gradient-blue {
+    background: linear-gradient(175deg, #4b466c, #1b2145);
+    color: #ffffff;
+  }
+
+  &.purple-w-border {
+    background: $purple;
+    box-shadow: inset 0px 0px 1px 1px $light-blue;
+    color: #ffffff;
   }
 
   &.gradient-pink {
