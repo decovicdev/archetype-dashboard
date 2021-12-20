@@ -21,7 +21,7 @@ import data from "./data.json";
 import Spinner from "../_common/Spinner";
 
 import Analytics from "../../helpers/analytics";
-import UserService from "../../services/user.service";
+import AccountService from "../../services/account.service";
 
 import { HelperContext } from "../../context/helper";
 

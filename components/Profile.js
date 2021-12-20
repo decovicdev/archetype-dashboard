@@ -1,4 +1,4 @@
-import { useRef, useContext, useState, useEffect, useCallback } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -8,10 +8,8 @@ import AccountUnverifiedIcon from "../public/icons/account-unverified.svg";
 import EditIcon from "./_icons/EditIcon";
 
 import Spinner from "./_common/Spinner";
-import Modal from "./_common/Modal";
 
 import Analytics from "./../helpers/analytics";
-import UserService from "./../services/user.service";
 
 import { AuthContext } from "../context/auth";
 import { HelperContext } from "../context/helper";
