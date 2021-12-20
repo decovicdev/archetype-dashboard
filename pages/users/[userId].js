@@ -10,11 +10,7 @@ const Component = () => {
   const { authPending } = useContext(AuthContext);
 
   if (authPending) {
-    return (
-      <div className="page">
-        <Spinner />
-      </div>
-    );
+    return <Spinner />;
   }
 
   return (

@@ -1,6 +1,7 @@
 header {
   width: 100%;
-  background: $purple;
+  background-color: $purple;
+  background: linear-gradient(175deg, #4b466c, #1b2145);
   display: flex;
   justify-content: center;
   position: absolute;
@@ -14,24 +15,26 @@ header {
     &.floating {
       padding: 20px 0;
       position: fixed;
-      box-shadow: rgb(0 0 0 / 10%) 0px 8px 16px, rgb(0 0 0 / 10%) 0px -1px 0px;
+      box-shadow: rgb(25 28 31 / 4%) 0px 8px 16px,
+        rgb(25 28 31 / 4%) 0px -1px 0px;
     }
 
     .content {
       width: 100%;
       max-width: 1280px;
       height: 44px;
-      @include flexbox($justify-content: space-between, $align-items: center);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding: 0 40px;
 
       .logo-link {
-        min-width: 173px;
-        width: 173px;
-        height: 36px;
-        display: block;
-        background-image: url("../../public/logo.svg");
-        background-position: center;
-        background-size: cover;
+        background: linear-gradient(180deg, #fdc043 0%, #e543e8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 36px;
+        font-weight: 600;
+        line-height: 44px;
       }
 
       .left-menu {
@@ -39,11 +42,10 @@ header {
         margin-right: auto;
 
         a {
-          margin: 0 20px;
-          padding-bottom: 2px;
-          font-size: 18px;
+          margin-left: 55px;
+          font-size: 16px;
           font-weight: 500;
-          line-height: 26px;
+          line-height: 24px;
           color: #ffffff;
           transition: color 0.3s;
 
@@ -53,45 +55,18 @@ header {
 
           &.active,
           &:hover {
-            border-bottom: solid 1px white;
+            color: $pink;
           }
         }
       }
 
       .right-menu {
-        @include flexbox($justify-content: center, $align-items: center);
+        display: flex;
+        align-items: center;
 
         a,
         button {
-          margin: 0 15px;
-          font-size: 18px;
-          font-weight: 500;
-          line-height: 26px;
-          color: white;
-        }
-
-        .profile-block {
-          @include flexbox($justify-content: flex-end, $align-items: center);
-
-          .avatar {
-            width: 36px;
-            height: 36px;
-            display: block;
-            background-image: url("../../public/icons/user.svg");
-            background-position: center;
-            background-size: 20px 20px;
-            background-color: $light-blue;
-            background-repeat: no-repeat;
-            border-radius: 18px;
-          }
-
-          .name {
-            margin: 0 0 0 10px;
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 24px;
-            color: white;
-          }
+          margin-left: 15px;
         }
       }
     }
@@ -99,6 +74,14 @@ header {
 
   &.mobile {
     .logo-link {
+      width: 50px;
+      height: 50px;
+      background-image: url("../../public/icons/icon.svg");
+      background-position: center;
+      background-size: cover;
+      position: absolute;
+      top: 35px;
+      left: 20px;
     }
 
     nav {

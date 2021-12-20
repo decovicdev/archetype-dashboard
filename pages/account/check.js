@@ -17,11 +17,7 @@ const Component = () => {
   }, [router.isReady]);
 
   if (!isReady) {
-    return (
-      <div className="page">
-        <Spinner />
-      </div>
-    );
+    return <Spinner />;
   }
 
   return <Check />;

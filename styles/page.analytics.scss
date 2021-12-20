@@ -1,0 +1,34 @@
+.analytics-page {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    color: #ffffff;
+    h1 {
+      color: inherit;
+    }
+    margin-bottom: 25px;
+  }
+  .chart {
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0) 100%
+      ),
+      rgba(255, 255, 255, 0.09);
+    border-radius: 10px;
+  }
+  .row {
+    display: flex;
+    gap: 20px;
+    margin-block: 20px;
+    & > * {
+      flex: 10;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+  }
+
+  @media screen and (max-width: 428px) {
+  }
+}

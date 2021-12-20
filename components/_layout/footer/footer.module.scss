@@ -1,0 +1,121 @@
+.footer {
+  width: 100%;
+  background-color: #1a2145;
+  background: linear-gradient(175deg, #4b466c, #1b2145);
+  display: flex;
+  justify-content: center;
+  padding-top: 70px;
+  padding-bottom: 50px;
+
+  .contanier {
+    width: 100%;
+    max-width: 1280px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 40px;
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      p {
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 22px;
+        color: #ffffff;
+        margin-top: 24px;
+        margin-bottom: 24px;
+      }
+    }
+
+    .title {
+      margin-bottom: 25px;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 26px;
+      color: #ffffff;
+    }
+
+    .links {
+      display: flex;
+
+      .block {
+        display: flex;
+        flex-direction: column;
+
+        &:first-child {
+          margin-right: 150px;
+        }
+
+        a {
+          margin-bottom: 12px;
+          font-size: 14px;
+          font-weight: 300;
+          line-height: 24px;
+          color: #ffffff;
+          display: flex;
+          cursor: pointer;
+          transition: color 0.3s;
+
+          &:hover {
+            color: #ffffff;
+          }
+
+          span {
+            font-size: 24px;
+            width: 1em;
+            height: 1em;
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(60, 179, 113, 0.08);
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .contanier {
+      .main {
+        width: 100%;
+        align-items: center;
+      }
+
+      .links {
+        width: 100%;
+        justify-content: center;
+        margin-top: 60px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 428px) {
+    padding-bottom: 140px;
+
+    .contanier {
+      padding: 0 30px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .main {
+        text-align: center;
+      }
+
+      .links {
+        width: 100%;
+
+        .block {
+          &:first-child {
+            margin-right: auto;
+          }
+        }
+      }
+    }
+  }
+}

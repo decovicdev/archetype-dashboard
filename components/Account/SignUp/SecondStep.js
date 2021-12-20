@@ -1,5 +1,4 @@
 import config from "../../../config";
-
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import Link from "next/link";
@@ -42,7 +41,7 @@ const Component = () => {
 
       setProgress(true);
 
-      await ApiService.createNew({
+      await ApiService.createOne({
         name: apiName,
         company: companyName,
       });
@@ -52,7 +51,7 @@ const Component = () => {
       router.push("/settings");
     } catch (e) {
       showAlert(e.message);
-    } finally {
+
       setProgress(false);
     }
   }, [showAlert, inProgress, apiName, companyName]);
