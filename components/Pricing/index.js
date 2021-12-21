@@ -1,9 +1,8 @@
 import config from "../../config";
 
-import { useContext, useState, useEffect, useCallback } from "react";
+import { useContext, useState, useCallback } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import classnames from "classnames";
 
 import Spinner from "../_common/Spinner";
@@ -11,19 +10,15 @@ import Spinner from "../_common/Spinner";
 import Analytics from "../../helpers/analytics";
 
 import { AuthContext } from "../../context/auth";
-import { HelperContext } from "../../context/helper";
 
 import plans from "./plans";
 
 const Component = () => {
-  const router = useRouter();
-
   const { currentUser } = useContext(AuthContext);
-  const { showAlert } = useContext(HelperContext);
 
-  const [inProgress, setProgress] = useState(false);
+  const [inProgress] = useState(false);
   const [billMonthly] = useState(true);
-  const [selectedPlan, setSelectedPlan] = useState({ planType: "free" });
+  const [selectedPlan, setSelectedPlan] = useState(null);
 
   const renderBlocks = useCallback(() => {
     return plans.map((item, i) => {

@@ -7,16 +7,6 @@ const Component = ({ onClickItem }) => {
 
   return (
     <>
-      <Link href="/api-docs">
-        <a
-          className={classnames({
-            active: router.pathname === "/api-docs",
-          })}
-          onClick={onClickItem}
-        >
-          Documentation
-        </a>
-      </Link>
       <Link href="/pricing">
         <a
           className={classnames({

@@ -21,7 +21,6 @@ import data from "./data.json";
 import Spinner from "../_common/Spinner";
 
 import Analytics from "../../helpers/analytics";
-import AccountService from "../../services/account.service";
 
 import { HelperContext } from "../../context/helper";
 
@@ -71,7 +70,7 @@ const Component = () => {
             <li key={i}>
               <button
                 type="button"
-                className="btn small grey"
+                className="btn small gradient-blue"
                 onClick={() => scrollTo(i)}
               >
                 {el.name}
@@ -91,45 +90,10 @@ const Component = () => {
   const renderBlocks = useCallback(() => {
     return (
       <div className="content-block">
-        <div className="title">API Documentation</div>
-        {activePlan && (
-          <div className="customer-tier-block">
-            Your customer tier is
-            <Link href="/pricing">
-              <a className="btn grey small">{activePlan}</a>
-            </Link>
-            {activePlan === "free" && (
-              <Link href="/pricing">
-                <a
-                  className="btn small green"
-                  onClick={() => {
-                    Analytics.event({
-                      action: "click",
-                      params: { name: "API Docs - Upgrade Plan" },
-                    });
-                  }}
-                >
-                  Upgrade
-                </a>
-              </Link>
-            )}
-          </div>
-        )}
-        {apiKey && (
-          <div>
-            <div className="customer-tier-block">Your API key is {apiKey}.</div>
-            <div className="customer-tier-block">
-              {" "}
-              Add an "apikey" field with your API Key to every GET request body
-              to return real data.
-            </div>
-          </div>
-        )}
-        {!apiKey && (
-          <div className="customer-tier-block">
-            You're not logged in so demo API Key is used.{" "}
-          </div>
-        )}
+        <div className="title">
+          <span>API Documentation</span>
+          <button type={"button"} className={"edit-btn"} />
+        </div>
         {methodsList.map((el, i) => {
           return (
             <Block
@@ -139,7 +103,7 @@ const Component = () => {
               unauthorizedClick={() => {
                 showAlert("Authorization is required");
 
-                router.push("/settings");
+                router.push("/account/login");
               }}
             />
           );
@@ -159,42 +123,48 @@ const Component = () => {
     return (
       <div ref={_sidebar} className="sidebar-block">
         <div className="top-section">
-          <div className="inp-with-dropdown">
-            <input
-              type="text"
-              placeholder="Search for endpoint"
-              value={searchText}
-              onFocus={() => {
-                setFocus(true);
-              }}
-              onBlur={() => {
-                setFocus(false);
-              }}
-              onChange={(e) => onSearch(e.target.value)}
-            />
-            <button
-              type="button"
-              className={classnames("clear-btn", { active: searchText })}
-              onClick={() => onSearch("")}
-            />
-            {!!(searchText && dropdownItems.length) && (
-              <div className={classnames("menu", { active: isFocused })}>
-                {dropdownItems.map((item, i) => {
-                  return (
-                    <div
-                      key={i}
-                      onClick={() => {
-                        onSearch(item.name);
+          <Link href={"/endpoints/add"}>
+            <a className={"add-endpoint-btn"}>+ Add new endpoint</a>
+          </Link>
+          <div className={"search-field"}>
+            <div className="inp-with-dropdown">
+              <input
+                type="text"
+                placeholder="Search for endpoint"
+                value={searchText}
+                onFocus={() => {
+                  setFocus(true);
+                }}
+                onBlur={() => {
+                  setFocus(false);
+                }}
+                onChange={(e) => onSearch(e.target.value)}
+              />
+              <button
+                type="button"
+                className={classnames("clear-btn", { active: searchText })}
+                onClick={() => onSearch("")}
+              />
+              {!!(searchText && dropdownItems.length) && (
+                <div className={classnames("menu", { active: isFocused })}>
+                  {dropdownItems.map((item, i) => {
+                    return (
+                      <div
+                        key={i}
+                        onClick={() => {
+                          onSearch(item.name);
 
-                        scrollTo(item.key);
-                      }}
-                    >
-                      {item.name}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+                          scrollTo(item.key);
+                        }}
+                      >
+                        {item.name}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+            <button type={"button"} className={"filter-btn"} />
           </div>
         </div>
         <div className="bottom-section">
@@ -208,12 +178,10 @@ const Component = () => {
   return (
     <>
       <Head>
-        <title>API Documentation - {config.meta.title}</title>
-        <meta name="description" content={config.meta.description} />
-        <meta name="keywords" content={config.meta.keywords} />
+        <title>Endpoints - {config.meta.title}</title>
       </Head>
       {inProgress && <Spinner />}
-      <div className="api-docs-page">
+      <div className="page endpoints-page">
         {renderSidebar()}
         {renderBlocks()}
       </div>
