@@ -1,4 +1,4 @@
-.api-docs-page {
+.endpoints-page {
   width: 100%;
   max-width: 1280px;
   min-height: calc(100vh - 124px);
@@ -12,21 +12,55 @@
 
   .sidebar-block {
     width: 300px;
-    height: calc(100vh - #{$headerHeight} - 40px);
+    height: calc(100vh - #{$headerHeight});
     position: -webkit-sticky;
     position: sticky;
     align-self: flex-start;
     top: $headerHeight;
     overflow-y: scroll;
 
+    .top-section {
+      .add-endpoint-btn {
+        width: 100%;
+        background: linear-gradient(175deg, #4b466c, #1b2145);
+        display: block;
+        padding: 8px 20px;
+        box-sizing: border-box;
+        border: solid 1px $light-blue;
+        border-radius: 6px;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 26px;
+        color: white;
+        text-align: center;
+      }
+
+      .search-field {
+        width: 100%;
+        @include flexbox($justify-content: space-between, $align-items: center);
+        margin-top: 25px;
+
+        .inp-with-dropdown {
+          width: calc(100% - 40px);
+        }
+
+        .filter-btn {
+          width: 18px;
+          height: 18px;
+          background-image: url("../public/icons/filter.svg");
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+
     .bottom-section {
-      margin-top: 45px;
+      margin-top: 25px;
 
       .title {
         font-size: 16px;
-        font-weight: 500;
-        line-height: 26px;
-        color: $black;
+        line-height: 24px;
+        color: white;
       }
 
       ul {
@@ -75,21 +109,20 @@
     width: calc(100% - 350px);
 
     .title {
-      font-size: 28px;
-      line-height: 46px;
-    }
-
-    .customer-tier-block {
       @include flexbox($justify-content: flex-start, $align-items: center);
-      margin-top: 10px;
-      font-size: 14px;
-      font-weight: 300;
-      line-height: 22px;
-      color: $black;
 
-      a {
-        margin-left: 10px;
-        text-transform: capitalize;
+      span {
+        margin-right: 25px;
+        font-size: 28px;
+        line-height: 36px;
+      }
+
+      .edit-btn {
+        width: 18px;
+        height: 18px;
+        background-image: url("../public/icons/edit.svg");
+        background-size: cover;
+        background-repeat: no-repeat;
       }
     }
 
@@ -108,46 +141,27 @@
           display: flex;
           justify-content: flex-start;
           align-items: center;
-          margin-bottom: 5px;
+          margin-bottom: 20px;
 
           .name {
             margin-right: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 22px;
-            color: $black;
+            font-size: 18px;
+            line-height: 26px;
+            color: white;
           }
 
           .badge {
+            background: linear-gradient(175deg, #4b466c, #1b2145);
             margin-right: 10px;
-            padding: 0px 5px;
+            padding: 0px 10px;
+            border: solid 1px $light-blue;
+            border-radius: 10px;
             font-size: 12px;
-            font-weight: 300;
-            line-height: 20px;
-            color: #ffffff;
+            line-height: 18px;
+            color: white;
 
             &.JSON {
-              background-color: gray;
-            }
-
-            &.get {
-              background-color: $green;
-            }
-
-            &.sse {
-              background-color: red;
-            }
-
-            &.post {
-              background-color: #ffae00;
-            }
-
-            &.put {
-              background-color: #68bbe3;
-            }
-
-            &.delete {
-              background-color: #e43d40;
+              background: $purple;
             }
           }
         }
@@ -155,28 +169,24 @@
         .text {
           margin-bottom: 5px;
           font-size: 14px;
-          font-weight: 300;
           line-height: 22px;
-          color: $text-gray;
+          color: $light-blue;
         }
 
         input[type="text"] {
           width: 100%;
-          margin-top: 10px;
-          padding: 10px;
+          background: $purple;
+          margin-top: 15px;
+          padding: 10px 15px;
           word-wrap: break-word;
           white-space: nowrap;
           border: 1px solid #dadce0;
           border-radius: 12px;
-          font-size: 12px;
-          font-weight: 300;
-          line-height: 20px;
-          color: $black;
+          font-size: 14px;
+          line-height: 22px;
+          color: white;
 
           &:hover {
-            background-color: $green;
-            border: 1px solid $light-green;
-            color: white;
             cursor: pointer;
           }
         }
@@ -194,30 +204,28 @@
 
           .code-part-header {
             width: 100%;
-            background: #dadce0;
+            background: $light-blue;
             padding: 10px 12px;
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
             font-size: 12px;
-            font-weight: 300;
             line-height: 20px;
             color: $black;
             text-transform: uppercase;
           }
 
           .code-part-data {
-            border: solid 1px #dadce0;
+            border: solid 1px $light-blue;
             border-top: 0;
-            border-bottom-left-radius: 12px;
-            border-bottom-right-radius: 12px;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
 
             pre {
               margin: 0;
               padding: 0;
-              border-bottom-left-radius: 12px;
-              border-bottom-right-radius: 12px;
+              border-bottom-left-radius: 5px;
+              border-bottom-right-radius: 5px;
               font-size: 12px;
-              font-weight: 300;
               line-height: 20px;
               color: $black;
             }
