@@ -26,11 +26,9 @@ const Component = () => {
   const [fields, setFields] = useState({
     name: "",
     description: "",
-    statementDescriptor: "",
-    endpoints: "",
-    quota: 0,
+    quota: 1000,
     pricingModel: 1,
-    price: 0,
+    price: "",
     billingPeriod: "MONTH",
     meteredUsage: false,
     hasTrial: false,
@@ -60,16 +58,24 @@ const Component = () => {
       if (inProgress) {
         return;
       }
+
+      if (!fields.name) {
+        return showAlert("Name is required field");
+      }
+      if (!fields.price) {
+        return showAlert("Price is required field");
+      }
+
       setProgress(true);
 
       await TierService.addNew({
         name: fields.name,
         description: fields.description,
-        price: parseInt(fields.price),
+        price: fields.price,
         period: BILLING_OPTIONS[fields.billingPeriod],
         currency: "usd",
-        has_quota: parseInt(fields.quota) > 0,
-        quota: fields.quota,
+        has_quota: fields.meteredUsage && parseInt(fields.quota) > 0,
+        quota: fields.meteredUsage ? fields.quota : 0,
         has_trial: fields.hasTrial,
         trial_length: fields.trialLen,
         trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame],
@@ -83,7 +89,7 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [inProgress, showAlert]);
+  }, [inProgress, fields, showAlert]);
 
   const clickAddTrial = useCallback(() => {
     if (fields.hasTrial) {
@@ -134,30 +140,25 @@ const Component = () => {
               onChange={(e) => changeFields("description", e.target.value)}
             />
           </div>
-          <div className={"field"}>
-            <label>Statement Descriptor</label>
-            <input
-              type={"text"}
-              value={fields.statementDescriptor}
-              onChange={(e) =>
-                changeFields("statementDescriptor", e.target.value)
-              }
-            />
-          </div>
-          <div className={"field"}>
-            <label>Add endpoints</label>
-            <select
-              value={fields.endpoints}
-              onChange={(e) => changeFields("endpoints", e.target.selected)}
-            ></select>
-          </div>
-          <div className={"field"}>
-            <label>Quota</label>
-            <input
-              type={"number"}
-              value={fields.quota}
-              onChange={(e) => changeFields("quota", e.target.value)}
-            />
+          <div className={"group-fields"}>
+            <div className="box half">
+              <input
+                type="checkbox"
+                checked={fields.meteredUsage}
+                onChange={(e) => changeFields("meteredUsage", e.target.checked)}
+              />
+              <span>Usage is metered</span>
+            </div>
+            {fields.meteredUsage && (
+              <div className={"field half"}>
+                <label>Quota</label>
+                <input
+                  type={"number"}
+                  value={fields.quota}
+                  onChange={(e) => changeFields("quota", e.target.value)}
+                />
+              </div>
+            )}
           </div>
           <div className={"some-space"} />
           <div className={"add-options"}>
@@ -186,7 +187,7 @@ const Component = () => {
           <div className={"field"}>
             <label>Price</label>
             <input
-              type={"number"}
+              type={"text"}
               value={fields.price}
               onChange={(e) => changeFields("price", e.target.value)}
             />
@@ -195,7 +196,7 @@ const Component = () => {
             <label>Billing period</label>
             <select
               value={fields.billingPeriod}
-              onChange={(e) => changeFields("billingPeriod", e.target.selected)}
+              onChange={(e) => changeFields("billingPeriod", e.target.value)}
             >
               {Object.entries(BILLING_OPTIONS).map(([key, val]) => {
                 return (
@@ -205,14 +206,6 @@ const Component = () => {
                 );
               })}
             </select>
-          </div>
-          <div className="box">
-            <input
-              type="checkbox"
-              checked={fields.meteredUsage}
-              onChange={(e) => changeFields("meteredUsage", e.target.checked)}
-            />
-            <span>Usage is metered</span>
           </div>
           <div className={"field"}>
             <button
@@ -260,7 +253,7 @@ const Component = () => {
         <div className={"btns"}>
           <button
             type={"button"}
-            className={"btn light-blue"}
+            className={"btn gradient-blue"}
             onClick={() => submitForm()}
           >
             Create

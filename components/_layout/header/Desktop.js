@@ -57,6 +57,13 @@ const Component = () => {
             <Link href="/settings">
               <a className={"name"}>{currentUser.displayName}</a>
             </Link>
+            <button
+              type={"button"}
+              className={"logout-btn"}
+              onClick={() => AccountService.logout()}
+            >
+              Sign Out
+            </button>
           </div>
         ) : (
           <>
