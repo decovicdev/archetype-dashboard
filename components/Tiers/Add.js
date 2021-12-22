@@ -173,7 +173,7 @@ const Component = () => {
             <label>Pricing model</label>
             <select
               value={fields.pricingModel}
-              onChange={(e) => changeFields("pricingModel", e.target.selected)}
+              onChange={(e) => changeFields("pricingModel", e.target.value)}
             >
               {Object.entries(PRICING_MODEL_OPTIONS).map(([key, val]) => {
                 return (
@@ -234,7 +234,7 @@ const Component = () => {
                 <select
                   value={fields.trialTimeFrame}
                   onChange={(e) =>
-                    changeFields("trialTimeFrame", e.target.selected)
+                    changeFields("trialTimeFrame", e.target.value)
                   }
                 >
                   {Object.entries(TIME_FRAMES_OPTIONS).map(([key, val]) => {
