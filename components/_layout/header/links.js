@@ -7,14 +7,14 @@ const Component = ({ onClickItem }) => {
 
   return (
     <>
-      <Link href="/pricing">
+      <Link href="/tiers">
         <a
           className={classnames({
-            active: router.pathname === "/pricing",
+            active: router.pathname === "/tiers",
           })}
           onClick={onClickItem}
         >
-          Pricing
+          Products
         </a>
       </Link>
       <Link href="/endpoints">
@@ -27,16 +27,6 @@ const Component = ({ onClickItem }) => {
           Endpoints
         </a>
       </Link>
-      <Link href="/tiers">
-        <a
-          className={classnames({
-            active: router.pathname === "/tiers",
-          })}
-          onClick={onClickItem}
-        >
-          Products
-        </a>
-      </Link>
       <Link href="/users">
         <a
           className={classnames({
@@ -45,6 +35,26 @@ const Component = ({ onClickItem }) => {
           onClick={onClickItem}
         >
           Users
+        </a>
+      </Link>
+      <Link href="/analytics">
+        <a
+          className={classnames({
+            active: router.pathname === "/analytics",
+          })}
+          onClick={onClickItem}
+        >
+          Analytics
+        </a>
+      </Link>
+      <Link href="/pricing">
+        <a
+          className={classnames({
+            active: router.pathname === "/pricing",
+          })}
+          onClick={onClickItem}
+        >
+          Pricing
         </a>
       </Link>
     </>

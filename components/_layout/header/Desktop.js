@@ -53,8 +53,13 @@ const Component = () => {
       <div className="right-menu">
         {currentUser ? (
           <div className={"profile-block"}>
-            <div className={"avatar"} />
             <Link href="/settings">
+              <a className={"settings-btn"} />
+            </Link>
+            <Link href="/profile">
+              <a className={"avatar"} />
+            </Link>
+            <Link href="/profile">
               <a className={"name"}>{currentUser.displayName}</a>
             </Link>
             <button
