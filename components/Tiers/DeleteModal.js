@@ -6,7 +6,7 @@ import TierService from "../../services/tier.service";
 
 import { HelperContext } from "../../context/helper";
 
-const Component = forwardRef(({ id }, ref) => {
+const Component = forwardRef(({ id, onSuccess }, ref) => {
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
@@ -23,12 +23,16 @@ const Component = forwardRef(({ id }, ref) => {
       showAlert("Success", true);
 
       ref.current?.hide();
+
+      if (onSuccess) {
+        onSuccess();
+      }
     } catch (e) {
       showAlert(e.message);
     } finally {
       setProgress(false);
     }
-  }, [ref, inProgress, showAlert]);
+  }, [id, onSuccess, ref, inProgress, showAlert]);
 
   return (
     <Modal ref={ref} title={"Delete product?"} isBusy={inProgress}>

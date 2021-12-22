@@ -23,7 +23,7 @@ const Component = () => {
   const [inProgress, setProgress] = useState(false);
   const [apiName, setApiName] = useState("");
   const [companyName, setCompanyName] = useState("");
-  const [authType, setAuthType] = useState(null);
+  const [authType, setAuthType] = useState("none");
   const [hasFree, setHasFree] = useState(false);
 
   useEffect(() => {
