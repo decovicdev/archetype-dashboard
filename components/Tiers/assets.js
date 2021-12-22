@@ -1,11 +1,7 @@
 export const TIME_FRAMES_OPTIONS = {
   DAY: "day",
-  MINUTE: "minute",
-  HOUR: "hour",
-  SECOND: "second",
   WEEK: "week",
   MONTH: "month",
-  YEAR: "year",
 };
 
 export const BILLING_OPTIONS = {

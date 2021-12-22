@@ -186,11 +186,22 @@ const Component = () => {
           </div>
           <div className={"field"}>
             <label>Price</label>
-            <input
-              type={"text"}
-              value={fields.price}
-              onChange={(e) => changeFields("price", e.target.value)}
-            />
+            <div className={"inp-with-currency"}>
+              <input
+                type={"text"}
+                value={fields.price}
+                onChange={(e) => {
+                  if (
+                    e.target.value &&
+                    !/^[0-9]*\.?[0-9]*$/g.test(e.target.value)
+                  ) {
+                    return;
+                  }
+
+                  changeFields("price", e.target.value);
+                }}
+              />
+            </div>
           </div>
           <div className={"field"}>
             <label>Billing period</label>
