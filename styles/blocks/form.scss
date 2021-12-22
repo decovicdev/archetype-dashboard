@@ -75,6 +75,10 @@
       $flex-wrap: nowrap
     );
 
+    &.half {
+      width: 46%;
+    }
+
     input[type="checkbox"] {
       margin-right: 10px;
     }
