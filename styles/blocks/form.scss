@@ -39,9 +39,8 @@
       border-radius: 5px;
       border: solid 1px $second-text;
       font-size: 16px;
-      font-weight: 300;
       line-height: 24px;
-      color: #ffffff;
+      color: white;
       transition: border 0.3s;
 
       &:focus {
@@ -54,6 +53,25 @@
         -webkit-text-fill-color: $black !important;
         -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
         transition: background-color 5000s ease-in-out 0s;
+      }
+    }
+
+    .inp-with-currency {
+      position: relative;
+
+      &:before {
+        font-size: 16px;
+        line-height: 24px;
+        color: white;
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        content: "$";
+        margin-top: -12px;
+      }
+
+      input[type="text"] {
+        padding: 9px 15px 9px 25px;
       }
     }
 

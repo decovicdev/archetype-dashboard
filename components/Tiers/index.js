@@ -21,20 +21,20 @@ const Component = () => {
   const [data, setData] = useState([]);
   const [selectedTier, setSelectedTier] = useState(null);
 
-  useEffect(() => {
-    async function fetch() {
-      try {
-        setProgress(true);
+  const fetch = useCallback(async () => {
+    try {
+      setProgress(true);
 
-        const response = await TierService.getList();
-        setData(response);
-      } catch (e) {
-        showAlert(e.message);
-      } finally {
-        setProgress(false);
-      }
+      const response = await TierService.getList();
+      setData(response);
+    } catch (e) {
+      showAlert(e.message);
+    } finally {
+      setProgress(false);
     }
+  }, []);
 
+  useEffect(() => {
     fetch();
   }, []);
 
@@ -70,7 +70,7 @@ const Component = () => {
                   <div>{item.quota}/day</div>
                   <Dropdown title={<div className={"dots"} />}>
                     <Link href={`/tiers/edit/${item.tier_id}`}>
-                      <a className={"edit-btn"}>Edit a product</a>
+                      <a className={"edit-btn"}>Edit</a>
                     </Link>
                     <button
                       type={"button"}
@@ -81,7 +81,7 @@ const Component = () => {
                         _deleteProduct.current?.show();
                       }}
                     >
-                      Delete a product
+                      Delete
                     </button>
                   </Dropdown>
                 </div>
@@ -103,9 +103,6 @@ const Component = () => {
         <div className={"content"}>
           <div className={"top-block"}>
             <h1>List products</h1>
-            <button type={"button"} className={"filter-btn"}>
-              Filter
-            </button>
             <Link href={"/tiers/add"}>
               <a className={"add-product-btn"}>Add product</a>
             </Link>
@@ -113,7 +110,7 @@ const Component = () => {
           {renderContent()}
         </div>
       </div>
-      <DeleteModal ref={_deleteProduct} id={selectedTier} />
+      <DeleteModal ref={_deleteProduct} id={selectedTier} onSuccess={fetch} />
     </>
   );
 };

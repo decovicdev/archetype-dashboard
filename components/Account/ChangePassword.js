@@ -110,7 +110,7 @@ const Component = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <button type="submit" className="btn gradient-pink">
+              <button type="submit" className="btn gradient-blue">
                 Save
               </button>
             </form>
