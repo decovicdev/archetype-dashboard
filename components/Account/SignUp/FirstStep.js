@@ -178,7 +178,7 @@ const Component = () => {
                   .
                 </span>
               </div>
-              <button type="submit" className="btn gradient-pink">
+              <button type="submit" className="btn gradient-blue">
                 Sign Up
               </button>
             </form>

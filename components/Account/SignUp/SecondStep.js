@@ -2,8 +2,10 @@ import config from "../../../config";
 
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
+import classnames from "classnames";
+
+import { AUTH_TYPES } from "./assets";
 
 import Spinner from "../../_common/Spinner";
 
@@ -21,6 +23,8 @@ const Component = () => {
   const [inProgress, setProgress] = useState(false);
   const [apiName, setApiName] = useState("");
   const [companyName, setCompanyName] = useState("");
+  const [authType, setAuthType] = useState(null);
+  const [hasFree, setHasFree] = useState(false);
 
   useEffect(() => {
     if (!currentUser) {
@@ -45,6 +49,8 @@ const Component = () => {
       await ApiService.createNew({
         name: apiName,
         company: companyName,
+        auth_type: authType,
+        has_free: authType !== "none" && hasFree,
       });
 
       showAlert("API is successfully created", true);
@@ -55,7 +61,7 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [showAlert, inProgress, apiName, companyName]);
+  }, [showAlert, inProgress, apiName, companyName, authType, hasFree]);
 
   return (
     <>
@@ -111,16 +117,36 @@ const Component = () => {
                   onChange={(e) => setCompanyName(e.target.value)}
                 />
               </div>
-              <button type="submit" className="btn gradient-pink">
+              <div className={"field"}>
+                <label>Authentication Type</label>
+                <ul className={"tabs"}>
+                  {Object.entries(AUTH_TYPES).map(([key, val]) => {
+                    return (
+                      <li
+                        key={key}
+                        className={classnames({ selected: key === authType })}
+                        onClick={() => setAuthType(key)}
+                      >
+                        {val}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+              {authType !== "none" && (
+                <div className="box half">
+                  <input
+                    type="checkbox"
+                    checked={hasFree}
+                    onChange={(e) => setHasFree(e.target.checked)}
+                  />
+                  <span>Include a base free tier</span>
+                </div>
+              )}
+              <button type="submit" className="btn gradient-blue">
                 Create
               </button>
             </form>
-            <div className="bottom-info">
-              <span>Don't want to do it now?</span>
-              <Link href="/settings">
-                <a>Skip</a>
-              </Link>
-            </div>
           </div>
         </div>
       </div>
