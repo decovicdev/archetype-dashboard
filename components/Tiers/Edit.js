@@ -300,7 +300,7 @@ const Component = () => {
           <title>Edit Product - {config.meta.title}</title>
         </Head>
         {inProgress && <Spinner />}
-        <div className={"content"}>
+        <div className={"content with-lines"}>
           <div className={"bread-crumbs"}>
             <Link href={"/tiers"}>
               <a>Products</a>
