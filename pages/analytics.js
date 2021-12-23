@@ -1,26 +1,19 @@
-import { useContext } from "react";
+import config from "../config";
 
-import Spinner from "../components/_common/Spinner";
-
-import { AuthContext } from "../context/auth";
+import Head from "next/head";
 
 const Component = () => {
-  const { authPending } = useContext(AuthContext);
-
-  if (authPending) {
-    return (
-      <div className="page">
-        <Spinner />
-      </div>
-    );
-  }
-
   return (
-    <div className="page">
-      <div className={"content"}>
-        <div className={"no-content"}>Coming Soon</div>
+    <>
+      <Head>
+        <title>Analytics - {config.meta.title}</title>
+      </Head>
+      <div className="page">
+        <div className={"content"}>
+          <div className={"no-content"}>Coming Soon</div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

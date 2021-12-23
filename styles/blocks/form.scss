@@ -47,6 +47,10 @@
         border: solid 1px white;
       }
 
+      &::placeholder {
+        color: $light-blue;
+      }
+
       &:-webkit-autofill,
       &:-webkit-autofill:hover,
       &:-webkit-autofill:focus {
