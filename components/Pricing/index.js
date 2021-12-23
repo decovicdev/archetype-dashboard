@@ -78,7 +78,7 @@ const Component = () => {
       </Head>
       {inProgress && <Spinner />}
       <div className="page pricing-page">
-        <div className="content">
+        <div className="content with-lines">
           <div className={"top-block"}>
             <h1>Pricing plans</h1>
           </div>

@@ -113,7 +113,7 @@ const Component = () => {
         <title>Add Product - {config.meta.title}</title>
       </Head>
       {inProgress && <Spinner />}
-      <div className={"content"}>
+      <div className={"content with-lines"}>
         <div className={"bread-crumbs"}>
           <Link href={"/tiers"}>
             <a>Products</a>
@@ -199,6 +199,9 @@ const Component = () => {
                   }
 
                   changeFields("price", e.target.value);
+                }}
+                onBlur={(e) => {
+                  changeFields("price", parseFloat(e.target.value).toFixed(2));
                 }}
               />
             </div>
