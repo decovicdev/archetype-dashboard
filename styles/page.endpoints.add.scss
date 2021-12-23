@@ -1,3 +1,61 @@
 .endpoints-add-page {
   @include flexbox($align-items: flex-start);
+
+  h2 {
+    width: 100%;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 36px;
+    color: #ffffff;
+  }
+
+  h3 {
+    width: 100%;
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 26px;
+    color: #ffffff;
+  }
+
+  .form {
+    .field {
+      &.description {
+        textarea {
+          height: 200px;
+        }
+      }
+
+      &.method {
+        width: 140px;
+      }
+
+      &.path {
+        width: calc(100% - 165px);
+
+        small {
+          font-size: 12px;
+          line-height: 20px;
+          color: $second-text;
+        }
+      }
+    }
+
+    .btns {
+      width: 100%;
+    }
+  }
+
+  .line {
+    width: 100%;
+    height: 1px;
+    background: #2f3a71;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .btns {
+    @include flexbox($justify-content: flex-end);
+    margin-top: 30px;
+  }
 }
