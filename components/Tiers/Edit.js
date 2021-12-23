@@ -44,13 +44,11 @@ const Component = () => {
         setFields({
           name: response.name,
           description: response.description,
-          statementDescriptor: "",
-          endpoints: "",
           quota: response.quota,
           pricingModel: 1,
           price: response.price,
           billingPeriod: response.period,
-          meteredUsage: false,
+          meteredUsage: response.has_quota && parseInt(response.quota) > 0,
           hasTrial: response.has_trial,
           trialLen: response.trial_length,
           trialTimeFrame: response.trial_time_frame,
@@ -92,11 +90,11 @@ const Component = () => {
       await TierService.updateById(router.query.tierId, {
         name: fields.name,
         description: fields.description,
-        price: parseInt(fields.price),
+        price: fields.price,
         period: BILLING_OPTIONS[fields.billingPeriod],
         currency: "usd",
-        has_quota: parseInt(fields.quota) > 0,
-        quota: fields.quota,
+        has_quota: fields.meteredUsage && parseInt(fields.quota) > 0,
+        quota: fields.meteredUsage ? fields.quota : 0,
         has_trial: fields.hasTrial,
         trial_length: fields.trialLen,
         trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame],
@@ -152,30 +150,25 @@ const Component = () => {
               onChange={(e) => changeFields("description", e.target.value)}
             />
           </div>
-          <div className={"field"}>
-            <label>Statement Descriptor</label>
-            <input
-              type={"text"}
-              value={fields.statementDescriptor}
-              onChange={(e) =>
-                changeFields("statementDescriptor", e.target.value)
-              }
-            />
-          </div>
-          <div className={"field"}>
-            <label>Add endpoints</label>
-            <select
-              value={fields.endpoints}
-              onChange={(e) => changeFields("endpoints", e.target.selected)}
-            ></select>
-          </div>
-          <div className={"field"}>
-            <label>Quota</label>
-            <input
-              type={"number"}
-              value={fields.quota}
-              onChange={(e) => changeFields("quota", e.target.value)}
-            />
+          <div className={"group-fields"}>
+            <div className="box half">
+              <input
+                type="checkbox"
+                checked={fields.meteredUsage}
+                onChange={(e) => changeFields("meteredUsage", e.target.checked)}
+              />
+              <span>Usage is metered</span>
+            </div>
+            {fields.meteredUsage && (
+              <div className={"field half"}>
+                <label>Quota</label>
+                <input
+                  type={"number"}
+                  value={fields.quota}
+                  onChange={(e) => changeFields("quota", e.target.value)}
+                />
+              </div>
+            )}
           </div>
           <div className={"some-space"} />
           <div className={"add-options"}>
@@ -190,7 +183,7 @@ const Component = () => {
             <label>Pricing model</label>
             <select
               value={fields.pricingModel}
-              onChange={(e) => changeFields("pricingModel", e.target.selected)}
+              onChange={(e) => changeFields("pricingModel", e.target.value)}
             >
               {Object.entries(PRICING_MODEL_OPTIONS).map(([key, val]) => {
                 return (
@@ -203,17 +196,31 @@ const Component = () => {
           </div>
           <div className={"field"}>
             <label>Price</label>
-            <input
-              type={"number"}
-              value={fields.price}
-              onChange={(e) => changeFields("price", e.target.value)}
-            />
+            <div className={"inp-with-currency"}>
+              <input
+                type={"text"}
+                value={fields.price}
+                onChange={(e) => {
+                  if (
+                    e.target.value &&
+                    !/^[0-9]*\.?[0-9]*$/g.test(e.target.value)
+                  ) {
+                    return;
+                  }
+
+                  changeFields("price", e.target.value);
+                }}
+                onBlur={(e) => {
+                  changeFields("price", parseFloat(e.target.value).toFixed(2));
+                }}
+              />
+            </div>
           </div>
           <div className={"field"}>
             <label>Billing period</label>
             <select
               value={fields.billingPeriod}
-              onChange={(e) => changeFields("billingPeriod", e.target.selected)}
+              onChange={(e) => changeFields("billingPeriod", e.target.value)}
             >
               {Object.entries(BILLING_OPTIONS).map(([key, val]) => {
                 return (
@@ -223,14 +230,6 @@ const Component = () => {
                 );
               })}
             </select>
-          </div>
-          <div className="box">
-            <input
-              type="checkbox"
-              checked={fields.meteredUsage}
-              onChange={(e) => changeFields("meteredUsage", e.target.checked)}
-            />
-            <span>Usage is metered</span>
           </div>
           <div className={"field"}>
             <button
@@ -259,7 +258,7 @@ const Component = () => {
                 <select
                   value={fields.trialTimeFrame}
                   onChange={(e) =>
-                    changeFields("trialTimeFrame", e.target.selected)
+                    changeFields("trialTimeFrame", e.target.value)
                   }
                 >
                   {Object.entries(TIME_FRAMES_OPTIONS).map(([key, val]) => {
