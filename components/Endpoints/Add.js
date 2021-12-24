@@ -1,13 +1,17 @@
 import config from "../../config";
 
-import React, { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import classnames from "classnames";
 
 import { HTTP_METHODS } from "./assets";
 
 import Spinner from "../_common/Spinner";
+import HeadersTab from "./blocks/headers";
+import QueryTab from "./blocks/query";
+import BodyTab from "./blocks/body";
 
 import { HelperContext } from "../../context/helper";
 
@@ -25,6 +29,7 @@ const Component = () => {
     method: "",
     path: "",
   });
+  const [activeTab, setActiveTab] = useState("headers");
 
   const changeFields = useCallback(
     (field, value, obj) => {
@@ -147,6 +152,33 @@ const Component = () => {
                 />
                 <small>{`Use <curly braces> to indicate path parameters if needed e.g.,/employees/{id}`}</small>
               </div>
+            </div>
+          </div>
+          <div className={"tabs"}>
+            <ul className={"tabs-list"}>
+              <li
+                className={classnames({ active: activeTab === "headers" })}
+                onClick={() => setActiveTab("headers")}
+              >
+                Headers
+              </li>
+              <li
+                className={classnames({ active: activeTab === "query" })}
+                onClick={() => setActiveTab("query")}
+              >
+                Query
+              </li>
+              <li
+                className={classnames({ active: activeTab === "body" })}
+                onClick={() => setActiveTab("body")}
+              >
+                Body
+              </li>
+            </ul>
+            <div className={"tabs-data"}>
+              {activeTab === "headers" && <HeadersTab />}
+              {activeTab === "query" && <QueryTab />}
+              {activeTab === "body" && <BodyTab />}
             </div>
           </div>
           <div className={"btns"}>

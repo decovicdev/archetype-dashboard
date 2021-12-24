@@ -72,12 +72,10 @@ const Component = () => {
     <>
       <Head>
         <title>Login - {config.meta.title}</title>
-        <meta name="description" content={config.meta.description} />
-        <meta name="keywords" content={config.meta.keywords} />
       </Head>
       {inProgress ? <Spinner /> : null}
       <div className="page login-page">
-        <div className="content">
+        <div className="content with-lines">
           <div className="form-block">
             <div className="top-info">
               <h2>Welcome back</h2>

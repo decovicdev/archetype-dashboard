@@ -91,7 +91,7 @@ const Component = () => {
       </Head>
       {inProgress ? <Spinner /> : null}
       <div className="page signup-page">
-        <div className="content">
+        <div className="content with-lines">
           <div className="info-block">
             <h2>Some text here</h2>
             <ul>

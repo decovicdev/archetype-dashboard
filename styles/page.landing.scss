@@ -219,16 +219,23 @@
 
     &.last-block {
       .content {
-        min-height: 80vh;
-        @include flexbox(
-          $justify-content: center,
-          $align-items: center,
-          $flex-direction: column
-        );
-        padding: 110px 90px;
+        .graphics {
+          width: 100%;
+          min-height: 80vh;
+          background-image: url("../public/images/landing/spheres_n_lines.svg");
+          background-repeat: no-repeat;
+          background-position: top 40px center;
+          background-size: 100% auto;
+          @include flexbox(
+            $justify-content: flex-start,
+            $align-items: center,
+            $flex-direction: column
+          );
+        }
       }
 
       .text {
+        padding: 0 90px;
         font-size: 36px;
         font-weight: 500;
         line-height: 44px;

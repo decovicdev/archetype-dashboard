@@ -140,14 +140,16 @@ const Component = () => {
       </div>
       <div className={"block last-block"}>
         <div className={"content"}>
-          <div className={"text"}>
-            Say bye to building your own
-            <br /> billing, permissions, or quota systems.{" "}
-          </div>
-          <div className={"link"}>
-            <Link href={"/account/signup"}>
-              <a>Start now</a>
-            </Link>
+          <div className={"graphics"}>
+            <div className={"text"}>
+              Say bye to building your own
+              <br /> billing, permissions, or quota systems.{" "}
+            </div>
+            <div className={"link"}>
+              <Link href={"/account/signup"}>
+                <a>Start now</a>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
