@@ -83,6 +83,7 @@
 
       &:hover {
         background: #1a2145;
+        cursor: pointer;
       }
 
       .col {
@@ -94,7 +95,7 @@
         &:last-child {
           @include flexbox($align-items: center);
 
-          .dots {
+          .product-context-menu {
             width: 18px;
             height: 18px;
             background-size: 3px 18px;
