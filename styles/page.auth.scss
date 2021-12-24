@@ -12,25 +12,24 @@
   .form-block {
     width: 100%;
     max-width: 450px;
-    background-color: #ffffff;
+    background: linear-gradient(175deg, #4b466c, #1b2145);
     padding: 45px 25px;
-    border-radius: 5px;
+    border-radius: 6px;
     box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
 
     .top-info {
       h2 {
         margin-bottom: 5px;
-        font-size: 16px;
-        font-weight: 500;
+        font-size: 18px;
+        font-weight: 600;
         line-height: 26px;
-        color: $black;
+        color: white;
       }
 
       p {
         font-size: 14px;
-        font-weight: 300;
         line-height: 22px;
-        color: $text-gray;
+        color: $light-blue;
       }
     }
 
@@ -49,10 +48,10 @@
           font-size: 13px;
           font-weight: 500;
           line-height: 21px;
-          color: $black;
+          color: $light-blue;
 
           span {
-            color: $text-gray;
+            color: white;
           }
         }
 
@@ -60,14 +59,14 @@
         input[type="email"],
         input[type="password"] {
           width: 100%;
+          background-color: transparent;
           margin-top: 5px;
           padding: 9px 15px;
-          border-radius: 7px;
-          border: solid 1px rgba(0, 0, 0, 0.1);
+          border-radius: 6px;
+          border: solid 1px $second-text;
           font-size: 16px;
-          font-weight: 300;
           line-height: 24px;
-          color: $black;
+          color: white;
           transition: border 0.3s;
 
           &:focus {
@@ -77,8 +76,8 @@
           &:-webkit-autofill,
           &:-webkit-autofill:hover,
           &:-webkit-autofill:focus {
-            -webkit-text-fill-color: $black !important;
-            -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+            -webkit-text-fill-color: white !important;
+            -webkit-box-shadow: 0 0 0 1000px transparent inset;
             transition: background-color 5000s ease-in-out 0s;
           }
         }
@@ -100,11 +99,11 @@
           font-size: 12px;
           font-weight: 300;
           line-height: 20px;
-          color: $black;
+          color: $light-blue;
 
           a {
             font-weight: 500;
-            color: $black;
+            color: white;
           }
         }
       }
@@ -115,7 +114,7 @@
         font-size: 12px;
         font-weight: 300;
         line-height: 20px;
-        color: $black;
+        color: white;
 
         .user-choice-item {
           @include flexbox($justify-content: flex-start, $align-items: center);
@@ -149,7 +148,7 @@
 
           &.selected {
             font-weight: 600;
-            color: $black;
+            color: white;
           }
 
           &:first-child {
@@ -170,19 +169,18 @@
       justify-content: center;
       align-items: center;
       margin-top: 10px;
-      font-weight: 300;
       font-size: 12px;
       line-height: 20px;
 
       span {
-        color: $text-gray;
+        color: $light-blue;
       }
 
       a {
         margin-left: 5px;
         margin-right: 5px;
         font-weight: 500;
-        color: $black;
+        color: white;
       }
     }
   }
