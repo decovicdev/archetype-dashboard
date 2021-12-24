@@ -3,6 +3,7 @@ import config from "../../config";
 import { useRef, useState, useEffect, useCallback, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import Spinner from "../_common/Spinner";
 import Dropdown from "../_common/Dropdown";
@@ -13,6 +14,8 @@ import TierService from "../../services/tier.service";
 import { HelperContext } from "../../context/helper";
 
 const Component = () => {
+  const router = useRouter();
+
   const _deleteProduct = useRef(null);
 
   const { showAlert } = useContext(HelperContext);
@@ -38,6 +41,17 @@ const Component = () => {
     fetch();
   }, []);
 
+  const clickItem = useCallback(
+    (e, item) => {
+      if (e.target.className === "product-context-menu") {
+        return;
+      }
+
+      router.push(`/tiers/${item.tier_id}`);
+    },
+    [router]
+  );
+
   const renderContent = useCallback(() => {
     if (!data.length) {
       return <div className={"no-content"}>No products added yet.</div>;
@@ -56,19 +70,19 @@ const Component = () => {
         <div className={"tiers-list-data"}>
           {data.map((item, i) => {
             return (
-              <div key={i} className={"row"}>
-                <div className={"col"}>
-                  <Link href={`/tiers/${item.tier_id}`}>
-                    <a>{item.name}</a>
-                  </Link>
-                </div>
+              <div
+                key={i}
+                className={"row"}
+                onClick={(e) => clickItem(e, item)}
+              >
+                <div className={"col"}>{item.name}</div>
                 <div className={"col"}>${item.price}</div>
                 <div className={"col"}>{item.trial_length}</div>
                 <div className={"col"}>{item.trial_time_frame}</div>
                 <div className={"col"}>{item.users.length} users</div>
                 <div className={"col"}>
                   <div>{item.quota}/day</div>
-                  <Dropdown title={<div className={"dots"} />}>
+                  <Dropdown title={<div className={"product-context-menu"} />}>
                     <Link href={`/tiers/edit/${item.tier_id}`}>
                       <a className={"edit-btn"}>Edit</a>
                     </Link>
