@@ -38,6 +38,36 @@
     }
   }
 
+  .tiers-list-header,
+  .tiers-list-data {
+    .col {
+      &:nth-child(1) {
+        width: 22%;
+      }
+
+      &:nth-child(2) {
+        width: 15%;
+      }
+
+      &:nth-child(3) {
+        width: 15%;
+        text-transform: capitalize;
+      }
+
+      &:nth-child(4) {
+        width: 14%;
+      }
+
+      &:nth-child(5) {
+        width: 16%;
+      }
+
+      &:nth-child(6) {
+        width: 18%;
+      }
+    }
+  }
+
   .tiers-list-header {
     width: 100%;
     background: linear-gradient(175deg, #4b466c, #1b2145);
@@ -47,7 +77,6 @@
     border-top-right-radius: 6px;
 
     .col {
-      width: calc(100% / 6);
       font-size: 18px;
       line-height: 26px;
       color: white;
@@ -87,7 +116,6 @@
       }
 
       .col {
-        width: calc(100% / 6);
         font-size: 16px;
         line-height: 24px;
         color: white;

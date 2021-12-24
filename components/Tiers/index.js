@@ -64,7 +64,7 @@ const Component = () => {
           <div className={"col"}>Price</div>
           <div className={"col"}>Length</div>
           <div className={"col"}>Trial</div>
-          <div className={"col"}>Current subscribers</div>
+          <div className={"col"}>Subscribers</div>
           <div className={"col"}>Quota</div>
         </div>
         <div className={"tiers-list-data"}>
@@ -77,8 +77,12 @@ const Component = () => {
               >
                 <div className={"col"}>{item.name}</div>
                 <div className={"col"}>${item.price}</div>
-                <div className={"col"}>{item.trial_length}</div>
-                <div className={"col"}>{item.trial_time_frame}</div>
+                <div className={"col"}>{`${item.period}ly`}</div>
+                <div className={"col"}>
+                  {item.has_trial
+                    ? `${item.trial_length} ${item.trial_time_frame}`
+                    : "-"}
+                </div>
                 <div className={"col"}>{item.users.length} users</div>
                 <div className={"col"}>
                   <div>{item.quota}/day</div>
