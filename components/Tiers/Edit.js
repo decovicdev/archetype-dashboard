@@ -90,8 +90,8 @@ const Component = () => {
       await TierService.updateById(router.query.tierId, {
         name: fields.name,
         description: fields.description,
-        price: fields.price,
-        period: BILLING_OPTIONS[fields.billingPeriod],
+        price: parseFloat(fields.price).toFixed(2),
+        period: fields.billingPeriod,
         currency: "usd",
         has_quota: fields.meteredUsage && parseInt(fields.quota) > 0,
         quota: fields.meteredUsage ? fields.quota : 0,
@@ -108,7 +108,7 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [inProgress, showAlert]);
+  }, [inProgress, fields, showAlert]);
 
   const clickAddTrial = useCallback(() => {
     if (fields.hasTrial) {
@@ -224,7 +224,7 @@ const Component = () => {
             >
               {Object.entries(BILLING_OPTIONS).map(([key, val]) => {
                 return (
-                  <option key={key} value={key}>
+                  <option key={key} value={val}>
                     {val}
                   </option>
                 );
