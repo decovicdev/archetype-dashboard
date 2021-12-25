@@ -28,6 +28,10 @@
 
       &.method {
         width: 140px;
+
+        .box {
+          margin-top: 0;
+        }
       }
 
       &.path {

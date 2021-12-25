@@ -1,6 +1,6 @@
 import config from "../../config";
 
-import { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -24,10 +24,8 @@ const Component = () => {
   const [fields, setFields] = useState({
     name: "",
     description: "",
-    externalDocUrl: "",
-    externalDocDescr: "",
-    method: "",
-    path: "",
+    methods: [],
+    path: "/",
   });
   const [activeTab, setActiveTab] = useState("headers");
 
@@ -106,43 +104,36 @@ const Component = () => {
                 onChange={(e) => changeFields("description", e.target.value)}
               />
             </div>
-            <div className={"field"}>
-              <label>External Doc URL</label>
-              <input
-                type={"text"}
-                value={fields.externalDocUrl}
-                placeholder={"External link to more information"}
-                onChange={(e) => changeFields("externalDocUrl", e.target.value)}
-              />
-            </div>
-            <div className={"field"}>
-              <label>External Doc Description</label>
-              <input
-                type={"text"}
-                value={fields.externalDocDescr}
-                placeholder={"Brief label for external link"}
-                onChange={(e) =>
-                  changeFields("externalDocDescr", e.target.value)
-                }
-              />
-            </div>
           </div>
           <div className={"line"} />
           <div className={"form"}>
             <div className={"group-fields"}>
               <div className={"field method"}>
-                <select
-                  value={fields.method}
-                  onChange={(e) => changeFields("method", e.target.value)}
-                >
-                  {Object.entries(HTTP_METHODS).map(([key, val]) => {
-                    return (
-                      <option key={key} value={key}>
-                        {val}
-                      </option>
-                    );
-                  })}
-                </select>
+                {Object.entries(HTTP_METHODS).map(([key, val]) => {
+                  return (
+                    <div key={key} className="box">
+                      <input
+                        type="checkbox"
+                        checked={fields.methods.includes(val)}
+                        onChange={(e) => {
+                          const index = fields.methods.indexOf(
+                            e.target.checked
+                          );
+                          const result = [...fields.methods];
+
+                          if (index >= 0) {
+                            result.splice(index, 1);
+                          } else {
+                            result.push(val);
+                          }
+
+                          changeFields("methods", result);
+                        }}
+                      />
+                      <span>{val}</span>
+                    </div>
+                  );
+                })}
               </div>
               <div className={"field path"}>
                 <input

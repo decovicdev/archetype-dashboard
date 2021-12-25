@@ -133,10 +133,10 @@ const Component = () => {
               <div className="field">
                 <label htmlFor="userName">Your name</label>
                 <input
-                    type="text"
-                    value={fullName}
-                    id="userName"
-                    onChange={(e) => setFullname(e.target.value)}
+                  type="text"
+                  value={fullName}
+                  id="userName"
+                  onChange={(e) => setFullname(e.target.value)}
                 />
               </div>
               <div className="field">

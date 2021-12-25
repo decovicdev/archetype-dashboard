@@ -16,11 +16,9 @@ import classnames from "classnames";
 
 import Block from "./Block";
 
-import data from "./data.json";
-
 import Spinner from "../_common/Spinner";
 
-import Analytics from "../../helpers/analytics";
+import EndpointService from "../../services/endpoint.service";
 
 import { HelperContext } from "../../context/helper";
 
@@ -31,22 +29,33 @@ const Component = () => {
 
   const { showAlert } = useContext(HelperContext);
 
-  const methodsList = [...data].map((el, i) => {
-    el.key = i;
-    return el;
-  });
-
-  const _refs = useMemo(() => {
-    return methodsList.map((el) => {
-      return createRef(null);
-    });
-  }, [methodsList]);
-
   const [inProgress, setProgress] = useState(false);
-  const [activePlan, setActivePlan] = useState("free");
-  const [apiKey, setApiKey] = useState("None");
+  const [data, setData] = useState([]);
   const [searchText, onSearch] = useState("");
   const [isFocused, setFocus] = useState(false);
+
+  const _refs = useMemo(() => {
+    return data.map((el) => {
+      return createRef(null);
+    });
+  }, [data]);
+
+  const fetch = useCallback(async () => {
+    try {
+      setProgress(true);
+
+      const response = await EndpointService.getList();
+      setData(response);
+    } catch (e) {
+      showAlert(e.message);
+    } finally {
+      setProgress(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   const scrollTo = useCallback(
     (key) => {
@@ -65,7 +74,7 @@ const Component = () => {
   const renderBtns = useCallback(() => {
     return (
       <ul>
-        {methodsList.map((el, i) => {
+        {data.map((el, i) => {
           return (
             <li key={i}>
               <button
@@ -85,7 +94,7 @@ const Component = () => {
         })}
       </ul>
     );
-  }, [methodsList, scrollTo]);
+  }, [data, scrollTo]);
 
   const renderBlocks = useCallback(() => {
     return (
@@ -94,7 +103,7 @@ const Component = () => {
           <span>API Documentation</span>
           <button type={"button"} className={"edit-btn"} />
         </div>
-        {methodsList.map((el, i) => {
+        {data.map((el, i) => {
           return (
             <Block
               key={i}
@@ -110,10 +119,10 @@ const Component = () => {
         })}
       </div>
     );
-  }, [_refs, methodsList, activePlan, apiKey, showAlert]);
+  }, [_refs, data, showAlert]);
 
   const renderSidebar = useCallback(() => {
-    const dropdownItems = methodsList.filter((el) => {
+    const dropdownItems = data.filter((el) => {
       if (searchText) {
         return el.name.toLowerCase().includes(searchText.toLowerCase());
       }
@@ -173,7 +182,7 @@ const Component = () => {
         </div>
       </div>
     );
-  }, [_sidebar, methodsList, searchText, isFocused, scrollTo, renderBtns]);
+  }, [_sidebar, data, searchText, isFocused, scrollTo, renderBtns]);
 
   return (
     <>
