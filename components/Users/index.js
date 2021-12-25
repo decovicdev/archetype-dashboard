@@ -32,11 +32,6 @@ const Users = ({ data }) => {
             placeholder="Find customer"
           />
 
-          <button className="btn filter-btn">
-            <Image src={FilterIcon} width={17} height={17} />
-            Filter
-          </button>
-
           <div className="btn-group">
             <button className="btn">
               <Image src={CardViewIcon} width={15} height={15} />
@@ -73,7 +68,7 @@ const Users = ({ data }) => {
               <th>Last seen date</th>
               <th>Status</th>
               <th>Spent</th>
-              <th>% of quota</th>
+              <th>Quota</th>
               <th></th>
             </tr>
             {data.map((customer) => {
@@ -98,11 +93,12 @@ const Users = ({ data }) => {
                     )}
                   </td>
                   <td>{`${day}/${month + 1}/${year}`}</td>
-                  <td>{customer.status}</td>
+                  <td className="capitalize">
+                    {customer.status.replace("_", " ")}
+                  </td>
                   {/* spent value not provided */}
                   <td>$0</td>
-                  {/* percent value not provided */}
-                  <td>{customer.quota}%</td>
+                  <td>{customer.quota}</td>
                   <td>
                     <Dropdown
                       title={<Image src={MenuIcon} width={3} height={18} />}
@@ -130,7 +126,8 @@ const Users = ({ data }) => {
               );
             })}
           </table>
-          <div className="paging">
+          {/* Hide Pagination */}
+          {/* <div className="paging">
             <a className="pageIcon active">1</a>
             <a className="pageIcon">2</a>
             <a className="pageIcon">3</a>
@@ -139,7 +136,7 @@ const Users = ({ data }) => {
             <a className="pageIcon">
               <i className="next-arrow"></i>
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
       <DeleteModal modalRef={_deleteModal} />
