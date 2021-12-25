@@ -15,6 +15,13 @@ import ApiService from "./../services/api.service";
 import { AuthContext } from "../context/auth";
 import { HelperContext } from "../context/helper";
 
+const AUTH_TYPES = {
+  NONE: "none",
+  HEADER: "header",
+  URL: "url",
+  BODY: "body",
+};
+
 const Component = () => {
   const router = useRouter();
 
@@ -26,15 +33,18 @@ const Component = () => {
   const [inProgress, setProgress] = useState(false);
   const [isDeleting, setDeleting] = useState(false);
   const [linkSent, setLinkSent] = useState(false);
-  const [apiKey, setApiKey] = useState(null);
-  const [plan, setPlan] = useState(null);
+  const [data, setData] = useState(null);
+  const [auth_type, setAuthType] = useState("");
+  const [url, setRedirectUrl] = useState("");
 
   useEffect(() => {
     async function fetch() {
       const data = await ApiService.getCurrent();
 
       if (data?.public_key) {
-        setApiKey(data.public_key);
+        setData(data);
+        setAuthType(data.auth_type);
+        setRedirectUrl(data.url);
       }
     }
 
@@ -93,6 +103,31 @@ const Component = () => {
     }
   }, [isDeleting, showAlert]);
 
+  const updateAuthType = (e) => {
+    setAuthType(e.target.value);
+  };
+
+  const updateRedirectUrl = (e) => {
+    setRedirectUrl(e.target.value);
+  };
+
+  const onSave = async () => {
+    setProgress(true);
+    try {
+      const data = await ApiService.updateCurrent({
+        auth_type,
+        url,
+      });
+      if (data.public_key) {
+        setData(data);
+        showAlert("Saved Successfully", true);
+      }
+    } catch (err) {
+      showAlert("Failed to save");
+    }
+    setProgress(false);
+  };
+
   return (
     <>
       {inProgress && <Spinner />}
@@ -105,8 +140,10 @@ const Component = () => {
           width={18}
           height={18}
         />{" "}
-        <span>Your API key: {apiKey}</span>
-        <a className="link">Create a new secret key</a>
+        <div>
+          <span>Your Public key: {data?.public_key}</span> <br /> <br />
+          <span>Your Secret key: {data?.secret_key.join(", ")}</span>
+        </div>
       </div>
 
       <div className="block">
@@ -119,22 +156,69 @@ const Component = () => {
         />{" "}
         Change auth type
         <div className="auth-types">
-          <input type="radio" name="authType" value={"No auth"} id="noAuth" />{" "}
+          <input
+            type="radio"
+            name="auth_type"
+            value={AUTH_TYPES.NONE}
+            checked={auth_type === AUTH_TYPES.NONE}
+            onChange={updateAuthType}
+            id="noAuth"
+          />{" "}
           <label htmlFor="noAuth">No auth</label>
           <br />
-          <input type="radio" name="authType" value={"URL"} id="url" />{" "}
+          <input
+            type="radio"
+            name="auth_type"
+            value={AUTH_TYPES.URL}
+            checked={auth_type === AUTH_TYPES.URL}
+            onChange={updateAuthType}
+            id="url"
+          />{" "}
           <label htmlFor="url">URL</label>
           <br />
           <input
             type="radio"
             name="authType"
             value={"Header"}
+            name="auth_type"
+            value={AUTH_TYPES.HEADER}
+            checked={auth_type === AUTH_TYPES.HEADER}
+            onChange={updateAuthType}
             id="header"
           />{" "}
           <label htmlFor="header">Header</label>
           <br />
-          <input type="radio" name="authType" value={"Body"} id="body" />{" "}
+          <input
+            type="radio"
+            name="auth_type"
+            value={AUTH_TYPES.BODY}
+            checked={auth_type === AUTH_TYPES.BODY}
+            onChange={updateAuthType}
+            id="body"
+          />{" "}
           <label htmlFor="body">Body</label>
+        </div>
+      </div>
+
+      <div className="block">
+        <Image
+          className={"icon"}
+          src={AuthIcon}
+          alt="User"
+          width={18}
+          height={18}
+        />{" "}
+        Redirect URL
+        <div className="form">
+          <div className="field">
+            <input
+              type="text"
+              placeholder="URL"
+              value={url}
+              id="url"
+              onChange={updateRedirectUrl}
+            />
+          </div>
         </div>
       </div>
 
@@ -151,9 +235,20 @@ const Component = () => {
         </a>
       </div>
 
-      <button type="button" className="btn grey delete-btn">
-        Connect your stripe account
-      </button>
+      <div className="btns">
+        <button
+          type={"button"}
+          className={"btn gradient-blue"}
+          disabled={auth_type === data?.auth_type && url === data?.url}
+          onClick={onSave}
+        >
+          Save
+        </button>
+
+        <button type="button" className="btn gradient-blue">
+          Connect your stripe account
+        </button>
+      </div>
 
       <Modal ref={_deleteAccount} isBusy={isDeleting}>
         <div className="data">

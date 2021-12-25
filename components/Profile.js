@@ -24,8 +24,8 @@ const Component = () => {
   const [linkSent, setLinkSent] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState(currentUser.displayName);
+  const [email, setEmail] = useState(currentUser.email);
   const [password, setPassword] = useState("");
 
   useEffect(() => {
@@ -64,6 +64,23 @@ const Component = () => {
       setProgress(false);
     }
   }, [currentUser, inProgress, showAlert]);
+
+  const onSave = async () => {
+    setProgress(true);
+    try {
+      const data = {};
+      if (currentUser.displayName !== name) data.displayName = name;
+      if (currentUser.email !== email) data.email = email;
+      if (currentUser.password !== password) data.password = password;
+      await updateUser(data);
+      setPassword("");
+      setIsEditing(false);
+      showAlert("Saved Successfully", true);
+    } catch (err) {
+      showAlert(err.message);
+    }
+    setProgress(false);
+  };
 
   return (
     <>
@@ -105,6 +122,7 @@ const Component = () => {
               type="text"
               value={name}
               id="userName"
+              placeholder="Name"
               disabled={!isEditing}
               onChange={(e) => setName(e.target.value)}
             />
@@ -116,6 +134,7 @@ const Component = () => {
               autoComplete="email"
               value={email}
               id="userEmail"
+              placeholder="Email"
               disabled={!isEditing}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -126,6 +145,7 @@ const Component = () => {
               type="password"
               value={password}
               id="password"
+              placeholder="Password"
               disabled={!isEditing}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -134,7 +154,13 @@ const Component = () => {
       </div>
 
       <div className="btns">
-        <button className="btn grey">Save</button>
+        <button
+          className="btn gradient-blue"
+          disabled={!isEditing}
+          onClick={onSave}
+        >
+          Save
+        </button>
         <button className="btn border-white">Cancel</button>
       </div>
     </>
