@@ -1,3 +1,5 @@
+import config from "../config";
+
 import { useRef, useContext, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -63,6 +65,31 @@ const Component = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const connectStripe = useCallback(async () => {
+    try {
+      if (inProgress) {
+        return;
+      }
+      setProgress(true);
+
+      const response = await ApiService.stripeCheckout();
+
+      if (!response.connect_url) {
+        throw new Error("Oops, could not get enough data to proceed");
+      }
+
+      const redirectUrl = `${config.app_url}settings`;
+
+      window.location.replace(
+        `${response.connect_url}?return_url=${redirectUrl}&refresh_url=${redirectUrl}`
+      );
+    } catch (e) {
+      showAlert(e.message);
+    } finally {
+      setProgress(false);
+    }
+  }, [inProgress, showAlert]);
+
   const sendEmail = useCallback(async () => {
     try {
       Analytics.event({
@@ -95,7 +122,7 @@ const Component = () => {
       }
       setDeleting(true);
 
-      sshowAlert("Not implemented");
+      showAlert("Not implemented");
     } catch (e) {
       showAlert(e.message);
 
@@ -250,7 +277,11 @@ const Component = () => {
           Save
         </button>
 
-        <button type="button" className="btn gradient-blue">
+        <button
+          type="button"
+          className="btn gradient-blue"
+          onClick={connectStripe}
+        >
           Connect your stripe account
         </button>
       </div>
