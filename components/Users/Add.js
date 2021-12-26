@@ -47,6 +47,9 @@ const Component = () => {
         return;
       }
 
+      if (!fields.id) {
+        return showAlert("ID is required field");
+      }
       if (!fields.name) {
         return showAlert("Name is required field");
       }
@@ -57,7 +60,7 @@ const Component = () => {
       setProgress(true);
 
       await CustomerService.addNew({
-        uid: getHash(),
+        uid: fields.id,
         attrs: {
           name: fields.name,
         },
@@ -92,6 +95,23 @@ const Component = () => {
         </div>
         <div className={"form"}>
           <h2>Customer Information</h2>
+          <div className={"field"}>
+            <label>ID</label>
+            <input
+              type={"text"}
+              value={fields.id}
+              onChange={(e) => changeFields("id", e.target.value)}
+            />
+          </div>
+          <div className={"field"}>
+            <button
+              type={"button"}
+              className={"btn small gradient-blue-w-border"}
+              onClick={() => changeFields("id", getHash())}
+            >
+              Generate ID
+            </button>
+          </div>
           <div className={"field"}>
             <label>Name</label>
             <input
