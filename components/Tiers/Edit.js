@@ -90,11 +90,11 @@ const Component = () => {
       await TierService.updateById(router.query.tierId, {
         name: fields.name,
         description: fields.description,
-        price: parseFloat(fields.price).toFixed(2),
+        price: parseFloat(parseFloat(fields.price).toFixed(2)),
         period: fields.billingPeriod,
         currency: "usd",
         has_quota: fields.meteredUsage && parseInt(fields.quota) > 0,
-        quota: fields.meteredUsage ? fields.quota : 0,
+        quota: fields.meteredUsage ? parseInt(fields.quota) : 0,
         has_trial: fields.hasTrial,
         trial_length: fields.trialLen,
         trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame],
@@ -165,7 +165,13 @@ const Component = () => {
                 <input
                   type={"number"}
                   value={fields.quota}
-                  onChange={(e) => changeFields("quota", e.target.value)}
+                  onChange={(e) => {
+                    if (e.target.value && !/^[0-9]*$/g.test(e.target.value)) {
+                      return;
+                    }
+
+                    changeFields("quota", e.target.value);
+                  }}
                 />
               </div>
             )}

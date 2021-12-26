@@ -45,7 +45,8 @@ const Component = () => {
     (e, item) => {
       if (
         e.target.className === "product-context-menu" ||
-        e.target.parentNode.classList.contains("dropdown")
+        e.target.parentNode.classList.contains("dropdown") ||
+        e.target.parentNode.classList.contains("dropdownContent")
       ) {
         return;
       }
@@ -88,7 +89,7 @@ const Component = () => {
                 </div>
                 <div className={"col"}>{item.users.length} users</div>
                 <div className={"col"}>
-                  <div>{item.quota}/day</div>
+                  <div>{item.quota ? `${item.quota}/day` : `Unlimited`}</div>
                   <Dropdown title={<div className={"product-context-menu"} />}>
                     <Link href={`/tiers/edit/${item.tier_id}`}>
                       <a className={"edit-btn"}>Edit</a>
