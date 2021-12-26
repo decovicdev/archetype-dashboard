@@ -70,10 +70,12 @@
       color: white;
     }
   }
+
   .cards {
     @include flexbox();
     gap: 25px;
     margin-bottom: 25px;
+
     .card {
       background: linear-gradient(
           180deg,
@@ -81,7 +83,6 @@
           rgba(255, 255, 255, 0) 100%
         ),
         rgba(255, 255, 255, 0.09);
-
       text-align: center;
       flex: 1;
       padding-top: 30px;
@@ -118,8 +119,8 @@
       border-collapse: collapse;
       width: 100%;
     }
+
     tr {
-      text-align: center;
       &:first-of-type {
         background: linear-gradient(
             180deg,
@@ -140,6 +141,8 @@
       }
 
       td {
+        text-align: center;
+
         &:first-of-type {
           white-space: nowrap;
         }
@@ -149,6 +152,7 @@
       @include flexbox($justify-content: flex-end);
       gap: 15px;
       margin-top: 25px;
+
       .pageIcon {
         border-radius: 50%;
         color: #99a2d8;
@@ -158,26 +162,45 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
         &.active {
           background-color: #99a2d8;
           color: #ffffff;
         }
       }
     }
-    a[href] {
-      text-decoration: underline;
-      text-transform: capitalize;
+  }
+
+  .user-context-menu {
+    width: 18px;
+    height: 18px;
+    background-size: 3px 18px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("../public/icons/menu.svg");
+  }
+
+  .dropdown {
+    .edit-btn,
+    .delete-btn {
+      background-repeat: no-repeat;
+      background-position: 0 50%;
+      background-size: 16px 16px;
+      display: block;
+      margin: 7px 0;
+      padding-left: 25px;
+      font-size: 18px;
+      line-height: 26px;
+      color: $light-blue;
+      text-align: left;
     }
-    .dropdownLink {
-      display: flex;
-      gap: 5px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      margin-block: 15px;
+
+    .edit-btn {
+      background-image: url("../public/icons/edit.svg");
     }
-    a.dropdownLink {
-      text-decoration: none;
+
+    .delete-btn {
+      background-image: url("../public/icons/delete.svg");
     }
   }
 

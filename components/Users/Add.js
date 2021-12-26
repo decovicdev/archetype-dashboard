@@ -104,9 +104,9 @@ const Component = () => {
               onChange={(e) => changeFields("id", e.target.value)}
             />
             <button
-                type={"button"}
-                className={"generate-btn"}
-                onClick={() => changeFields("id", getHash(20))}
+              type={"button"}
+              className={"generate-btn"}
+              onClick={() => changeFields("id", getHash(20))}
             />
           </div>
           <div className={"field"}>

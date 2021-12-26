@@ -132,26 +132,19 @@ const Users = () => {
                     <td>$0</td>
                     <td>{customer.quota}</td>
                     <td>
-                      <Dropdown
-                        title={<Image src={MenuIcon} width={3} height={18} />}
-                      >
-                        <Link href={`users/${customer.id}`}>
-                          <a className="dropdownLink">
-                            <EditIcon fill="#ffffff" />
-                            Edit a customer
-                          </a>
+                      <Dropdown title={<div className={"user-context-menu"} />}>
+                        <Link href={`/users/${customer.uid}`}>
+                          <a className={"edit-btn"}>Edit</a>
                         </Link>
-                        <a
-                          className="dropdownLink"
+                        <button
+                          type={"button"}
+                          className={"delete-btn"}
                           onClick={() => {
-                            if (_deleteModal.current) {
-                              _deleteModal.current.show();
-                            }
+                            _deleteModal.current?.show();
                           }}
                         >
-                          <DeleteIcon fill="#ffffff" />
-                          Delete a customer
-                        </a>
+                          Delete
+                        </button>
                       </Dropdown>
                     </td>
                   </tr>
