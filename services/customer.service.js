@@ -9,7 +9,7 @@ export default class CustomerService {
     return http.get(`user/${uid}`);
   }
 
-  static async create(params) {
+  static async addNew(params) {
     return http.post(`create-user`, params);
   }
 

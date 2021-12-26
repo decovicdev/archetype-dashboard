@@ -96,8 +96,7 @@
   z-index: 9999;
 
   &.isSuccess {
-    background: $purple;
-    background: linear-gradient(96.76deg, #fdc043 14.9%, #e543e8 92.22%);
+    background-color: $yellow;
     color: #ffffff;
 
     .close {

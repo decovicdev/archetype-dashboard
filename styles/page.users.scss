@@ -2,12 +2,14 @@
   align-items: flex-start;
 
   .header {
-    display: flex;
+    @include flexbox($align-items: center);
     margin-bottom: 25px;
+
     h1 {
       flex: 1;
       color: #ffffff;
     }
+
     .searchInput {
       background-color: transparent;
       background-image: url(../public/icons/magnifier.svg);
@@ -36,6 +38,7 @@
     .btn-group {
       border: 1px solid #ffffff;
       border-radius: 7px;
+
       .btn {
         display: inline-flex;
         padding: 12px;
@@ -50,6 +53,21 @@
           border-radius: 4px;
         }
       }
+    }
+
+    .add-user-btn {
+      background-size: 18px 18px;
+      background-repeat: no-repeat;
+      background-position: 10px 50%;
+      background-image: url("../public/icons/plus.svg");
+      margin-left: 15px;
+      padding: 6px 12px 6px 36px;
+      border: solid 1px white;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 26px;
+      color: white;
     }
   }
   .cards {
