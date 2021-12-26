@@ -43,7 +43,10 @@ const Component = () => {
 
   const clickItem = useCallback(
     (e, item) => {
-      if (e.target.className === "product-context-menu") {
+      if (
+        e.target.className === "product-context-menu" ||
+        e.target.parentNode.classList.contains("dropdown")
+      ) {
         return;
       }
 

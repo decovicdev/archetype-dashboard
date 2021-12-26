@@ -121,16 +121,6 @@ const Component = () => {
               }}
             >
               <div className="field">
-                <label htmlFor="userName">Your name</label>
-                <input
-                  type="text"
-                  autoComplete="name"
-                  value={fullName}
-                  id="userName"
-                  onChange={(e) => setFullname(e.target.value)}
-                />
-              </div>
-              <div className="field">
                 <label htmlFor="userEmail">Email</label>
                 <input
                   type="email"
@@ -138,6 +128,15 @@ const Component = () => {
                   value={authEmail}
                   id="userEmail"
                   onChange={(e) => setAuthEmail(e.target.value)}
+                />
+              </div>
+              <div className="field">
+                <label htmlFor="userName">Your name</label>
+                <input
+                  type="text"
+                  value={fullName}
+                  id="userName"
+                  onChange={(e) => setFullname(e.target.value)}
                 />
               </div>
               <div className="field">

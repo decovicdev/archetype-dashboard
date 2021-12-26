@@ -15,38 +15,49 @@ import { useRouter } from "next/router";
 import classnames from "classnames";
 
 import Block from "./Block";
-
-import data from "./data.json";
-
+import DeleteModal from "./DeleteModal";
 import Spinner from "../_common/Spinner";
 
-import Analytics from "../../helpers/analytics";
+import EndpointService from "../../services/endpoint.service";
 
 import { HelperContext } from "../../context/helper";
 
 const Component = () => {
   const router = useRouter();
 
-  const _sidebar = useRef();
+  const _deleteEndpoint = useRef(null);
+  const _sidebar = useRef(null);
 
   const { showAlert } = useContext(HelperContext);
 
-  const methodsList = [...data].map((el, i) => {
-    el.key = i;
-    return el;
-  });
-
-  const _refs = useMemo(() => {
-    return methodsList.map((el) => {
-      return createRef(null);
-    });
-  }, [methodsList]);
-
   const [inProgress, setProgress] = useState(false);
-  const [activePlan, setActivePlan] = useState("free");
-  const [apiKey, setApiKey] = useState("None");
+  const [data, setData] = useState([]);
   const [searchText, onSearch] = useState("");
   const [isFocused, setFocus] = useState(false);
+  const [selectedEndpoint, setSelectedEndpoint] = useState(null);
+
+  const _refs = useMemo(() => {
+    return data.map((el) => {
+      return createRef(null);
+    });
+  }, [data]);
+
+  const fetch = useCallback(async () => {
+    try {
+      setProgress(true);
+
+      const response = await EndpointService.getList();
+      setData(response);
+    } catch (e) {
+      showAlert(e.message);
+    } finally {
+      setProgress(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   const scrollTo = useCallback(
     (key) => {
@@ -65,7 +76,7 @@ const Component = () => {
   const renderBtns = useCallback(() => {
     return (
       <ul>
-        {methodsList.map((el, i) => {
+        {data.map((el, i) => {
           return (
             <li key={i}>
               <button
@@ -85,16 +96,15 @@ const Component = () => {
         })}
       </ul>
     );
-  }, [methodsList, scrollTo]);
+  }, [data, scrollTo]);
 
   const renderBlocks = useCallback(() => {
     return (
       <div className="content-block">
         <div className="title">
           <span>API Documentation</span>
-          <button type={"button"} className={"edit-btn"} />
         </div>
-        {methodsList.map((el, i) => {
+        {data.map((el, i) => {
           return (
             <Block
               key={i}
@@ -105,15 +115,20 @@ const Component = () => {
 
                 router.push("/account/login");
               }}
+              clickDelete={(id) => {
+                setSelectedEndpoint(id);
+
+                _deleteEndpoint.current?.show();
+              }}
             />
           );
         })}
       </div>
     );
-  }, [_refs, methodsList, activePlan, apiKey, showAlert]);
+  }, [_refs, data, showAlert]);
 
   const renderSidebar = useCallback(() => {
-    const dropdownItems = methodsList.filter((el) => {
+    const dropdownItems = data.filter((el) => {
       if (searchText) {
         return el.name.toLowerCase().includes(searchText.toLowerCase());
       }
@@ -173,7 +188,7 @@ const Component = () => {
         </div>
       </div>
     );
-  }, [_sidebar, methodsList, searchText, isFocused, scrollTo, renderBtns]);
+  }, [_sidebar, data, searchText, isFocused, scrollTo, renderBtns]);
 
   return (
     <>
@@ -185,6 +200,11 @@ const Component = () => {
         {renderSidebar()}
         {renderBlocks()}
       </div>
+      <DeleteModal
+        ref={_deleteEndpoint}
+        id={selectedEndpoint}
+        onSuccess={fetch}
+      />
     </>
   );
 };
