@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 import classnames from "classnames";
 
 import Block from "./Block";
-
+import DeleteModal from "./DeleteModal";
 import Spinner from "../_common/Spinner";
 
 import EndpointService from "../../services/endpoint.service";
@@ -25,7 +25,8 @@ import { HelperContext } from "../../context/helper";
 const Component = () => {
   const router = useRouter();
 
-  const _sidebar = useRef();
+  const _deleteEndpoint = useRef(null);
+  const _sidebar = useRef(null);
 
   const { showAlert } = useContext(HelperContext);
 
@@ -33,6 +34,7 @@ const Component = () => {
   const [data, setData] = useState([]);
   const [searchText, onSearch] = useState("");
   const [isFocused, setFocus] = useState(false);
+  const [selectedEndpoint, setSelectedEndpoint] = useState(null);
 
   const _refs = useMemo(() => {
     return data.map((el) => {
@@ -101,7 +103,6 @@ const Component = () => {
       <div className="content-block">
         <div className="title">
           <span>API Documentation</span>
-          <button type={"button"} className={"edit-btn"} />
         </div>
         {data.map((el, i) => {
           return (
@@ -113,6 +114,11 @@ const Component = () => {
                 showAlert("Authorization is required");
 
                 router.push("/account/login");
+              }}
+              clickDelete={(id) => {
+                setSelectedEndpoint(id);
+
+                _deleteEndpoint.current?.show();
               }}
             />
           );
@@ -194,6 +200,11 @@ const Component = () => {
         {renderSidebar()}
         {renderBlocks()}
       </div>
+      <DeleteModal
+        ref={_deleteEndpoint}
+        id={selectedEndpoint}
+        onSuccess={fetch}
+      />
     </>
   );
 };

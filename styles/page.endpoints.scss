@@ -116,14 +116,6 @@
         font-size: 28px;
         line-height: 36px;
       }
-
-      .edit-btn {
-        width: 18px;
-        height: 18px;
-        background-image: url("../public/icons/edit.svg");
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
     }
 
     .block {
@@ -162,6 +154,38 @@
 
             &.JSON {
               background: $purple;
+            }
+          }
+
+          .product-context-menu {
+            width: 18px;
+            height: 18px;
+            background-size: 3px 18px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url("../public/icons/menu.svg");
+          }
+
+          .dropdown {
+            .edit-btn,
+            .delete-btn {
+              background-repeat: no-repeat;
+              background-position: 0 50%;
+              background-size: 16px 16px;
+              display: block;
+              margin: 7px 0;
+              padding-left: 25px;
+              font-size: 18px;
+              line-height: 26px;
+              color: $light-blue;
+            }
+
+            .edit-btn {
+              background-image: url("../public/icons/edit.svg");
+            }
+
+            .delete-btn {
+              background-image: url("../public/icons/delete.svg");
             }
           }
         }

@@ -1,6 +1,6 @@
 import config from "../../config";
 
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -23,13 +23,31 @@ const Component = () => {
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
-  const [fields, setFields] = useState({
-    name: "",
-    description: "",
-    methods: [],
-    path: "/",
-  });
+  const [fields, setFields] = useState(null);
   const [activeTab, setActiveTab] = useState("headers");
+
+  useEffect(() => {
+    async function fetch() {
+      try {
+        setProgress(true);
+
+        const response = await EndpointService.getById(router.query.endpointId);
+
+        setFields({
+          name: response.name,
+          description: response.description,
+          methods: response.allowed_methods,
+          path: response.path,
+        });
+      } catch (e) {
+        showAlert(e.message);
+      } finally {
+        setProgress(false);
+      }
+    }
+
+    fetch();
+  }, []);
 
   const changeFields = useCallback(
     (field, value, obj) => {
@@ -66,7 +84,7 @@ const Component = () => {
 
       setProgress(true);
 
-      await EndpointService.addNew({
+      await EndpointService.updateById({
         name: fields.name,
         description: fields.description,
         path: fields.path,
@@ -83,6 +101,75 @@ const Component = () => {
       setProgress(false);
     }
   }, [inProgress, fields, showAlert]);
+
+  const renderContent = useCallback(() => {
+    if (!fields) {
+      return <div className={"no-content"}>Endpoint not found.</div>;
+    }
+
+    return (
+      <>
+        <div className={"form"}>
+          <h2>Edit endpoint</h2>
+          <div className={"field"}>
+            <label>Name</label>
+            <input
+              type={"text"}
+              value={fields.name}
+              placeholder={"Name your endpoint"}
+              onChange={(e) => changeFields("name", e.target.value)}
+            />
+          </div>
+          <div className={"field description"}>
+            <label>Description</label>
+            <textarea
+              value={fields.description}
+              placeholder={"Describe what this endpoint does"}
+              onChange={(e) => changeFields("description", e.target.value)}
+            />
+          </div>
+        </div>
+        <div className={"line"} />
+        <div className={"form"}>
+          <div className={"group-fields"}>
+            <div className={"field method"}>
+              {Object.entries(HTTP_METHODS).map(([key, val]) => {
+                return (
+                  <div key={key} className="box">
+                    <input
+                      type="checkbox"
+                      checked={fields.methods.includes(val)}
+                      onChange={(e) => {
+                        const index = fields.methods.indexOf(e.target.checked);
+                        const result = [...fields.methods];
+
+                        if (index >= 0) {
+                          result.splice(index, 1);
+                        } else {
+                          result.push(val);
+                        }
+
+                        changeFields("methods", result);
+                      }}
+                    />
+                    <span>{val}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <div className={"field path"}>
+              <input
+                type={"text"}
+                value={fields.path}
+                onChange={(e) => changeFields("path", e.target.value)}
+              />
+              <small>{`Use <curly braces> to indicate path parameters if needed e.g.,/employees/{id}`}</small>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }, [fields]);
 
   const renderTabs = useCallback(() => {
     // not implemented yet
@@ -122,7 +209,7 @@ const Component = () => {
   return (
     <>
       <Head>
-        <title>Add Endpoint - {config.meta.title}</title>
+        <title>Edit Endpoint - {config.meta.title}</title>
       </Head>
       {inProgress && <Spinner />}
       <div className="page endpoints-add-page">
@@ -132,70 +219,11 @@ const Component = () => {
               <a>Endpoints</a>
             </Link>
             <span>{">"}</span>
-            <Link href={"/endpoints/add"}>
-              <a className={"active"}>Add Endpoint</a>
+            <Link href={`/endpoints/${router.query.endpointId}`}>
+              <a className={"active"}>Edit Endpoint</a>
             </Link>
           </div>
-          <div className={"form"}>
-            <h2>Add new endpoint</h2>
-            <div className={"field"}>
-              <label>Name</label>
-              <input
-                type={"text"}
-                value={fields.name}
-                placeholder={"Name your endpoint"}
-                onChange={(e) => changeFields("name", e.target.value)}
-              />
-            </div>
-            <div className={"field description"}>
-              <label>Description</label>
-              <textarea
-                value={fields.description}
-                placeholder={"Describe what this endpoint does"}
-                onChange={(e) => changeFields("description", e.target.value)}
-              />
-            </div>
-          </div>
-          <div className={"line"} />
-          <div className={"form"}>
-            <div className={"group-fields"}>
-              <div className={"field method"}>
-                {Object.entries(HTTP_METHODS).map(([key, val]) => {
-                  return (
-                    <div key={key} className="box">
-                      <input
-                        type="checkbox"
-                        checked={fields.methods.includes(val)}
-                        onChange={(e) => {
-                          const index = fields.methods.indexOf(
-                            e.target.checked
-                          );
-                          const result = [...fields.methods];
-
-                          if (index >= 0) {
-                            result.splice(index, 1);
-                          } else {
-                            result.push(val);
-                          }
-
-                          changeFields("methods", result);
-                        }}
-                      />
-                      <span>{val}</span>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className={"field path"}>
-                <input
-                  type={"text"}
-                  value={fields.path}
-                  onChange={(e) => changeFields("path", e.target.value)}
-                />
-                <small>{`Use <curly braces> to indicate path parameters if needed e.g.,/employees/{id}`}</small>
-              </div>
-            </div>
-          </div>
+          {renderContent()}
           {renderTabs()}
           <div className={"line"} />
           <div className={"btns"}>
@@ -204,7 +232,7 @@ const Component = () => {
               className={"btn gradient-blue"}
               onClick={() => submitForm()}
             >
-              Create
+              Save
             </button>
             <Link href={`/endpoints`}>
               <a className={"btn clean-white"}>Cancel</a>
