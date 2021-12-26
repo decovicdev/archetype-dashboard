@@ -30,6 +30,12 @@
     color: #ffffff;
   }
 
+  &.gradient-blue-w-border {
+    background: linear-gradient(175deg, #4b466c, #1b2145);
+    box-shadow: inset 0px 0px 1px 1px $light-blue;
+    color: #ffffff;
+  }
+
   &.purple-w-border {
     background: $purple;
     box-shadow: inset 0px 0px 1px 1px $light-blue;

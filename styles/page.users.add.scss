@@ -12,6 +12,28 @@
   .form {
     max-width: 450px;
 
+    .field {
+      &.id {
+        position: relative;
+
+        input[type="text"] {
+          padding-right: 50px;
+        }
+
+        .generate-btn {
+          width: 20px;
+          height: 20px;
+          background-size: cover;
+          background-image: url("../public/icons/refresh.svg");
+          background-position: center;
+          background-repeat: no-repeat;
+          position: absolute;
+          bottom: 12px;
+          right: 15px;
+        }
+      }
+    }
+
     .btns {
       width: 100%;
     }
