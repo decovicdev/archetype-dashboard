@@ -141,8 +141,13 @@ const Component = () => {
           height={18}
         />{" "}
         <div>
-          <span>Your Public key: {data?.public_key}</span> <br /> <br />
-          <span>Your Secret key: {data?.secret_key.join(", ")}</span>
+          <span>App ID: {data?.app_id}</span>
+          <br />
+          <br />
+          <span>Public key: {data?.public_key}</span>
+          <br />
+          <br />
+          <span>Secret key: {data?.secret_key.join(", ")}</span>
         </div>
       </div>
 
