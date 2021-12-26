@@ -84,7 +84,7 @@ const Component = () => {
 
       setProgress(true);
 
-      await EndpointService.updateById({
+      await EndpointService.updateById(router.query.endpointId, {
         name: fields.name,
         description: fields.description,
         path: fields.path,
@@ -93,14 +93,12 @@ const Component = () => {
       });
 
       showAlert("Success", true);
-
-      router.push("/endpoints");
     } catch (e) {
       showAlert(e.message);
     } finally {
       setProgress(false);
     }
-  }, [inProgress, fields, showAlert]);
+  }, [router, inProgress, fields, showAlert]);
 
   const renderContent = useCallback(() => {
     if (!fields) {
