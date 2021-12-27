@@ -71,9 +71,9 @@ const Users = () => {
       <>
         <div className={"users-list-header"}>
           <div className={"col"}>Customer</div>
-          <div className={"col"}>API Key</div>
+          <div className={"col"}>API key</div>
           <div className={"col"}>Tier</div>
-          <div className={"col"}>Last Seen</div>
+          <div className={"col"}>Last seen</div>
           <div className={"col"}>Status</div>
           <div className={"col"}>Spent</div>
           <div className={"col"}>Quota</div>
