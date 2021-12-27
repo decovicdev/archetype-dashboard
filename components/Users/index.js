@@ -1,16 +1,10 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import config from "../../config";
 
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
-import MenuIcon from "../../public/icons/menu.svg";
-import ListViewIcon from "../../public/icons/list-view.svg";
-import CardViewIcon from "../../public/icons/card-view.svg";
-
-import EditIcon from "../_icons/EditIcon";
-import DeleteIcon from "../_icons/DeleteIcon";
 import Dropdown from "../_common/Dropdown";
 import Spinner from "../_common/Spinner";
 import DeleteModal from "./DeleteModal";
@@ -20,12 +14,15 @@ import CustomerService from "../../services/customer.service";
 import { HelperContext } from "../../context/helper";
 
 const Users = () => {
+  const router = useRouter();
+
   const _deleteModal = useRef(null);
 
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
   const [data, setData] = useState([]);
+  const [searchVal, setSearchVal] = useState("");
 
   const fetch = useCallback(async () => {
     try {
@@ -44,6 +41,99 @@ const Users = () => {
     fetch();
   }, []);
 
+  const clickItem = useCallback(
+    (e, item) => {
+      if (
+        e.target.className === "user-context-menu" ||
+        e.target.parentNode.classList.contains("dropdown") ||
+        e.target.parentNode.classList.contains("dropdownContent")
+      ) {
+        return;
+      }
+
+      router.push(`/users/${item.uid}`);
+    },
+    [router]
+  );
+
+  const renderContent = useCallback(() => {
+    let list = [...data];
+
+    if (searchVal) {
+      list = list.filter((item) => {
+        return (
+          item.attrs?.name.toLowerCase().indexOf(searchVal.toLowerCase()) >= 0
+        );
+      });
+    }
+
+    return (
+      <>
+        <div className={"users-list-header"}>
+          <div className={"col"}>Customer</div>
+          <div className={"col"}>API Key</div>
+          <div className={"col"}>Tier</div>
+          <div className={"col"}>Last Seen</div>
+          <div className={"col"}>Status</div>
+          <div className={"col"}>Spent</div>
+          <div className={"col"}>Quota</div>
+        </div>
+        <div className={"users-list-data"}>
+          {list.map((customer) => {
+            const lastSeenDate = new Date(customer.last_seen * 1000);
+            const [month, day, year] = [
+              lastSeenDate.getMonth(),
+              lastSeenDate.getDate(),
+              lastSeenDate.getFullYear(),
+            ];
+
+            return (
+              <div
+                key={customer.uid}
+                className={"row"}
+                onClick={(e) => clickItem(e, customer)}
+              >
+                <div className={"col with-long-text"}>
+                  {customer.custom_uid}
+                </div>
+                <div className={"col with-long-text"}>{customer.apikey}</div>
+                <div className={"col"}>
+                  {customer.tier ? (
+                    <Link href={`tiers/${customer.tier_id}`}>
+                      {customer.tier_id}
+                    </Link>
+                  ) : (
+                    "--"
+                  )}
+                </div>
+                <div className={"col"}>{`${day}/${month + 1}/${year}`}</div>
+                <div className={"col"}>{customer.status.replace("_", " ")}</div>
+                <div className={"col"}>$0</div>
+                <div className={"col"}>
+                  <div>{customer.quota}</div>
+                  <Dropdown title={<div className={"user-context-menu"} />}>
+                    <Link href={`/users/edit/${customer.uid}`}>
+                      <a className={"edit-btn"}>Edit</a>
+                    </Link>
+                    <button
+                      type={"button"}
+                      className={"delete-btn"}
+                      onClick={() => {
+                        _deleteModal.current?.show();
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </Dropdown>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </>
+    );
+  }, [data, searchVal]);
+
   return (
     <div className="page users-page">
       <Head>
@@ -51,21 +141,14 @@ const Users = () => {
       </Head>
       {inProgress && <Spinner />}
       <div className={"content"}>
-        <div className="header">
+        <div className="header-block">
           <h1>Customers</h1>
           <input
-            className="searchInput"
             type="text"
             placeholder="Find customer"
+            value={searchVal}
+            onChange={(e) => setSearchVal(e.target.value)}
           />
-          <div className="btn-group">
-            <button className="btn">
-              <Image src={CardViewIcon} width={15} height={15} />
-            </button>
-            <button className="btn active">
-              <Image src={ListViewIcon} width={15} height={15} />
-            </button>
-          </div>
           <Link href={"/users/add"}>
             <a className={"add-user-btn"}>Add user</a>
           </Link>
@@ -88,82 +171,7 @@ const Users = () => {
             <span>$0</span>
           </div>
         </div>
-        <div className="list">
-          <table>
-            <thead>
-              <tr>
-                <th>Customers</th>
-                <th>API Key</th>
-                <th>Tier</th>
-                <th>Last seen date</th>
-                <th>Status</th>
-                <th>Spent</th>
-                <th>Quota</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((customer) => {
-                const lastSeenDate = new Date(customer.last_seen * 1000);
-                const [month, day, year] = [
-                  lastSeenDate.getMonth(),
-                  lastSeenDate.getDate(),
-                  lastSeenDate.getFullYear(),
-                ];
-
-                return (
-                  <tr key={customer.uid}>
-                    <td>ID: {customer.uid}</td>
-                    <td>{customer.apikey}</td>
-                    <td>
-                      {customer.tier ? (
-                        <Link href={`tiers/${customer.tier_id}`}>
-                          {customer.tier_id}
-                        </Link>
-                      ) : (
-                        "--"
-                      )}
-                    </td>
-                    <td>{`${day}/${month + 1}/${year}`}</td>
-                    <td className="capitalize">
-                      {customer.status.replace("_", " ")}
-                    </td>
-                    {/* spent value not provided */}
-                    <td>$0</td>
-                    <td>{customer.quota}</td>
-                    <td>
-                      <Dropdown title={<div className={"user-context-menu"} />}>
-                        <Link href={`/users/${customer.uid}`}>
-                          <a className={"edit-btn"}>Edit</a>
-                        </Link>
-                        <button
-                          type={"button"}
-                          className={"delete-btn"}
-                          onClick={() => {
-                            _deleteModal.current?.show();
-                          }}
-                        >
-                          Delete
-                        </button>
-                      </Dropdown>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          {/* Hide Pagination */}
-          {/* <div className="paging">
-            <a className="pageIcon active">1</a>
-            <a className="pageIcon">2</a>
-            <a className="pageIcon">3</a>
-            <a className="pageIcon">4</a>
-            <a className="pageIcon">5</a>
-            <a className="pageIcon">
-              <i className="next-arrow"></i>
-            </a>
-          </div> */}
-        </div>
+        {renderContent()}
       </div>
       <DeleteModal modalRef={_deleteModal} />
     </div>
