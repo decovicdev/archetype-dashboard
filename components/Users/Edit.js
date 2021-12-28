@@ -111,7 +111,7 @@ const Component = () => {
     return (
       <>
         <div className={"top-block"}>
-          <h2>User Information</h2>
+          <h2>Customer Information</h2>
           <button
             type={"button"}
             className={"delete-btn"}
