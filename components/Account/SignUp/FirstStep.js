@@ -93,19 +93,19 @@ const Component = () => {
       <div className="page signup-page">
         <div className="content with-lines">
           <div className="info-block">
-            <h2>Some text here</h2>
+            <h2>Monetize your API</h2>
             <ul>
               <li>
-                <h3>Item 1</h3>
-                <p>Important text here</p>
+                <h3>Launch Quickly</h3>
+                <p>Create subscriptions and prices without any hassle</p>
               </li>
               <li>
-                <h3>Item 1</h3>
-                <p>Important text here</p>
+                <h3>Painless</h3>
+                <p> Never worry about invoicing, API key management or your users again. </p>
               </li>
               <li>
-                <h3>Item 1</h3>
-                <p>Important text here</p>
+                <h3>Run Experiments</h3>
+                <p>Iterate quickly on prices and pricing models.</p>
               </li>
             </ul>
           </div>

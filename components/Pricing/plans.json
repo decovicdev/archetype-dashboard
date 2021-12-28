@@ -2,8 +2,8 @@
   {
     "name": "Startup",
     "planType": "startup",
-    "description": "Everything you need to get your in-app purchase infrastructure up and running",
-    "mtr": "0.8%",
+    "description": "Everything you need to get your API purchase infrastructure and user/api key management up and running",
+    "mtr": "7%",
     "mtrText": "of your MTR"
   }
 ]
