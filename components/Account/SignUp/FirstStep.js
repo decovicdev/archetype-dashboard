@@ -101,7 +101,11 @@ const Component = () => {
               </li>
               <li>
                 <h3>Painless</h3>
-                <p> Never worry about invoicing, API key management or your users again. </p>
+                <p>
+                  {" "}
+                  Never worry about invoicing, API key management or your users
+                  again.{" "}
+                </p>
               </li>
               <li>
                 <h3>Run Experiments</h3>
