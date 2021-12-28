@@ -1,14 +1,16 @@
 import config from "../../config";
 
-import { useState, useCallback, useRef, useContext } from "react";
+import { useState, useCallback, useRef, useEffect, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Select from "react-select";
-
+import { useRouter } from "next/router";
 import DeleteUser from "./DeleteModal";
+import CustomerService from "../../services/customer.service";
 
 import DeleteIcon from "../_icons/DeleteIcon";
 import { HelperContext } from "../../context/helper";
+
 
 const tierValues = [
   { value: 1, label: "Basic" },
@@ -17,6 +19,10 @@ const tierValues = [
 ];
 
 const Component = () => {
+  const [inProgress, setProgress] = useState(false);
+  const [fields, setFields] = useState(null);
+  const router = useRouter();
+  /*
   const [info, setInfo] = useState({
     name: "Darrell Steward",
     email: "tim.jennings@example.com",
@@ -26,6 +32,7 @@ const Component = () => {
     lastSeenDate: null,
     quota: null,
   });
+  */
   const _deleteUser = useRef(null);
 
   const { showAlert } = useContext(HelperContext);
@@ -40,11 +47,31 @@ const Component = () => {
   };
 
   const copyApiKey = () => {
-    navigator.clipboard.writeText(info.apiKey);
+    navigator.clipboard.writeText(fields.apikey);
     showAlert("Copied to clipboard", true);
   };
 
+  useEffect(() => {
+    async function fetch() {
+      try {
+        setProgress(true);
+        const response = await CustomerService.getById(router.query.userId);
+        setFields(response);
+      } catch (e) {
+        showAlert(e.message);
+      } finally {
+        setProgress(false);
+      }
+    }
+
+    fetch();
+  }, []);
+
+  if (!fields) {
+    return <div className={"no-content"}>Product not found.</div>;
+  }
   return (
+    
     <div className="page users-details-page">
       <Head>
         <title>Customer Information - {config.meta.title}</title>
@@ -72,7 +99,7 @@ const Component = () => {
         <form className="form">
           <div className="field">
             <label htmlFor="name">Name</label>
-            <input type="text" id="name" value={info.name} onChange={setData} />
+            <input type="text" id="name" value={fields.name} onChange={setData} />
           </div>
           <div className="field">
             <label htmlFor="email">Email</label>
@@ -80,13 +107,13 @@ const Component = () => {
               type="email"
               autoComplete="email"
               id="email"
-              value={info.email}
+              value={fields.email}
               onChange={setData}
             />
           </div>
           <div className="field">
             <label htmlFor="id">ID</label>
-            <input type="text" id="id" value={info.id} onChange={setData} />
+            <input type="text" id="id" value={fields.custom_uid} onChange={setData} />
           </div>
           <div className="field">
             <label htmlFor="apiKey">API Key</label>
@@ -95,12 +122,12 @@ const Component = () => {
               type="text"
               id="apiKey"
               readOnly
-              value={info.apiKey}
+              value={fields.apikey}
               onChange={setData}
               onClick={copyApiKey}
             />
           </div>
-          <div className="field">
+          {/*<div className="field">
             <label htmlFor="tier">Tier</label>
             <Select
               options={tierValues}
@@ -108,7 +135,7 @@ const Component = () => {
               classNamePrefix="react-select"
               value={tierValues.find((val) => val.value === info.tier)}
               onChange={onTierChange}
-            />
+          />
           </div>
           <div className="field">
             <label htmlFor="lastSeenDate">Last Seen Date</label>
@@ -131,7 +158,7 @@ const Component = () => {
               value={info.quota}
               onChange={setData}
             />
-          </div>
+          </div>*/}
         </form>
         <hr />
         <div className="btns">
