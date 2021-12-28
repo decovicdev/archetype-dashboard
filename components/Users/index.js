@@ -51,7 +51,7 @@ const Users = () => {
         return;
       }
 
-      router.push(`/users/${item.uid}`);
+      router.push(`/users/${item.custom_uid}`);
     },
     [router]
   );
@@ -89,7 +89,7 @@ const Users = () => {
 
             return (
               <div
-                key={customer.uid}
+                key={customer.custom_uid}
                 className={"row"}
                 onClick={(e) => clickItem(e, customer)}
               >
@@ -112,7 +112,7 @@ const Users = () => {
                 <div className={"col"}>
                   <div>{customer.quota}</div>
                   <Dropdown title={<div className={"user-context-menu"} />}>
-                    <Link href={`/users/edit/${customer.uid}`}>
+                    <Link href={`/users/edit/${customer.custom_uid}`}>
                       <a className={"edit-btn"}>Edit</a>
                     </Link>
                     <button
