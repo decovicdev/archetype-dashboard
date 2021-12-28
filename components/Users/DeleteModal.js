@@ -1,69 +1,65 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useCallback, useContext, useState } from "react";
 
 import Modal from "../_common/Modal";
 
-const Component = forwardRef(({}, ref) => {
-  const [isDeleting, setIsDeleting] = useState(false);
+import CustomerService from "../../services/customer.service";
 
-  const clickDeleteAccount = () => {};
+import { HelperContext } from "../../context/helper";
+
+const Component = forwardRef(({ id, onSuccess }, ref) => {
+  const { showAlert } = useContext(HelperContext);
+
+  const [inProgress, setProgress] = useState(false);
+
+  const deleteUser = useCallback(async () => {
+    try {
+      if (inProgress) {
+        return;
+      }
+      setProgress(true);
+
+      await CustomerService.deleteById(id);
+
+      showAlert("Success", true);
+
+      if (onSuccess) {
+        onSuccess();
+      }
+    } catch (e) {
+      showAlert(e.message);
+    } finally {
+      setProgress(false);
+    }
+  }, [id, onSuccess, inProgress, showAlert]);
 
   return (
-    <div className="delete-user-modal">
-      <Modal ref={ref} isBusy={isDeleting}>
-        <div className="data">
-          <h1>Delete a customer?</h1>
-          <div className="body">
-            <p>Do you want to delete the customer?</p>
-            <p>You have to choose a refund option</p>
-            <div className="radioBtns">
-              <input
-                type="radio"
-                name="refundType"
-                value={"No Refund"}
-                id="noRefund"
-              />{" "}
-              <label htmlFor="noRefund">No Refund</label>
-              <br />
-              <input
-                type="radio"
-                name="refundType"
-                value={"Prorated"}
-                id="prorated"
-              />{" "}
-              <label htmlFor="prorated">Prorated ($255.34)</label>
-              <br />
-              <input
-                type="radio"
-                name="refundType"
-                value={"Full"}
-                id="full"
-              />{" "}
-              <label htmlFor="full">Full ($5600.30)</label>
-            </div>
-          </div>
-        </div>
-        <div className="btns">
-          <button
-            type="button"
-            className="btn clear-white"
-            onClick={clickDeleteAccount}
-          >
-            Delete
-          </button>
-          <button
-            type="button"
-            className="btn grey"
-            onClick={() => {
-              if (ref.current) {
-                ref.current.hide();
-              }
-            }}
-          >
-            Cancel
-          </button>
-        </div>
-      </Modal>
-    </div>
+    <Modal ref={ref} title={"Delete a customer?"} isBusy={inProgress}>
+      <div className="data">
+        <p>
+          Do you want to <span>delete</span> the customer?
+        </p>
+      </div>
+      <div className="btns">
+        <button
+          type="button"
+          className="half-width action"
+          onClick={() => deleteUser()}
+        >
+          Delete
+        </button>
+        <button
+          type="button"
+          className="half-width"
+          onClick={() => {
+            if (ref.current) {
+              ref.current.hide();
+            }
+          }}
+        >
+          Cancel
+        </button>
+      </div>
+    </Modal>
   );
 });
 

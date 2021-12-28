@@ -23,6 +23,7 @@ const Users = () => {
   const [inProgress, setProgress] = useState(false);
   const [data, setData] = useState([]);
   const [searchVal, setSearchVal] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
 
   const fetch = useCallback(async () => {
     try {
@@ -119,6 +120,8 @@ const Users = () => {
                       type={"button"}
                       className={"delete-btn"}
                       onClick={() => {
+                        setSelectedId(customer.custom_uid);
+
                         _deleteModal.current?.show();
                       }}
                     >
@@ -132,7 +135,7 @@ const Users = () => {
         </div>
       </>
     );
-  }, [data, searchVal]);
+  }, [_deleteModal, data, searchVal]);
 
   return (
     <div className="page users-page">
@@ -173,7 +176,13 @@ const Users = () => {
         </div>
         {renderContent()}
       </div>
-      <DeleteModal modalRef={_deleteModal} />
+      <DeleteModal
+        ref={_deleteModal}
+        id={selectedId}
+        onSuccess={() => {
+          fetch();
+        }}
+      />
     </div>
   );
 };

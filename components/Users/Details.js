@@ -2,11 +2,10 @@ import config from "../../config";
 
 import { useState, useCallback, useRef, useContext } from "react";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import Select from "react-select";
 
-import DeleteModal from "./DeleteModal";
+import DeleteUser from "./DeleteModal";
 
 import DeleteIcon from "../_icons/DeleteIcon";
 import { HelperContext } from "../../context/helper";
@@ -27,7 +26,7 @@ const Component = () => {
     lastSeenDate: null,
     quota: null,
   });
-  const _deleteModal = useRef(null);
+  const _deleteUser = useRef(null);
 
   const { showAlert } = useContext(HelperContext);
 
@@ -61,8 +60,8 @@ const Component = () => {
           <h1>Customer Information</h1>
           <a
             onClick={() => {
-              if (_deleteModal.current) {
-                _deleteModal.current.show();
+              if (_deleteUser.current) {
+                _deleteUser.current.show();
               }
             }}
           >
@@ -140,7 +139,7 @@ const Component = () => {
           <button className="btn border-white">Cancel</button>
         </div>
       </div>
-      <DeleteModal ref={_deleteModal} />
+      <DeleteUser ref={_deleteUser} />
     </div>
   );
 };
