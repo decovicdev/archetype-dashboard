@@ -1,14 +1,80 @@
 .users-details-page {
-  .header {
-    @include flexbox();
-    h1 {
+  .top-block {
+    @include flexbox($justify-content: space-between, $align-items: center);
+
+    h2 {
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 36px;
       color: #ffffff;
     }
+
+    .user-context-menu {
+      width: 18px;
+      height: 18px;
+      background-size: 3px 18px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url("../public/icons/menu.svg");
+    }
+
+    .dropdown {
+      .edit-btn,
+      .delete-btn {
+        background-repeat: no-repeat;
+        background-position: 0 50%;
+        background-size: 16px 16px;
+        display: block;
+        margin: 7px 0;
+        padding-left: 25px;
+        font-size: 18px;
+        line-height: 26px;
+        color: $light-blue;
+      }
+
+      .edit-btn {
+        background-image: url("../public/icons/edit.svg");
+      }
+
+      .delete-btn {
+        background-image: url("../public/icons/delete.svg");
+      }
+    }
   }
-  .btns {
-    @include flexbox($justify-content: flex-end);
+
+  .line {
+    width: 100%;
+    height: 1px;
+    background: #2f3a71;
     margin-top: 20px;
-    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .content-block {
+    h3 {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 26px;
+      color: #ffffff;
+    }
+
+    .field {
+      @include flexbox($justify-content: flex-start, $align-items: center);
+      margin-top: 10px;
+
+      .name {
+        width: 200px;
+        font-size: 14px;
+        line-height: 22px;
+        color: $second-text;
+      }
+
+      .value {
+        font-size: 14px;
+        line-height: 22px;
+        color: color;
+      }
+    }
   }
 
   .copy-input {
