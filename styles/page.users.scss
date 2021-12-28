@@ -92,9 +92,8 @@
   .users-list-header,
   .users-list-data {
     .col {
-      overflow-x: hidden;
-
       &.with-long-text {
+        overflow-x: hidden;
         position: relative;
 
         &:after {
@@ -202,7 +201,7 @@
         &:last-child {
           @include flexbox($align-items: center);
 
-          .product-context-menu {
+          .user-context-menu {
             width: 18px;
             height: 18px;
             background-size: 3px 18px;
@@ -235,39 +234,6 @@
           }
         }
       }
-    }
-  }
-
-  .user-context-menu {
-    width: 18px;
-    height: 18px;
-    background-size: 3px 18px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-image: url("../public/icons/menu.svg");
-  }
-
-  .dropdown {
-    .edit-btn,
-    .delete-btn {
-      background-repeat: no-repeat;
-      background-position: 0 50%;
-      background-size: 16px 16px;
-      display: block;
-      margin: 7px 0;
-      padding-left: 25px;
-      font-size: 18px;
-      line-height: 26px;
-      color: $light-blue;
-      text-align: left;
-    }
-
-    .edit-btn {
-      background-image: url("../public/icons/edit.svg");
-    }
-
-    .delete-btn {
-      background-image: url("../public/icons/delete.svg");
     }
   }
 

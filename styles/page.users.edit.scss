@@ -1,0 +1,52 @@
+.users-edit-page {
+  @include flexbox($align-items: flex-start);
+
+  .top-block {
+    @include flexbox($justify-content: space-between, $align-items: center);
+
+    h2 {
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 36px;
+      color: #ffffff;
+    }
+
+    .delete-btn {
+      width: 16px;
+      height: 16px;
+      background-image: url("../public/icons/delete.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      display: block;
+    }
+  }
+
+  .form {
+    max-width: 450px;
+  }
+
+  .line {
+    width: 100%;
+    height: 1px;
+    background: #2f3a71;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .btns {
+    @include flexbox($justify-content: flex-end);
+    margin-top: 30px;
+
+    a,
+    button {
+      margin-left: 15px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+  }
+
+  @media screen and (max-width: 428px) {
+  }
+}
