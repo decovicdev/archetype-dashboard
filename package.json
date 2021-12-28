@@ -4,7 +4,7 @@
   "private": true,
   "main": "function.js",
   "engines": {
-    "node": "14"
+    "node": "10"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^1.4.1",

@@ -35,8 +35,6 @@ const Component = () => {
 
         const response = await TierService.getById(router.query.tierId);
 
-        console.log(response);
-
         setFields(response);
       } catch (e) {
         showAlert(e.message);
