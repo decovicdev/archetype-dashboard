@@ -58,6 +58,18 @@
       color: #ffffff;
     }
 
+    .profile-pic {
+      width: 68px;
+      height: 68px;
+      background-image: url("../public/icons/user.svg");
+      background-position: center;
+      background-size: 50%;
+      background-color: $light-blue;
+      background-repeat: no-repeat;
+      margin-top: 10px;
+      border-radius: 6px;
+    }
+
     .field {
       @include flexbox($justify-content: flex-start, $align-items: center);
       margin-top: 10px;

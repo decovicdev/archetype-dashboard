@@ -81,13 +81,6 @@ const Users = () => {
         </div>
         <div className={"users-list-data"}>
           {list.map((customer) => {
-            const lastSeenDate = new Date(customer.last_seen * 1000);
-            const [month, day, year] = [
-              lastSeenDate.getMonth(),
-              lastSeenDate.getDate(),
-              lastSeenDate.getFullYear(),
-            ];
-
             return (
               <div
                 key={customer.custom_uid}
@@ -98,16 +91,12 @@ const Users = () => {
                   {customer.custom_uid}
                 </div>
                 <div className={"col with-long-text"}>{customer.apikey}</div>
-                <div className={"col"}>
-                  {customer.tier ? (
-                    <Link href={`tiers/${customer.tier_id}`}>
-                      {customer.tier_id}
-                    </Link>
-                  ) : (
-                    "--"
-                  )}
+                <div className={"col with-long-text"}>
+                  {customer.tier_id || "-"}
                 </div>
-                <div className={"col"}>{`${day}/${month + 1}/${year}`}</div>
+                <div className={"col"}>
+                  {new Date(customer.last_seen * 1000).toLocaleDateString()}
+                </div>
                 <div className={"col"}>{customer.status.replace("_", " ")}</div>
                 <div className={"col"}>$0</div>
                 <div className={"col"}>
