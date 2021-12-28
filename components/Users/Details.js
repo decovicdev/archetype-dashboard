@@ -67,6 +67,7 @@ const Component = () => {
         <div className={"line"} />
         <div className={"content-block"}>
           <h3>Customer details</h3>
+          <div className={"profile-pic"} />
           <div className={"field"}>
             <div className={"name"}>App User ID</div>
             <div className={"value"}>{data.custom_uid}</div>
@@ -79,13 +80,19 @@ const Component = () => {
             <div className={"name"}>Email</div>
             <div className={"value"}>{data.email}</div>
           </div>
+          {data.tier_id && (
+            <div className={"field"}>
+              <div className={"name"}>Tier</div>
+              <div className={"value"}>
+                <Link href={`/tiers/${data.tier_id}`}>{data.tier_id}</Link>
+              </div>
+            </div>
+          )}
           <div className={"field"}>
-            <div className={"name"}>Project</div>
-            <div className={"value"}>{data.custom_uid}</div>
-          </div>
-          <div className={"field"}>
-            <div className={"name"}>Tier</div>
-            <div className={"value"}>{data.custom_uid}</div>
+            <div className={"name"}>Last Seen</div>
+            <div className={"value"}>
+              {new Date(data.last_seen * 1000).toLocaleDateString()}
+            </div>
           </div>
         </div>
         <div className={"line"} />
