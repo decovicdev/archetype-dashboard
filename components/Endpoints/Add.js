@@ -8,6 +8,7 @@ import classnames from "classnames";
 
 import { HTTP_METHODS } from "./assets";
 
+import DefaultDropdown from "../_common/DefaultDropdown";
 import Spinner from "../_common/Spinner";
 import HeadersTab from "./blocks/headers";
 import QueryTab from "./blocks/query";
@@ -158,42 +159,35 @@ const Component = () => {
           </div>
           <div className={"line"} />
           <div className={"form"}>
-            <div className={"group-fields"}>
-              <div className={"field method"}>
-                {Object.entries(HTTP_METHODS).map(([key, val]) => {
-                  return (
-                    <div key={key} className="box">
-                      <input
-                        type="checkbox"
-                        checked={fields.methods.includes(val)}
-                        onChange={(e) => {
-                          const index = fields.methods.indexOf(
-                            e.target.checked
-                          );
-                          const result = [...fields.methods];
-
-                          if (index >= 0) {
-                            result.splice(index, 1);
-                          } else {
-                            result.push(val);
-                          }
-
-                          changeFields("methods", result);
-                        }}
-                      />
-                      <span>{val}</span>
-                    </div>
+            <div className={"field method"}>
+              <label>Method</label>
+              <DefaultDropdown
+                isMulti={true}
+                placeholder={"Select"}
+                options={Object.entries(HTTP_METHODS).map(([key, val]) => ({
+                  label: key,
+                  value: val,
+                }))}
+                value={fields.methods.map((method) => ({
+                  label: method,
+                  value: method,
+                }))}
+                onChange={(values) => {
+                  changeFields(
+                    "methods",
+                    values.map((item) => item.value)
                   );
-                })}
-              </div>
-              <div className={"field path"}>
-                <input
-                  type={"text"}
-                  value={fields.path}
-                  onChange={(e) => changeFields("path", e.target.value)}
-                />
-                <small>{`Use <curly braces> to indicate path parameters if needed e.g.,/employees/{id}`}</small>
-              </div>
+                }}
+              />
+            </div>
+            <div className={"field path"}>
+              <label>Path</label>
+              <input
+                type={"text"}
+                value={fields.path}
+                onChange={(e) => changeFields("path", e.target.value)}
+              />
+              <small>{`Use <curly braces> to indicate path parameters if needed e.g.,/employees/{id}`}</small>
             </div>
           </div>
           {renderTabs()}

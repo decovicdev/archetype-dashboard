@@ -9,15 +9,6 @@
     color: #ffffff;
   }
 
-  h3 {
-    width: 100%;
-    margin-top: 15px;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 26px;
-    color: #ffffff;
-  }
-
   .form {
     .field {
       &.description {
@@ -27,15 +18,12 @@
       }
 
       &.method {
-        width: 140px;
-
-        .box {
-          margin-top: 0;
-        }
+        width: 100%;
+        max-width: 400px;
       }
 
       &.path {
-        width: calc(100% - 165px);
+        width: 70%;
 
         small {
           font-size: 12px;
