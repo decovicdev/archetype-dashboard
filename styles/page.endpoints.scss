@@ -209,51 +209,6 @@
           font-size: 14px;
           line-height: 22px;
           color: white;
-
-          &:hover {
-            cursor: pointer;
-          }
-        }
-      }
-
-      .code-part {
-        width: 47%;
-
-        .code-block {
-          margin-top: 20px;
-
-          &:first-child {
-            margin-top: 0;
-          }
-
-          .code-part-header {
-            width: 100%;
-            background: $light-blue;
-            padding: 10px 12px;
-            border-top-left-radius: 6px;
-            border-top-right-radius: 6px;
-            font-size: 12px;
-            line-height: 20px;
-            color: $black;
-            text-transform: uppercase;
-          }
-
-          .code-part-data {
-            border: solid 1px $light-blue;
-            border-top: 0;
-            border-bottom-left-radius: 6px;
-            border-bottom-right-radius: 6px;
-
-            pre {
-              margin: 0;
-              padding: 0;
-              border-bottom-left-radius: 5px;
-              border-bottom-right-radius: 5px;
-              font-size: 12px;
-              line-height: 20px;
-              color: $black;
-            }
-          }
         }
       }
     }
@@ -273,13 +228,8 @@
       .block {
         flex-direction: column;
 
-        .info-part,
-        .code-part {
+        .info-part {
           width: 100%;
-        }
-
-        .code-part {
-          margin-top: 20px;
         }
       }
     }

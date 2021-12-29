@@ -9,7 +9,7 @@ import Dropdown from "../_common/Dropdown";
 import Spinner from "../_common/Spinner";
 import DeleteModal from "./DeleteModal";
 
-import CustomerService from "../../services/customer.service";
+import EndpointService from "../../services/endpoint.service";
 
 import { HelperContext } from "../../context/helper";
 
@@ -28,7 +28,7 @@ const Component = () => {
       try {
         setProgress(true);
 
-        const response = await CustomerService.getById(router.query.userId);
+        const response = await EndpointService.getById(router.query.endpointId);
         setData(response);
       } catch (e) {
         showAlert(e.message);
@@ -42,15 +42,15 @@ const Component = () => {
 
   const renderContent = useCallback(() => {
     if (!data) {
-      return <div className={"no-content"}>Customer not found.</div>;
+      return <div className={"no-content"}>Endpoint not found.</div>;
     }
 
     return (
       <>
         <div className={"top-block"}>
-          <h2>Customer Profile</h2>
+          <h2>{data.name}</h2>
           <Dropdown title={<div className={"context-menu-dots"} />}>
-            <Link href={`/users/edit/${data.custom_uid}`}>
+            <Link href={`/endpoints/edit/${data.uid}`}>
               <a className={"edit-btn"}>Edit</a>
             </Link>
             <button
@@ -66,64 +66,47 @@ const Component = () => {
         </div>
         <div className={"line"} />
         <div className={"content-block"}>
-          <h3>Customer details</h3>
-          <div className={"profile-pic"} />
+          <h3>Details</h3>
           <div className={"field"}>
-            <div className={"name"}>App User ID</div>
-            <div className={"value"}>{data.custom_uid}</div>
+            <div className={"name"}>Description</div>
+            <div className={"value"}>{data.description}</div>
           </div>
           <div className={"field"}>
-            <div className={"name"}>Name</div>
-            <div className={"value"}>{data.attrs?.name}</div>
+            <div className={"name"}>Methods</div>
+            <div className={"value"}>{data.allowed_methods?.join(", ")}</div>
           </div>
           <div className={"field"}>
-            <div className={"name"}>Email</div>
-            <div className={"value"}>{data.email}</div>
-          </div>
-          {data.tier_id && (
-            <div className={"field"}>
-              <div className={"name"}>Tier</div>
-              <div className={"value"}>
-                <Link href={`/tiers/${data.tier_id}`}>{data.tier_id}</Link>
-              </div>
-            </div>
-          )}
-          <div className={"field"}>
-            <div className={"name"}>Last Seen</div>
-            <div className={"value"}>
-              {new Date(data.last_seen * 1000).toLocaleDateString()}
-            </div>
+            <div className={"name"}>Path</div>
+            <div className={"value"}>{data.path}</div>
           </div>
         </div>
-        <div className={"line"} />
-        <h3>Customer history</h3>
       </>
     );
   }, [_deleteModal, data]);
 
   return (
-    <div className="page users-details-page">
+    <div className="page endpoints-details-page">
       <Head>
-        <title>Customer Information - {config.meta.title}</title>
+        <title>Endpoint Details - {config.meta.title}</title>
       </Head>
       {inProgress && <Spinner />}
       <div className={"content with-lines"}>
         <div className={"bread-crumbs"}>
-          <Link href={"/users"}>
-            <a>Customers</a>
+          <Link href={"/endpoints"}>
+            <a>Endpoints</a>
           </Link>
           <span>{">"}</span>
           <Link href={router.pathname}>
-            <a className={"active"}>Customer Profile</a>
+            <a className={"active"}>Endpoint Details</a>
           </Link>
         </div>
         {renderContent()}
       </div>
       <DeleteModal
         ref={_deleteModal}
-        id={router.query.userId}
+        id={router.query.endpointId}
         onSuccess={() => {
-          router.push("/users");
+          router.push("/endpoints");
         }}
       />
     </div>

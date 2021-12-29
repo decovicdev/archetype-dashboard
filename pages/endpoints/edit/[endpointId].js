@@ -1,10 +1,10 @@
 import { useContext } from "react";
 
-import PrivateRoute from "../../components/_common/PrivateRoute";
-import Spinner from "../../components/_common/Spinner";
-import DetailsEndpoint from "../../components/Endpoints/Details";
+import PrivateRoute from "../../../components/_common/PrivateRoute";
+import Spinner from "../../../components/_common/Spinner";
+import EditEndpoint from "../../../components/Endpoints/Edit";
 
-import { AuthContext } from "../../context/auth";
+import { AuthContext } from "../../../context/auth";
 
 const Component = () => {
   const { authPending } = useContext(AuthContext);
@@ -19,7 +19,7 @@ const Component = () => {
 
   return (
     <PrivateRoute>
-      <DetailsEndpoint />
+      <EditEndpoint />
     </PrivateRoute>
   );
 };
