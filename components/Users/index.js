@@ -76,8 +76,6 @@ const Users = () => {
           <div className={"col"}>Tier</div>
           <div className={"col"}>Last seen</div>
           <div className={"col"}>Status</div>
-          <div className={"col"}>Spent</div>
-          <div className={"col"}>Quota</div>
         </div>
         <div className={"users-list-data"}>
           {list.map((customer) => {
@@ -97,11 +95,9 @@ const Users = () => {
                 <div className={"col"}>
                   {new Date(customer.last_seen * 1000).toLocaleDateString()}
                 </div>
-                <div className={"col"}>{customer.status.replace("_", " ")}</div>
-                <div className={"col"}>$0</div>
                 <div className={"col"}>
-                  <div>{customer.quota}</div>
-                  <Dropdown title={<div className={"user-context-menu"} />}>
+                  {customer.status.replace("_", " ")}
+                  <Dropdown title={<div className={"context-menu-dots"} />}>
                     <Link href={`/users/edit/${customer.custom_uid}`}>
                       <a className={"edit-btn"}>Edit</a>
                     </Link>
