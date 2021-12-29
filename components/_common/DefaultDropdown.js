@@ -108,7 +108,7 @@ const styles = {
       margin: 0,
       fontSize: "15px",
       lineHeight: "20px",
-      color: "#eff2ff",
+      color: "#9599b1",
     };
   },
   singleValue: (provided, state) => {
