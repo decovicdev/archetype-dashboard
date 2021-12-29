@@ -1,4 +1,6 @@
-.users-details-page {
+.endpoints-details-page {
+  @include flexbox($align-items: flex-start);
+
   .top-block {
     @include flexbox($justify-content: space-between, $align-items: center);
 
@@ -49,18 +51,6 @@
       color: #ffffff;
     }
 
-    .profile-pic {
-      width: 68px;
-      height: 68px;
-      background-image: url("../public/icons/user.svg");
-      background-position: center;
-      background-size: 50%;
-      background-color: $light-blue;
-      background-repeat: no-repeat;
-      margin-top: 10px;
-      border-radius: 6px;
-    }
-
     .field {
       @include flexbox($justify-content: flex-start, $align-items: center);
       margin-top: 10px;
@@ -78,11 +68,5 @@
         color: color;
       }
     }
-  }
-
-  @media screen and (max-width: 767px) {
-  }
-
-  @media screen and (max-width: 428px) {
   }
 }

@@ -221,3 +221,12 @@
   padding: 3px;
   margin-right: 4px;
 }
+
+.context-menu-dots {
+  width: 18px;
+  height: 18px;
+  background-size: 3px 18px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../public/icons/menu.svg");
+}
