@@ -26,7 +26,7 @@ const Component = () => {
       <Head>
         <title>User Profile - {config.meta.title}</title>
       </Head>
-      <div className="page settings-page">
+      <div className="page profile-page">
         <div className="content with-lines">
           <ul className="tabs">
             <li className={"tab"}>
