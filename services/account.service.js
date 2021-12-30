@@ -37,4 +37,8 @@ export default class AccountService {
       await Firebase.auth().currentUser.reload();
     }
   }
+
+  static async updatePassword(user, newPassword) {
+    return await Firebase.updatePassword(user, newPassword);
+  }
 }

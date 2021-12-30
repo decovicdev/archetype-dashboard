@@ -66,7 +66,7 @@ const Footer = () => {
         </div>
         <div className={"bottom-block"}>
           <div className={"content"}>
-            <div className={"copyright"}>&copy; 2021 Archetype</div>
+            <div className={"copyright"}>&copy; 2022 Archetype</div>
           </div>
         </div>
       </footer>

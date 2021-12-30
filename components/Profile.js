@@ -11,6 +11,8 @@ import Spinner from "./_common/Spinner";
 
 import Analytics from "./../helpers/analytics";
 
+import AccountService from "../services/account.service";
+
 import { AuthContext } from "../context/auth";
 import { HelperContext } from "../context/helper";
 
@@ -22,7 +24,6 @@ const Component = () => {
 
   const [inProgress, setProgress] = useState(false);
   const [linkSent, setLinkSent] = useState(false);
-
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(currentUser.displayName);
   const [email, setEmail] = useState(currentUser.email);
@@ -56,36 +57,47 @@ const Component = () => {
 
       showAlert("Verification link sent, please check your mailbox", true);
 
-      setProgress(false);
       setLinkSent(true);
     } catch (e) {
       showAlert(e.message);
-
+    } finally {
       setProgress(false);
     }
   }, [currentUser, inProgress, showAlert]);
 
-  const onSave = async () => {
-    setProgress(true);
+  const saveForm = useCallback(async () => {
     try {
+      if (inProgress) {
+        return;
+      }
+      setProgress(true);
+
       const data = {};
       if (currentUser.displayName !== name) data.displayName = name;
       if (currentUser.email !== email) data.email = email;
-      if (currentUser.password !== password) data.password = password;
-      await updateUser(data);
+
       setPassword("");
       setIsEditing(false);
+
       showAlert("Saved Successfully", true);
     } catch (err) {
       showAlert(err.message);
+    } finally {
+      setProgress(false);
     }
-    setProgress(false);
-  };
+  }, [showAlert, inProgress]);
+
+  const changePassword = useCallback(async () => {
+    if (!password) {
+      return;
+    }
+
+    await AccountService.updatePassword(currentUser, password);
+  }, [currentUser, showAlert, password]);
 
   return (
     <>
       {inProgress && <Spinner />}
-
       <div className="block">
         <Image
           className={"icon"}
@@ -98,70 +110,76 @@ const Component = () => {
           width={18}
           height={18}
         />{" "}
-        Status account:
-        {currentUser.emailVerified ? (
-          <span className="badge success">Verified</span>
-        ) : (
-          <>
-            <span className="badge error">Not verified</span>{" "}
-            <a className="link">Send an email to verify</a>
-          </>
+        <div className={"status"}>
+          Status account:
+          {currentUser.emailVerified ? (
+            <span className="badge success">Verified</span>
+          ) : (
+            <span className="badge error">Not verified</span>
+          )}
+        </div>
+        {!linkSent && (
+          <button
+            type="button"
+            className="verify-email-btn"
+            onClick={sendEmail}
+          >
+            Send an email to verify
+          </button>
         )}
       </div>
-
-      <div className="block">
-        Information{" "}
-        <a onClick={() => setIsEditing(!isEditing)} className="editing">
+      <div className={"separate-line"} />
+      <div className="caption-block">
+        <span>Information</span>
+        <button type={"button"} onClick={() => setIsEditing(!isEditing)}>
           <EditIcon gradient={isEditing} fill="#ffffff" />
-        </a>
-        <br />
-        <form className="form">
-          <div className="field">
-            <label htmlFor="userName">Name</label>
-            <input
-              type="text"
-              value={name}
-              id="userName"
-              placeholder="Name"
-              disabled={!isEditing}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div className="field">
-            <label htmlFor="userEmail">Email</label>
-            <input
-              type="email"
-              autoComplete="email"
-              value={email}
-              id="userEmail"
-              placeholder="Email"
-              disabled={!isEditing}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="field">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              value={password}
-              id="password"
-              placeholder="Password"
-              disabled={!isEditing}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-        </form>
+        </button>
       </div>
-
+      <form className="form">
+        <div className="field">
+          <label htmlFor="userName">Name</label>
+          <input
+            type="text"
+            value={name}
+            id="userName"
+            placeholder="Name"
+            disabled={!isEditing}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="field">
+          <label htmlFor="userEmail">Email</label>
+          <input
+            type="email"
+            autoComplete="email"
+            value={email}
+            id="userEmail"
+            placeholder="Email"
+            disabled={!isEditing}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="field">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            value={password}
+            id="password"
+            placeholder="Password"
+            disabled={!isEditing}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+      </form>
+      <div className={"separate-line"} />
       <div className="btns">
         <button
           className="btn gradient-blue"
           disabled={!isEditing}
-          onClick={onSave}
+          onClick={saveForm}
         >
           Save
         </button>
-        <button className="btn border-white">Cancel</button>
       </div>
     </>
   );
