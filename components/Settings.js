@@ -11,7 +11,6 @@ import DeleteIcon from "./_icons/DeleteIcon";
 import Spinner from "./_common/Spinner";
 import Modal from "./_common/Modal";
 
-import Analytics from "./../helpers/analytics";
 import ApiService from "./../services/api.service";
 
 import { AuthContext } from "../context/auth";
@@ -34,7 +33,6 @@ const Component = () => {
 
   const [inProgress, setProgress] = useState(false);
   const [isDeleting, setDeleting] = useState(false);
-  const [linkSent, setLinkSent] = useState(false);
   const [data, setData] = useState(null);
   const [auth_type, setAuthType] = useState("");
   const [url, setRedirectUrl] = useState("");
@@ -59,7 +57,7 @@ const Component = () => {
     if (message) {
       showAlert(message, status === "success");
 
-      router.replace("/profile");
+      router.replace("/settings");
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,31 +88,6 @@ const Component = () => {
     }
   }, [inProgress, showAlert]);
 
-  const sendEmail = useCallback(async () => {
-    try {
-      Analytics.event({
-        action: "click",
-        params: { name: "Profile - Verify Email" },
-      });
-
-      if (inProgress) {
-        return;
-      }
-      setProgress(true);
-
-      await currentUser.sendEmailVerification();
-
-      showAlert("Verification link sent, please check your mailbox", true);
-
-      setProgress(false);
-      setLinkSent(true);
-    } catch (e) {
-      showAlert(e.message);
-
-      setProgress(false);
-    }
-  }, [currentUser, inProgress, showAlert]);
-
   const clickDeleteAccount = useCallback(async () => {
     try {
       if (isDeleting) {
@@ -138,27 +111,9 @@ const Component = () => {
     setRedirectUrl(e.target.value);
   };
 
-  const onSave = async () => {
-    setProgress(true);
-    try {
-      const data = await ApiService.updateCurrent({
-        auth_type,
-        url,
-      });
-      if (data.public_key) {
-        setData(data);
-        showAlert("Saved Successfully", true);
-      }
-    } catch (err) {
-      showAlert("Failed to save");
-    }
-    setProgress(false);
-  };
-
   return (
     <>
       {inProgress && <Spinner />}
-
       <div className="block">
         <Image
           className={"icon"}
@@ -177,7 +132,6 @@ const Component = () => {
           <span>Secret key: {data?.secret_key.join(", ")}</span>
         </div>
       </div>
-
       <div className="block">
         <Image
           className={"icon"}
@@ -210,8 +164,6 @@ const Component = () => {
           <br />
           <input
             type="radio"
-            name="authType"
-            value={"Header"}
             name="auth_type"
             value={AUTH_TYPES.HEADER}
             checked={auth_type === AUTH_TYPES.HEADER}
@@ -231,7 +183,6 @@ const Component = () => {
           <label htmlFor="body">Body</label>
         </div>
       </div>
-
       <div className="block">
         <Image
           className={"icon"}
@@ -253,7 +204,6 @@ const Component = () => {
           </div>
         </div>
       </div>
-
       <div className="block">
         <DeleteIcon gradient />
         <a
@@ -266,17 +216,15 @@ const Component = () => {
           Delete App
         </a>
       </div>
-
       <div className="btns">
         <button
           type={"button"}
           className={"btn gradient-blue"}
           disabled={auth_type === data?.auth_type && url === data?.url}
-          onClick={onSave}
+          onClick={() => {}}
         >
           Save
         </button>
-
         <button
           type="button"
           className="btn gradient-blue"
@@ -285,7 +233,6 @@ const Component = () => {
           Connect your stripe account
         </button>
       </div>
-
       <Modal ref={_deleteAccount} isBusy={isDeleting}>
         <div className="data">
           <h1>Delete Account</h1>

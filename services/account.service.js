@@ -1,4 +1,4 @@
-import Firebase, { AuthPersistance, updatePassword } from "../firebase.js";
+import Firebase, { AuthPersistance } from "../firebase.js";
 import http from "../helpers/http";
 
 export default class AccountService {
