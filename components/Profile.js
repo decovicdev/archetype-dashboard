@@ -6,7 +6,6 @@ import AccountVerifiedIcon from "../public/icons/account-verified.svg";
 import AccountUnverifiedIcon from "../public/icons/account-unverified.svg";
 
 import EditIcon from "./_icons/EditIcon";
-
 import Spinner from "./_common/Spinner";
 
 import Analytics from "./../helpers/analytics";
@@ -72,12 +71,22 @@ const Component = () => {
       }
       setProgress(true);
 
-      const data = {};
-      if (currentUser.displayName !== name) data.displayName = name;
-      if (currentUser.email !== email) data.email = email;
+      if (currentUser.displayName !== name) {
+        await currentUser.updateProfile({
+          displayName: name,
+        });
+      }
 
-      setPassword("");
+      if (currentUser.email !== email) {
+        await currentUser.updateEmail(password);
+      }
+
+      if (password) {
+        await currentUser.updatePassword(password);
+      }
+
       setIsEditing(false);
+      setPassword("");
 
       showAlert("Saved Successfully", true);
     } catch (err) {
@@ -85,15 +94,7 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [showAlert, inProgress]);
-
-  const changePassword = useCallback(async () => {
-    if (!password) {
-      return;
-    }
-
-    await AccountService.updatePassword(currentUser, password);
-  }, [currentUser, showAlert, password]);
+  }, [currentUser, showAlert, inProgress, password]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import Firebase, { AuthPersistance } from "../firebase.js";
+import Firebase, { AuthPersistance, updatePassword } from "../firebase.js";
 import http from "../helpers/http";
 
 export default class AccountService {
@@ -36,9 +36,5 @@ export default class AccountService {
     if (Firebase.auth().currentUser) {
       await Firebase.auth().currentUser.reload();
     }
-  }
-
-  static async updatePassword(user, newPassword) {
-    return await Firebase.updatePassword(user, newPassword);
   }
 }
