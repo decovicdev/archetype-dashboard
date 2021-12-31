@@ -16,9 +16,11 @@
       cursor: pointer;
       padding: 5px;
       border-bottom: 1px solid transparent;
+
       &:hover {
         border-bottom-color: #9599b1;
       }
+
       &.active {
         color: #ffffff;
         border-bottom-color: #ffffff;
@@ -35,16 +37,6 @@
     border-bottom: 1px solid #2f3a71;
     @include flexbox($justify-content: flex-start, $align-items: center);
     gap: 10px;
-  }
-
-  .link {
-    text-decoration: underline;
-  }
-
-  .delete-btn {
-    margin-inline-start: auto;
-    margin-top: 20px;
-    width: 30%;
   }
 
   .auth-types {
