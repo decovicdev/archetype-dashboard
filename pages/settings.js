@@ -24,7 +24,7 @@ const Component = () => {
   return (
     <PrivateRoute>
       <Head>
-        <title>User Settings - {config.meta.title}</title>
+        <title>Settings - {config.meta.title}</title>
       </Head>
       <div className="page settings-page">
         <div className="content with-lines">

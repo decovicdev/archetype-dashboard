@@ -16,4 +16,8 @@ export default class ApiService {
   static async stripeCheckout() {
     return await http.post(`api/checkout`);
   }
+
+  static async update(params) {
+    return http.put(`api`, params);
+  }
 }
