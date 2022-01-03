@@ -73,10 +73,6 @@ const Component = () => {
               <span>Updated:</span>
               <span>{new Date().toLocaleDateString()}</span>
             </div>
-            <div className={"field"}>
-              <span>MRR:</span>
-              <span>None</span>
-            </div>
           </div>
         </div>
         <h2>Details</h2>
@@ -90,12 +86,14 @@ const Component = () => {
             <span>{fields.tier_id}</span>
           </div>
           <div className={"field"}>
-            <span>Created:</span>
-            <span>{new Date().toLocaleDateString()}</span>
+            <span>Description:</span>
+            <span>{fields.description}</span>
           </div>
           <div className={"field"}>
-            <span>Statement descriptor:</span>
-            <span>None</span>
+            <span>Trial:</span>
+            <span>
+              {fields.trial_length} {fields.trial_time_frame}
+            </span>
           </div>
         </div>
         <h2>Pricing</h2>
@@ -103,7 +101,9 @@ const Component = () => {
           <div className={"field"}>
             <span>Price:</span>
             <span>
-              ${fields.price} {fields.currency} / {fields.period}
+              {!fields.price
+                ? `Free`
+                : `${fields.price} ${fields.currency} / ${fields.period}`}
             </span>
           </div>
           <div className={"field"}>
@@ -119,30 +119,6 @@ const Component = () => {
             <span>Created:</span>
             <span>{new Date().toLocaleDateString()}</span>
           </div>
-        </div>
-        <h2>Metadata</h2>
-        <div className={"metadata-block"}>
-          <p>No metadata</p>
-        </div>
-        <h2>Logs</h2>
-        <div className={"logs-block"}>
-          <ul>
-            <li>
-              <span className={"status"}>200 OK</span>
-              <span>POST /v1/products/web_5467FT6766GT8I02</span>
-            </li>
-            <li>
-              <span className={"status"}>200 OK</span>
-              <span>POST /v1/products/web_5467FT6766GT8I02</span>
-            </li>
-          </ul>
-        </div>
-        <h2>Events</h2>
-        <div className={"events-block"}>
-          <ul>
-            <li>A product with ID web_5467FT6766GT8I02 was updated</li>
-            <li>A product with ID web_5467FT6766GT8I02 was updated</li>
-          </ul>
         </div>
       </>
     );

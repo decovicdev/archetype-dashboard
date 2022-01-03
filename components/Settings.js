@@ -38,19 +38,24 @@ const Component = () => {
   const [redirectUrl, setRedirectUrl] = useState("");
   const [isCheckoutCompleted, setIsCheckoutCompleted] = useState(false);
 
-  useEffect(() => {
-    async function fetch() {
+  const fetch = useCallback(async () => {
+    try {
+      setProgress(true);
+
       const data = await ApiService.getCurrent();
 
-      if (data?.public_key) {
-        setData(data);
-        setAuthType(data.auth_type);
-        setRedirectUrl(data.url);
-      }
-
+      setData(data);
+      setAuthType(data.auth_type);
+      setRedirectUrl(data.url);
       setIsCheckoutCompleted(data.has_completed_checkout);
+    } catch (e) {
+      showAlert(e.message);
+    } finally {
+      setProgress(false);
     }
+  }, []);
 
+  useEffect(() => {
     fetch();
   }, []);
 
