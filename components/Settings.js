@@ -34,8 +34,9 @@ const Component = () => {
   const [inProgress, setProgress] = useState(false);
   const [isDeleting, setDeleting] = useState(false);
   const [data, setData] = useState(null);
-  const [auth_type, setAuthType] = useState("");
-  const [url, setRedirectUrl] = useState("");
+  const [authType, setAuthType] = useState("");
+  const [redirectUrl, setRedirectUrl] = useState("");
+  const [isCheckoutCompleted, setIsCheckoutCompleted] = useState(false);
 
   useEffect(() => {
     async function fetch() {
@@ -46,6 +47,8 @@ const Component = () => {
         setAuthType(data.auth_type);
         setRedirectUrl(data.url);
       }
+
+      setIsCheckoutCompleted(data.has_completed_checkout);
     }
 
     fetch();
@@ -63,8 +66,31 @@ const Component = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const saveForm = useCallback(async () => {
+    try {
+      if (inProgress) {
+        return;
+      }
+      setProgress(true);
+
+      ApiService.update({
+        auth_type: authType,
+        url: redirectUrl,
+      });
+
+      showAlert("Saved Successfully", true);
+    } catch (err) {
+      showAlert(err.message);
+    } finally {
+      setProgress(false);
+    }
+  }, [showAlert, inProgress, authType, redirectUrl]);
+
   const connectStripe = useCallback(async () => {
     try {
+      if (isCheckoutCompleted) {
+        return;
+      }
       if (inProgress) {
         return;
       }
@@ -86,7 +112,7 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [inProgress, showAlert]);
+  }, [inProgress, showAlert, isCheckoutCompleted]);
 
   const clickDeleteAccount = useCallback(async () => {
     try {
@@ -146,7 +172,7 @@ const Component = () => {
             type="radio"
             name="auth_type"
             value={AUTH_TYPES.NONE}
-            checked={auth_type === AUTH_TYPES.NONE}
+            checked={authType === AUTH_TYPES.NONE}
             onChange={updateAuthType}
             id="noAuth"
           />{" "}
@@ -156,7 +182,7 @@ const Component = () => {
             type="radio"
             name="auth_type"
             value={AUTH_TYPES.URL}
-            checked={auth_type === AUTH_TYPES.URL}
+            checked={authType === AUTH_TYPES.URL}
             onChange={updateAuthType}
             id="url"
           />{" "}
@@ -166,7 +192,7 @@ const Component = () => {
             type="radio"
             name="auth_type"
             value={AUTH_TYPES.HEADER}
-            checked={auth_type === AUTH_TYPES.HEADER}
+            checked={authType === AUTH_TYPES.HEADER}
             onChange={updateAuthType}
             id="header"
           />{" "}
@@ -176,7 +202,7 @@ const Component = () => {
             type="radio"
             name="auth_type"
             value={AUTH_TYPES.BODY}
-            checked={auth_type === AUTH_TYPES.BODY}
+            checked={authType === AUTH_TYPES.BODY}
             onChange={updateAuthType}
             id="body"
           />{" "}
@@ -197,7 +223,7 @@ const Component = () => {
             <input
               type="text"
               placeholder="URL"
-              value={url}
+              value={redirectUrl}
               id="url"
               onChange={updateRedirectUrl}
             />
@@ -220,8 +246,7 @@ const Component = () => {
         <button
           type={"button"}
           className={"btn gradient-blue"}
-          disabled={auth_type === data?.auth_type && url === data?.url}
-          onClick={() => {}}
+          onClick={saveForm}
         >
           Save
         </button>
@@ -230,7 +255,9 @@ const Component = () => {
           className="btn gradient-blue"
           onClick={connectStripe}
         >
-          Connect your stripe account
+          {isCheckoutCompleted
+            ? "Stripe Successfully Linked"
+            : "Connect your stripe account"}
         </button>
       </div>
       <Modal ref={_deleteAccount} isBusy={isDeleting}>

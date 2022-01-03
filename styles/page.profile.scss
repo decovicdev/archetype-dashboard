@@ -1,12 +1,10 @@
 .profile-page {
-  @include flexbox($align-items: flex-start);
-
   .content {
-    @include flexbox($justify-content: center, $align-items: stretch);
+    @include flexbox($justify-content: center, $align-items: flex-start);
   }
 
   .tabs {
-    @include flexbox($justify-content: flex-start);
+    @include flexbox($justify-content: flex-start, $align-items: flex-start);
     gap: 35px;
     width: 100%;
     list-style: none;

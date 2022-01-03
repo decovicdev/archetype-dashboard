@@ -1,12 +1,10 @@
 .settings-page {
-  @include flexbox($align-items: flex-start);
-
   .content {
-    @include flexbox($justify-content: center, $align-items: stretch);
+    @include flexbox($justify-content: center, $align-items: flex-start);
   }
 
   .tabs {
-    @include flexbox($justify-content: flex-start);
+    @include flexbox($justify-content: flex-start, $align-items: flex-start);
     gap: 35px;
     width: 100%;
     list-style: none;
@@ -37,6 +35,15 @@
     border-bottom: 1px solid #2f3a71;
     @include flexbox($justify-content: flex-start, $align-items: center);
     gap: 10px;
+
+    .form {
+      width: 100%;
+      max-width: 350px;
+
+      .field {
+        margin-top: 0;
+      }
+    }
   }
 
   .auth-types {
