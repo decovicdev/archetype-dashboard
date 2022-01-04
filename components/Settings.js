@@ -36,6 +36,7 @@ const Component = () => {
   const [data, setData] = useState(null);
   const [authType, setAuthType] = useState("");
   const [redirectUrl, setRedirectUrl] = useState("");
+  const [returnUrl, setReturnUrl] = useState("");
   const [isCheckoutCompleted, setIsCheckoutCompleted] = useState(false);
 
   const fetch = useCallback(async () => {
@@ -47,6 +48,7 @@ const Component = () => {
       setData(data);
       setAuthType(data.auth_type);
       setRedirectUrl(data.url);
+      setReturnUrl(data.return_url);
       setIsCheckoutCompleted(data.has_completed_checkout);
     } catch (e) {
       showAlert(e.message);
@@ -81,6 +83,7 @@ const Component = () => {
       ApiService.update({
         auth_type: authType,
         url: redirectUrl,
+        return_url: returnUrl,
       });
 
       showAlert("Saved Successfully", true);
@@ -89,7 +92,7 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [showAlert, inProgress, authType, redirectUrl]);
+  }, [showAlert, inProgress, authType, redirectUrl, returnUrl]);
 
   const connectStripe = useCallback(async () => {
     try {
@@ -136,10 +139,6 @@ const Component = () => {
 
   const updateAuthType = (e) => {
     setAuthType(e.target.value);
-  };
-
-  const updateRedirectUrl = (e) => {
-    setRedirectUrl(e.target.value);
   };
 
   return (
@@ -215,13 +214,7 @@ const Component = () => {
         </div>
       </div>
       <div className="block">
-        <Image
-          className={"icon"}
-          src={AuthIcon}
-          alt="User"
-          width={18}
-          height={18}
-        />{" "}
+        <Image className={"icon"} src={AuthIcon} width={18} height={18} />{" "}
         Redirect URL
         <div className="form">
           <div className="field">
@@ -229,8 +222,21 @@ const Component = () => {
               type="text"
               placeholder="URL"
               value={redirectUrl}
-              id="url"
-              onChange={updateRedirectUrl}
+              onChange={(e) => setRedirectUrl(e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="block">
+        <Image className={"icon"} src={AuthIcon} width={18} height={18} />{" "}
+        Return URL
+        <div className="form">
+          <div className="field">
+            <input
+              type="text"
+              placeholder="URL"
+              value={returnUrl}
+              onChange={(e) => setReturnUrl(e.target.value)}
             />
           </div>
         </div>

@@ -70,7 +70,10 @@ const Component = () => {
 
       await TierService.addNew({
         name: fields.name,
-        description: fields.description,
+        description:
+          !fields.hasTrial && !fields.description
+            ? "No trial"
+            : fields.description,
         price: parseFloat(parseFloat(fields.price).toFixed(2)),
         period: fields.billingPeriod,
         currency: "usd",
@@ -207,6 +210,9 @@ const Component = () => {
                   changeFields("price", e.target.value);
                 }}
                 onBlur={(e) => {
+                  if (!e.target.value) {
+                    return;
+                  }
                   changeFields("price", parseFloat(e.target.value).toFixed(2));
                 }}
               />
