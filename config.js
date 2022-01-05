@@ -24,7 +24,8 @@ const config = {
     key: publicRuntimeConfig.STRIPE_KEY,
   },
   google_analytics: publicRuntimeConfig.GOOGLE_ANALYTICS,
-  google_tag_manager: publicRuntimeConfig.GOOGLE_TAG_MANAGER
+  google_tag_manager: publicRuntimeConfig.GOOGLE_TAG_MANAGER,
+  clearbit: publicRuntimeConfig.CLEARBIT
 };
 
 export default config;
