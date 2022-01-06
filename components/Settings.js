@@ -37,7 +37,6 @@ const Component = () => {
   const [authType, setAuthType] = useState("");
   const [redirectUrl, setRedirectUrl] = useState("");
   const [returnUrl, setReturnUrl] = useState("");
-  const [isCheckoutCompleted, setIsCheckoutCompleted] = useState(false);
 
   const fetch = useCallback(async () => {
     try {
@@ -49,7 +48,6 @@ const Component = () => {
       setAuthType(data.auth_type);
       setRedirectUrl(data.url);
       setReturnUrl(data.return_url);
-      setIsCheckoutCompleted(data.has_completed_checkout);
     } catch (e) {
       showAlert(e.message);
     } finally {
@@ -96,7 +94,7 @@ const Component = () => {
 
   const connectStripe = useCallback(async () => {
     try {
-      if (isCheckoutCompleted) {
+      if (!data?.has_completed_checkout) {
         return;
       }
       if (inProgress) {
@@ -120,7 +118,7 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [inProgress, showAlert, isCheckoutCompleted]);
+  }, [inProgress, showAlert, data]);
 
   const clickDeleteAccount = useCallback(async () => {
     try {
@@ -141,9 +139,12 @@ const Component = () => {
     setAuthType(e.target.value);
   };
 
-  return (
-    <>
-      {inProgress && <Spinner />}
+  const renderSensitiveData = useCallback(() => {
+    if (!data?.has_completed_checkout) {
+      return null;
+    }
+
+    return (
       <div className="block">
         <Image
           className={"icon"}
@@ -162,6 +163,13 @@ const Component = () => {
           <span>Secret key: {data?.secret_key.join(", ")}</span>
         </div>
       </div>
+    );
+  }, [data]);
+
+  return (
+    <>
+      {inProgress && <Spinner />}
+      {renderSensitiveData()}
       <div className="block">
         <Image
           className={"icon"}
@@ -266,7 +274,7 @@ const Component = () => {
           className="btn gradient-blue"
           onClick={connectStripe}
         >
-          {isCheckoutCompleted
+          {data?.has_completed_checkout
             ? "Stripe Successfully Linked"
             : "Connect your stripe account"}
         </button>
