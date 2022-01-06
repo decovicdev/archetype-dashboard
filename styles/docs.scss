@@ -38,8 +38,21 @@
       @include flexbox($align-items: stretch, $flex-direction: column);
 
       a {
+        min-width: 130px;
+        background: linear-gradient(175deg, #4b466c, #1b2145);
+        box-sizing: border-box;
+        border-radius: 6px;
         margin-top: 15px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 22px;
+        color: $second-text;
         text-align: left;
+
+        &:hover,
+        &.active {
+          color: white;
+        }
       }
     }
   }
