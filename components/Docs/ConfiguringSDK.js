@@ -4,6 +4,7 @@ import { useState } from "react";
 import Head from "next/head";
 
 import Spinner from "../_common/Spinner";
+import Sidebar from "./_sidebar";
 
 const Component = () => {
   const [inProgress] = useState(false);
@@ -11,10 +12,13 @@ const Component = () => {
   return (
     <div className="page docs-page">
       <Head>
-        <title>Docs - {config.meta.title}</title>
+        <title>Configuring SDK - Docs - {config.meta.title}</title>
       </Head>
       {inProgress && <Spinner />}
-      <div className={"content"}></div>
+      <Sidebar />
+      <div className={"content-block"}>
+        <div className={"title"}>Configuring SDK</div>
+      </div>
     </div>
   );
 };

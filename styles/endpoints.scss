@@ -1,7 +1,11 @@
 .endpoints-page {
   width: 100%;
   max-width: 1280px;
-  min-height: calc(100vh - 124px);
+  min-height: calc(100vh - #{$headerHeight});
+  background-image: url("../public/images/illustration_lines.svg");
+  background-repeat: no-repeat;
+  background-position: bottom 25% right 0%;
+  background-size: 40% auto;
   @include flexbox();
   margin: 0 auto;
   padding-top: 40px;
@@ -12,7 +16,7 @@
 
   .sidebar-block {
     width: 300px;
-    height: calc(100vh - #{$headerHeight});
+    height: calc(100vh - #{$headerHeight} - 120px);
     position: -webkit-sticky;
     position: sticky;
     align-self: flex-start;
@@ -76,7 +80,6 @@
             margin-left: 10px;
             padding: 0px 5px;
             font-size: 12px;
-            font-weight: 300;
             line-height: 20px;
             color: #ffffff;
 
