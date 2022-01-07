@@ -22,7 +22,15 @@ const Layout = ({ children }) => {
 
   const [isLoading, setLoading] = useState(false);
 
+  const onApiNotFoundErr = () => {
+    router.push("/account/signup/next");
+  };
+
   useEffect(() => {
+    const apiNotFoundErr = debounce(onApiNotFoundErr, 200);
+
+    window.addEventListener("apiNotFoundErr", apiNotFoundErr);
+
     Router.events.on("routeChangeStart", () => setLoading(true));
     Router.events.on("routeChangeComplete", () => setLoading(false));
     Router.events.on("routeChangeError", () => setLoading(false));
@@ -42,8 +50,11 @@ const Layout = ({ children }) => {
     window.addEventListener("resize", onResized);
 
     return () => {
+      window.removeEventListener("apiNotFoundErr", apiNotFoundErr);
+
       window.removeEventListener("resize", onResized);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
