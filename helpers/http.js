@@ -27,7 +27,9 @@ $api.interceptors.response.use(
   (err) => {
     if (err.response) {
       if (err.response.status === 404) {
-        if (err.response.request.responseURL !== `${config.axios.baseURL}lost-api`) {
+        if (
+          err.response.request.responseURL !== `${config.axios.baseURL}lost-api`
+        ) {
           window.dispatchEvent(new CustomEvent("apiNotFoundErr"));
         }
       }

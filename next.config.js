@@ -4,6 +4,20 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
+const nextConfig = {
+  distDir: 'build',
+  webpack: (config) => {
+    config.module.rules.push(
+        {
+          test: /\.md$/,
+          use: 'raw-loader'
+        }
+    )
+
+    return config;
+  },
+};
+
 module.exports = withPlugins([
   [withBundleAnalyzer],
   [withImages],
@@ -28,4 +42,4 @@ module.exports = withPlugins([
       GOOGLE_TAG_MANAGER: process.env.GOOGLE_TAG_MANAGER
     },
   },
-]);
+], nextConfig);

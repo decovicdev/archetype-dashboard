@@ -60,11 +60,62 @@
   .content-block {
     width: calc(100% - 350px);
 
-    .title {
-      @include flexbox($justify-content: flex-start, $align-items: center);
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin-top: 15px;
+      font-weight: 500;
+      color: white;
+    }
+
+    h1 {
       font-size: 28px;
       line-height: 36px;
+    }
+
+    h2 {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    h3 {
+      font-size: 20px;
+      line-height: 28px;
+    }
+
+    h4 {
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    p {
+      margin-top: 15px;
+      font-size: 14px;
+      line-height: 22px;
       color: white;
+    }
+
+    ul,
+    ol {
+      margin-top: 15px;
+      margin-left: 15px;
+      list-style-position: inside;
+      font-size: 14px;
+      line-height: 22px;
+      color: white;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    pre {
+      background: linear-gradient(175deg, #4b466c, #1b2145);
+      padding: 15px;
+      border-radius: 6px;
+      position: relative;
+      @include borderGradient();
     }
   }
 

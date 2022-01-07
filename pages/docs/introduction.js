@@ -1,4 +1,4 @@
-import Child from "../../components/Docs/ConfiguringSDK";
+import Child from "../../components/Docs/Introduction";
 
 const Component = () => {
   return <Child />;
