@@ -6,10 +6,9 @@ const Sidebar = () => {
   const router = useRouter();
 
   const links = [
+    { name: "Introduction", link: "/docs/introduction" },
     { name: "Getting Started", link: "/docs/getting-started" },
-    { name: "Authentication", link: "/docs/authentication" },
-    { name: "Installation", link: "/docs/installation" },
-    { name: "Configuring SDK", link: "/docs/configuring-sdk" },
+    { name: "Python WSGI", link: "/docs/python-wsgi" },
   ];
 
   return (

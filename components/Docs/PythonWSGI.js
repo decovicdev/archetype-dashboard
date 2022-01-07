@@ -5,13 +5,13 @@ import Markdown from "markdown-to-jsx";
 
 import Sidebar from "./_sidebar";
 
-import data from "./md/Quickstart.md";
+import data from "./md/Python WSGI.md";
 
 const Component = () => {
   return (
     <div className="page docs-page">
       <Head>
-        <title>Getting Started - Docs - {config.meta.title}</title>
+        <title>Python WSGI - Docs - {config.meta.title}</title>
       </Head>
       <Sidebar />
       <div className={"content-block"}>
