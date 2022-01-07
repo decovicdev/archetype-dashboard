@@ -169,10 +169,6 @@ const Component = () => {
               </div>
             )}
           </div>
-          <div className={"some-space"} />
-          <div className={"add-options"}>
-            <button type={"button"}>Additional options {">"}</button>
-          </div>
         </div>
         <div className={"line"} />
         <div className={"form"}>
