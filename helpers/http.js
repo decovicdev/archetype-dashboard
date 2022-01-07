@@ -25,10 +25,18 @@ $api.interceptors.request.use((config) => {
 $api.interceptors.response.use(
   (res) => res.data,
   (err) => {
-    if (err.response && err.response.status !== 200) {
-      return Promise.reject({
-        message: `Request status code: ${err.response.status}`,
-      });
+    if (err.response) {
+      if (err.response.status === 404) {
+        if (err.response.request.responseURL !== `${config.axios.baseURL}lost-api`) {
+          window.dispatchEvent(new CustomEvent("apiNotFoundErr"));
+        }
+      }
+
+      if (err.response.status !== 200) {
+        return Promise.reject({
+          message: `Request status code: ${err.response.status}`,
+        });
+      }
     }
 
     return Promise.reject(
