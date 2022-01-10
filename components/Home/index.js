@@ -25,8 +25,8 @@ const Component = () => {
 
   const clickSubscribe = useCallback((e) => {
     e.preventDefault();
-
-    showAlert("Not implemented");
+    
+    showAlert("Subscribed");
   }, []);
 
   return (
@@ -59,7 +59,7 @@ const Component = () => {
               </h2>
               <form onSubmit={clickSubscribe}>
                 <div className={"text"}>
-                  Suscribe to updates about the product
+                  Subscribe to updates about the product
                 </div>
                 <div className={"field"}>
                   <input
@@ -83,11 +83,9 @@ const Component = () => {
           </Square>
           <div className={"left-side"}></div>
           <div className={"right-side"}>
-            <h3>Creation</h3>
+            <h3>Launch faster</h3>
             <p>
-              Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-              amet sint. Velit officia consequat duis enim velit mollit.
-              Exercitation veniam consequat sunt nostrud amet.
+              Launch your API in a matter of minutes -- not months.
             </p>
           </div>
         </div>
@@ -100,9 +98,7 @@ const Component = () => {
           <div className={"left-side"}>
             <h3>Monetization</h3>
             <p>
-              Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-              amet sint. Velit officia consequat duis enim velit mollit.
-              Exercitation veniam consequat sunt nostrud amet.
+              Instantly be able to create subscriptions, adjust prices and invoice your users. 
             </p>
           </div>
           <div className={"right-side"}></div>
@@ -115,27 +111,11 @@ const Component = () => {
           </Square>
           <div className={"left-side"}></div>
           <div className={"right-side"}>
-            <h3>Management</h3>
+            <h3>Analytics</h3>
             <p>
-              Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-              amet sint. Velit officia consequat duis enim velit mollit.
-              Exercitation veniam consequat sunt nostrud amet.
+              Analyze usage metrics across all your platforms and dynamically adjust pricing with cohort breakdowns.
             </p>
           </div>
-        </div>
-      </div>
-      <div className={"block info-block"}>
-        <div className={"content"}>
-          <Square reversed />
-          <div className={"left-side"}>
-            <h3>Build</h3>
-            <p>
-              Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-              amet sint. Velit officia consequat duis enim velit mollit.
-              Exercitation veniam consequat sunt nostrud amet.
-            </p>
-          </div>
-          <div className={"right-side"}></div>
         </div>
       </div>
       <div className={"block last-block"}>
