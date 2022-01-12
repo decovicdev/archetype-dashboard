@@ -4,7 +4,7 @@
   "private": true,
   "main": "function.js",
   "engines": {
-    "node": "10"
+    "node": "14"
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^4.1.1",
