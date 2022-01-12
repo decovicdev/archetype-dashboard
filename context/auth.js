@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
         setCurrentUser(user);
 
         if (!user) {
-          sessionStorage.removeItem("token");
+          sessionStorage.clear();
 
           return setAuthPending(false);
         }
