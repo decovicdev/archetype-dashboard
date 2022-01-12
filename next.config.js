@@ -5,7 +5,6 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 
 const nextConfig = {
-  distDir: 'build',
   webpack: (config) => {
     config.module.rules.push(
         {
