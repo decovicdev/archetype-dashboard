@@ -94,11 +94,11 @@ const Component = () => {
 
   const connectStripe = useCallback(async () => {
     try {
-      if (!data?.has_completed_checkout) {
-        return;
+      if (data?.has_completed_checkout) {
+        return showAlert("Stripe already linked");
       }
       if (inProgress) {
-        return;
+        return showAlert("Already in progress");
       }
       setProgress(true);
 
