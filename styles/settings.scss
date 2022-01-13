@@ -36,6 +36,11 @@
     @include flexbox($justify-content: flex-start, $align-items: center);
     gap: 10px;
 
+    .blurred {
+      filter: blur(4px);
+      user-select: none;
+    }
+
     .form {
       width: 100%;
       max-width: 350px;
@@ -43,6 +48,14 @@
       .field {
         margin-top: 0;
       }
+    }
+
+    .tip {
+      width: 100%;
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 22px;
+      @include pinkGradientText();
     }
   }
 
@@ -56,6 +69,7 @@
       margin-bottom: 10px;
       cursor: pointer;
     }
+
     label {
       cursor: pointer;
     }

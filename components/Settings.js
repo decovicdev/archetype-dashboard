@@ -3,6 +3,7 @@ import config from "../config";
 import { useRef, useContext, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import classnames from "classnames";
 
 import KeyIcon from "../public/icons/key.svg";
 import AuthIcon from "../public/icons/auth.svg";
@@ -12,6 +13,7 @@ import Spinner from "./_common/Spinner";
 import Modal from "./_common/Modal";
 
 import ApiService from "./../services/api.service";
+import CustomerService from "./../services/customer.service";
 
 import { AuthContext } from "../context/auth";
 import { HelperContext } from "../context/helper";
@@ -135,14 +137,27 @@ const Component = () => {
     }
   }, [isDeleting, showAlert]);
 
+  const clickResetKeys = useCallback(async () => {
+    try {
+      if (inProgress) {
+        return;
+      }
+      setProgress(true);
+
+      await CustomerService.resetApiKey();
+    } catch (e) {
+      showAlert(e.message);
+    } finally {
+      setProgress(false);
+    }
+  }, [showAlert, inProgress]);
+
   const updateAuthType = (e) => {
     setAuthType(e.target.value);
   };
 
   const renderSensitiveData = useCallback(() => {
-    if (!data?.has_completed_checkout) {
-      return null;
-    }
+    const isBlurred = !data?.has_completed_checkout;
 
     return (
       <div className="block">
@@ -154,14 +169,25 @@ const Component = () => {
           height={18}
         />{" "}
         <div>
-          <span>App ID: {data?.app_id}</span>
+          <span className={classnames({ blurred: isBlurred })}>
+            App ID: {data?.app_id}
+          </span>
           <br />
           <br />
-          <span>Public key: {data?.public_key}</span>
+          <span className={classnames({ blurred: isBlurred })}>
+            Public key: {data?.public_key}
+          </span>
           <br />
           <br />
-          <span>Secret key: {data?.secret_key.join(", ")}</span>
+          <span className={classnames({ blurred: isBlurred })}>
+            Secret key: {data?.secret_key.join(", ")}
+          </span>
         </div>
+        {isBlurred && (
+          <div className={"tip"}>
+            Important! Link your account to Stripe to access your keys
+          </div>
+        )}
       </div>
     );
   }, [data]);

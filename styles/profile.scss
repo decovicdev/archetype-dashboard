@@ -57,6 +57,11 @@
     .verify-email-btn {
       margin-left: 10px;
       color: white;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 

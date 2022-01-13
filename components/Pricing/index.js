@@ -60,10 +60,11 @@ const Component = () => {
               <a className={"action-btn"}>Sign Up</a>
             </Link>
           ) : (
-            {/*<button type={"button"} className={"action-btn"}>
+            {
+              /*<button type={"button"} className={"action-btn"}>
               Upgrade
           </button>*/
-        }
+            }
           )}
         </div>
       );
