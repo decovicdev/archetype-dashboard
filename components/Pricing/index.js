@@ -55,16 +55,10 @@ const Component = () => {
               <div className="mtr-text">{item.mtrText}</div>
             </>
           )}
-          {!currentUser ? (
+          {!currentUser && (
             <Link href="/account/signup">
               <a className={"action-btn"}>Sign Up</a>
             </Link>
-          ) : (
-            {
-              /*<button type={"button"} className={"action-btn"}>
-              Upgrade
-          </button>*/
-            }
           )}
         </div>
       );
