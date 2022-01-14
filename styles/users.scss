@@ -195,6 +195,7 @@
 
           .dropdown {
             .edit-btn,
+            .generate-key-btn,
             .delete-btn {
               background-repeat: no-repeat;
               background-position: 0 50%;
@@ -209,6 +210,10 @@
 
             .edit-btn {
               background-image: url("../public/icons/edit.svg");
+            }
+
+            .generate-key-btn {
+              background-image: url("../public/icons/refresh.svg");
             }
 
             .delete-btn {

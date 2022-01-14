@@ -20,4 +20,8 @@ export default class CustomerService {
   static async deleteById(id) {
     return http.delete(`user/${id}`);
   }
+
+  static async resetApiKey(id) {
+    return http.post(`user/${id}/reset-api-key`);
+  }
 }

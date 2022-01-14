@@ -25,7 +25,7 @@ const Component = () => {
 
   const clickSubscribe = useCallback((e) => {
     e.preventDefault();
-    
+
     showAlert("Subscribed");
   }, []);
 
@@ -84,9 +84,7 @@ const Component = () => {
           <div className={"left-side"}></div>
           <div className={"right-side"}>
             <h3>Launch faster</h3>
-            <p>
-              Launch your API in a matter of minutes -- not months.
-            </p>
+            <p>Launch your API in a matter of minutes -- not months.</p>
           </div>
         </div>
       </div>
@@ -98,7 +96,8 @@ const Component = () => {
           <div className={"left-side"}>
             <h3>Monetization</h3>
             <p>
-              Instantly be able to create subscriptions, adjust prices and invoice your users. 
+              Instantly be able to create subscriptions, adjust prices and
+              invoice your users.
             </p>
           </div>
           <div className={"right-side"}></div>
@@ -113,7 +112,8 @@ const Component = () => {
           <div className={"right-side"}>
             <h3>Analytics</h3>
             <p>
-              Analyze usage metrics across all your platforms and dynamically adjust pricing with cohort breakdowns.
+              Analyze usage metrics across all your platforms and dynamically
+              adjust pricing with cohort breakdowns.
             </p>
           </div>
         </div>
