@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import Dropdown from "../_common/Dropdown";
 import Spinner from "../_common/Spinner";
 import DeleteModal from "./DeleteModal";
+import GenerateKey from "./GenerateKey";
 
 import CustomerService from "../../services/customer.service";
 
@@ -17,6 +18,7 @@ const Users = () => {
   const router = useRouter();
 
   const _deleteModal = useRef(null);
+  const _generateKey = useRef(null);
 
   const { showAlert } = useContext(HelperContext);
 
@@ -45,7 +47,7 @@ const Users = () => {
   const clickItem = useCallback(
     (e, item) => {
       if (
-        e.target.className === "user-context-menu" ||
+        e.target.className === "context-menu-dots" ||
         e.target.parentNode.classList.contains("dropdown") ||
         e.target.parentNode.classList.contains("dropdownContent")
       ) {
@@ -101,6 +103,17 @@ const Users = () => {
                     <Link href={`/users/edit/${customer.custom_uid}`}>
                       <a className={"edit-btn"}>Edit</a>
                     </Link>
+                    <button
+                      type={"button"}
+                      className={"generate-key-btn"}
+                      onClick={() => {
+                        setSelectedId(customer.custom_uid);
+
+                        _generateKey.current?.show();
+                      }}
+                    >
+                      Reset API key
+                    </button>
                     <button
                       type={"button"}
                       className={"delete-btn"}
@@ -163,6 +176,13 @@ const Users = () => {
       </div>
       <DeleteModal
         ref={_deleteModal}
+        id={selectedId}
+        onSuccess={() => {
+          fetch();
+        }}
+      />
+      <GenerateKey
+        ref={_generateKey}
         id={selectedId}
         onSuccess={() => {
           fetch();

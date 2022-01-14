@@ -22,6 +22,6 @@ export default class CustomerService {
   }
 
   static async resetApiKey(id) {
-    return http.delete(`user/${id}/reset-api-key`);
+    return http.post(`user/${id}/reset-api-key`);
   }
 }

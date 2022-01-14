@@ -13,9 +13,7 @@ import Spinner from "./_common/Spinner";
 import Modal from "./_common/Modal";
 
 import ApiService from "./../services/api.service";
-import CustomerService from "./../services/customer.service";
 
-import { AuthContext } from "../context/auth";
 import { HelperContext } from "../context/helper";
 
 const AUTH_TYPES = {
@@ -30,7 +28,6 @@ const Component = () => {
 
   const _deleteAccount = useRef(null);
 
-  const { currentUser } = useContext(AuthContext);
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
@@ -136,21 +133,6 @@ const Component = () => {
       setDeleting(false);
     }
   }, [isDeleting, showAlert]);
-
-  const clickResetKeys = useCallback(async () => {
-    try {
-      if (inProgress) {
-        return;
-      }
-      setProgress(true);
-
-      await CustomerService.resetApiKey();
-    } catch (e) {
-      showAlert(e.message);
-    } finally {
-      setProgress(false);
-    }
-  }, [showAlert, inProgress]);
 
   const updateAuthType = (e) => {
     setAuthType(e.target.value);
