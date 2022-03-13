@@ -44,7 +44,7 @@ const Component = () => {
     }
 
     fetch();
-  }, []);
+  }, [router.query.tierId, showAlert]);
 
   const renderContent = useCallback(() => {
     if (!fields) {
@@ -122,7 +122,7 @@ const Component = () => {
         </div>
       </>
     );
-  }, [fields]);
+  }, [fields, router.query.tierId]);
 
   return (
     <>
@@ -154,7 +154,7 @@ const Component = () => {
           <button
             type={"button"}
             className={"half-width action"}
-            onClick={() => {}}
+            // onClick={() => {}}
           >
             Delete
           </button>

@@ -24,9 +24,10 @@ const Component = () => {
         <p>For the purposes of this Disclaimer:</p>
         <ul>
           <li>
-            <strong>Company</strong> (referred to as either "the Company", "We",
-            "Us" or "Our" in this Disclaimer) refers to Insider Finance Inc, 7
-            Nelson Circle, Middleton MA 01949.
+            <strong>Company</strong> (referred to as either &quot;the
+            Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in
+            this Disclaimer) refers to Insider Finance Inc, 7 Nelson Circle,
+            Middleton MA 01949.
           </li>
           <li>
             <strong>Service</strong> refers to the Application.
@@ -96,8 +97,8 @@ const Component = () => {
           teaching, scholarship, or research.
         </p>
         <p>
-          The Company believes this constitutes a "fair use" of any such
-          copyrighted material as provided for in section 107 of the United
+          The Company believes this constitutes a &quot;fair use&quot; of any
+          such copyrighted material as provided for in section 107 of the United
           States Copyright law.
         </p>
         <p>
@@ -134,13 +135,13 @@ const Component = () => {
           arising out of or in connection with your access or use or inability
           to access or use the Service.
         </p>
-        <h3>"Use at Your Own Risk" Disclaimer</h3>
+        <h3>&quot;Use at Your Own Risk&quot; Disclaimer</h3>
         <p>
-          All information in the Service is provided "as is", with no guarantee
-          of completeness, accuracy, timeliness or of the results obtained from
-          the use of this information, and without warranty of any kind, express
-          or implied, including, but not limited to warranties of performance,
-          merchantability and fitness for a particular purpose.
+          All information in the Service is provided &quot;as is&quot;, with no
+          guarantee of completeness, accuracy, timeliness or of the results
+          obtained from the use of this information, and without warranty of any
+          kind, express or implied, including, but not limited to warranties of
+          performance, merchantability and fitness for a particular purpose.
         </p>
         <p>
           The Company will not be liable to You or anyone else for any decision

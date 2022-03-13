@@ -35,11 +35,11 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, []);
+  }, [showAlert]);
 
   useEffect(() => {
     fetch();
-  }, []);
+  }, [fetch]);
 
   const clickItem = useCallback(
     (e, item) => {
@@ -113,7 +113,7 @@ const Component = () => {
         </div>
       </>
     );
-  }, [_deleteProduct, data]);
+  }, [clickItem, data]);
 
   return (
     <>

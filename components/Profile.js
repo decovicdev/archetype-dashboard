@@ -34,9 +34,7 @@ const Component = () => {
 
       router.replace("/profile");
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [router, showAlert]);
 
   const sendEmail = useCallback(async () => {
     try {
@@ -92,7 +90,7 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [currentUser, showAlert, inProgress, password]);
+  }, [inProgress, currentUser, name, email, password, showAlert]);
 
   return (
     <>

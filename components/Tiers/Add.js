@@ -41,7 +41,7 @@ const Component = () => {
       const result = { ...fields };
 
       if (!field && !value && obj) {
-        for (let key in obj) {
+        for (const key in obj) {
           result[key] = obj[key];
         }
       } else {
@@ -92,7 +92,20 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [inProgress, fields, showAlert]);
+  }, [
+    inProgress,
+    fields.name,
+    fields.price,
+    fields.hasTrial,
+    fields.description,
+    fields.billingPeriod,
+    fields.meteredUsage,
+    fields.quota,
+    fields.trialLen,
+    fields.trialTimeFrame,
+    showAlert,
+    router,
+  ]);
 
   const clickAddTrial = useCallback(() => {
     if (fields.hasTrial) {

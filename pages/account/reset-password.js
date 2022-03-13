@@ -14,7 +14,7 @@ const Component = () => {
     if (currentUser) {
       router.push("/");
     }
-  }, [currentUser]);
+  }, [currentUser, router]);
 
   return <ResetPassword />;
 };

@@ -37,7 +37,7 @@ const Component = () => {
   const [selectedEndpoint, setSelectedEndpoint] = useState(null);
 
   const _refs = useMemo(() => {
-    return data.map((el) => {
+    return data.map(() => {
       return createRef(null);
     });
   }, [data]);
@@ -53,11 +53,11 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, []);
+  }, [showAlert]);
 
   useEffect(() => {
     fetch();
-  }, []);
+  }, [fetch]);
 
   const scrollTo = useCallback(
     (key) => {
@@ -125,7 +125,7 @@ const Component = () => {
         })}
       </div>
     );
-  }, [_refs, data, showAlert]);
+  }, [_refs, data, router, showAlert]);
 
   const renderSidebar = useCallback(() => {
     const dropdownItems = data.filter((el) => {

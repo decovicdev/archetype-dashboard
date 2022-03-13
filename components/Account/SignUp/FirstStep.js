@@ -27,8 +27,7 @@ const Component = () => {
     if (currentUser) {
       router.push("/settings");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentUser, router]);
 
   const submitForm = useCallback(async () => {
     try {
@@ -73,15 +72,16 @@ const Component = () => {
       setProgress(false);
     }
   }, [
-    authEmail,
-    setAuthEmail,
-    authPassword,
-    setAuthPassword,
-    showAlert,
     inProgress,
-    agreedTerms,
+    authEmail,
     fullName,
+    authPassword,
     confirmPassword,
+    agreedTerms,
+    showAlert,
+    setAuthEmail,
+    setAuthPassword,
+    router,
   ]);
 
   return (

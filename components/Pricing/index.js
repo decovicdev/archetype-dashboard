@@ -17,7 +17,7 @@ const Component = () => {
   const { currentUser } = useContext(AuthContext);
 
   const [inProgress] = useState(false);
-  const [billMonthly] = useState(true);
+  // const [billMonthly] = useState(true);
   const [selectedPlan, setSelectedPlan] = useState(null);
 
   const renderBlocks = useCallback(() => {
@@ -47,7 +47,7 @@ const Component = () => {
           <div className="description">{item.description}</div>
           {!item.mtr && !item.mtrText ? (
             <div className={"contact"}>
-              <button type={"button"}>Contact sales ></button>
+              <button type={"button"}>Contact sales &gt;</button>
             </div>
           ) : (
             <>
@@ -63,7 +63,7 @@ const Component = () => {
         </div>
       );
     });
-  }, [currentUser, billMonthly, selectedPlan]);
+  }, [currentUser, selectedPlan]);
 
   return (
     <>

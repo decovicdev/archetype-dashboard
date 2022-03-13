@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import App from "next/app";
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
@@ -22,9 +22,9 @@ const Layout = ({ children }) => {
 
   const [isLoading, setLoading] = useState(false);
 
-  const onApiNotFoundErr = () => {
+  const onApiNotFoundErr = useCallback(() => {
     router.push("/account/signup/next");
-  };
+  }, [router]);
 
   useEffect(() => {
     const apiNotFoundErr = debounce(onApiNotFoundErr, 200);
@@ -54,8 +54,7 @@ const Layout = ({ children }) => {
 
       window.removeEventListener("resize", onResized);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [onApiNotFoundErr]);
 
   useEffect(() => {
     router.events.on("routeChangeComplete", Analytics.page);

@@ -25,8 +25,7 @@ const Component = () => {
     if (currentUser) {
       router.push("/settings");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentUser, router]);
 
   const submitForm = useCallback(
     async (e) => {
@@ -59,12 +58,13 @@ const Component = () => {
       }
     },
     [
-      authEmail,
-      setAuthEmail,
-      authPassword,
-      setAuthPassword,
-      showAlert,
       inProgress,
+      authEmail,
+      authPassword,
+      showAlert,
+      setAuthEmail,
+      setAuthPassword,
+      router,
     ]
   );
 
@@ -107,7 +107,7 @@ const Component = () => {
               </button>
             </form>
             <div className="bottom-info">
-              <span>Don't have an account?</span>
+              <span>Don&apos;t have an account?</span>
               <Link href="/account/signup">
                 <a>Sign Up</a>
               </Link>

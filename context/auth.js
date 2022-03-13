@@ -61,13 +61,11 @@ export const AuthProvider = ({ children }) => {
 
       setAuthPending(false);
     }
-  }, []);
+  }, [router.pathname]);
 
   useEffect(() => {
     init();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [init]);
 
   return (
     <AuthContext.Provider

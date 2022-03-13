@@ -26,9 +26,9 @@ const Component = () => {
       <div className={"table-data"}>
         {options.map((item, i) => {
           return (
-            <div className={"row"}>
+            <div key={item} className={"row"}>
               <div className={"col"}>
-                <input type="checkbox" checked={i % 2} onChange={(e) => {}} />
+                <input type="checkbox" checked={i % 2} />
               </div>
               <div className={"col"}>{item}</div>
               <div className={"col"}>{`<calculated when request is sent>`}</div>

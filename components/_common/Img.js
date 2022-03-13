@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-const Component = forwardRef(({ useWebp, src }, ref) => {
+const Component = forwardRef(function Component({ useWebp, src }, ref) {
   return (
     <picture ref={ref}>
       {!!useWebp && (

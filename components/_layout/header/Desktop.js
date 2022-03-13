@@ -6,13 +6,13 @@ import Links from "./links";
 import AccountService from "../../../services/account.service";
 
 import { AuthContext } from "../../../context/auth";
-import { HelperContext } from "../../../context/helper";
+// import { HelperContext } from "../../../context/helper";
 
 const Component = () => {
   const _header = useRef(null);
 
   const { currentUser } = useContext(AuthContext);
-  const { showAlert } = useContext(HelperContext);
+  // const { showAlert } = useContext(HelperContext);
 
   const updatePostion = useCallback(() => {
     if (!window || !_header.current) {
@@ -38,15 +38,13 @@ const Component = () => {
     return () => {
       window.removeEventListener("scroll", updatePostion);
     };
+  }, [updatePostion]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // const clickSignOut = useCallback(async () => {
+  //   await AccountService.logout();
 
-  const clickSignOut = useCallback(async () => {
-    await AccountService.logout();
-
-    showAlert("Logged out", true);
-  }, [showAlert]);
+  //   showAlert("Logged out", true);
+  // }, [showAlert]);
 
   const renderLinks = useCallback(() => {
     return (
@@ -83,7 +81,7 @@ const Component = () => {
         )}
       </div>
     );
-  }, [currentUser, clickSignOut]);
+  }, [currentUser]);
 
   return (
     <header ref={_header} className="desktop">

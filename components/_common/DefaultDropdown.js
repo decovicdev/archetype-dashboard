@@ -102,7 +102,7 @@ const styles = {
       },
     };
   },
-  placeholder: (provided, state) => {
+  placeholder: (provided) => {
     return {
       ...provided,
       margin: 0,

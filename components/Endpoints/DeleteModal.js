@@ -6,7 +6,7 @@ import EndpointService from "../../services/endpoint.service";
 
 import { HelperContext } from "../../context/helper";
 
-const Component = forwardRef(({ id, onSuccess }, ref) => {
+const Component = forwardRef(function Component({ id, onSuccess }, ref) {
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);

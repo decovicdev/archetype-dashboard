@@ -5,7 +5,7 @@ import Image from "next/image";
 import classnames from "classnames";
 import CalenderIcon from "./../../public/icons/calendar.svg";
 
-const Component = (props) => {
+const Component = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [date, setDate] = useState(new Date());
 
@@ -55,6 +55,7 @@ const Component = (props) => {
             width={15}
             height={17}
             onClick={openCalender}
+            alt="Open calendar"
           />
         </a>
       </div>

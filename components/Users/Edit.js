@@ -46,14 +46,14 @@ const Component = () => {
     }
 
     fetch();
-  }, []);
+  }, [router.query.userId, showAlert]);
 
   const changeFields = useCallback(
     (field, value, obj) => {
       const result = { ...fields };
 
       if (!field && !value && obj) {
-        for (let key in obj) {
+        for (const key in obj) {
           result[key] = obj[key];
         }
       } else {
@@ -82,7 +82,7 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [inProgress, fields, showAlert]);
+  }, [inProgress, router.query.userId, fields.email, showAlert]);
 
   const deleteUser = useCallback(async () => {
     try {
@@ -101,7 +101,7 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [router, inProgress, fields, showAlert]);
+  }, [router, inProgress, showAlert]);
 
   const renderContent = useCallback(() => {
     if (!fields) {

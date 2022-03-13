@@ -30,7 +30,7 @@ const Component = () => {
     if (!currentUser) {
       router.push("/account/signup");
     }
-  }, [currentUser]);
+  }, [currentUser, router]);
 
   const submitForm = useCallback(async () => {
     try {
@@ -61,7 +61,7 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [showAlert, inProgress, apiName, companyName, authType, hasFree]);
+  }, [inProgress, apiName, companyName, authType, hasFree, showAlert, router]);
 
   return (
     <>

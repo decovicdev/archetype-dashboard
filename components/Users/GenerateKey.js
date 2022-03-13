@@ -6,7 +6,7 @@ import CustomerService from "../../services/customer.service";
 
 import { HelperContext } from "../../context/helper";
 
-const Component = forwardRef(({ id, onSuccess }, ref) => {
+const Component = forwardRef(function Component({ id, onSuccess }, ref) {
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
@@ -32,7 +32,7 @@ const Component = forwardRef(({ id, onSuccess }, ref) => {
     } finally {
       setProgress(false);
     }
-  }, [id, onSuccess, inProgress, showAlert]);
+  }, [inProgress, id, showAlert, onSuccess, ref]);
 
   return (
     <Modal ref={ref} title={"Delete a customer?"} isBusy={inProgress}>

@@ -38,7 +38,7 @@ const Component = () => {
     }
 
     fetch();
-  }, []);
+  }, [router.query.userId, showAlert]);
 
   const renderContent = useCallback(() => {
     if (!data) {

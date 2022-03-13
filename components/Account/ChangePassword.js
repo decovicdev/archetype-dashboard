@@ -47,9 +47,7 @@ const Component = () => {
     }
 
     checkCode();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query]);
+  }, [inProgress, router.isReady, router.query, showAlert]);
 
   const submitForm = useCallback(async () => {
     try {
@@ -77,7 +75,7 @@ const Component = () => {
 
       setProgress(false);
     }
-  }, [router.query, showAlert, inProgress, password]);
+  }, [router, inProgress, password, showAlert]);
 
   return (
     <>

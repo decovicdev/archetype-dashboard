@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import { AuthContext } from "../../context/auth";
 
-const PrivateRoute = ({ children, ...rest }) => {
+const PrivateRoute = ({ children }) => {
   const router = useRouter();
 
   const { currentUser } = useContext(AuthContext);
@@ -12,7 +12,7 @@ const PrivateRoute = ({ children, ...rest }) => {
     if (!currentUser) {
       router.push("/account/login");
     }
-  }, [currentUser]);
+  }, [currentUser, router]);
 
   if (currentUser) {
     return children;

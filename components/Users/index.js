@@ -38,11 +38,11 @@ const Users = () => {
     } finally {
       setProgress(false);
     }
-  }, []);
+  }, [showAlert]);
 
   useEffect(() => {
     fetch();
-  }, []);
+  }, [fetch]);
 
   const clickItem = useCallback(
     (e, item) => {
@@ -133,7 +133,7 @@ const Users = () => {
         </div>
       </>
     );
-  }, [_deleteModal, data, searchVal]);
+  }, [clickItem, data, searchVal]);
 
   return (
     <div className="page users-page">

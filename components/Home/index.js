@@ -23,11 +23,14 @@ const Component = () => {
 
   const [emailAddress, setEmailAddress] = useState("");
 
-  const clickSubscribe = useCallback((e) => {
-    e.preventDefault();
+  const clickSubscribe = useCallback(
+    (e) => {
+      e.preventDefault();
 
-    showAlert("Subscribed");
-  }, []);
+      showAlert("Subscribed");
+    },
+    [showAlert]
+  );
 
   return (
     <div className="page landing-page">

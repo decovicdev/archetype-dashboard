@@ -61,14 +61,14 @@ const Component = () => {
     }
 
     fetch();
-  }, []);
+  }, [router.query.tierId, showAlert]);
 
   const changeFields = useCallback(
     (field, value, obj) => {
       const result = { ...fields };
 
       if (!field && !value && obj) {
-        for (let key in obj) {
+        for (const key in obj) {
           result[key] = obj[key];
         }
       } else {
@@ -111,7 +111,20 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [inProgress, fields, showAlert]);
+  }, [
+    inProgress,
+    router,
+    fields.name,
+    fields.hasTrial,
+    fields.description,
+    fields.price,
+    fields.billingPeriod,
+    fields.meteredUsage,
+    fields.quota,
+    fields.trialLen,
+    fields.trialTimeFrame,
+    showAlert,
+  ]);
 
   const clickAddTrial = useCallback(() => {
     if (fields.hasTrial) {
@@ -298,7 +311,7 @@ const Component = () => {
         </div>
       </>
     );
-  }, [fields]);
+  }, [changeFields, clickAddTrial, fields, router.query.tierId]);
 
   return (
     <>

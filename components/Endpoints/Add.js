@@ -4,15 +4,14 @@ import React, { useCallback, useContext, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import classnames from "classnames";
 
 import { HTTP_METHODS } from "./assets";
 
 import DefaultDropdown from "../_common/DefaultDropdown";
 import Spinner from "../_common/Spinner";
-import HeadersTab from "./blocks/headers";
-import QueryTab from "./blocks/query";
-import BodyTab from "./blocks/body";
+// import HeadersTab from "./blocks/headers";
+// import QueryTab from "./blocks/query";
+// import BodyTab from "./blocks/body";
 
 import EndpointService from "../../services/endpoint.service";
 
@@ -30,14 +29,14 @@ const Component = () => {
     methods: [],
     path: "/",
   });
-  const [activeTab, setActiveTab] = useState("headers");
+  // const [activeTab, setActiveTab] = useState("headers");
 
   const changeFields = useCallback(
     (field, value, obj) => {
       const result = { ...fields };
 
       if (!field && !value && obj) {
-        for (let key in obj) {
+        for (const key in obj) {
           result[key] = obj[key];
         }
       } else {
@@ -83,41 +82,49 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [inProgress, fields, showAlert]);
+  }, [
+    inProgress,
+    fields.name,
+    fields.methods,
+    fields.path,
+    fields.description,
+    showAlert,
+    router,
+  ]);
 
   const renderTabs = useCallback(() => {
     // not implemented yet
     return null;
 
-    return (
-      <div className={"tabs"}>
-        <ul className={"tabs-list"}>
-          <li
-            className={classnames({ active: activeTab === "headers" })}
-            onClick={() => setActiveTab("headers")}
-          >
-            Headers
-          </li>
-          <li
-            className={classnames({ active: activeTab === "query" })}
-            onClick={() => setActiveTab("query")}
-          >
-            Query
-          </li>
-          <li
-            className={classnames({ active: activeTab === "body" })}
-            onClick={() => setActiveTab("body")}
-          >
-            Body
-          </li>
-        </ul>
-        <div className={"tabs-data"}>
-          {activeTab === "headers" && <HeadersTab />}
-          {activeTab === "query" && <QueryTab />}
-          {activeTab === "body" && <BodyTab />}
-        </div>
-      </div>
-    );
+    // return (
+    //   <div className={"tabs"}>
+    //     <ul className={"tabs-list"}>
+    //       <li
+    //         className={classnames({ active: activeTab === "headers" })}
+    //         onClick={() => setActiveTab("headers")}
+    //       >
+    //         Headers
+    //       </li>
+    //       <li
+    //         className={classnames({ active: activeTab === "query" })}
+    //         onClick={() => setActiveTab("query")}
+    //       >
+    //         Query
+    //       </li>
+    //       <li
+    //         className={classnames({ active: activeTab === "body" })}
+    //         onClick={() => setActiveTab("body")}
+    //       >
+    //         Body
+    //       </li>
+    //     </ul>
+    //     <div className={"tabs-data"}>
+    //       {activeTab === "headers" && <HeadersTab />}
+    //       {activeTab === "query" && <QueryTab />}
+    //       {activeTab === "body" && <BodyTab />}
+    //     </div>
+    //   </div>
+    // );
   }, []);
 
   return (

@@ -30,7 +30,7 @@ const Component = () => {
       const result = { ...fields };
 
       if (!field && !value && obj) {
-        for (let key in obj) {
+        for (const key in obj) {
           result[key] = obj[key];
         }
       } else {
@@ -76,7 +76,7 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, [inProgress, fields, showAlert]);
+  }, [inProgress, fields.id, fields.name, fields.email, showAlert, router]);
 
   return (
     <div className="page users-add-page">

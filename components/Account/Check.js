@@ -21,7 +21,7 @@ const Component = () => {
     if (router.query.mode === "verifyEmail") {
       router.push({ pathname: "/account/verify-email", query: router.query });
     }
-  }, [router.pathname]);
+  }, [router]);
 
   return (
     <div className="page">

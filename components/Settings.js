@@ -52,11 +52,11 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, []);
+  }, [showAlert]);
 
   useEffect(() => {
     fetch();
-  }, []);
+  }, [fetch]);
 
   useEffect(() => {
     const { message, status } = router.query;
@@ -66,9 +66,7 @@ const Component = () => {
 
       router.replace("/settings");
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [router, showAlert]);
 
   const saveForm = useCallback(async () => {
     try {
@@ -230,7 +228,13 @@ const Component = () => {
         </div>
       </div>
       <div className="block">
-        <Image className={"icon"} src={AuthIcon} width={18} height={18} />{" "}
+        <Image
+          className={"icon"}
+          src={AuthIcon}
+          width={18}
+          height={18}
+          alt="redirect url"
+        />{" "}
         Redirect URL
         <div className="form">
           <div className="field">
@@ -244,7 +248,13 @@ const Component = () => {
         </div>
       </div>
       <div className="block">
-        <Image className={"icon"} src={AuthIcon} width={18} height={18} />{" "}
+        <Image
+          className={"icon"}
+          src={AuthIcon}
+          width={18}
+          height={18}
+          alt="return url"
+        />{" "}
         Return URL
         <div className="form">
           <div className="field">
