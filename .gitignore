@@ -22,7 +22,10 @@ yarn-debug.log*
 yarn-error.log*
 yarn.lock
 
-#firebase
+# firebase
 firebase-debug.log
 .firebase
+
+# next build
+.next/
 
