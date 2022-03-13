@@ -1,4 +1,3 @@
-import config from '../../config';
 
 import {
   useContext,
@@ -13,14 +12,15 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import classnames from 'classnames';
+import config from '../../config';
 
-import Block from './Block';
-import DeleteModal from './DeleteModal';
 import Spinner from '../_common/Spinner';
 
 import EndpointService from '../../services/endpoint.service';
 
 import { HelperContext } from '../../context/helper';
+import DeleteModal from './DeleteModal';
+import Block from './Block';
 
 const Component = () => {
   const router = useRouter();

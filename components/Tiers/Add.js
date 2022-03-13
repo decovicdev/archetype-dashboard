@@ -1,21 +1,21 @@
-import config from '../../config';
 
 import React, { useState, useCallback, useContext } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import classnames from 'classnames';
+import config from '../../config';
 
-import {
-  TIME_FRAMES_OPTIONS,
-  BILLING_OPTIONS,
-  PRICING_MODEL_OPTIONS
-} from './assets';
 import Spinner from '../_common/Spinner';
 
 import TierService from '../../services/tier.service';
 
 import { HelperContext } from '../../context/helper';
+import {
+  TIME_FRAMES_OPTIONS,
+  BILLING_OPTIONS,
+  PRICING_MODEL_OPTIONS
+} from './assets';
 
 const Component = () => {
   const router = useRouter();

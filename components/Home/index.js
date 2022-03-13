@@ -1,9 +1,9 @@
-import config from '../../config';
 import { useState, useCallback, useContext } from 'react';
 import classnames from 'classnames';
 
 import Head from 'next/head';
 import Link from 'next/link';
+import config from '../../config';
 
 import { HelperContext } from '../../context/helper';
 

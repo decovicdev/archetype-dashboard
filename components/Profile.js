@@ -5,13 +5,13 @@ import Image from 'next/image';
 import AccountVerifiedIcon from '../public/icons/account-verified.svg';
 import AccountUnverifiedIcon from '../public/icons/account-unverified.svg';
 
+import { AuthContext } from '../context/auth';
+import { HelperContext } from '../context/helper';
 import EditIcon from './_icons/EditIcon';
 import Spinner from './_common/Spinner';
 
 import Analytics from './../helpers/analytics';
 
-import { AuthContext } from '../context/auth';
-import { HelperContext } from '../context/helper';
 
 const Component = () => {
   const router = useRouter();

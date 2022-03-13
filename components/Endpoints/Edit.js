@@ -1,11 +1,10 @@
-import config from '../../config';
 
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import config from '../../config';
 
-import { HTTP_METHODS } from './assets';
 
 import DefaultDropdown from '../_common/DefaultDropdown';
 import Spinner from '../_common/Spinner';
@@ -16,6 +15,7 @@ import Spinner from '../_common/Spinner';
 import EndpointService from '../../services/endpoint.service';
 
 import { HelperContext } from '../../context/helper';
+import { HTTP_METHODS } from './assets';
 
 const Component = () => {
   const router = useRouter();

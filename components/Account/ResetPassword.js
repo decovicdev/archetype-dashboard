@@ -1,8 +1,8 @@
-import config from '../../config';
 
 import React, { useContext, useState, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import config from '../../config';
 
 import Firebase from '../../firebase.js';
 

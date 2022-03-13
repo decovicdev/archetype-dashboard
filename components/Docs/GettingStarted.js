@@ -1,7 +1,7 @@
-import config from '../../config';
 
 import Head from 'next/head';
 import Markdown from 'markdown-to-jsx';
+import config from '../../config';
 
 import Sidebar from './_sidebar';
 

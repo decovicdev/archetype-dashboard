@@ -1,11 +1,10 @@
-import config from '../../../config';
 
 import React, { useContext, useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import classnames from 'classnames';
+import config from '../../../config';
 
-import { AUTH_TYPES } from './assets';
 
 import Spinner from '../../_common/Spinner';
 
@@ -13,6 +12,7 @@ import ApiService from '../../../services/api.service.js';
 
 import { AuthContext } from '../../../context/auth';
 import { HelperContext } from '../../../context/helper';
+import { AUTH_TYPES } from './assets';
 
 const Component = () => {
   const router = useRouter();

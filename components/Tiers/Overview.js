@@ -1,4 +1,3 @@
-import config from '../../config';
 
 import React, {
   useRef,
@@ -10,6 +9,7 @@ import React, {
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import config from '../../config';
 
 import Spinner from '../_common/Spinner';
 import Modal from '../_common/Modal';

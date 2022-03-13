@@ -1,12 +1,13 @@
-import config from '../config';
-
 import { useRef, useContext, useState, useEffect, useCallback } from 'react';
+
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import classnames from 'classnames';
+import config from '../config';
 
 import KeyIcon from '../public/icons/key.svg';
 import AuthIcon from '../public/icons/auth.svg';
+import { HelperContext } from '../context/helper';
 import DeleteIcon from './_icons/DeleteIcon';
 
 import Spinner from './_common/Spinner';
@@ -14,7 +15,6 @@ import Modal from './_common/Modal';
 
 import ApiService from './../services/api.service';
 
-import { HelperContext } from '../context/helper';
 
 const AUTH_TYPES = {
   NONE: 'none',

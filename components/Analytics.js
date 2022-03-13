@@ -1,7 +1,7 @@
-import config from '../config';
 
 import Head from 'next/head';
 import Chart from 'react-google-charts';
+import config from '../config';
 
 import Calendar from './_common/Calendar';
 

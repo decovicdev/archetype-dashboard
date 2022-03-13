@@ -1,17 +1,17 @@
-import config from '../../config';
 
 import { useState, useCallback, useRef, useContext, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import config from '../../config';
 
 import Dropdown from '../_common/Dropdown';
 import Spinner from '../_common/Spinner';
-import DeleteModal from './DeleteModal';
 
 import EndpointService from '../../services/endpoint.service';
 
 import { HelperContext } from '../../context/helper';
+import DeleteModal from './DeleteModal';
 
 const Component = () => {
   const _deleteModal = useRef(null);

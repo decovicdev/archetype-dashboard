@@ -1,18 +1,18 @@
-import config from '../../config';
 
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import config from '../../config';
 
 import Dropdown from '../_common/Dropdown';
 import Spinner from '../_common/Spinner';
-import DeleteModal from './DeleteModal';
-import GenerateKey from './GenerateKey';
 
 import CustomerService from '../../services/customer.service';
 
 import { HelperContext } from '../../context/helper';
+import GenerateKey from './GenerateKey';
+import DeleteModal from './DeleteModal';
 
 const Users = () => {
   const router = useRouter();

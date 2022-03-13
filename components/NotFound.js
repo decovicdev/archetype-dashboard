@@ -1,7 +1,7 @@
-import config from '../config';
 
 import Link from 'next/link';
 import Head from 'next/head';
+import config from '../config';
 
 const Component = () => (
   <div className="page error-page">

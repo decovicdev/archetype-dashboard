@@ -1,9 +1,9 @@
-import config from '../../config';
 
 import React, { useContext, useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import config from '../../config';
 
 import Spinner from '../_common/Spinner';
 
