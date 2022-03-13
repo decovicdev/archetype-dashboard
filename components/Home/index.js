@@ -7,8 +7,7 @@ import Link from "next/link";
 
 import { HelperContext } from "../../context/helper";
 
-const Square = ({ reversed, children }) => {
-  return (
+const Square = ({ reversed, children }) => (
     <div className={classnames("square", { "on-the-right": reversed })}>
       <div className="inner-square">{children}</div>
       <div className="circ1" />
@@ -16,7 +15,6 @@ const Square = ({ reversed, children }) => {
       <div className="circ3" />
     </div>
   );
-};
 
 const Component = () => {
   const { showAlert } = useContext(HelperContext);

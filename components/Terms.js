@@ -2,8 +2,7 @@ import config from "../config";
 
 import Head from "next/head";
 
-const Component = () => {
-  return (
+const Component = () => (
     <div className="page static-page">
       <Head>
         <title>Terms of Use Agreement - {config.meta.title}</title>
@@ -1045,6 +1044,5 @@ const Component = () => {
       </div>
     </div>
   );
-};
 
 export default Component;

@@ -63,11 +63,9 @@ const Users = () => {
     let list = [...data];
 
     if (searchVal) {
-      list = list.filter((item) => {
-        return (
+      list = list.filter((item) => (
           item.attrs?.name.toLowerCase().indexOf(searchVal.toLowerCase()) >= 0
-        );
-      });
+        ));
     }
 
     return (
@@ -80,8 +78,7 @@ const Users = () => {
           <div className="col">Status</div>
         </div>
         <div className="users-list-data">
-          {list.map((customer) => {
-            return (
+          {list.map((customer) => (
               <div
                 key={customer.custom_uid}
                 className="row"
@@ -128,8 +125,7 @@ const Users = () => {
                   </Dropdown>
                 </div>
               </div>
-            );
-          })}
+            ))}
         </div>
       </>
     );

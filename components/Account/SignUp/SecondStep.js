@@ -124,8 +124,7 @@ const Component = () => {
               <div className="field">
                 <label>Authentication Type</label>
                 <ul className="tabs">
-                  {Object.entries(AUTH_TYPES).map(([key, val]) => {
-                    return (
+                  {Object.entries(AUTH_TYPES).map(([key, val]) => (
                       <li
                         key={key}
                         className={classnames({ selected: key === authType })}
@@ -133,8 +132,7 @@ const Component = () => {
                       >
                         {val}
                       </li>
-                    );
-                  })}
+                    ))}
                 </ul>
               </div>
               {authType !== "none" && (

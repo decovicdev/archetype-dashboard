@@ -3,8 +3,7 @@ import config from "../config";
 import Link from "next/link";
 import Head from "next/head";
 
-const Component = () => {
-  return (
+const Component = () => (
     <div className="page error-page">
       <Head>
         <title>Page Not Found - {config.meta.title}</title>
@@ -22,6 +21,5 @@ const Component = () => {
       </div>
     </div>
   );
-};
 
 export default Component;

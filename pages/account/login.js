@@ -1,7 +1,5 @@
 import Login from "../../components/Account/Login";
 
-const Component = () => {
-  return <Login />;
-};
+const Component = () => <Login />;
 
 export default Component;

@@ -164,9 +164,9 @@ const Component = () => {
     );
   }, [changeFields, fields]);
 
-  const renderTabs = useCallback(() => {
+  const renderTabs = useCallback(() => 
     // not implemented yet
-    return null;
+     null
 
     /** KEEP */
     // return (
@@ -198,7 +198,7 @@ const Component = () => {
     //     </div>
     //   </div>
     // );
-  }, []);
+  , []);
 
   return (
     <>

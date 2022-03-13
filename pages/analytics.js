@@ -2,8 +2,7 @@ import config from "../config";
 
 import Head from "next/head";
 
-const Component = () => {
-  return (
+const Component = () => (
     <>
       <Head>
         <title>Analytics - {config.meta.title}</title>
@@ -15,6 +14,5 @@ const Component = () => {
       </div>
     </>
   );
-};
 
 export default Component;

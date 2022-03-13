@@ -72,8 +72,7 @@ const Component = () => {
           <div className="col">Quota</div>
         </div>
         <div className="tiers-list-data">
-          {data.map((item, i) => {
-            return (
+          {data.map((item, i) => (
               <div
                 key={i}
                 className="row"
@@ -108,8 +107,7 @@ const Component = () => {
                   </Dropdown>
                 </div>
               </div>
-            );
-          })}
+            ))}
         </div>
       </>
     );

@@ -1,7 +1,5 @@
 import Child from "../../components/Docs/Introduction";
 
-const Component = () => {
-  return <Child />;
-};
+const Component = () => <Child />;
 
 export default Component;

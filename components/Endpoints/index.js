@@ -36,11 +36,7 @@ const Component = () => {
   const [isFocused, setFocus] = useState(false);
   const [selectedEndpoint, setSelectedEndpoint] = useState(null);
 
-  const _refs = useMemo(() => {
-    return data.map(() => {
-      return createRef(null);
-    });
-  }, [data]);
+  const _refs = useMemo(() => data.map(() => createRef(null)), [data]);
 
   const fetch = useCallback(async () => {
     try {
@@ -73,11 +69,9 @@ const Component = () => {
     [_refs]
   );
 
-  const renderBtns = useCallback(() => {
-    return (
+  const renderBtns = useCallback(() => (
       <ul>
-        {data.map((el, i) => {
-          return (
+        {data.map((el, i) => (
             <li key={i}>
               <button
                 type="button"
@@ -92,20 +86,16 @@ const Component = () => {
                 </div>
               )}
             </li>
-          );
-        })}
+          ))}
       </ul>
-    );
-  }, [data, scrollTo]);
+    ), [data, scrollTo]);
 
-  const renderBlocks = useCallback(() => {
-    return (
+  const renderBlocks = useCallback(() => (
       <div className="content-block">
         <div className="title">
           <span>API Documentation</span>
         </div>
-        {data.map((el, i) => {
-          return (
+        {data.map((el, i) => (
             <Block
               key={i}
               ref={_refs[i]}
@@ -121,11 +111,9 @@ const Component = () => {
                 _deleteEndpoint.current?.show();
               }}
             />
-          );
-        })}
+          ))}
       </div>
-    );
-  }, [_refs, data, router, showAlert]);
+    ), [_refs, data, router, showAlert]);
 
   const renderSidebar = useCallback(() => {
     const dropdownItems = data.filter((el) => {
@@ -162,8 +150,7 @@ const Component = () => {
               />
               {!!(searchText && dropdownItems.length) && (
                 <div className={classnames("menu", { active: isFocused })}>
-                  {dropdownItems.map((item, i) => {
-                    return (
+                  {dropdownItems.map((item, i) => (
                       <div
                         key={i}
                         onClick={() => {
@@ -174,8 +161,7 @@ const Component = () => {
                       >
                         {item.name}
                       </div>
-                    );
-                  })}
+                    ))}
                 </div>
               )}
             </div>

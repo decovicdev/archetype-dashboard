@@ -1,7 +1,5 @@
 import InternalError from "../components/InternalError";
 
-const Component = () => {
-  return <InternalError />;
-};
+const Component = () => <InternalError />;
 
 export default Component;

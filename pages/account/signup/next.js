@@ -1,7 +1,5 @@
 import SecondStep from "../../../components/Account/SignUp/SecondStep";
 
-const Component = () => {
-  return <SecondStep />;
-};
+const Component = () => <SecondStep />;
 
 export default Component;

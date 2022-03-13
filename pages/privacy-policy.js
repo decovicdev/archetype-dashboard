@@ -1,7 +1,5 @@
 import PrivacyPolicy from "../components/PrivacyPolicy";
 
-const Component = () => {
-  return <PrivacyPolicy />;
-};
+const Component = () => <PrivacyPolicy />;
 
 export default Component;

@@ -12,16 +12,14 @@ const Component = forwardRef(function Component({ data, clickDelete }, ref) {
           <Link href={`/endpoints/${data.uid}`}>
             <a className="name">{data.name || "Method"}</a>
           </Link>
-          {data.allowed_methods.map((method) => {
-            return (
+          {data.allowed_methods.map((method) => (
               <div
                 key={method.toLowerCase()}
                 className={classnames("badge", method.toLowerCase())}
               >
                 {method}
               </div>
-            );
-          })}
+            ))}
           <Dropdown title={<div className="product-context-menu" />}>
             <Link href={`/endpoints/edit/${data.uid}`}>
               <a className="edit-btn">Edit</a>

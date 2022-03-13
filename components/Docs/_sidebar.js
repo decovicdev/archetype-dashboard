@@ -15,8 +15,7 @@ const Sidebar = () => {
     <div className="sidebar-block">
       <div className="title">Getting Started</div>
       <nav>
-        {links.map((link, i) => {
-          return (
+        {links.map((link, i) => (
             <Link key={i} href={link.link}>
               <a
                 className={classnames({
@@ -26,8 +25,7 @@ const Sidebar = () => {
                 {link.name}
               </a>
             </Link>
-          );
-        })}
+          ))}
       </nav>
     </div>
   );

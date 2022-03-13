@@ -37,8 +37,7 @@ const options = {
   colors: ["#ffffff"],
 };
 
-const Component = () => {
-  return (
+const Component = () => (
     <div className="page analytics-page">
       <Head>
         <title>Analytics - {config.meta.title}</title>
@@ -150,6 +149,5 @@ const Component = () => {
       </div>
     </div>
   );
-};
 
 export default Component;

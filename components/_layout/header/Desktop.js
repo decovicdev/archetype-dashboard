@@ -46,8 +46,7 @@ const Component = () => {
   //   showAlert("Logged out", true);
   // }, [showAlert]);
 
-  const renderLinks = useCallback(() => {
-    return (
+  const renderLinks = useCallback(() => (
       <div className="right-menu">
         {currentUser ? (
           <div className="profile-block">
@@ -80,8 +79,7 @@ const Component = () => {
           </>
         )}
       </div>
-    );
-  }, [currentUser]);
+    ), [currentUser]);
 
   return (
     <header ref={_header} className="desktop">

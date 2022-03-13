@@ -14,8 +14,7 @@ const options = [
   "X-Archetype-ApplID",
 ];
 
-const Component = () => {
-  return (
+const Component = () => (
     <div className="headers-block">
       <div className="table-header">
         <div className="col" />
@@ -24,8 +23,7 @@ const Component = () => {
         <div className="col">Description</div>
       </div>
       <div className="table-data">
-        {options.map((item, i) => {
-          return (
+        {options.map((item, i) => (
             <div key={item} className="row">
               <div className="col">
                 <input type="checkbox" checked={i % 2} />
@@ -34,11 +32,9 @@ const Component = () => {
               <div className="col">{`<calculated when request is sent>`}</div>
               <div className="col"></div>
             </div>
-          );
-        })}
+          ))}
       </div>
     </div>
   );
-};
 
 export default Component;

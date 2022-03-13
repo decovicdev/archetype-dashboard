@@ -1,7 +1,6 @@
 import Select from "react-select";
 
-const Component = (props) => {
-  return (
+const Component = (props) => (
     <Select
       className={props.className}
       value={props.value}
@@ -21,11 +20,9 @@ const Component = (props) => {
       })}
     />
   );
-};
 
 const styles = {
-  control: (provided) => {
-    return {
+  control: (provided) => ({
       ...provided,
       minWidth: 140,
       minHeight: 44,
@@ -38,10 +35,8 @@ const styles = {
       ":hover": {
         border: "solid 1px #ffffff",
       },
-    };
-  },
-  dropdownIndicator: (provided, state) => {
-    return {
+    }),
+  dropdownIndicator: (provided, state) => ({
       ...provided,
       padding: "0 10px 0 0",
       color: state.isDisabled ? "#d6d6d6" : "#9599b1",
@@ -49,14 +44,11 @@ const styles = {
         width: "15px",
         height: "15px",
       },
-    };
-  },
-  indicatorsContainer: (provided) => {
-    return {
+    }),
+  indicatorsContainer: (provided) => ({
       ...provided,
       margin: 0,
-    };
-  },
+    }),
   indicatorSeparator: () => ({
     display: "none",
   }),
@@ -75,8 +67,7 @@ const styles = {
       zIndex: 999,
     };
   },
-  menuList: (provided) => {
-    return {
+  menuList: (provided) => ({
       ...provided,
       margin: 0,
       padding: 0,
@@ -84,10 +75,8 @@ const styles = {
       fontSize: "15px",
       lineHeight: "20px",
       textAlign: "left",
-    };
-  },
-  option: (provided) => {
-    return {
+    }),
+  option: (provided) => ({
       ...provided,
       padding: "3px 0",
       backgroundColor: "transparent",
@@ -100,17 +89,14 @@ const styles = {
         backgroundColor: "transparent",
         color: "#55deb5",
       },
-    };
-  },
-  placeholder: (provided) => {
-    return {
+    }),
+  placeholder: (provided) => ({
       ...provided,
       margin: 0,
       fontSize: "15px",
       lineHeight: "20px",
       color: "#9599b1",
-    };
-  },
+    }),
   singleValue: (provided, state) => {
     const styles = {
       ...provided,
@@ -131,30 +117,22 @@ const styles = {
 
     return styles;
   },
-  valueContainer: (provided) => {
-    return {
+  valueContainer: (provided) => ({
       ...provided,
       flexWrap: "nowrap",
       padding: "0 15px",
-    };
-  },
-  multiValue: (provided) => {
-    return {
+    }),
+  multiValue: (provided) => ({
       ...provided,
       background: "linear-gradient(175deg, #4b466c, #1b2145)",
-    };
-  },
-  multiValueLabel: (provided) => {
-    return {
+    }),
+  multiValueLabel: (provided) => ({
       ...provided,
       color: "#ffffff",
-    };
-  },
-  multiValueRemove: (provided) => {
-    return {
+    }),
+  multiValueRemove: (provided) => ({
       ...provided,
-    };
-  },
+    }),
 };
 
 export default Component;

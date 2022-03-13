@@ -92,9 +92,9 @@ const Component = () => {
     router,
   ]);
 
-  const renderTabs = useCallback(() => {
+  const renderTabs = useCallback(() => 
     // not implemented yet
-    return null;
+     null
 
     // return (
     //   <div className={"tabs"}>
@@ -125,7 +125,7 @@ const Component = () => {
     //     </div>
     //   </div>
     // );
-  }, []);
+  , []);
 
   return (
     <>

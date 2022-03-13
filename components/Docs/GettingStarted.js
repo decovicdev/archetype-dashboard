@@ -7,8 +7,7 @@ import Sidebar from "./_sidebar";
 
 import data from "./md/Quickstart.md";
 
-const Component = () => {
-  return (
+const Component = () => (
     <div className="page docs-page">
       <Head>
         <title>Getting Started - Docs - {config.meta.title}</title>
@@ -19,6 +18,5 @@ const Component = () => {
       </div>
     </div>
   );
-};
 
 export default Component;

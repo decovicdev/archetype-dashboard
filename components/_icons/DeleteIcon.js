@@ -1,5 +1,4 @@
-const Component = (props) => {
-  return (
+const Component = (props) => (
     <svg
       width="20"
       height="20"
@@ -26,6 +25,5 @@ const Component = (props) => {
       </defs>
     </svg>
   );
-};
 
 export default Component;

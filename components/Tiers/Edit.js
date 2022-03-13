@@ -203,13 +203,11 @@ const Component = () => {
               value={fields.pricingModel}
               onChange={(e) => changeFields("pricingModel", e.target.value)}
             >
-              {Object.entries(PRICING_MODEL_OPTIONS).map(([key, val]) => {
-                return (
+              {Object.entries(PRICING_MODEL_OPTIONS).map(([key, val]) => (
                   <option key={key} value={key}>
                     {val}
                   </option>
-                );
-              })}
+                ))}
             </select>
           </div>
           <div className="field">
@@ -243,13 +241,11 @@ const Component = () => {
               value={fields.billingPeriod}
               onChange={(e) => changeFields("billingPeriod", e.target.value)}
             >
-              {Object.entries(BILLING_OPTIONS).map(([key, val]) => {
-                return (
+              {Object.entries(BILLING_OPTIONS).map(([key, val]) => (
                   <option key={key} value={val}>
                     {val}
                   </option>
-                );
-              })}
+                ))}
             </select>
           </div>
           <div className="field">
@@ -282,13 +278,11 @@ const Component = () => {
                     changeFields("trialTimeFrame", e.target.value)
                   }
                 >
-                  {Object.entries(TIME_FRAMES_OPTIONS).map(([key, val]) => {
-                    return (
+                  {Object.entries(TIME_FRAMES_OPTIONS).map(([key, val]) => (
                       <option key={key} value={key}>
                         {val}
                       </option>
-                    );
-                  })}
+                    ))}
                 </select>
               </div>
             </div>

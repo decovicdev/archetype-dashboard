@@ -20,9 +20,7 @@ const Component = () => {
   // const [billMonthly] = useState(true);
   const [selectedPlan, setSelectedPlan] = useState(null);
 
-  const renderBlocks = useCallback(() => {
-    return plans.map((item, i) => {
-      return (
+  const renderBlocks = useCallback(() => plans.map((item, i) => (
         <div
           key={i}
           className={classnames("plan-block", {
@@ -61,9 +59,7 @@ const Component = () => {
             </Link>
           )}
         </div>
-      );
-    });
-  }, [currentUser, selectedPlan]);
+      )), [currentUser, selectedPlan]);
 
   return (
     <>
