@@ -121,9 +121,9 @@ const Component = () => {
                   onChange={(e) => setCompanyName(e.target.value)}
                 />
               </div>
-              <div className={"field"}>
+              <div className="field">
                 <label>Authentication Type</label>
-                <ul className={"tabs"}>
+                <ul className="tabs">
                   {Object.entries(AUTH_TYPES).map(([key, val]) => {
                     return (
                       <li

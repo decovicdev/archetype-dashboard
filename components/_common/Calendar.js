@@ -25,13 +25,13 @@ const Component = () => {
 
   const CalenderPreview = ({ className }) => (
     <Calendar
-      color={"#E545E7"}
+      color="#E545E7"
       className={classnames("calendar", className)}
       date={date}
       showPreview={false}
       showDateDisplay={false}
       showMonthAndYearPickers={false}
-      dateDisplayFormat={"dd MMMM yyyy"}
+      dateDisplayFormat="dd MMMM yyyy"
       onChange={setDate}
       // navigatorRenderer={renderNavigation} // this for days navigation part
     />
@@ -41,11 +41,11 @@ const Component = () => {
     <div className={classnames("calendarWrapper")}>
       <div>
         <div className="datePreview">
-          <a className={"arrow"} onClick={getPrevDay}>
+          <a className="arrow" onClick={getPrevDay}>
             <i className="prev-arrow"></i>
           </a>
           <span>{date.toDateString()}</span>
-          <a className={"arrow"} onClick={getNextDay}>
+          <a className="arrow" onClick={getNextDay}>
             <i className="next-arrow"></i>
           </a>
         </div>

@@ -105,42 +105,42 @@ const Component = () => {
 
   const renderContent = useCallback(() => {
     if (!fields) {
-      return <div className={"no-content"}>Customer not found.</div>;
+      return <div className="no-content">Customer not found.</div>;
     }
 
     return (
       <>
-        <div className={"top-block"}>
+        <div className="top-block">
           <h2>Customer Information</h2>
           <button
-            type={"button"}
-            className={"delete-btn"}
+            type="button"
+            className="delete-btn"
             onClick={() => {
               _deleteUser.current?.show();
             }}
           />
         </div>
-        <div className={"form"}>
-          <div className={"field"}>
+        <div className="form">
+          <div className="field">
             <label>Email</label>
             <input
-              type={"text"}
+              type="text"
               value={fields.email}
               onChange={(e) => changeFields("email", e.target.value)}
             />
           </div>
         </div>
-        <div className={"line"} />
-        <div className={"btns"}>
+        <div className="line" />
+        <div className="btns">
           <button
-            type={"button"}
-            className={"btn gradient-blue"}
+            type="button"
+            className="btn gradient-blue"
             onClick={() => saveUser()}
           >
             Save
           </button>
-          <Link href={"/users"}>
-            <a className={"btn purple-w-border"}>Cancel</a>
+          <Link href="/users">
+            <a className="btn purple-w-border">Cancel</a>
           </Link>
         </div>
       </>
@@ -154,36 +154,36 @@ const Component = () => {
           <title>Edit Customer - {config.meta.title}</title>
         </Head>
         {inProgress && <Spinner />}
-        <div className={"content with-lines"}>
-          <div className={"bread-crumbs"}>
-            <Link href={"/users"}>
+        <div className="content with-lines">
+          <div className="bread-crumbs">
+            <Link href="/users">
               <a>Customers</a>
             </Link>
             <span>{">"}</span>
             <Link href={router.pathname}>
-              <a className={"active"}>Edit Customer</a>
+              <a className="active">Edit Customer</a>
             </Link>
           </div>
           {renderContent()}
         </div>
       </div>
-      <Modal ref={_deleteUser} title={"Delete a customer?"}>
-        <div className={"data"}>
+      <Modal ref={_deleteUser} title="Delete a customer?">
+        <div className="data">
           <p>
             Do you want <span>to delete</span> the customer?
           </p>
         </div>
-        <div className={"btns"}>
+        <div className="btns">
           <button
-            type={"button"}
-            className={"half-width action"}
+            type="button"
+            className="half-width action"
             onClick={() => deleteUser()}
           >
             Delete
           </button>
           <button
-            type={"button"}
-            className={"half-width"}
+            type="button"
+            className="half-width"
             onClick={() => {
               _deleteUser.current?.hide();
             }}

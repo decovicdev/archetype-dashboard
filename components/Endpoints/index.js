@@ -138,10 +138,10 @@ const Component = () => {
     return (
       <div ref={_sidebar} className="sidebar-block">
         <div className="top-section">
-          <Link href={"/endpoints/add"}>
-            <a className={"add-endpoint-btn"}>+ Add new endpoint</a>
+          <Link href="/endpoints/add">
+            <a className="add-endpoint-btn">+ Add new endpoint</a>
           </Link>
-          <div className={"search-field"}>
+          <div className="search-field">
             <div className="inp-with-dropdown">
               <input
                 type="text"
@@ -179,7 +179,7 @@ const Component = () => {
                 </div>
               )}
             </div>
-            <button type={"button"} className={"filter-btn"} />
+            <button type="button" className="filter-btn" />
           </div>
         </div>
         <div className="bottom-section">

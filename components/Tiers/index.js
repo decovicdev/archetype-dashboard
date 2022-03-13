@@ -58,45 +58,45 @@ const Component = () => {
 
   const renderContent = useCallback(() => {
     if (!data.length) {
-      return <div className={"no-content"}>No products added yet.</div>;
+      return <div className="no-content">No products added yet.</div>;
     }
 
     return (
       <>
-        <div className={"tiers-list-header"}>
-          <div className={"col"}>Type product</div>
-          <div className={"col"}>Price</div>
-          <div className={"col"}>Length</div>
-          <div className={"col"}>Trial</div>
-          <div className={"col"}>Subscribers</div>
-          <div className={"col"}>Quota</div>
+        <div className="tiers-list-header">
+          <div className="col">Type product</div>
+          <div className="col">Price</div>
+          <div className="col">Length</div>
+          <div className="col">Trial</div>
+          <div className="col">Subscribers</div>
+          <div className="col">Quota</div>
         </div>
-        <div className={"tiers-list-data"}>
+        <div className="tiers-list-data">
           {data.map((item, i) => {
             return (
               <div
                 key={i}
-                className={"row"}
+                className="row"
                 onClick={(e) => clickItem(e, item)}
               >
-                <div className={"col"}>{item.name}</div>
-                <div className={"col"}>${item.price}</div>
-                <div className={"col"}>{`${item.period}ly`}</div>
-                <div className={"col"}>
+                <div className="col">{item.name}</div>
+                <div className="col">${item.price}</div>
+                <div className="col">{`${item.period}ly`}</div>
+                <div className="col">
                   {item.has_trial
                     ? `${item.trial_length} ${item.trial_time_frame}`
                     : "-"}
                 </div>
-                <div className={"col"}>{item.users.length} users</div>
-                <div className={"col"}>
+                <div className="col">{item.users.length} users</div>
+                <div className="col">
                   <div>{item.quota ? `${item.quota}/day` : `Unlimited`}</div>
-                  <Dropdown title={<div className={"product-context-menu"} />}>
+                  <Dropdown title={<div className="product-context-menu" />}>
                     <Link href={`/tiers/edit/${item.tier_id}`}>
-                      <a className={"edit-btn"}>Edit</a>
+                      <a className="edit-btn">Edit</a>
                     </Link>
                     <button
-                      type={"button"}
-                      className={"delete-btn"}
+                      type="button"
+                      className="delete-btn"
                       onClick={() => {
                         setSelectedTier(item.tier_id);
 
@@ -122,11 +122,11 @@ const Component = () => {
           <title>Products - {config.meta.title}</title>
         </Head>
         {inProgress && <Spinner />}
-        <div className={"content"}>
-          <div className={"top-block"}>
+        <div className="content">
+          <div className="top-block">
             <h1>List products</h1>
-            <Link href={"/tiers/add"}>
-              <a className={"add-product-btn"}>Add product</a>
+            <Link href="/tiers/add">
+              <a className="add-product-btn">Add product</a>
             </Link>
           </div>
           {renderContent()}

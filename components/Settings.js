@@ -142,7 +142,7 @@ const Component = () => {
     return (
       <div className="block">
         <Image
-          className={"icon"}
+          className="icon"
           src={KeyIcon}
           alt="Key"
           width={18}
@@ -164,7 +164,7 @@ const Component = () => {
           </span>
         </div>
         {isBlurred && (
-          <div className={"tip"}>
+          <div className="tip">
             Important! Link your account to Stripe to access your keys
           </div>
         )}
@@ -178,7 +178,7 @@ const Component = () => {
       {renderSensitiveData()}
       <div className="block">
         <Image
-          className={"icon"}
+          className="icon"
           src={AuthIcon}
           alt="User"
           width={18}
@@ -229,7 +229,7 @@ const Component = () => {
       </div>
       <div className="block">
         <Image
-          className={"icon"}
+          className="icon"
           src={AuthIcon}
           width={18}
           height={18}
@@ -249,7 +249,7 @@ const Component = () => {
       </div>
       <div className="block">
         <Image
-          className={"icon"}
+          className="icon"
           src={AuthIcon}
           width={18}
           height={18}
@@ -281,8 +281,8 @@ const Component = () => {
       </div>
       <div className="btns">
         <button
-          type={"button"}
-          className={"btn gradient-blue"}
+          type="button"
+          className="btn gradient-blue"
           onClick={saveForm}
         >
           Save

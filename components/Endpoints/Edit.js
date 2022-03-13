@@ -102,38 +102,38 @@ const Component = () => {
 
   const renderContent = useCallback(() => {
     if (!fields) {
-      return <div className={"no-content"}>Endpoint not found.</div>;
+      return <div className="no-content">Endpoint not found.</div>;
     }
 
     return (
       <>
-        <div className={"form"}>
+        <div className="form">
           <h2>Edit endpoint</h2>
-          <div className={"field"}>
+          <div className="field">
             <label>Name</label>
             <input
-              type={"text"}
+              type="text"
               value={fields.name}
-              placeholder={"Name your endpoint"}
+              placeholder="Name your endpoint"
               onChange={(e) => changeFields("name", e.target.value)}
             />
           </div>
-          <div className={"field description"}>
+          <div className="field description">
             <label>Description</label>
             <textarea
               value={fields.description}
-              placeholder={"Describe what this endpoint does"}
+              placeholder="Describe what this endpoint does"
               onChange={(e) => changeFields("description", e.target.value)}
             />
           </div>
         </div>
-        <div className={"line"} />
-        <div className={"form"}>
-          <div className={"field method"}>
+        <div className="line" />
+        <div className="form">
+          <div className="field method">
             <label>Method</label>
             <DefaultDropdown
               isMulti={true}
-              placeholder={"Select"}
+              placeholder="Select"
               options={Object.entries(HTTP_METHODS).map(([key, val]) => ({
                 label: key,
                 value: val,
@@ -150,10 +150,10 @@ const Component = () => {
               }}
             />
           </div>
-          <div className={"field path"}>
+          <div className="field path">
             <label>Path</label>
             <input
-              type={"text"}
+              type="text"
               value={fields.path}
               onChange={(e) => changeFields("path", e.target.value)}
             />
@@ -207,29 +207,29 @@ const Component = () => {
       </Head>
       {inProgress && <Spinner />}
       <div className="page endpoints-add-page">
-        <div className={"content with-lines"}>
-          <div className={"bread-crumbs"}>
-            <Link href={"/endpoints"}>
+        <div className="content with-lines">
+          <div className="bread-crumbs">
+            <Link href="/endpoints">
               <a>Endpoints</a>
             </Link>
             <span>{">"}</span>
             <Link href={`/endpoints/${router.query.endpointId}`}>
-              <a className={"active"}>Edit Endpoint</a>
+              <a className="active">Edit Endpoint</a>
             </Link>
           </div>
           {renderContent()}
           {renderTabs()}
-          <div className={"line"} />
-          <div className={"btns"}>
+          <div className="line" />
+          <div className="btns">
             <button
-              type={"button"}
-              className={"btn gradient-blue"}
+              type="button"
+              className="btn gradient-blue"
               onClick={() => submitForm()}
             >
               Save
             </button>
-            <Link href={`/endpoints`}>
-              <a className={"btn clean-white"}>Cancel</a>
+            <Link href="/endpoints">
+              <a className="btn clean-white">Cancel</a>
             </Link>
           </div>
         </div>

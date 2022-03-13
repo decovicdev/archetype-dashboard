@@ -33,7 +33,7 @@ const Component = forwardRef(function Component({ id, onSuccess }, ref) {
   }, [id, onSuccess, inProgress, showAlert]);
 
   return (
-    <Modal ref={ref} title={"Delete a customer?"} isBusy={inProgress}>
+    <Modal ref={ref} title="Delete a customer?" isBusy={inProgress}>
       <div className="data">
         <p>
           Do you want to <span>delete</span> the customer?

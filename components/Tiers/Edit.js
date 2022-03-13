@@ -144,29 +144,29 @@ const Component = () => {
 
   const renderContent = useCallback(() => {
     if (!fields) {
-      return <div className={"no-content"}>Product not found.</div>;
+      return <div className="no-content">Product not found.</div>;
     }
 
     return (
       <>
-        <div className={"form"}>
+        <div className="form">
           <h2>Product Information</h2>
-          <div className={"field"}>
+          <div className="field">
             <label>Name</label>
             <input
-              type={"text"}
+              type="text"
               value={fields.name}
               onChange={(e) => changeFields("name", e.target.value)}
             />
           </div>
-          <div className={"field description"}>
+          <div className="field description">
             <label>Description</label>
             <textarea
               value={fields.description}
               onChange={(e) => changeFields("description", e.target.value)}
             />
           </div>
-          <div className={"group-fields"}>
+          <div className="group-fields">
             <div className="box half">
               <input
                 type="checkbox"
@@ -176,10 +176,10 @@ const Component = () => {
               <span>Usage is metered</span>
             </div>
             {fields.meteredUsage && (
-              <div className={"field half"}>
+              <div className="field half">
                 <label>Quota</label>
                 <input
-                  type={"number"}
+                  type="number"
                   value={fields.quota}
                   onChange={(e) => {
                     if (e.target.value && !/^[0-9]*$/g.test(e.target.value)) {
@@ -193,11 +193,11 @@ const Component = () => {
             )}
           </div>
         </div>
-        <div className={"line"} />
-        <div className={"form"}>
+        <div className="line" />
+        <div className="form">
           <h2>Price Information</h2>
           <h3>Pricing details</h3>
-          <div className={"field"}>
+          <div className="field">
             <label>Pricing model</label>
             <select
               value={fields.pricingModel}
@@ -212,11 +212,11 @@ const Component = () => {
               })}
             </select>
           </div>
-          <div className={"field"}>
+          <div className="field">
             <label>Price</label>
-            <div className={"inp-with-currency"}>
+            <div className="inp-with-currency">
               <input
-                type={"text"}
+                type="text"
                 value={fields.price}
                 onChange={(e) => {
                   if (
@@ -237,7 +237,7 @@ const Component = () => {
               />
             </div>
           </div>
-          <div className={"field"}>
+          <div className="field">
             <label>Billing period</label>
             <select
               value={fields.billingPeriod}
@@ -252,9 +252,9 @@ const Component = () => {
               })}
             </select>
           </div>
-          <div className={"field"}>
+          <div className="field">
             <button
-              type={"button"}
+              type="button"
               className={classnames("btn small", {
                 "light-blue": !fields.hasTrial,
                 "gradient-pink": fields.hasTrial,
@@ -265,16 +265,16 @@ const Component = () => {
             </button>
           </div>
           {fields.hasTrial && (
-            <div style={{ width: "65%" }} className={"group-fields"}>
-              <div className={"field price-len"}>
+            <div style={{ width: "65%" }} className="group-fields">
+              <div className="field price-len">
                 <label>Length</label>
                 <input
-                  type={"number"}
+                  type="number"
                   value={fields.trialLen}
                   onChange={(e) => changeFields("trialLen", e.target.value)}
                 />
               </div>
-              <div className={"field price-type"}>
+              <div className="field price-type">
                 <label>Type</label>
                 <select
                   value={fields.trialTimeFrame}
@@ -294,11 +294,11 @@ const Component = () => {
             </div>
           )}
         </div>
-        <div className={"line"} />
-        <div className={"btns"}>
+        <div className="line" />
+        <div className="btns">
           <button
-            type={"button"}
-            className={"btn gradient-blue"}
+            type="button"
+            className="btn gradient-blue"
             onClick={() => {
               _saveProduct.current?.show();
             }}
@@ -306,7 +306,7 @@ const Component = () => {
             Save
           </button>
           <Link href={`/tiers/${router.query.tierId}`}>
-            <a className={"btn purple-w-border"}>Cancel</a>
+            <a className="btn purple-w-border">Cancel</a>
           </Link>
         </div>
       </>
@@ -320,21 +320,21 @@ const Component = () => {
           <title>Edit Product - {config.meta.title}</title>
         </Head>
         {inProgress && <Spinner />}
-        <div className={"content with-lines"}>
-          <div className={"bread-crumbs"}>
-            <Link href={"/tiers"}>
+        <div className="content with-lines">
+          <div className="bread-crumbs">
+            <Link href="/tiers">
               <a>Products</a>
             </Link>
             <span>{">"}</span>
             <Link href={router.pathname}>
-              <a className={"active"}>Edit Product</a>
+              <a className="active">Edit Product</a>
             </Link>
           </div>
           {renderContent()}
         </div>
       </div>
-      <Modal ref={_saveProduct} title={"Save product?"}>
-        <div className={"data"}>
+      <Modal ref={_saveProduct} title="Save product?">
+        <div className="data">
           <p>
             Do you want <span>to save</span> the changes?
           </p>
@@ -342,17 +342,17 @@ const Component = () => {
             If you choose <span>not to save</span> changes will be lost
           </p>
         </div>
-        <div className={"btns"}>
+        <div className="btns">
           <button
-            type={"button"}
-            className={"half-width action"}
+            type="button"
+            className="half-width action"
             onClick={submitForm}
           >
             Save
           </button>
           <button
-            type={"button"}
-            className={"half-width"}
+            type="button"
+            className="half-width"
             onClick={() => {
               _saveProduct.current?.hide();
             }}

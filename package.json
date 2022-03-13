@@ -37,7 +37,7 @@
     "start": "next start",
     "prettify": "prettier --write \"(pages|components|services|helpers|context)/**/*.js\" \"components/**/*.json\" \"**/*.scss\"",
     "deploy": "yarn prebuild && yarn build && cross-env NODE_ENV=production firebase deploy --only functions,hosting",
-    "analyze": "ANALYZE=true yarn build",
+    "analyze": "cross-env ANALYZE=true yarn build",
     "lint": "next lint"
   },
   "devDependencies": {

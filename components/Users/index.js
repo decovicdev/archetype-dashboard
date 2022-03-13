@@ -72,40 +72,40 @@ const Users = () => {
 
     return (
       <>
-        <div className={"users-list-header"}>
-          <div className={"col"}>Customer</div>
-          <div className={"col"}>API key</div>
-          <div className={"col"}>Tier</div>
-          <div className={"col"}>Last seen</div>
-          <div className={"col"}>Status</div>
+        <div className="users-list-header">
+          <div className="col">Customer</div>
+          <div className="col">API key</div>
+          <div className="col">Tier</div>
+          <div className="col">Last seen</div>
+          <div className="col">Status</div>
         </div>
-        <div className={"users-list-data"}>
+        <div className="users-list-data">
           {list.map((customer) => {
             return (
               <div
                 key={customer.custom_uid}
-                className={"row"}
+                className="row"
                 onClick={(e) => clickItem(e, customer)}
               >
-                <div className={"col with-long-text"}>
+                <div className="col with-long-text">
                   {customer.custom_uid}
                 </div>
-                <div className={"col with-long-text"}>{customer.apikey}</div>
-                <div className={"col with-long-text"}>
+                <div className="col with-long-text">{customer.apikey}</div>
+                <div className="col with-long-text">
                   {customer.tier_id || "-"}
                 </div>
-                <div className={"col"}>
+                <div className="col">
                   {new Date(customer.last_seen * 1000).toLocaleDateString()}
                 </div>
-                <div className={"col"}>
+                <div className="col">
                   {customer.status.replace("_", " ")}
-                  <Dropdown title={<div className={"context-menu-dots"} />}>
+                  <Dropdown title={<div className="context-menu-dots" />}>
                     <Link href={`/users/edit/${customer.custom_uid}`}>
-                      <a className={"edit-btn"}>Edit</a>
+                      <a className="edit-btn">Edit</a>
                     </Link>
                     <button
-                      type={"button"}
-                      className={"generate-key-btn"}
+                      type="button"
+                      className="generate-key-btn"
                       onClick={() => {
                         setSelectedId(customer.custom_uid);
 
@@ -115,8 +115,8 @@ const Users = () => {
                       Reset API key
                     </button>
                     <button
-                      type={"button"}
-                      className={"delete-btn"}
+                      type="button"
+                      className="delete-btn"
                       onClick={() => {
                         setSelectedId(customer.custom_uid);
 
@@ -141,7 +141,7 @@ const Users = () => {
         <title>Users - {config.meta.title}</title>
       </Head>
       {inProgress && <Spinner />}
-      <div className={"content"}>
+      <div className="content">
         <div className="header-block">
           <h1>Customers</h1>
           <input
@@ -150,8 +150,8 @@ const Users = () => {
             value={searchVal}
             onChange={(e) => setSearchVal(e.target.value)}
           />
-          <Link href={"/users/add"}>
-            <a className={"add-user-btn"}>Add user</a>
+          <Link href="/users/add">
+            <a className="add-user-btn">Add user</a>
           </Link>
         </div>
         <div className="cards">

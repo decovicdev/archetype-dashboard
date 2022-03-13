@@ -50,19 +50,19 @@ const Component = () => {
     return (
       <div className="right-menu">
         {currentUser ? (
-          <div className={"profile-block"}>
+          <div className="profile-block">
             <Link href="/settings">
-              <a className={"settings-btn"} />
+              <a className="settings-btn" />
             </Link>
             <Link href="/profile">
-              <a className={"avatar"} />
+              <a className="avatar" />
             </Link>
             <Link href="/profile">
-              <a className={"name"}>{currentUser.displayName}</a>
+              <a className="name">{currentUser.displayName}</a>
             </Link>
             <button
-              type={"button"}
-              className={"logout-btn"}
+              type="button"
+              className="logout-btn"
               onClick={() => AccountService.logout()}
             >
               Sign Out

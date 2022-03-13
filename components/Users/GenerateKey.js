@@ -35,7 +35,7 @@ const Component = forwardRef(function Component({ id, onSuccess }, ref) {
   }, [inProgress, id, showAlert, onSuccess, ref]);
 
   return (
-    <Modal ref={ref} title={"Delete a customer?"} isBusy={inProgress}>
+    <Modal ref={ref} title="Delete a customer?" isBusy={inProgress}>
       <div className="data">
         <p>Are you sure you want to reset this user’s api key?</p>
       </div>

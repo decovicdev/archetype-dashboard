@@ -35,23 +35,23 @@ const Component = forwardRef(function Component({ id, onSuccess }, ref) {
   }, [id, onSuccess, ref, inProgress, showAlert]);
 
   return (
-    <Modal ref={ref} title={"Delete product?"} isBusy={inProgress}>
-      <div className={"data"}>
+    <Modal ref={ref} title="Delete product?" isBusy={inProgress}>
+      <div className="data">
         <p>
           Do you want <span>to delete</span> this product?
         </p>
       </div>
-      <div className={"btns"}>
+      <div className="btns">
         <button
-          type={"button"}
-          className={"half-width action"}
+          type="button"
+          className="half-width action"
           onClick={submitForm}
         >
           Delete
         </button>
         <button
-          type={"button"}
-          className={"half-width"}
+          type="button"
+          className="half-width"
           onClick={() => {
             ref.current?.hide();
           }}

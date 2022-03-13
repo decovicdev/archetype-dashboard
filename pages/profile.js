@@ -29,13 +29,13 @@ const Component = () => {
       <div className="page profile-page">
         <div className="content with-lines">
           <ul className="tabs">
-            <li className={"tab"}>
-              <Link href={"/settings"}>
+            <li className="tab">
+              <Link href="/settings">
                 <a>Settings</a>
               </Link>
             </li>
-            <li className={"tab active"}>
-              <Link href={"/profile"}>
+            <li className="tab active">
+              <Link href="/profile">
                 <a>Profile</a>
               </Link>
             </li>

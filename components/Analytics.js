@@ -53,8 +53,8 @@ const Component = () => {
 
         <div className="chart">
           <Chart
-            width={"100%"}
-            height={"400px"}
+            width="100%"
+            height="400px"
             chartType="AreaChart"
             loader={<div>Loading Chart</div>}
             data={[
@@ -82,8 +82,8 @@ const Component = () => {
         <div className="row">
           <div className="chart">
             <Chart
-              width={"100%"}
-              height={"400px"}
+              width="100%"
+              height="400px"
               chartType="ColumnChart"
               loader={<div>Loading Chart</div>}
               data={[
@@ -111,8 +111,8 @@ const Component = () => {
 
           <div className="chart">
             <Chart
-              width={"100%"}
-              height={"400px"}
+              width="100%"
+              height="400px"
               chartType="ScatterChart"
               loader={<div>Loading Chart</div>}
               data={[

@@ -12,8 +12,8 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className={"sidebar-block"}>
-      <div className={"title"}>Getting Started</div>
+    <div className="sidebar-block">
+      <div className="title">Getting Started</div>
       <nav>
         {links.map((link, i) => {
           return (

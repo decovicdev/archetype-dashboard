@@ -97,7 +97,7 @@ const Component = () => {
       {inProgress && <Spinner />}
       <div className="block">
         <Image
-          className={"icon"}
+          className="icon"
           src={
             currentUser.emailVerified
               ? AccountVerifiedIcon
@@ -107,7 +107,7 @@ const Component = () => {
           width={18}
           height={18}
         />{" "}
-        <div className={"status"}>
+        <div className="status">
           Status account:
           {currentUser.emailVerified ? (
             <span className="badge success">Verified</span>
@@ -125,10 +125,10 @@ const Component = () => {
           </button>
         )}
       </div>
-      <div className={"separate-line"} />
+      <div className="separate-line" />
       <div className="caption-block">
         <span>Information</span>
-        <button type={"button"} onClick={() => setIsEditing(!isEditing)}>
+        <button type="button" onClick={() => setIsEditing(!isEditing)}>
           <EditIcon gradient={isEditing} fill="#ffffff" />
         </button>
       </div>
@@ -168,7 +168,7 @@ const Component = () => {
           />
         </div>
       </form>
-      <div className={"separate-line"} />
+      <div className="separate-line" />
       <div className="btns">
         <button
           className="btn gradient-blue"

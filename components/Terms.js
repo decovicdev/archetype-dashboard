@@ -139,7 +139,7 @@ const Component = () => {
           damage arising from your failure to comply with the above
           requirements.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(a)</b> You understand and agree that (A) Lantern does not
           guarantee the performance of any investment portfolio, is not
           responsible to you for any investment losses; (B) there are
@@ -154,7 +154,7 @@ const Component = () => {
           Securities and different economic environments. There are significant
           risks associated with any investment program.
         </p>
-        <p className={"inner2"}>
+        <p className="inner2">
           <b>(i)</b> You understand and agree that Lantern’s sole obligation
           hereunder or otherwise is to provide market information and investment
           recommendations to you, and you have not engaged Lantern to provide
@@ -162,12 +162,12 @@ const Component = () => {
           that Lantern is not responsible for any losses as a result of
           information or recommendations provided by the Services.
         </p>
-        <p className={"inner2"}>
+        <p className="inner2">
           <b>(ii)</b> You understand and agree that your investment portfolios
           will be managed solely by you, and Lantern will not be responsible for
           executing any trade of Securities or other transaction.
         </p>
-        <p className={"inner2"}>
+        <p className="inner2">
           <b>(iii)</b> You understand and agree that Lantern is not responsible
           to you for any failures, delays and/or interruptions in the timely or
           proper execution of trades or any other orders placed by you on
@@ -331,7 +331,7 @@ const Component = () => {
           <b>3.5. Acceptable Use Policy. </b>The following terms constitute our{" "}
           <b>“Acceptable Use Policy”</b>:
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(a)</b> You agree not to use the Services to collect, upload,
           transmit, display, or distribute any User Content that: (i) violates
           any third-party right, including any copyright, trademark, patent,
@@ -345,7 +345,7 @@ const Component = () => {
           harmful to minors in any way; or (iv) is in violation of any law,
           regulation, or obligations or restrictions imposed by any third party.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(b)</b> In addition, you agree not to: (i) upload, transmit, or
           distribute to or through the Services any computer viruses, worms, or
           any software intended to damage or alter a computer system or data;
@@ -437,51 +437,51 @@ const Component = () => {
         </p>
         <h3>5. Assumption of Risk Relating to Digital Assets</h3>
         <p>You acknowledge and agree that:</p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(a)</b> The prices of digital assets are extremely volatile.
           Fluctuations in the price of other digital assets could materially and
           adversely affect the Items, which may also be subject to significant
           price volatility. We cannot and do not guarantee that any purchasers
           of digital assets will not lose money.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(b)</b> You are solely responsible for determining what, if any,
           taxes apply to your transactions involving digital assets. Lantern is
           not responsible for determining the taxes that may apply to
           transactions involving digital assets.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(c)</b> Digital assets exist and can be transferred only by virtue
           of the ownership record maintained on the blockchain supporting such
           digital assets.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(d)</b> There are risks associated with using digital currency and
           digital assets, including but not limited to, the risk of hardware,
           software and Internet connections, the risk of malicious software
           introduction, and the risk that third parties may obtain unauthorized
           access to your information.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(e)</b> The legal and regulatory regime governing blockchain
           technologies, cryptocurrencies, and tokens is uncertain, and new
           regulations or policies may materially adversely affect the
           development of the Services and the utility of digital assets.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(f)</b> There are risks associated with purchasing user-generated
           digital assets or related content, including but not limited to, the
           risk of purchasing counterfeit assets, mislabeled assets, assets that
           are vulnerable to metadata decay, assets on smart contracts with bugs,
           and assets that may become untransferable.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(g)</b> Lantern reserves the right to hide assets that Lantern
           suspects or believes may violate these Terms. Under no circumstances
           shall the inability to access or view your assets on the Service serve
           as grounds for a claim against Lantern.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(h)</b> Lantern does not investigate and cannot guarantee or
           warrant the authenticity, originality, uniqueness, marketability,
           legality or value of any digital asset displayed on, promoted by or
@@ -554,19 +554,19 @@ const Component = () => {
           The following applies to any Mobile App accessed through or downloaded
           from the Apple App Store:
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(a)</b> You acknowledge and agree that (i) the Terms are concluded
           between you and Lantern only, and not Apple, and (ii) Lantern, not
           Apple, is solely responsible for the Mobile App and content thereof.
           Your use of the Mobile App must comply with the App Store Terms of
           Service.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(b)</b> You acknowledge that Apple has no obligation whatsoever to
           furnish any maintenance and support services with respect to the
           Mobile App.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(c)</b> In the event of any failure of the Mobile App to conform to
           any applicable warranty, you may notify Apple, and Apple will refund
           the purchase price for the Mobile App to you and to the maximum extent
@@ -576,7 +576,7 @@ const Component = () => {
           costs or expenses attributable to any failure to conform to any
           warranty will be the sole responsibility of Lantern.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(d)</b> You and Lantern acknowledge that, as between Lantern and
           Apple, Apple is not responsible for addressing any claims you have or
           any claims of any third party relating to the Mobile App or your
@@ -585,7 +585,7 @@ const Component = () => {
           to conform to any applicable legal or regulatory requirement; and
           (iii) claims arising under consumer protection or similar legislation.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(e)</b> You and Lantern acknowledge that, in the event of any
           third-party claim that the Mobile App or your possession and use of
           that Mobile App infringes that third party’s intellectual property
@@ -594,7 +594,7 @@ const Component = () => {
           discharge of any such intellectual property infringement claim to the
           extent required by the Terms.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(f)</b> You and Lantern acknowledge and agree that Apple, and
           Apple’s subsidiaries, are third-party beneficiaries of the Terms as
           related to your license of the Mobile App, and that, upon your
@@ -603,7 +603,7 @@ const Component = () => {
           license of the Mobile App against you as a third-party beneficiary
           thereof.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(g)</b> Without limiting any of these Terms, you must comply with
           all applicable third-party terms of agreement when using the Mobile
           App.
@@ -789,7 +789,7 @@ const Component = () => {
             A CLASS ACTION WAIVER.
           </b>
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(a)</b> <i>Applicability of Arbitration Agreement.</i> All claims
           and disputes (excluding claims for injunctive or other equitable
           relief as set forth below) in connection with the Terms or the use of
@@ -803,7 +803,7 @@ const Component = () => {
           authorized or unauthorized users or beneficiaries of services or goods
           provided under the Terms.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(b)</b> <i>Notice Requirement and Informal Dispute Resolution.</i>{" "}
           Before either party may seek arbitration, the party must first send to
           the other party a written Notice of Dispute (<b>“Notice”</b>)
@@ -818,7 +818,7 @@ const Component = () => {
           the arbitrator has determined the amount of the award, if any, to
           which either party is entitled.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(c)</b> <i>Arbitration Rules.</i> Arbitration shall be initiated
           through the American Arbitration Association (<b>“AAA”</b>), an
           established alternative dispute resolution provider (
@@ -851,7 +851,7 @@ const Component = () => {
           arbitration and shall pay an equal share of the fees and costs of the
           ADR Provider.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(d)</b>{" "}
           <i>Additional Rules for Non-Appearance Based Arbitration.</i> If
           non-appearance based arbitration is elected, the arbitration shall be
@@ -861,14 +861,14 @@ const Component = () => {
           personal appearance by the parties or witnesses unless otherwise
           agreed by the parties.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(e)</b> <i>Time Limits.</i> If you or Lantern pursue arbitration,
           the arbitration action must be initiated and/or demanded within the
           statute of limitations (i.e., the legal deadline for filing a claim)
           and within any deadline imposed under the AAA Rules for the pertinent
           claim.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(f)</b> <i>Authority of Arbitrator.</i> If arbitration is
           initiated, the arbitrator will decide the rights and liabilities, if
           any, of you and Lantern, and the dispute will not be consolidated with
@@ -884,7 +884,7 @@ const Component = () => {
           basis that a judge in a court of law would have. The award of the
           arbitrator is final and binding upon you and Lantern.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(g)</b> <i>Waiver of Jury Trial.</i> THE PARTIES HEREBY WAIVE THEIR
           CONSTITUTIONAL AND STATUTORY RIGHTS TO GO TO COURT AND HAVE A TRIAL IN
           FRONT OF A JUDGE OR A JURY, instead electing that all claims and
@@ -897,7 +897,7 @@ const Component = () => {
           AND LANTERN WAIVEALLRIGHTSTOAJURYTRIAL,insteadelecting
           thatthedisputeberesolvedbyajudge.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(h)</b> <i>Waiver of Class or Consolidated Actions.</i> ALL CLAIMS
           AND DISPUTES WITHIN THE SCOPE OF THIS ARBITRATION AGREEMENT MUST BE
           ARBITRATED OR LITIGATED ON AN INDIVIDUAL BASIS AND NOT ON A CLASS
@@ -905,7 +905,7 @@ const Component = () => {
           ARBITRATED OR LITIGATED JOINTLY OR CONSOLIDATED WITH THOSE OF ANY
           OTHER CUSTOMER OR USER.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(i)</b> <i>Confidentiality.</i> All aspects of the arbitration
           proceeding, including but not limited to the award of the arbitrator
           and compliance therewith, shall be strictly confidential. The parties
@@ -914,29 +914,29 @@ const Component = () => {
           law any information necessary to enforce this Agreement, to enforce an
           arbitration award, or to seek injunctive or equitable relief.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(j)</b> <i>Severability.</i> If any part or parts of this
           Arbitration Agreement are found under the law to be invalid or
           unenforceable by a court of competent jurisdiction, then such specific
           part or parts shall be of no force and effect and shall be severed and
           the remainder of the Terms shall continue in full force and effect.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(k)</b> <i>Right to Waive.</i> Any or all of the rights and
           limitations set forth in this Arbitration Agreement may be waived by
           the party against whom the claim is asserted. Such waiver shall not
           waive or affect any other portion of this Arbitration Agreement.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(l)</b> <i>Survival of Agreement.</i> This Arbitration Agreement
           will survive the termination of your relationship with Lantern.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(m)</b> <i>Small Claims Court.</i> Notwithstanding the foregoing,
           either you or Lantern may bring an individual action in small claims
           court.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(n)</b> <i>Emergency Equitable Relief.</i> Notwithstanding the
           foregoing, either party may seek emergency equitable relief before a
           state or federal court in order to maintain the status quo pending
@@ -944,14 +944,14 @@ const Component = () => {
           waiver of any other rights or obligations under this Arbitration
           Agreement.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(o)</b> <i>Claims Not Subject to Arbitration.</i> Notwithstanding
           the foregoing, claims of defamation, violation of the Computer Fraud
           and Abuse Act, and infringement or misappropriation of the other
           party’s patent, copyright, trademark or trade secrets shall not be
           subject to this Arbitration Agreement.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(p)</b> <i>30-Day Right to Opt Out.</i> You have the right to opt
           out of the provisions of this Arbitration Agreement by sending written
           notice of your decision to opt out to support@uselantern.com, within
@@ -965,7 +965,7 @@ const Component = () => {
           effect on any other arbitration agreements that you may currently
           have, or may enter in the future, with us.
         </p>
-        <p className={"inner1"}>
+        <p className="inner1">
           <b>(q)</b> <i>Courts.</i> In any circumstances where the foregoing
           Arbitration Agreement permits the parties to litigate in court, the
           parties hereby agree to submit to the personal jurisdiction of the

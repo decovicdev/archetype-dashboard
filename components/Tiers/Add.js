@@ -129,34 +129,34 @@ const Component = () => {
         <title>Add Product - {config.meta.title}</title>
       </Head>
       {inProgress && <Spinner />}
-      <div className={"content with-lines"}>
-        <div className={"bread-crumbs"}>
-          <Link href={"/tiers"}>
+      <div className="content with-lines">
+        <div className="bread-crumbs">
+          <Link href="/tiers">
             <a>Products</a>
           </Link>
           <span>{">"}</span>
-          <Link href={"/tiers/add"}>
-            <a className={"active"}>Add Product</a>
+          <Link href="/tiers/add">
+            <a className="active">Add Product</a>
           </Link>
         </div>
-        <div className={"form"}>
+        <div className="form">
           <h2>Product Information</h2>
-          <div className={"field"}>
+          <div className="field">
             <label>Name</label>
             <input
-              type={"text"}
+              type="text"
               value={fields.name}
               onChange={(e) => changeFields("name", e.target.value)}
             />
           </div>
-          <div className={"field description"}>
+          <div className="field description">
             <label>Description</label>
             <textarea
               value={fields.description}
               onChange={(e) => changeFields("description", e.target.value)}
             />
           </div>
-          <div className={"group-fields"}>
+          <div className="group-fields">
             <div className="box half">
               <input
                 type="checkbox"
@@ -166,10 +166,10 @@ const Component = () => {
               <span>Usage is metered</span>
             </div>
             {fields.meteredUsage && (
-              <div className={"field half"}>
+              <div className="field half">
                 <label>Quota</label>
                 <input
-                  type={"text"}
+                  type="text"
                   value={fields.quota}
                   onChange={(e) => {
                     if (e.target.value && !/^[0-9]*$/g.test(e.target.value)) {
@@ -183,11 +183,11 @@ const Component = () => {
             )}
           </div>
         </div>
-        <div className={"line"} />
-        <div className={"form"}>
+        <div className="line" />
+        <div className="form">
           <h2>Price Information</h2>
           <h3>Pricing details</h3>
-          <div className={"field"}>
+          <div className="field">
             <label>Pricing model</label>
             <select
               value={fields.pricingModel}
@@ -202,11 +202,11 @@ const Component = () => {
               })}
             </select>
           </div>
-          <div className={"field"}>
+          <div className="field">
             <label>Price</label>
-            <div className={"inp-with-currency"}>
+            <div className="inp-with-currency">
               <input
-                type={"text"}
+                type="text"
                 value={fields.price}
                 onChange={(e) => {
                   if (
@@ -227,7 +227,7 @@ const Component = () => {
               />
             </div>
           </div>
-          <div className={"field"}>
+          <div className="field">
             <label>Billing period</label>
             <select
               value={fields.billingPeriod}
@@ -242,9 +242,9 @@ const Component = () => {
               })}
             </select>
           </div>
-          <div className={"field"}>
+          <div className="field">
             <button
-              type={"button"}
+              type="button"
               className={classnames("btn small", {
                 "light-blue": !fields.hasTrial,
                 "gradient-pink": fields.hasTrial,
@@ -255,16 +255,16 @@ const Component = () => {
             </button>
           </div>
           {fields.hasTrial && (
-            <div style={{ width: "65%" }} className={"group-fields"}>
-              <div className={"field price-len"}>
+            <div style={{ width: "65%" }} className="group-fields">
+              <div className="field price-len">
                 <label>Length</label>
                 <input
-                  type={"number"}
+                  type="number"
                   value={fields.trialLen}
                   onChange={(e) => changeFields("trialLen", e.target.value)}
                 />
               </div>
-              <div className={"field price-type"}>
+              <div className="field price-type">
                 <label>Type</label>
                 <select
                   value={fields.trialTimeFrame}
@@ -284,17 +284,17 @@ const Component = () => {
             </div>
           )}
         </div>
-        <div className={"line"} />
-        <div className={"btns"}>
+        <div className="line" />
+        <div className="btns">
           <button
-            type={"button"}
-            className={"btn gradient-blue"}
+            type="button"
+            className="btn gradient-blue"
             onClick={() => submitForm()}
           >
             Create
           </button>
-          <Link href={`/tiers`}>
-            <a className={"btn clean-white"}>Cancel</a>
+          <Link href="/tiers">
+            <a className="btn clean-white">Cancel</a>
           </Link>
         </div>
       </div>

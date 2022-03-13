@@ -46,8 +46,8 @@ const Component = () => {
           <div className={classnames("icon", `puzzle-${i}`)} />
           <div className="description">{item.description}</div>
           {!item.mtr && !item.mtrText ? (
-            <div className={"contact"}>
-              <button type={"button"}>Contact sales &gt;</button>
+            <div className="contact">
+              <button type="button">Contact sales &gt;</button>
             </div>
           ) : (
             <>
@@ -57,7 +57,7 @@ const Component = () => {
           )}
           {!currentUser && (
             <Link href="/account/signup">
-              <a className={"action-btn"}>Sign Up</a>
+              <a className="action-btn">Sign Up</a>
             </Link>
           )}
         </div>
@@ -75,7 +75,7 @@ const Component = () => {
       {inProgress && <Spinner />}
       <div className="page pricing-page">
         <div className="content with-lines">
-          <div className={"top-block"}>
+          <div className="top-block">
             <h1>Pricing plans</h1>
           </div>
           <div className="plan-blocks">{renderBlocks()}</div>

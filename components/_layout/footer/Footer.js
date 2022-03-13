@@ -24,7 +24,7 @@ const Footer = () => {
     return (
       <div className="bottom-panel">
         {currentUser ? (
-          <button type={"button"} className="btn" onClick={clickSignOut}>
+          <button type="button" className="btn" onClick={clickSignOut}>
             Sign Out
           </button>
         ) : (
@@ -44,12 +44,12 @@ const Footer = () => {
   return (
     <>
       <footer id="footer">
-        <div className={"top-block"}>
-          <div className={"content"}>
+        <div className="top-block">
+          <div className="content">
             <Link href="/">
               <a className="logo-link" />
             </Link>
-            <div className={"nav-links"}>
+            <div className="nav-links">
               <Link href="/privacy-policy">
                 <a>Privacy Policy</a>
               </Link>
@@ -57,16 +57,16 @@ const Footer = () => {
                 <a>Terms of Service</a>
               </Link>
             </div>
-            <div className={"socials"}>
-              <Link href={"/"}>
-                <a className={"twitter"}>Twitter</a>
+            <div className="socials">
+              <Link href="/">
+                <a className="twitter">Twitter</a>
               </Link>
             </div>
           </div>
         </div>
-        <div className={"bottom-block"}>
-          <div className={"content"}>
-            <div className={"copyright"}>&copy; 2022 Archetype</div>
+        <div className="bottom-block">
+          <div className="content">
+            <div className="copyright">&copy; 2022 Archetype</div>
           </div>
         </div>
       </footer>

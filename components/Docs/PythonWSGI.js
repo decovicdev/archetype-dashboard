@@ -14,7 +14,7 @@ const Component = () => {
         <title>Python WSGI - Docs - {config.meta.title}</title>
       </Head>
       <Sidebar />
-      <div className={"content-block"}>
+      <div className="content-block">
         <Markdown>{data}</Markdown>
       </div>
     </div>

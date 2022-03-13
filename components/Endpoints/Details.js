@@ -42,20 +42,20 @@ const Component = () => {
 
   const renderContent = useCallback(() => {
     if (!data) {
-      return <div className={"no-content"}>Endpoint not found.</div>;
+      return <div className="no-content">Endpoint not found.</div>;
     }
 
     return (
       <>
-        <div className={"top-block"}>
+        <div className="top-block">
           <h2>{data.name}</h2>
-          <Dropdown title={<div className={"context-menu-dots"} />}>
+          <Dropdown title={<div className="context-menu-dots" />}>
             <Link href={`/endpoints/edit/${data.uid}`}>
-              <a className={"edit-btn"}>Edit</a>
+              <a className="edit-btn">Edit</a>
             </Link>
             <button
-              type={"button"}
-              className={"delete-btn"}
+              type="button"
+              className="delete-btn"
               onClick={() => {
                 _deleteModal.current?.show();
               }}
@@ -64,20 +64,20 @@ const Component = () => {
             </button>
           </Dropdown>
         </div>
-        <div className={"line"} />
-        <div className={"content-block"}>
+        <div className="line" />
+        <div className="content-block">
           <h3>Details</h3>
-          <div className={"field"}>
-            <div className={"name"}>Description</div>
-            <div className={"value"}>{data.description}</div>
+          <div className="field">
+            <div className="name">Description</div>
+            <div className="value">{data.description}</div>
           </div>
-          <div className={"field"}>
-            <div className={"name"}>Methods</div>
-            <div className={"value"}>{data.allowed_methods?.join(", ")}</div>
+          <div className="field">
+            <div className="name">Methods</div>
+            <div className="value">{data.allowed_methods?.join(", ")}</div>
           </div>
-          <div className={"field"}>
-            <div className={"name"}>Path</div>
-            <div className={"value"}>{data.path}</div>
+          <div className="field">
+            <div className="name">Path</div>
+            <div className="value">{data.path}</div>
           </div>
         </div>
       </>
@@ -90,14 +90,14 @@ const Component = () => {
         <title>Endpoint Details - {config.meta.title}</title>
       </Head>
       {inProgress && <Spinner />}
-      <div className={"content with-lines"}>
-        <div className={"bread-crumbs"}>
-          <Link href={"/endpoints"}>
+      <div className="content with-lines">
+        <div className="bread-crumbs">
+          <Link href="/endpoints">
             <a>Endpoints</a>
           </Link>
           <span>{">"}</span>
           <Link href={router.pathname}>
-            <a className={"active"}>Endpoint Details</a>
+            <a className="active">Endpoint Details</a>
           </Link>
         </div>
         {renderContent()}
