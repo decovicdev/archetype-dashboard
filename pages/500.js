@@ -1,4 +1,4 @@
-import InternalError from "../components/InternalError";
+import InternalError from '../components/InternalError';
 
 const Component = () => <InternalError />;
 

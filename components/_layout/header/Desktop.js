@@ -1,11 +1,11 @@
-import { useRef, useContext, useEffect, useCallback } from "react";
-import Link from "next/link";
+import { useRef, useContext, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 
-import Links from "./links";
+import Links from './links';
 
-import AccountService from "../../../services/account.service";
+import AccountService from '../../../services/account.service';
 
-import { AuthContext } from "../../../context/auth";
+import { AuthContext } from '../../../context/auth';
 // import { HelperContext } from "../../../context/helper";
 
 const Component = () => {
@@ -25,7 +25,7 @@ const Component = () => {
       document.body.scrollTop ||
       0;
 
-    _header.current.className = top > 0 ? "desktop floating" : "desktop";
+    _header.current.className = top > 0 ? 'desktop floating' : 'desktop';
   }, [_header]);
 
   useEffect(() => {
@@ -33,10 +33,10 @@ const Component = () => {
       return;
     }
 
-    window.addEventListener("scroll", updatePostion);
+    window.addEventListener('scroll', updatePostion);
 
     return () => {
-      window.removeEventListener("scroll", updatePostion);
+      window.removeEventListener('scroll', updatePostion);
     };
   }, [updatePostion]);
 
@@ -46,7 +46,8 @@ const Component = () => {
   //   showAlert("Logged out", true);
   // }, [showAlert]);
 
-  const renderLinks = useCallback(() => (
+  const renderLinks = useCallback(
+    () => (
       <div className="right-menu">
         {currentUser ? (
           <div className="profile-block">
@@ -79,7 +80,9 @@ const Component = () => {
           </>
         )}
       </div>
-    ), [currentUser]);
+    ),
+    [currentUser]
+  );
 
   return (
     <header ref={_header} className="desktop">

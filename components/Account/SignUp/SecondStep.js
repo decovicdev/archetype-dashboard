@@ -1,18 +1,18 @@
-import config from "../../../config";
+import config from '../../../config';
 
-import React, { useContext, useState, useEffect, useCallback } from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import classnames from "classnames";
+import React, { useContext, useState, useEffect, useCallback } from 'react';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import classnames from 'classnames';
 
-import { AUTH_TYPES } from "./assets";
+import { AUTH_TYPES } from './assets';
 
-import Spinner from "../../_common/Spinner";
+import Spinner from '../../_common/Spinner';
 
-import ApiService from "../../../services/api.service.js";
+import ApiService from '../../../services/api.service.js';
 
-import { AuthContext } from "../../../context/auth";
-import { HelperContext } from "../../../context/helper";
+import { AuthContext } from '../../../context/auth';
+import { HelperContext } from '../../../context/helper';
 
 const Component = () => {
   const router = useRouter();
@@ -21,14 +21,14 @@ const Component = () => {
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
-  const [apiName, setApiName] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [authType, setAuthType] = useState("none");
+  const [apiName, setApiName] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [authType, setAuthType] = useState('none');
   const [hasFree, setHasFree] = useState(false);
 
   useEffect(() => {
     if (!currentUser) {
-      router.push("/account/signup");
+      router.push('/account/signup');
     }
   }, [currentUser, router]);
 
@@ -38,10 +38,10 @@ const Component = () => {
         return;
       }
       if (!apiName) {
-        return showAlert("Name is required");
+        return showAlert('Name is required');
       }
       if (!companyName) {
-        return showAlert("Company is required");
+        return showAlert('Company is required');
       }
 
       setProgress(true);
@@ -50,12 +50,12 @@ const Component = () => {
         name: apiName,
         company: companyName,
         auth_type: authType,
-        has_free: authType !== "none" && hasFree,
+        has_free: authType !== 'none' && hasFree
       });
 
-      showAlert("API is successfully created", true);
+      showAlert('API is successfully created', true);
 
-      router.push("/settings");
+      router.push('/settings');
     } catch (e) {
       showAlert(e.message);
     } finally {
@@ -81,9 +81,9 @@ const Component = () => {
               <li>
                 <h3>Painless</h3>
                 <p>
-                  {" "}
+                  {' '}
                   Never worry about invoicing, API key management or your users
-                  again.{" "}
+                  again.{' '}
                 </p>
               </li>
               <li>
@@ -125,17 +125,17 @@ const Component = () => {
                 <label>Authentication Type</label>
                 <ul className="tabs">
                   {Object.entries(AUTH_TYPES).map(([key, val]) => (
-                      <li
-                        key={key}
-                        className={classnames({ selected: key === authType })}
-                        onClick={() => setAuthType(key)}
-                      >
-                        {val}
-                      </li>
-                    ))}
+                    <li
+                      key={key}
+                      className={classnames({ selected: key === authType })}
+                      onClick={() => setAuthType(key)}
+                    >
+                      {val}
+                    </li>
+                  ))}
                 </ul>
               </div>
-              {authType !== "none" && (
+              {authType !== 'none' && (
                 <div className="box half">
                   <input
                     type="checkbox"

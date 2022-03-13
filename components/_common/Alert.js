@@ -1,5 +1,5 @@
-import { useRef, useEffect, useCallback } from "react";
-import classnames from "classnames";
+import { useRef, useEffect, useCallback } from 'react';
+import classnames from 'classnames';
 
 let timeoutId;
 
@@ -19,8 +19,8 @@ const Component = (props) => {
 
   const show = useCallback(
     (message, isSuccess) => {
-      _block.current.className = classnames(props.className, "visible", {
-        isSuccess,
+      _block.current.className = classnames(props.className, 'visible', {
+        isSuccess
       });
       _block.current.style.left = `0%`;
       _block.current.style.marginLeft = `-${Math.abs(
@@ -28,7 +28,7 @@ const Component = (props) => {
       )}px`;
       _block.current.style.left = `50%`;
 
-      const words = message ? message.split(" ") : [];
+      const words = message ? message.split(' ') : [];
 
       let timeout = props.timeout || words.length * 0.5 * 1000;
       if (timeout < props.minTimeout) {
@@ -67,8 +67,8 @@ const Component = (props) => {
 };
 
 Component.defaultProps = {
-  className: "alert-msg",
-  minTimeout: 2000,
+  className: 'alert-msg',
+  minTimeout: 2000
 };
 
 export default Component;

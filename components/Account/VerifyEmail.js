@@ -1,16 +1,16 @@
-import config from "../../config";
+import config from '../../config';
 
-import React, { useContext, useState, useEffect } from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import React, { useContext, useState, useEffect } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import AccountService from "../../services/account.service.js";
+import AccountService from '../../services/account.service.js';
 
-import Spinner from "../_common/Spinner";
+import Spinner from '../_common/Spinner';
 
-import { AuthContext } from "../../context/auth";
-import { HelperContext } from "../../context/helper";
+import { AuthContext } from '../../context/auth';
+import { HelperContext } from '../../context/helper';
 
 const Component = () => {
   const router = useRouter();
@@ -39,11 +39,11 @@ const Component = () => {
 
         await AccountService.verifyEmail(oobCode);
 
-        showAlert("Your email is now verified", true);
+        showAlert('Your email is now verified', true);
 
-        const tier = localStorage.getItem("selectedTier");
+        const tier = localStorage.getItem('selectedTier');
         if (tier) {
-          localStorage.removeItem("selectedTier");
+          localStorage.removeItem('selectedTier');
 
           router.push(`/pricing?tier=${tier}`);
         }

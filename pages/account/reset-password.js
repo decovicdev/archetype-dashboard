@@ -1,9 +1,9 @@
-import { useContext, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-import ResetPassword from "../../components/Account/ResetPassword";
+import ResetPassword from '../../components/Account/ResetPassword';
 
-import { AuthContext } from "../../context/auth";
+import { AuthContext } from '../../context/auth';
 
 const Component = () => {
   const router = useRouter();
@@ -12,7 +12,7 @@ const Component = () => {
 
   useEffect(() => {
     if (currentUser) {
-      router.push("/");
+      router.push('/');
     }
   }, [currentUser, router]);
 

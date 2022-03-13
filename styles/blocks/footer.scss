@@ -19,7 +19,7 @@ footer {
       width: 173px;
       height: 36px;
       display: block;
-      background-image: url("../../public/logo.svg");
+      background-image: url('../../public/logo.svg');
       background-position: center;
       background-size: cover;
     }
@@ -50,7 +50,7 @@ footer {
         width: 36px;
         height: 36px;
         display: block;
-        background-image: url("../../public/icons/twitter.svg");
+        background-image: url('../../public/icons/twitter.svg');
         background-position: center;
         background-size: 20px 20px;
         background-color: $light-blue;

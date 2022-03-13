@@ -1,18 +1,18 @@
-import config from "../../config";
+import config from '../../config';
 
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import Dropdown from "../_common/Dropdown";
-import Spinner from "../_common/Spinner";
-import DeleteModal from "./DeleteModal";
-import GenerateKey from "./GenerateKey";
+import Dropdown from '../_common/Dropdown';
+import Spinner from '../_common/Spinner';
+import DeleteModal from './DeleteModal';
+import GenerateKey from './GenerateKey';
 
-import CustomerService from "../../services/customer.service";
+import CustomerService from '../../services/customer.service';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
 
 const Users = () => {
   const router = useRouter();
@@ -24,7 +24,7 @@ const Users = () => {
 
   const [inProgress, setProgress] = useState(false);
   const [data, setData] = useState([]);
-  const [searchVal, setSearchVal] = useState("");
+  const [searchVal, setSearchVal] = useState('');
   const [selectedId, setSelectedId] = useState(null);
 
   const fetch = useCallback(async () => {
@@ -47,9 +47,9 @@ const Users = () => {
   const clickItem = useCallback(
     (e, item) => {
       if (
-        e.target.className === "context-menu-dots" ||
-        e.target.parentNode.classList.contains("dropdown") ||
-        e.target.parentNode.classList.contains("dropdownContent")
+        e.target.className === 'context-menu-dots' ||
+        e.target.parentNode.classList.contains('dropdown') ||
+        e.target.parentNode.classList.contains('dropdownContent')
       ) {
         return;
       }
@@ -63,9 +63,10 @@ const Users = () => {
     let list = [...data];
 
     if (searchVal) {
-      list = list.filter((item) => (
+      list = list.filter(
+        (item) =>
           item.attrs?.name.toLowerCase().indexOf(searchVal.toLowerCase()) >= 0
-        ));
+      );
     }
 
     return (
@@ -79,53 +80,51 @@ const Users = () => {
         </div>
         <div className="users-list-data">
           {list.map((customer) => (
-              <div
-                key={customer.custom_uid}
-                className="row"
-                onClick={(e) => clickItem(e, customer)}
-              >
-                <div className="col with-long-text">
-                  {customer.custom_uid}
-                </div>
-                <div className="col with-long-text">{customer.apikey}</div>
-                <div className="col with-long-text">
-                  {customer.tier_id || "-"}
-                </div>
-                <div className="col">
-                  {new Date(customer.last_seen * 1000).toLocaleDateString()}
-                </div>
-                <div className="col">
-                  {customer.status.replace("_", " ")}
-                  <Dropdown title={<div className="context-menu-dots" />}>
-                    <Link href={`/users/edit/${customer.custom_uid}`}>
-                      <a className="edit-btn">Edit</a>
-                    </Link>
-                    <button
-                      type="button"
-                      className="generate-key-btn"
-                      onClick={() => {
-                        setSelectedId(customer.custom_uid);
-
-                        _generateKey.current?.show();
-                      }}
-                    >
-                      Reset API key
-                    </button>
-                    <button
-                      type="button"
-                      className="delete-btn"
-                      onClick={() => {
-                        setSelectedId(customer.custom_uid);
-
-                        _deleteModal.current?.show();
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </Dropdown>
-                </div>
+            <div
+              key={customer.custom_uid}
+              className="row"
+              onClick={(e) => clickItem(e, customer)}
+            >
+              <div className="col with-long-text">{customer.custom_uid}</div>
+              <div className="col with-long-text">{customer.apikey}</div>
+              <div className="col with-long-text">
+                {customer.tier_id || '-'}
               </div>
-            ))}
+              <div className="col">
+                {new Date(customer.last_seen * 1000).toLocaleDateString()}
+              </div>
+              <div className="col">
+                {customer.status.replace('_', ' ')}
+                <Dropdown title={<div className="context-menu-dots" />}>
+                  <Link href={`/users/edit/${customer.custom_uid}`}>
+                    <a className="edit-btn">Edit</a>
+                  </Link>
+                  <button
+                    type="button"
+                    className="generate-key-btn"
+                    onClick={() => {
+                      setSelectedId(customer.custom_uid);
+
+                      _generateKey.current?.show();
+                    }}
+                  >
+                    Reset API key
+                  </button>
+                  <button
+                    type="button"
+                    className="delete-btn"
+                    onClick={() => {
+                      setSelectedId(customer.custom_uid);
+
+                      _deleteModal.current?.show();
+                    }}
+                  >
+                    Delete
+                  </button>
+                </Dropdown>
+              </div>
+            </div>
+          ))}
         </div>
       </>
     );

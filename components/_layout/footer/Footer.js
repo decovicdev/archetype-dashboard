@@ -1,10 +1,10 @@
-import { useContext, useCallback } from "react";
-import Link from "next/link";
+import { useContext, useCallback } from 'react';
+import Link from 'next/link';
 
-import AccountService from "../../../services/account.service";
+import AccountService from '../../../services/account.service';
 
-import { AuthContext } from "../../../context/auth";
-import { HelperContext } from "../../../context/helper";
+import { AuthContext } from '../../../context/auth';
+import { HelperContext } from '../../../context/helper';
 
 const Footer = () => {
   const { currentUser } = useContext(AuthContext);
@@ -13,7 +13,7 @@ const Footer = () => {
   const clickSignOut = useCallback(async () => {
     await AccountService.logout();
 
-    showAlert("Logged out", true);
+    showAlert('Logged out', true);
   }, [showAlert]);
 
   const renderBottomPanel = useCallback(() => {

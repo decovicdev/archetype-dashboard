@@ -1,17 +1,17 @@
-import config from "../../config";
+import config from '../../config';
 
-import { useState, useCallback, useRef, useContext, useEffect } from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { useState, useCallback, useRef, useContext, useEffect } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import Dropdown from "../_common/Dropdown";
-import Spinner from "../_common/Spinner";
-import DeleteModal from "./DeleteModal";
+import Dropdown from '../_common/Dropdown';
+import Spinner from '../_common/Spinner';
+import DeleteModal from './DeleteModal';
 
-import EndpointService from "../../services/endpoint.service";
+import EndpointService from '../../services/endpoint.service';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
 
 const Component = () => {
   const _deleteModal = useRef(null);
@@ -73,7 +73,7 @@ const Component = () => {
           </div>
           <div className="field">
             <div className="name">Methods</div>
-            <div className="value">{data.allowed_methods?.join(", ")}</div>
+            <div className="value">{data.allowed_methods?.join(', ')}</div>
           </div>
           <div className="field">
             <div className="name">Path</div>
@@ -95,7 +95,7 @@ const Component = () => {
           <Link href="/endpoints">
             <a>Endpoints</a>
           </Link>
-          <span>{">"}</span>
+          <span>{'>'}</span>
           <Link href={router.pathname}>
             <a className="active">Endpoint Details</a>
           </Link>
@@ -106,7 +106,7 @@ const Component = () => {
         ref={_deleteModal}
         id={router.query.endpointId}
         onSuccess={() => {
-          router.push("/endpoints");
+          router.push('/endpoints');
         }}
       />
     </div>

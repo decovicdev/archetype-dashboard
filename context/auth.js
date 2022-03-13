@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { useRouter } from "next/router";
+import React, { useEffect, useState, useCallback } from 'react';
+import { useRouter } from 'next/router';
 
-import Firebase from "../firebase.js";
-import Analytics from "../helpers/analytics";
-import AccountService from "../services/account.service";
+import Firebase from '../firebase.js';
+import Analytics from '../helpers/analytics';
+import AccountService from '../services/account.service';
 
 export const AuthContext = React.createContext();
 
@@ -26,17 +26,17 @@ export const AuthProvider = ({ children }) => {
 
         Analytics.identify(user.uid, {
           email: user.email,
-          displayName: user.displayName || "",
+          displayName: user.displayName || ''
         });
 
         user
           .getIdToken()
           .then((token) => {
-            sessionStorage.setItem("token", token);
+            sessionStorage.setItem('token', token);
 
             if (
-              !sessionStorage.getItem("appId") &&
-              !["/account/signup", "/account/signup/next"].includes(
+              !sessionStorage.getItem('appId') &&
+              !['/account/signup', '/account/signup/next'].includes(
                 router.pathname
               )
             ) {
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
           })
           .then((response) => {
             if (response?.app_id) {
-              sessionStorage.setItem("appId", response.app_id);
+              sessionStorage.setItem('appId', response.app_id);
             }
 
             setAuthPending(false);
@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         authPending,
-        currentUser,
+        currentUser
       }}
     >
       {children}

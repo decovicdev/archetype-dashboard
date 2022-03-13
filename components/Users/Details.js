@@ -1,17 +1,17 @@
-import config from "../../config";
+import config from '../../config';
 
-import { useState, useCallback, useRef, useContext, useEffect } from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { useState, useCallback, useRef, useContext, useEffect } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import Dropdown from "../_common/Dropdown";
-import Spinner from "../_common/Spinner";
-import DeleteModal from "./DeleteModal";
+import Dropdown from '../_common/Dropdown';
+import Spinner from '../_common/Spinner';
+import DeleteModal from './DeleteModal';
 
-import CustomerService from "../../services/customer.service";
+import CustomerService from '../../services/customer.service';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
 
 const Component = () => {
   const _deleteModal = useRef(null);
@@ -112,7 +112,7 @@ const Component = () => {
           <Link href="/users">
             <a>Customers</a>
           </Link>
-          <span>{">"}</span>
+          <span>{'>'}</span>
           <Link href={router.pathname}>
             <a className="active">Customer Profile</a>
           </Link>
@@ -123,7 +123,7 @@ const Component = () => {
         ref={_deleteModal}
         id={router.query.userId}
         onSuccess={() => {
-          router.push("/users");
+          router.push('/users');
         }}
       />
     </div>

@@ -1,22 +1,22 @@
-import config from "../../config";
+import config from '../../config';
 
 import React, {
   useRef,
   useState,
   useEffect,
   useCallback,
-  useContext,
-} from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
+  useContext
+} from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import Spinner from "../_common/Spinner";
-import Modal from "../_common/Modal";
+import Spinner from '../_common/Spinner';
+import Modal from '../_common/Modal';
 
-import TierService from "../../services/tier.service";
+import TierService from '../../services/tier.service';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
 
 const Component = () => {
   const _deleteProduct = useRef(null);
@@ -136,7 +136,7 @@ const Component = () => {
             <Link href="/tiers">
               <a>Products</a>
             </Link>
-            <span>{">"}</span>
+            <span>{'>'}</span>
             <Link href={router.pathname}>
               <a className="active">Overview a product</a>
             </Link>

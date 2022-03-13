@@ -1,6 +1,6 @@
-import config from "../config";
+import config from '../config';
 
-import Document, { Head, Html, Main, NextScript } from "next/document";
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document {
   render() {
@@ -15,7 +15,7 @@ export default class MyDocument extends Document {
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${config.google_tag_manager}');
-          `,
+          `
             }}
           />
           <script
@@ -31,7 +31,7 @@ export default class MyDocument extends Document {
             gtag('config', '${config.google_analytics}', {
               page_path: window.location.pathname,
             });
-          `,
+          `
             }}
           />
         </Head>
@@ -39,7 +39,7 @@ export default class MyDocument extends Document {
           <noscript
             dangerouslySetInnerHTML={{
               __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=${config.google_tag_manager}"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>`
             }}
           />
           <Main />
@@ -55,7 +55,7 @@ export default class MyDocument extends Document {
             s.src = u + new Date().getTime();
             h.appendChild(s);
           })(document, 'https://grow.clearbitjs.com/api/pixel.js?k=${config.clearbit}&v=');
-        `,
+        `
           }}
         />
       </Html>

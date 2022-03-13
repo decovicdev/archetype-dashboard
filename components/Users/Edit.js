@@ -1,22 +1,22 @@
-import config from "../../config";
+import config from '../../config';
 
 import React, {
   useRef,
   useState,
   useEffect,
   useCallback,
-  useContext,
-} from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
+  useContext
+} from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import Spinner from "../_common/Spinner";
-import Modal from "../_common/Modal";
+import Spinner from '../_common/Spinner';
+import Modal from '../_common/Modal';
 
-import CustomerService from "../../services/customer.service";
+import CustomerService from '../../services/customer.service';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
 
 const Component = () => {
   const _deleteUser = useRef(null);
@@ -36,7 +36,7 @@ const Component = () => {
         const response = await CustomerService.getById(router.query.userId);
 
         setFields({
-          email: response.email,
+          email: response.email
         });
       } catch (e) {
         showAlert(e.message);
@@ -73,10 +73,10 @@ const Component = () => {
       setProgress(true);
 
       await CustomerService.updateById(router.query.userId, {
-        email: fields.email,
+        email: fields.email
       });
 
-      showAlert("Success", true);
+      showAlert('Success', true);
     } catch (e) {
       showAlert(e.message);
     } finally {
@@ -93,9 +93,9 @@ const Component = () => {
 
       await CustomerService.deleteById(router.query.userId);
 
-      showAlert("Success", true);
+      showAlert('Success', true);
 
-      router.push("/users");
+      router.push('/users');
     } catch (e) {
       showAlert(e.message);
     } finally {
@@ -126,7 +126,7 @@ const Component = () => {
             <input
               type="text"
               value={fields.email}
-              onChange={(e) => changeFields("email", e.target.value)}
+              onChange={(e) => changeFields('email', e.target.value)}
             />
           </div>
         </div>
@@ -159,7 +159,7 @@ const Component = () => {
             <Link href="/users">
               <a>Customers</a>
             </Link>
-            <span>{">"}</span>
+            <span>{'>'}</span>
             <Link href={router.pathname}>
               <a className="active">Edit Customer</a>
             </Link>

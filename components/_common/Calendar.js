@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Calendar } from "react-date-range";
-import Image from "next/image";
+import { useState } from 'react';
+import { Calendar } from 'react-date-range';
+import Image from 'next/image';
 
-import classnames from "classnames";
-import CalenderIcon from "./../../public/icons/calendar.svg";
+import classnames from 'classnames';
+import CalenderIcon from './../../public/icons/calendar.svg';
 
 const Component = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +26,7 @@ const Component = () => {
   const CalenderPreview = ({ className }) => (
     <Calendar
       color="#E545E7"
-      className={classnames("calendar", className)}
+      className={classnames('calendar', className)}
       date={date}
       showPreview={false}
       showDateDisplay={false}
@@ -38,7 +38,7 @@ const Component = () => {
   );
 
   return (
-    <div className={classnames("calendarWrapper")}>
+    <div className={classnames('calendarWrapper')}>
       <div>
         <div className="datePreview">
           <a className="arrow" onClick={getPrevDay}>
@@ -49,7 +49,7 @@ const Component = () => {
             <i className="next-arrow"></i>
           </a>
         </div>
-        <a className={classnames("calenderBtn", { active: isOpen })}>
+        <a className={classnames('calenderBtn', { active: isOpen })}>
           <Image
             src={CalenderIcon}
             width={15}

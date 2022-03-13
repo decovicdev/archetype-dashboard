@@ -1,16 +1,16 @@
-import config from "../../config";
+import config from '../../config';
 
-import React, { useContext, useState, useEffect, useCallback } from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import React, { useContext, useState, useEffect, useCallback } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import Spinner from "../_common/Spinner";
+import Spinner from '../_common/Spinner';
 
-import AccountService from "../../services/account.service.js";
+import AccountService from '../../services/account.service.js';
 
-import { AuthContext } from "../../context/auth";
-import { HelperContext } from "../../context/helper";
+import { AuthContext } from '../../context/auth';
+import { HelperContext } from '../../context/helper';
 
 const Component = () => {
   const router = useRouter();
@@ -23,7 +23,7 @@ const Component = () => {
 
   useEffect(() => {
     if (currentUser) {
-      router.push("/settings");
+      router.push('/settings');
     }
   }, [currentUser, router]);
 
@@ -36,21 +36,21 @@ const Component = () => {
           return;
         }
         if (!authEmail) {
-          return showAlert("Email address is required field");
+          return showAlert('Email address is required field');
         }
         if (!authPassword) {
-          return showAlert("Password is required field");
+          return showAlert('Password is required field');
         }
         setProgress(true);
 
         await AccountService.login(authEmail, authPassword);
 
-        showAlert("Successfuly logged in", true);
+        showAlert('Successfuly logged in', true);
 
-        setAuthEmail("");
-        setAuthPassword("");
+        setAuthEmail('');
+        setAuthPassword('');
 
-        router.push("/settings");
+        router.push('/settings');
       } catch (e) {
         showAlert(e.message);
 
@@ -64,7 +64,7 @@ const Component = () => {
       showAlert,
       setAuthEmail,
       setAuthPassword,
-      router,
+      router
     ]
   );
 

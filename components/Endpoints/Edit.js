@@ -1,21 +1,21 @@
-import config from "../../config";
+import config from '../../config';
 
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import { HTTP_METHODS } from "./assets";
+import { HTTP_METHODS } from './assets';
 
-import DefaultDropdown from "../_common/DefaultDropdown";
-import Spinner from "../_common/Spinner";
+import DefaultDropdown from '../_common/DefaultDropdown';
+import Spinner from '../_common/Spinner';
 // import HeadersTab from "./blocks/headers";
 // import QueryTab from "./blocks/query";
 // import BodyTab from "./blocks/body";
 
-import EndpointService from "../../services/endpoint.service";
+import EndpointService from '../../services/endpoint.service';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
 
 const Component = () => {
   const router = useRouter();
@@ -37,7 +37,7 @@ const Component = () => {
           name: response.name,
           description: response.description,
           methods: response.allowed_methods,
-          path: response.path,
+          path: response.path
         });
       } catch (e) {
         showAlert(e.message);
@@ -73,10 +73,10 @@ const Component = () => {
       }
 
       if (!fields.name) {
-        return showAlert("Name is required field");
+        return showAlert('Name is required field');
       }
       if (!fields.methods.length) {
-        return showAlert("Please select at least one HTTP method");
+        return showAlert('Please select at least one HTTP method');
       }
       if (!/^\//.test(fields.path)) {
         return showAlert(`Path is relative, starts with "/" symbol`);
@@ -89,10 +89,10 @@ const Component = () => {
         description: fields.description,
         path: fields.path,
         allowed_methods: fields.methods,
-        allowed_tiers: [],
+        allowed_tiers: []
       });
 
-      showAlert("Success", true);
+      showAlert('Success', true);
     } catch (e) {
       showAlert(e.message);
     } finally {
@@ -115,7 +115,7 @@ const Component = () => {
               type="text"
               value={fields.name}
               placeholder="Name your endpoint"
-              onChange={(e) => changeFields("name", e.target.value)}
+              onChange={(e) => changeFields('name', e.target.value)}
             />
           </div>
           <div className="field description">
@@ -123,7 +123,7 @@ const Component = () => {
             <textarea
               value={fields.description}
               placeholder="Describe what this endpoint does"
-              onChange={(e) => changeFields("description", e.target.value)}
+              onChange={(e) => changeFields('description', e.target.value)}
             />
           </div>
         </div>
@@ -136,15 +136,15 @@ const Component = () => {
               placeholder="Select"
               options={Object.entries(HTTP_METHODS).map(([key, val]) => ({
                 label: key,
-                value: val,
+                value: val
               }))}
               value={fields.methods.map((method) => ({
                 label: method,
-                value: method,
+                value: method
               }))}
               onChange={(values) => {
                 changeFields(
-                  "methods",
+                  'methods',
                   values.map((item) => item.value)
                 );
               }}
@@ -155,7 +155,7 @@ const Component = () => {
             <input
               type="text"
               value={fields.path}
-              onChange={(e) => changeFields("path", e.target.value)}
+              onChange={(e) => changeFields('path', e.target.value)}
             />
             <small>{`Use <curly braces> to indicate path parameters if needed e.g.,/employees/{id}`}</small>
           </div>
@@ -164,9 +164,10 @@ const Component = () => {
     );
   }, [changeFields, fields]);
 
-  const renderTabs = useCallback(() => 
-    // not implemented yet
-     null
+  const renderTabs = useCallback(
+    () =>
+      // not implemented yet
+      null,
 
     /** KEEP */
     // return (
@@ -198,7 +199,8 @@ const Component = () => {
     //     </div>
     //   </div>
     // );
-  , []);
+    []
+  );
 
   return (
     <>
@@ -212,7 +214,7 @@ const Component = () => {
             <Link href="/endpoints">
               <a>Endpoints</a>
             </Link>
-            <span>{">"}</span>
+            <span>{'>'}</span>
             <Link href={`/endpoints/${router.query.endpointId}`}>
               <a className="active">Edit Endpoint</a>
             </Link>

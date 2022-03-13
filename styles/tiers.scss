@@ -30,11 +30,11 @@
     }
 
     .filter-btn {
-      background-image: url("../public/icons/filter.svg");
+      background-image: url('../public/icons/filter.svg');
     }
 
     .add-product-btn {
-      background-image: url("../public/icons/plus.svg");
+      background-image: url('../public/icons/plus.svg');
     }
   }
 
@@ -99,7 +99,7 @@
         position: absolute;
         top: -6px;
         left: 0;
-        content: "";
+        content: '';
       }
 
       &:first-child {
@@ -129,7 +129,7 @@
             background-size: 3px 18px;
             background-repeat: no-repeat;
             background-position: center;
-            background-image: url("../public/icons/menu.svg");
+            background-image: url('../public/icons/menu.svg');
           }
 
           .dropdown {
@@ -147,11 +147,11 @@
             }
 
             .edit-btn {
-              background-image: url("../public/icons/edit.svg");
+              background-image: url('../public/icons/edit.svg');
             }
 
             .delete-btn {
-              background-image: url("../public/icons/delete.svg");
+              background-image: url('../public/icons/delete.svg');
             }
           }
         }

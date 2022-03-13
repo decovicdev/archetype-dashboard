@@ -1,15 +1,15 @@
-import config from "../../config";
+import config from '../../config';
 
-import React, { useContext, useState, useEffect, useCallback } from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import React, { useContext, useState, useEffect, useCallback } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import Firebase from "../../firebase.js";
+import Firebase from '../../firebase.js';
 
-import Spinner from "../_common/Spinner";
+import Spinner from '../_common/Spinner';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
 
 const Component = () => {
   const router = useRouter();
@@ -17,7 +17,7 @@ const Component = () => {
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     async function checkCode() {
@@ -53,7 +53,7 @@ const Component = () => {
     try {
       const { oobCode } = router.query;
       if (!oobCode) {
-        showAlert("Invalid query parameters, please try again from start");
+        showAlert('Invalid query parameters, please try again from start');
       }
 
       if (inProgress) {
@@ -64,12 +64,12 @@ const Component = () => {
 
       await Firebase.auth().confirmPasswordReset(oobCode, password);
 
-      showAlert("Password successfully changed", true);
+      showAlert('Password successfully changed', true);
 
       setProgress(false);
-      setPassword("");
+      setPassword('');
 
-      router.push("/account/login");
+      router.push('/account/login');
     } catch (e) {
       showAlert(e.message);
 

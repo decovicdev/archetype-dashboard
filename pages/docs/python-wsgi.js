@@ -1,4 +1,4 @@
-import Child from "../../components/Docs/PythonWSGI";
+import Child from '../../components/Docs/PythonWSGI';
 
 const Component = () => <Child />;
 

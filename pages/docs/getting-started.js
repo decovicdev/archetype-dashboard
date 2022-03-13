@@ -1,4 +1,4 @@
-import Child from "../../components/Docs/GettingStarted";
+import Child from '../../components/Docs/GettingStarted';
 
 const Component = () => <Child />;
 

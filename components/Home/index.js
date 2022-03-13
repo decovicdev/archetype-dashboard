@@ -1,31 +1,31 @@
-import config from "../../config";
-import { useState, useCallback, useContext } from "react";
-import classnames from "classnames";
+import config from '../../config';
+import { useState, useCallback, useContext } from 'react';
+import classnames from 'classnames';
 
-import Head from "next/head";
-import Link from "next/link";
+import Head from 'next/head';
+import Link from 'next/link';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
 
 const Square = ({ reversed, children }) => (
-    <div className={classnames("square", { "on-the-right": reversed })}>
-      <div className="inner-square">{children}</div>
-      <div className="circ1" />
-      <div className="circ2" />
-      <div className="circ3" />
-    </div>
-  );
+  <div className={classnames('square', { 'on-the-right': reversed })}>
+    <div className="inner-square">{children}</div>
+    <div className="circ1" />
+    <div className="circ2" />
+    <div className="circ3" />
+  </div>
+);
 
 const Component = () => {
   const { showAlert } = useContext(HelperContext);
 
-  const [emailAddress, setEmailAddress] = useState("");
+  const [emailAddress, setEmailAddress] = useState('');
 
   const clickSubscribe = useCallback(
     (e) => {
       e.preventDefault();
 
-      showAlert("Subscribed");
+      showAlert('Subscribed');
     },
     [showAlert]
   );
@@ -124,7 +124,7 @@ const Component = () => {
           <div className="graphics">
             <div className="text">
               Say bye to building your own
-              <br /> billing, permissions, or quota systems.{" "}
+              <br /> billing, permissions, or quota systems.{' '}
             </div>
             <div className="link">
               <Link href="/account/signup">

@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-import Spinner from "../../components/_common/Spinner";
+import Spinner from '../../components/_common/Spinner';
 
-import Check from "../../components/Account/Check";
+import Check from '../../components/Account/Check';
 
 const Component = () => {
   const router = useRouter();

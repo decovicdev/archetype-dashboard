@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
-import DesktopHeader from "./Desktop";
-import MobileHeader from "./Mobile";
+import DesktopHeader from './Desktop';
+import MobileHeader from './Mobile';
 
-import { HelperContext } from "../../../context/helper";
+import { HelperContext } from '../../../context/helper';
 
 const Header = () => {
   const _helper = useContext(HelperContext);

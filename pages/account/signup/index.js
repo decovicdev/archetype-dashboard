@@ -1,4 +1,4 @@
-import FirstStep from "../../../components/Account/SignUp/FirstStep";
+import FirstStep from '../../../components/Account/SignUp/FirstStep';
 
 const Component = () => <FirstStep />;
 

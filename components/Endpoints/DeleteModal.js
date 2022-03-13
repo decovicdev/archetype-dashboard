@@ -1,10 +1,10 @@
-import React, { forwardRef, useCallback, useContext, useState } from "react";
+import React, { forwardRef, useCallback, useContext, useState } from 'react';
 
-import Modal from "../_common/Modal";
+import Modal from '../_common/Modal';
 
-import EndpointService from "../../services/endpoint.service";
+import EndpointService from '../../services/endpoint.service';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
 
 const Component = forwardRef(function Component({ id, onSuccess }, ref) {
   const { showAlert } = useContext(HelperContext);
@@ -20,7 +20,7 @@ const Component = forwardRef(function Component({ id, onSuccess }, ref) {
 
       await EndpointService.deleteById(id);
 
-      showAlert("Success", true);
+      showAlert('Success', true);
 
       ref.current?.hide();
 

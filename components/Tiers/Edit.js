@@ -1,28 +1,28 @@
-import config from "../../config";
+import config from '../../config';
 
 import React, {
   useRef,
   useState,
   useEffect,
   useCallback,
-  useContext,
-} from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import classnames from "classnames";
+  useContext
+} from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import classnames from 'classnames';
 
 import {
   TIME_FRAMES_OPTIONS,
   BILLING_OPTIONS,
-  PRICING_MODEL_OPTIONS,
-} from "./assets";
-import Spinner from "../_common/Spinner";
-import Modal from "../_common/Modal";
+  PRICING_MODEL_OPTIONS
+} from './assets';
+import Spinner from '../_common/Spinner';
+import Modal from '../_common/Modal';
 
-import TierService from "../../services/tier.service";
+import TierService from '../../services/tier.service';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
 
 const Component = () => {
   const _saveProduct = useRef(null);
@@ -51,7 +51,7 @@ const Component = () => {
           meteredUsage: response.has_quota && parseInt(response.quota) > 0,
           hasTrial: response.has_trial,
           trialLen: response.trial_length,
-          trialTimeFrame: response.trial_time_frame,
+          trialTimeFrame: response.trial_time_frame
         });
       } catch (e) {
         showAlert(e.message);
@@ -91,21 +91,21 @@ const Component = () => {
         name: fields.name,
         description:
           !fields.hasTrial && !fields.description
-            ? "No trial"
+            ? 'No trial'
             : fields.description,
         price: parseFloat(parseFloat(fields.price).toFixed(2)),
         period: fields.billingPeriod,
-        currency: "usd",
+        currency: 'usd',
         has_quota: fields.meteredUsage && parseInt(fields.quota) > 0,
         quota: fields.meteredUsage ? parseInt(fields.quota) : 0,
         has_trial: fields.hasTrial,
         trial_length: fields.trialLen,
-        trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame],
+        trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame]
       });
 
-      showAlert("Success", true);
+      showAlert('Success', true);
 
-      router.push("/tiers");
+      router.push('/tiers');
     } catch (e) {
       showAlert(e.message);
     } finally {
@@ -123,7 +123,7 @@ const Component = () => {
     fields.quota,
     fields.trialLen,
     fields.trialTimeFrame,
-    showAlert,
+    showAlert
   ]);
 
   const clickAddTrial = useCallback(() => {
@@ -131,13 +131,13 @@ const Component = () => {
       changeFields(null, null, {
         hasTrial: false,
         trialLen: 0,
-        trialTimeFrame: null,
+        trialTimeFrame: null
       });
     } else {
       changeFields(null, null, {
         hasTrial: true,
         trialLen: 1,
-        trialTimeFrame: "MONTH",
+        trialTimeFrame: 'MONTH'
       });
     }
   }, [fields, changeFields]);
@@ -156,14 +156,14 @@ const Component = () => {
             <input
               type="text"
               value={fields.name}
-              onChange={(e) => changeFields("name", e.target.value)}
+              onChange={(e) => changeFields('name', e.target.value)}
             />
           </div>
           <div className="field description">
             <label>Description</label>
             <textarea
               value={fields.description}
-              onChange={(e) => changeFields("description", e.target.value)}
+              onChange={(e) => changeFields('description', e.target.value)}
             />
           </div>
           <div className="group-fields">
@@ -171,7 +171,7 @@ const Component = () => {
               <input
                 type="checkbox"
                 checked={fields.meteredUsage}
-                onChange={(e) => changeFields("meteredUsage", e.target.checked)}
+                onChange={(e) => changeFields('meteredUsage', e.target.checked)}
               />
               <span>Usage is metered</span>
             </div>
@@ -186,7 +186,7 @@ const Component = () => {
                       return;
                     }
 
-                    changeFields("quota", e.target.value);
+                    changeFields('quota', e.target.value);
                   }}
                 />
               </div>
@@ -201,13 +201,13 @@ const Component = () => {
             <label>Pricing model</label>
             <select
               value={fields.pricingModel}
-              onChange={(e) => changeFields("pricingModel", e.target.value)}
+              onChange={(e) => changeFields('pricingModel', e.target.value)}
             >
               {Object.entries(PRICING_MODEL_OPTIONS).map(([key, val]) => (
-                  <option key={key} value={key}>
-                    {val}
-                  </option>
-                ))}
+                <option key={key} value={key}>
+                  {val}
+                </option>
+              ))}
             </select>
           </div>
           <div className="field">
@@ -224,13 +224,13 @@ const Component = () => {
                     return;
                   }
 
-                  changeFields("price", e.target.value);
+                  changeFields('price', e.target.value);
                 }}
                 onBlur={(e) => {
                   if (!e.target.value) {
                     return;
                   }
-                  changeFields("price", parseFloat(e.target.value).toFixed(2));
+                  changeFields('price', parseFloat(e.target.value).toFixed(2));
                 }}
               />
             </div>
@@ -239,35 +239,35 @@ const Component = () => {
             <label>Billing period</label>
             <select
               value={fields.billingPeriod}
-              onChange={(e) => changeFields("billingPeriod", e.target.value)}
+              onChange={(e) => changeFields('billingPeriod', e.target.value)}
             >
               {Object.entries(BILLING_OPTIONS).map(([key, val]) => (
-                  <option key={key} value={val}>
-                    {val}
-                  </option>
-                ))}
+                <option key={key} value={val}>
+                  {val}
+                </option>
+              ))}
             </select>
           </div>
           <div className="field">
             <button
               type="button"
-              className={classnames("btn small", {
-                "light-blue": !fields.hasTrial,
-                "gradient-pink": fields.hasTrial,
+              className={classnames('btn small', {
+                'light-blue': !fields.hasTrial,
+                'gradient-pink': fields.hasTrial
               })}
               onClick={clickAddTrial}
             >
-              {fields.hasTrial ? "- Remove" : "+ Add"} free trial
+              {fields.hasTrial ? '- Remove' : '+ Add'} free trial
             </button>
           </div>
           {fields.hasTrial && (
-            <div style={{ width: "65%" }} className="group-fields">
+            <div style={{ width: '65%' }} className="group-fields">
               <div className="field price-len">
                 <label>Length</label>
                 <input
                   type="number"
                   value={fields.trialLen}
-                  onChange={(e) => changeFields("trialLen", e.target.value)}
+                  onChange={(e) => changeFields('trialLen', e.target.value)}
                 />
               </div>
               <div className="field price-type">
@@ -275,14 +275,14 @@ const Component = () => {
                 <select
                   value={fields.trialTimeFrame}
                   onChange={(e) =>
-                    changeFields("trialTimeFrame", e.target.value)
+                    changeFields('trialTimeFrame', e.target.value)
                   }
                 >
                   {Object.entries(TIME_FRAMES_OPTIONS).map(([key, val]) => (
-                      <option key={key} value={key}>
-                        {val}
-                      </option>
-                    ))}
+                    <option key={key} value={key}>
+                      {val}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -319,7 +319,7 @@ const Component = () => {
             <Link href="/tiers">
               <a>Products</a>
             </Link>
-            <span>{">"}</span>
+            <span>{'>'}</span>
             <Link href={router.pathname}>
               <a className="active">Edit Product</a>
             </Link>

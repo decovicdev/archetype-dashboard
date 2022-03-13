@@ -1,17 +1,17 @@
-import config from "../../config";
+import config from '../../config';
 
-import { useContext, useState, useCallback } from "react";
-import Head from "next/head";
-import Link from "next/link";
-import classnames from "classnames";
+import { useContext, useState, useCallback } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import classnames from 'classnames';
 
-import Spinner from "../_common/Spinner";
+import Spinner from '../_common/Spinner';
 
-import Analytics from "../../helpers/analytics";
+import Analytics from '../../helpers/analytics';
 
-import { AuthContext } from "../../context/auth";
+import { AuthContext } from '../../context/auth';
 
-import plans from "./plans";
+import plans from './plans';
 
 const Component = () => {
   const { currentUser } = useContext(AuthContext);
@@ -20,28 +20,30 @@ const Component = () => {
   // const [billMonthly] = useState(true);
   const [selectedPlan, setSelectedPlan] = useState(null);
 
-  const renderBlocks = useCallback(() => plans.map((item, i) => (
+  const renderBlocks = useCallback(
+    () =>
+      plans.map((item, i) => (
         <div
           key={i}
-          className={classnames("plan-block", {
-            selected: selectedPlan && selectedPlan.planType === item.planType,
+          className={classnames('plan-block', {
+            selected: selectedPlan && selectedPlan.planType === item.planType
           })}
           onClick={() => {
             Analytics.event({
-              action: "click",
+              action: 'click',
               params: {
-                name: "Pricing - Select Plan",
+                name: 'Pricing - Select Plan',
                 data: {
-                  plan: item.planType,
-                },
-              },
+                  plan: item.planType
+                }
+              }
             });
 
             setSelectedPlan(item);
           }}
         >
           <div className="name">{item.name}</div>
-          <div className={classnames("icon", `puzzle-${i}`)} />
+          <div className={classnames('icon', `puzzle-${i}`)} />
           <div className="description">{item.description}</div>
           {!item.mtr && !item.mtrText ? (
             <div className="contact">
@@ -59,7 +61,9 @@ const Component = () => {
             </Link>
           )}
         </div>
-      )), [currentUser, selectedPlan]);
+      )),
+    [currentUser, selectedPlan]
+  );
 
   return (
     <>

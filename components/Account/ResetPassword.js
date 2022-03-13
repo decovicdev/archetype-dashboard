@@ -1,20 +1,20 @@
-import config from "../../config";
+import config from '../../config';
 
-import React, { useContext, useState, useCallback } from "react";
-import Head from "next/head";
-import Link from "next/link";
+import React, { useContext, useState, useCallback } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
 
-import Firebase from "../../firebase.js";
+import Firebase from '../../firebase.js';
 
-import Spinner from "../_common/Spinner";
+import Spinner from '../_common/Spinner';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
 
 const Component = () => {
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
 
   const submitForm = useCallback(async () => {
     try {
@@ -22,19 +22,19 @@ const Component = () => {
         return;
       }
       if (!email) {
-        return showAlert("Email address is required field");
+        return showAlert('Email address is required field');
       }
       setProgress(true);
 
       await Firebase.auth().sendPasswordResetEmail(email);
 
       showAlert(
-        "Your email with password reset hass been sent successfully",
+        'Your email with password reset hass been sent successfully',
         true
       );
 
       setProgress(false);
-      setEmail("");
+      setEmail('');
     } catch (e) {
       showAlert(e.message);
 

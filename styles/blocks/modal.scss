@@ -52,7 +52,7 @@
       .spinner {
         width: 44px;
         height: 44px;
-        background-image: url("../../public/spinner.svg");
+        background-image: url('../../public/spinner.svg');
       }
     }
 
@@ -137,7 +137,7 @@
           position: absolute;
           bottom: 0px;
           left: 0px;
-          content: "";
+          content: '';
           box-shadow: inset 0px -30px 15px -10px rgba(255, 255, 255, 1);
         }
 

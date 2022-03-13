@@ -1,17 +1,17 @@
-import config from "../../config";
+import config from '../../config';
 
-import React, { useState, useCallback, useContext } from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import React, { useState, useCallback, useContext } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import Spinner from "../_common/Spinner";
+import Spinner from '../_common/Spinner';
 
-import CustomerService from "../../services/customer.service";
+import CustomerService from '../../services/customer.service';
 
-import { getHash } from "../../helpers/utils";
+import { getHash } from '../../helpers/utils';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
 
 const Component = () => {
   const router = useRouter();
@@ -21,8 +21,8 @@ const Component = () => {
   const [inProgress, setProgress] = useState(false);
   const [fields, setFields] = useState({
     id: getHash(20),
-    name: "",
-    email: "",
+    name: '',
+    email: ''
   });
 
   const changeFields = useCallback(
@@ -49,13 +49,13 @@ const Component = () => {
       }
 
       if (!fields.id) {
-        return showAlert("ID is required field");
+        return showAlert('ID is required field');
       }
       if (!fields.name) {
-        return showAlert("Name is required field");
+        return showAlert('Name is required field');
       }
       if (!fields.email) {
-        return showAlert("Email is required field");
+        return showAlert('Email is required field');
       }
 
       setProgress(true);
@@ -63,14 +63,14 @@ const Component = () => {
       await CustomerService.addNew({
         uid: fields.id,
         attrs: {
-          name: fields.name,
+          name: fields.name
         },
-        email: fields.email,
+        email: fields.email
       });
 
-      showAlert("Success", true);
+      showAlert('Success', true);
 
-      router.push("/users");
+      router.push('/users');
     } catch (e) {
       showAlert(e.message);
     } finally {
@@ -89,7 +89,7 @@ const Component = () => {
           <Link href="/users">
             <a>Users</a>
           </Link>
-          <span>{">"}</span>
+          <span>{'>'}</span>
           <Link href="/users/add">
             <a className="active">Add User</a>
           </Link>
@@ -101,12 +101,12 @@ const Component = () => {
             <input
               type="text"
               value={fields.id}
-              onChange={(e) => changeFields("id", e.target.value)}
+              onChange={(e) => changeFields('id', e.target.value)}
             />
             <button
               type="button"
               className="generate-btn"
-              onClick={() => changeFields("id", getHash(20))}
+              onClick={() => changeFields('id', getHash(20))}
             />
           </div>
           <div className="field">
@@ -114,7 +114,7 @@ const Component = () => {
             <input
               type="text"
               value={fields.name}
-              onChange={(e) => changeFields("name", e.target.value)}
+              onChange={(e) => changeFields('name', e.target.value)}
             />
           </div>
           <div className="field">
@@ -122,7 +122,7 @@ const Component = () => {
             <input
               type="text"
               value={fields.email}
-              onChange={(e) => changeFields("email", e.target.value)}
+              onChange={(e) => changeFields('email', e.target.value)}
             />
           </div>
         </div>
