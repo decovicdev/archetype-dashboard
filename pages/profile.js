@@ -1,14 +1,14 @@
-import { useContext } from "react";
-import Head from "next/head";
-import Link from "next/link";
+import { useContext } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
 
-import config from "../config";
+import config from '../config';
 
-import PrivateRoute from "../components/_common/PrivateRoute";
-import Spinner from "../components/_common/Spinner";
-import Profile from "../components/Profile";
+import PrivateRoute from '../components/_common/PrivateRoute';
+import Spinner from '../components/_common/Spinner';
+import Profile from '../components/Profile';
 
-import { AuthContext } from "../context/auth";
+import { AuthContext } from '../context/auth';
 
 const Component = () => {
   const { authPending } = useContext(AuthContext);
@@ -29,13 +29,13 @@ const Component = () => {
       <div className="page profile-page">
         <div className="content with-lines">
           <ul className="tabs">
-            <li className={"tab"}>
-              <Link href={"/settings"}>
+            <li className="tab">
+              <Link href="/settings">
                 <a>Settings</a>
               </Link>
             </li>
-            <li className={"tab active"}>
-              <Link href={"/profile"}>
+            <li className="tab active">
+              <Link href="/profile">
                 <a>Profile</a>
               </Link>
             </li>

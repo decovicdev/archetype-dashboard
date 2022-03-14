@@ -1,17 +1,17 @@
-import { useContext, useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/router";
-import Image from "next/image";
+import { useContext, useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 
-import AccountVerifiedIcon from "../public/icons/account-verified.svg";
-import AccountUnverifiedIcon from "../public/icons/account-unverified.svg";
+import AccountVerifiedIcon from '../public/icons/account-verified.svg';
+import AccountUnverifiedIcon from '../public/icons/account-unverified.svg';
 
-import EditIcon from "./_icons/EditIcon";
-import Spinner from "./_common/Spinner";
+import { AuthContext } from '../context/auth';
+import { HelperContext } from '../context/helper';
+import EditIcon from './_icons/EditIcon';
+import Spinner from './_common/Spinner';
 
-import Analytics from "./../helpers/analytics";
+import Analytics from './../helpers/analytics';
 
-import { AuthContext } from "../context/auth";
-import { HelperContext } from "../context/helper";
 
 const Component = () => {
   const router = useRouter();
@@ -24,25 +24,23 @@ const Component = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(currentUser.displayName);
   const [email, setEmail] = useState(currentUser.email);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     const { message, status } = router.query;
 
     if (message) {
-      showAlert(message, status === "success");
+      showAlert(message, status === 'success');
 
-      router.replace("/profile");
+      router.replace('/profile');
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [router, showAlert]);
 
   const sendEmail = useCallback(async () => {
     try {
       Analytics.event({
-        action: "click",
-        params: { name: "Profile - Verify Email" },
+        action: 'click',
+        params: { name: 'Profile - Verify Email' }
       });
 
       if (inProgress) {
@@ -52,7 +50,7 @@ const Component = () => {
 
       await currentUser.sendEmailVerification();
 
-      showAlert("Verification link sent, please check your mailbox", true);
+      showAlert('Verification link sent, please check your mailbox', true);
 
       setLinkSent(true);
     } catch (e) {
@@ -71,7 +69,7 @@ const Component = () => {
 
       if (currentUser.displayName !== name) {
         await currentUser.updateProfile({
-          displayName: name,
+          displayName: name
         });
       }
 
@@ -84,22 +82,22 @@ const Component = () => {
       }
 
       setIsEditing(false);
-      setPassword("");
+      setPassword('');
 
-      showAlert("Saved Successfully", true);
+      showAlert('Saved Successfully', true);
     } catch (err) {
       showAlert(err.message);
     } finally {
       setProgress(false);
     }
-  }, [currentUser, showAlert, inProgress, password]);
+  }, [inProgress, currentUser, name, email, password, showAlert]);
 
   return (
     <>
       {inProgress && <Spinner />}
       <div className="block">
         <Image
-          className={"icon"}
+          className="icon"
           src={
             currentUser.emailVerified
               ? AccountVerifiedIcon
@@ -108,8 +106,8 @@ const Component = () => {
           alt="Key"
           width={18}
           height={18}
-        />{" "}
-        <div className={"status"}>
+        />{' '}
+        <div className="status">
           Status account:
           {currentUser.emailVerified ? (
             <span className="badge success">Verified</span>
@@ -127,10 +125,10 @@ const Component = () => {
           </button>
         )}
       </div>
-      <div className={"separate-line"} />
+      <div className="separate-line" />
       <div className="caption-block">
         <span>Information</span>
-        <button type={"button"} onClick={() => setIsEditing(!isEditing)}>
+        <button type="button" onClick={() => setIsEditing(!isEditing)}>
           <EditIcon gradient={isEditing} fill="#ffffff" />
         </button>
       </div>
@@ -170,7 +168,7 @@ const Component = () => {
           />
         </div>
       </form>
-      <div className={"separate-line"} />
+      <div className="separate-line" />
       <div className="btns">
         <button
           className="btn gradient-blue"

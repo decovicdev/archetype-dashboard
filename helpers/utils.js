@@ -3,8 +3,8 @@ export function getHash(count) {
     count = 10;
   }
 
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  const numbs = "0123456789";
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const numbs = '0123456789';
   const all = letters.concat(numbs);
 
   // starts by letter

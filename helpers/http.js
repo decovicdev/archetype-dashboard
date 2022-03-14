@@ -1,22 +1,22 @@
-import config from "../config";
+import config from '../config';
 
-import axios from "axios";
+import axios from 'axios';
 
 const $api = axios.create(config.axios);
 
 $api.interceptors.request.use((config) => {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return config;
   }
 
-  const token = sessionStorage.getItem("token");
+  const token = sessionStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
   const appId = getAppId();
   if (appId) {
-    config.headers["X-Archetype-AppID"] = appId;
+    config.headers['X-Archetype-AppID'] = appId;
   }
 
   return config;
@@ -30,13 +30,13 @@ $api.interceptors.response.use(
         if (
           err.response.request.responseURL !== `${config.axios.baseURL}lost-api`
         ) {
-          window.dispatchEvent(new CustomEvent("apiNotFoundErr"));
+          window.dispatchEvent(new CustomEvent('apiNotFoundErr'));
         }
       }
 
       if (err.response.status !== 200) {
         return Promise.reject({
-          message: `Request status code: ${err.response.status}`,
+          message: `Request status code: ${err.response.status}`
         });
       }
     }
@@ -48,7 +48,7 @@ $api.interceptors.response.use(
 );
 
 export function getAppId() {
-  return sessionStorage.getItem("appId") || null;
+  return sessionStorage.getItem('appId') || null;
 }
 
 export default $api;

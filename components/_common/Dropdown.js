@@ -1,5 +1,5 @@
-import { useState, useCallback } from "react";
-import classnames from "classnames";
+import { useState, useCallback } from 'react';
+import classnames from 'classnames';
 
 const Component = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,13 +10,13 @@ const Component = (props) => {
 
   return (
     <div
-      className={classnames("dropdown", props.className, {
-        opened: isOpen,
+      className={classnames('dropdown', props.className, {
+        opened: isOpen
       })}
       onClick={toggleDropdown}
     >
       <a className="dropdownBtn">{props.title}</a>
-      <div className={classnames("dropdownContent")}>{props.children}</div>
+      <div className={classnames('dropdownContent')}>{props.children}</div>
     </div>
   );
 };

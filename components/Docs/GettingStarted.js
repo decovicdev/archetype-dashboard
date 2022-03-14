@@ -1,24 +1,22 @@
-import config from "../../config";
 
-import Head from "next/head";
-import Markdown from "markdown-to-jsx";
+import Head from 'next/head';
+import Markdown from 'markdown-to-jsx';
+import config from '../../config';
 
-import Sidebar from "./_sidebar";
+import Sidebar from './_sidebar';
 
-import data from "./md/Quickstart.md";
+import data from './md/Quickstart.md';
 
-const Component = () => {
-  return (
-    <div className="page docs-page">
-      <Head>
-        <title>Getting Started - Docs - {config.meta.title}</title>
-      </Head>
-      <Sidebar />
-      <div className={"content-block"}>
-        <Markdown>{data}</Markdown>
-      </div>
+const Component = () => (
+  <div className="page docs-page">
+    <Head>
+      <title>Getting Started - Docs - {config.meta.title}</title>
+    </Head>
+    <Sidebar />
+    <div className="content-block">
+      <Markdown>{data}</Markdown>
     </div>
-  );
-};
+  </div>
+);
 
 export default Component;

@@ -24,11 +24,11 @@
       }
 
       .edit-btn {
-        background-image: url("../public/icons/edit.svg");
+        background-image: url('../public/icons/edit.svg');
       }
 
       .delete-btn {
-        background-image: url("../public/icons/delete.svg");
+        background-image: url('../public/icons/delete.svg');
       }
     }
   }
@@ -52,7 +52,7 @@
     .profile-pic {
       width: 68px;
       height: 68px;
-      background-image: url("../public/icons/user.svg");
+      background-image: url('../public/icons/user.svg');
       background-position: center;
       background-size: 50%;
       background-color: $light-blue;

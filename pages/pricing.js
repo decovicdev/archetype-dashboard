@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
-import Spinner from "../components/_common/Spinner";
-import Pricing from "../components/Pricing";
+import Spinner from '../components/_common/Spinner';
+import Pricing from '../components/Pricing';
 
-import { AuthContext } from "../context/auth";
+import { AuthContext } from '../context/auth';
 
 const Component = () => {
   const { authPending } = useContext(AuthContext);

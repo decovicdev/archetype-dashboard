@@ -1,12 +1,12 @@
-import React, { forwardRef, useCallback, useContext, useState } from "react";
+import React, { forwardRef, useCallback, useContext, useState } from 'react';
 
-import Modal from "../_common/Modal";
+import Modal from '../_common/Modal';
 
-import TierService from "../../services/tier.service";
+import TierService from '../../services/tier.service';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
 
-const Component = forwardRef(({ id, onSuccess }, ref) => {
+const Component = forwardRef(function Component({ id, onSuccess }, ref) {
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
@@ -20,7 +20,7 @@ const Component = forwardRef(({ id, onSuccess }, ref) => {
 
       await TierService.deleteById(id);
 
-      showAlert("Success", true);
+      showAlert('Success', true);
 
       ref.current?.hide();
 
@@ -35,23 +35,23 @@ const Component = forwardRef(({ id, onSuccess }, ref) => {
   }, [id, onSuccess, ref, inProgress, showAlert]);
 
   return (
-    <Modal ref={ref} title={"Delete product?"} isBusy={inProgress}>
-      <div className={"data"}>
+    <Modal ref={ref} title="Delete product?" isBusy={inProgress}>
+      <div className="data">
         <p>
           Do you want <span>to delete</span> this product?
         </p>
       </div>
-      <div className={"btns"}>
+      <div className="btns">
         <button
-          type={"button"}
-          className={"half-width action"}
+          type="button"
+          className="half-width action"
           onClick={submitForm}
         >
           Delete
         </button>
         <button
-          type={"button"}
-          className={"half-width"}
+          type="button"
+          className="half-width"
           onClick={() => {
             ref.current?.hide();
           }}

@@ -13,7 +13,7 @@
   .spinner {
     width: 44px;
     height: 44px;
-    background-image: url("../public/spinner.svg");
+    background-image: url('../public/spinner.svg');
   }
 }
 
@@ -45,7 +45,7 @@
     }
   }
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     display: none;
   }
 
@@ -100,7 +100,7 @@
     color: #ffffff;
 
     .close {
-      background-image: url("../public/icons/x_white.svg");
+      background-image: url('../public/icons/x_white.svg');
     }
   }
 
@@ -112,7 +112,7 @@
   .close {
     width: 16px;
     height: 16px;
-    background-image: url("../public/icons/x_red.svg");
+    background-image: url('../public/icons/x_red.svg');
     background-repeat: no-repeat;
     background-size: cover;
     position: absolute;
@@ -126,10 +126,10 @@
   position: relative;
   z-index: 2;
 
-  input[type="text"] {
+  input[type='text'] {
     width: 100%;
     background-color: $purple;
-    background-image: url("../public/icons/magnifier.svg");
+    background-image: url('../public/icons/magnifier.svg');
     background-repeat: no-repeat;
     background-size: 22px 22px;
     background-position: 10px 50%;
@@ -149,7 +149,7 @@
   .clear-btn {
     width: 16px;
     height: 16px;
-    background-image: url("../public/icons/clear_x.svg");
+    background-image: url('../public/icons/clear_x.svg');
     background-size: cover;
     background-repeat: no-repeat;
     position: absolute;
@@ -228,7 +228,7 @@
   background-size: 3px 18px;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url("../public/icons/menu.svg");
+  background-image: url('../public/icons/menu.svg');
 }
 
 .separate-line {

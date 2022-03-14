@@ -1,7 +1,5 @@
-import VerifyEmail from "../../components/Account/VerifyEmail";
+import VerifyEmail from '../../components/Account/VerifyEmail';
 
-const Component = () => {
-  return <VerifyEmail />;
-};
+const Component = () => <VerifyEmail />;
 
 export default Component;

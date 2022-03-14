@@ -2,7 +2,7 @@
   width: 100%;
   max-width: 1280px;
   min-height: calc(100vh - #{$headerHeight});
-  background-image: url("../public/images/illustration_lines.svg");
+  background-image: url('../public/images/illustration_lines.svg');
   background-repeat: no-repeat;
   background-position: bottom 25% right 0%;
   background-size: 40% auto;
@@ -51,7 +51,7 @@
         .filter-btn {
           width: 18px;
           height: 18px;
-          background-image: url("../public/icons/filter.svg");
+          background-image: url('../public/icons/filter.svg');
           background-size: cover;
           background-repeat: no-repeat;
         }
@@ -166,7 +166,7 @@
             background-size: 3px 18px;
             background-repeat: no-repeat;
             background-position: center;
-            background-image: url("../public/icons/menu.svg");
+            background-image: url('../public/icons/menu.svg');
           }
 
           .dropdown {
@@ -184,11 +184,11 @@
             }
 
             .edit-btn {
-              background-image: url("../public/icons/edit.svg");
+              background-image: url('../public/icons/edit.svg');
             }
 
             .delete-btn {
-              background-image: url("../public/icons/delete.svg");
+              background-image: url('../public/icons/delete.svg');
             }
           }
         }
@@ -200,7 +200,7 @@
           color: $light-blue;
         }
 
-        input[type="text"] {
+        input[type='text'] {
           width: 100%;
           background: $purple;
           margin-top: 15px;

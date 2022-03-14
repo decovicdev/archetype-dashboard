@@ -1,7 +1,5 @@
-import Terms from "../components/Terms";
+import Terms from '../components/Terms';
 
-const Component = () => {
-  return <Terms />;
-};
+const Component = () => <Terms />;
 
 export default Component;

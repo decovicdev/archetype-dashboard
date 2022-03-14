@@ -1,6 +1,6 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
-import classnames from "classnames";
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import classnames from 'classnames';
 
 const Component = ({ onClickItem }) => {
   const router = useRouter();
@@ -10,7 +10,7 @@ const Component = ({ onClickItem }) => {
       <Link href="/tiers">
         <a
           className={classnames({
-            active: router.pathname === "/tiers",
+            active: router.pathname === '/tiers'
           })}
           onClick={onClickItem}
         >
@@ -20,7 +20,7 @@ const Component = ({ onClickItem }) => {
       <Link href="/endpoints">
         <a
           className={classnames({
-            active: router.pathname === "/endpoints",
+            active: router.pathname === '/endpoints'
           })}
           onClick={onClickItem}
         >
@@ -30,7 +30,7 @@ const Component = ({ onClickItem }) => {
       <Link href="/users">
         <a
           className={classnames({
-            active: router.pathname === "/users",
+            active: router.pathname === '/users'
           })}
           onClick={onClickItem}
         >
@@ -41,7 +41,7 @@ const Component = ({ onClickItem }) => {
       <Link href="/pricing">
         <a
           className={classnames({
-            active: router.pathname === "/pricing",
+            active: router.pathname === '/pricing'
           })}
           onClick={onClickItem}
         >

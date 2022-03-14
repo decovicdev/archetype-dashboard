@@ -1,12 +1,12 @@
-import { Component } from "react";
-import classnames from "classnames";
+import { Component } from 'react';
+import classnames from 'classnames';
 
 class Modal extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isVisible: props.isVisible || false,
+      isVisible: props.isVisible || false
     };
 
     this.show = this.show.bind(this);
@@ -32,12 +32,12 @@ class Modal extends Component {
   render() {
     return (
       <div
-        className={classnames("modal-layer", this.props.className, {
-          visible: this.state.isVisible,
+        className={classnames('modal-layer', this.props.className, {
+          visible: this.state.isVisible
         })}
       >
         <div className="modal-content">
-          {this.props.title && <div className={"tit"}>{this.props.title}</div>}
+          {this.props.title && <div className="tit">{this.props.title}</div>}
           {this.props.children}
           {!this.props.alwaysVisible && (
             <button type="button" className="close-btn" onClick={this.hide} />

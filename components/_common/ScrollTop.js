@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const Component = () => {
   const router = useRouter();
@@ -11,7 +11,7 @@ const Component = () => {
 
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth'
     });
   }, [router.pathname]);
 

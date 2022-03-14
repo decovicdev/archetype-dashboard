@@ -13,7 +13,7 @@
 
       .content {
         min-height: calc(100vh - $headerHeight);
-        background-image: url("../public/images/landing/illustration.svg");
+        background-image: url('../public/images/landing/illustration.svg');
         background-repeat: no-repeat;
         background-position: top 50% right 100px;
         background-size: auto 100%;
@@ -24,14 +24,14 @@
         &:before {
           width: 100%;
           height: 400px;
-          background-image: url("../public/images/landing/illustration_numbers.svg");
+          background-image: url('../public/images/landing/illustration_numbers.svg');
           background-repeat: no-repeat;
           background-position: top 0 left 0;
           background-size: auto 400px;
           position: absolute;
           top: 0;
           left: -100px;
-          content: "";
+          content: '';
         }
 
         .left-side {
@@ -84,14 +84,14 @@
           position: absolute;
           top: 70px;
           right: 70px;
-          content: "";
+          content: '';
           z-index: 1;
         }
 
         .sphere {
           width: 250px;
           height: 242px;
-          background-image: url("../public/images/landing/illustration_sphere.svg");
+          background-image: url('../public/images/landing/illustration_sphere.svg');
           background-repeat: no-repeat;
           background-position: center;
           background-size: cover;
@@ -117,7 +117,7 @@
             );
             margin-top: 12px;
 
-            input[type="text"] {
+            input[type='text'] {
               width: calc(100% - 120px);
               background-color: transparent;
               padding: 8px 15px;
@@ -183,15 +183,15 @@
         background-size: cover;
 
         &.creation {
-          background-image: url("../public/images/landing/icon_creation.svg");
+          background-image: url('../public/images/landing/icon_creation.svg');
         }
 
         &.monetization {
-          background-image: url("../public/images/landing/icon_monetization.svg");
+          background-image: url('../public/images/landing/icon_monetization.svg');
         }
 
         &.management {
-          background-image: url("../public/images/landing/icon_management.svg");
+          background-image: url('../public/images/landing/icon_management.svg');
         }
       }
 
@@ -222,7 +222,7 @@
         .graphics {
           width: 100%;
           min-height: 80vh;
-          background-image: url("../public/images/landing/spheres_n_lines.svg");
+          background-image: url('../public/images/landing/spheres_n_lines.svg');
           background-repeat: no-repeat;
           background-position: top 40px center;
           background-size: 100% auto;
@@ -274,7 +274,7 @@
   position: absolute;
   top: 50%;
   left: 100px;
-  content: "";
+  content: '';
   z-index: 1;
   margin-top: -124px;
 
@@ -287,7 +287,7 @@
     position: absolute;
     top: -30px;
     right: -30px;
-    content: "";
+    content: '';
     @include borderGradient();
   }
 

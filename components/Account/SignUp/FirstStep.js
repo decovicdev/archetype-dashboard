@@ -1,15 +1,15 @@
-import config from "../../../config";
-import React, { useContext, useState, useEffect, useCallback } from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import React, { useContext, useState, useEffect, useCallback } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import config from '../../../config';
 
-import Spinner from "../../_common/Spinner";
+import Spinner from '../../_common/Spinner';
 
-import AccountService from "../../../services/account.service.js";
+import AccountService from '../../../services/account.service.js';
 
-import { AuthContext } from "../../../context/auth";
-import { HelperContext } from "../../../context/helper";
+import { AuthContext } from '../../../context/auth';
+import { HelperContext } from '../../../context/helper';
 
 const Component = () => {
   const router = useRouter();
@@ -20,15 +20,14 @@ const Component = () => {
 
   const [inProgress, setProgress] = useState(false);
   const [agreedTerms, setAgreedTerms] = useState(false);
-  const [fullName, setFullname] = useState("");
+  const [fullName, setFullname] = useState('');
   const [confirmPassword, setConfirmPassword] = useState(authPassword);
 
   useEffect(() => {
     if (currentUser) {
-      router.push("/settings");
+      router.push('/settings');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentUser, router]);
 
   const submitForm = useCallback(async () => {
     try {
@@ -36,22 +35,22 @@ const Component = () => {
         return;
       }
       if (!authEmail) {
-        return showAlert("Invalid email address");
+        return showAlert('Invalid email address');
       }
       if (!fullName) {
-        return showAlert("User name is required");
+        return showAlert('User name is required');
       }
       if (!authPassword) {
-        return showAlert("Empty password");
+        return showAlert('Empty password');
       }
       if (!confirmPassword) {
-        return showAlert("Empty confirmation password");
+        return showAlert('Empty confirmation password');
       }
       if (authPassword !== confirmPassword) {
-        return showAlert("Passwords are not equal");
+        return showAlert('Passwords are not equal');
       }
       if (!agreedTerms) {
-        return showAlert("Did you read our Terms and Privacy Policy?");
+        return showAlert('Did you read our Terms and Privacy Policy?');
       }
 
       setProgress(true);
@@ -59,29 +58,30 @@ const Component = () => {
       await AccountService.signUp(authEmail, authPassword, fullName);
 
       showAlert(
-        "We have sent a confirmation email to verify your account",
+        'We have sent a confirmation email to verify your account',
         true
       );
 
-      setAuthEmail("");
-      setAuthPassword("");
+      setAuthEmail('');
+      setAuthPassword('');
 
-      router.push("/account/signup/next");
+      router.push('/account/signup/next');
     } catch (e) {
       showAlert(e.message);
     } finally {
       setProgress(false);
     }
   }, [
-    authEmail,
-    setAuthEmail,
-    authPassword,
-    setAuthPassword,
-    showAlert,
     inProgress,
-    agreedTerms,
+    authEmail,
     fullName,
+    authPassword,
     confirmPassword,
+    agreedTerms,
+    showAlert,
+    setAuthEmail,
+    setAuthPassword,
+    router
   ]);
 
   return (
@@ -102,9 +102,9 @@ const Component = () => {
               <li>
                 <h3>Painless</h3>
                 <p>
-                  {" "}
+                  {' '}
                   Never worry about invoicing, API key management or your users
-                  again.{" "}
+                  again.{' '}
                 </p>
               </li>
               <li>
@@ -170,11 +170,11 @@ const Component = () => {
                   onChange={(e) => setAgreedTerms(e.target.checked)}
                 />
                 <span>
-                  By signing, I agree to the{" "}
+                  By signing, I agree to the{' '}
                   <Link href="/terms-of-service" target="_blank">
                     <a>Terms</a>
-                  </Link>{" "}
-                  and the{" "}
+                  </Link>{' '}
+                  and the{' '}
                   <Link href="/privacy-policy" target="_blank">
                     <a>Privacy Policy</a>
                   </Link>

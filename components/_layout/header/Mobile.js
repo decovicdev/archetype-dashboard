@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
-import Link from "next/link";
-import classnames from "classnames";
+import { useRef, useState } from 'react';
+import Link from 'next/link';
+import classnames from 'classnames';
 
-import Links from "./links";
+import Links from './links';
 
 const Component = () => {
   const _header = useRef(null);

@@ -1,5 +1,5 @@
-import Firebase, { AuthPersistance } from "../firebase.js";
-import http from "../helpers/http";
+import Firebase, { AuthPersistance } from '../firebase.js';
+import http from '../helpers/http';
 
 export default class AccountService {
   static async getDetails() {

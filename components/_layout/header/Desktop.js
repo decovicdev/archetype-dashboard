@@ -1,18 +1,18 @@
-import { useRef, useContext, useEffect, useCallback } from "react";
-import Link from "next/link";
+import { useRef, useContext, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 
-import Links from "./links";
 
-import AccountService from "../../../services/account.service";
+import AccountService from '../../../services/account.service';
 
-import { AuthContext } from "../../../context/auth";
-import { HelperContext } from "../../../context/helper";
+import { AuthContext } from '../../../context/auth';
+import Links from './links';
+// import { HelperContext } from "../../../context/helper";
 
 const Component = () => {
   const _header = useRef(null);
 
   const { currentUser } = useContext(AuthContext);
-  const { showAlert } = useContext(HelperContext);
+  // const { showAlert } = useContext(HelperContext);
 
   const updatePostion = useCallback(() => {
     if (!window || !_header.current) {
@@ -25,7 +25,7 @@ const Component = () => {
       document.body.scrollTop ||
       0;
 
-    _header.current.className = top > 0 ? "desktop floating" : "desktop";
+    _header.current.className = top > 0 ? 'desktop floating' : 'desktop';
   }, [_header]);
 
   useEffect(() => {
@@ -33,38 +33,36 @@ const Component = () => {
       return;
     }
 
-    window.addEventListener("scroll", updatePostion);
+    window.addEventListener('scroll', updatePostion);
 
     return () => {
-      window.removeEventListener("scroll", updatePostion);
+      window.removeEventListener('scroll', updatePostion);
     };
+  }, [updatePostion]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // const clickSignOut = useCallback(async () => {
+  //   await AccountService.logout();
 
-  const clickSignOut = useCallback(async () => {
-    await AccountService.logout();
+  //   showAlert("Logged out", true);
+  // }, [showAlert]);
 
-    showAlert("Logged out", true);
-  }, [showAlert]);
-
-  const renderLinks = useCallback(() => {
-    return (
+  const renderLinks = useCallback(
+    () => (
       <div className="right-menu">
         {currentUser ? (
-          <div className={"profile-block"}>
+          <div className="profile-block">
             <Link href="/settings">
-              <a className={"settings-btn"} />
+              <a className="settings-btn" />
             </Link>
             <Link href="/profile">
-              <a className={"avatar"} />
+              <a className="avatar" />
             </Link>
             <Link href="/profile">
-              <a className={"name"}>{currentUser.displayName}</a>
+              <a className="name">{currentUser.displayName}</a>
             </Link>
             <button
-              type={"button"}
-              className={"logout-btn"}
+              type="button"
+              className="logout-btn"
               onClick={() => AccountService.logout()}
             >
               Sign Out
@@ -82,8 +80,9 @@ const Component = () => {
           </>
         )}
       </div>
-    );
-  }, [currentUser, clickSignOut]);
+    ),
+    [currentUser]
+  );
 
   return (
     <header ref={_header} className="desktop">

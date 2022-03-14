@@ -36,7 +36,7 @@
           height: 150px;
           @include flexbox($justify-content: center, $align-items: center);
           background-size: 20px 20px;
-          background-image: url("../public/icons/download.svg");
+          background-image: url('../public/icons/download.svg');
           background-position: center;
           background-repeat: no-repeat;
           border-radius: 5px;

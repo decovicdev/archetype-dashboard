@@ -1,12 +1,12 @@
-import { forwardRef, useCallback, useContext, useState } from "react";
+import { forwardRef, useCallback, useContext, useState } from 'react';
 
-import Modal from "../_common/Modal";
+import Modal from '../_common/Modal';
 
-import CustomerService from "../../services/customer.service";
+import CustomerService from '../../services/customer.service';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
 
-const Component = forwardRef(({ id, onSuccess }, ref) => {
+const Component = forwardRef(function Component({ id, onSuccess }, ref) {
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
@@ -20,7 +20,7 @@ const Component = forwardRef(({ id, onSuccess }, ref) => {
 
       await CustomerService.resetApiKey(id);
 
-      showAlert("Success", true);
+      showAlert('Success', true);
 
       if (onSuccess) {
         onSuccess();
@@ -32,10 +32,10 @@ const Component = forwardRef(({ id, onSuccess }, ref) => {
     } finally {
       setProgress(false);
     }
-  }, [id, onSuccess, inProgress, showAlert]);
+  }, [inProgress, id, showAlert, onSuccess, ref]);
 
   return (
-    <Modal ref={ref} title={"Delete a customer?"} isBusy={inProgress}>
+    <Modal ref={ref} title="Delete a customer?" isBusy={inProgress}>
       <div className="data">
         <p>Are you sure you want to reset this user’s api key?</p>
       </div>

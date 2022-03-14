@@ -1,4 +1,3 @@
-import config from "../../config";
 
 import {
   useContext,
@@ -7,20 +6,21 @@ import {
   useMemo,
   useState,
   useEffect,
-  useCallback,
-} from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import classnames from "classnames";
+  useCallback
+} from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import classnames from 'classnames';
+import config from '../../config';
 
-import Block from "./Block";
-import DeleteModal from "./DeleteModal";
-import Spinner from "../_common/Spinner";
+import Spinner from '../_common/Spinner';
 
-import EndpointService from "../../services/endpoint.service";
+import EndpointService from '../../services/endpoint.service';
 
-import { HelperContext } from "../../context/helper";
+import { HelperContext } from '../../context/helper';
+import DeleteModal from './DeleteModal';
+import Block from './Block';
 
 const Component = () => {
   const router = useRouter();
@@ -32,15 +32,11 @@ const Component = () => {
 
   const [inProgress, setProgress] = useState(false);
   const [data, setData] = useState([]);
-  const [searchText, onSearch] = useState("");
+  const [searchText, onSearch] = useState('');
   const [isFocused, setFocus] = useState(false);
   const [selectedEndpoint, setSelectedEndpoint] = useState(null);
 
-  const _refs = useMemo(() => {
-    return data.map((el) => {
-      return createRef(null);
-    });
-  }, [data]);
+  const _refs = useMemo(() => data.map(() => createRef(null)), [data]);
 
   const fetch = useCallback(async () => {
     try {
@@ -53,11 +49,11 @@ const Component = () => {
     } finally {
       setProgress(false);
     }
-  }, []);
+  }, [showAlert]);
 
   useEffect(() => {
     fetch();
-  }, []);
+  }, [fetch]);
 
   const scrollTo = useCallback(
     (key) => {
@@ -66,66 +62,64 @@ const Component = () => {
       if (targetRef?.current) {
         window.scrollTo({
           top: targetRef.current.offsetTop,
-          behavior: "smooth",
+          behavior: 'smooth'
         });
       }
     },
     [_refs]
   );
 
-  const renderBtns = useCallback(() => {
-    return (
+  const renderBtns = useCallback(
+    () => (
       <ul>
-        {data.map((el, i) => {
-          return (
-            <li key={i}>
-              <button
-                type="button"
-                className="btn small gradient-blue"
-                onClick={() => scrollTo(i)}
-              >
-                {el.name}
-              </button>
-              {el.name_badge && (
-                <div className={classnames("badge", el.name_badge_style)}>
-                  {el.name_badge}
-                </div>
-              )}
-            </li>
-          );
-        })}
+        {data.map((el, i) => (
+          <li key={i}>
+            <button
+              type="button"
+              className="btn small gradient-blue"
+              onClick={() => scrollTo(i)}
+            >
+              {el.name}
+            </button>
+            {el.name_badge && (
+              <div className={classnames('badge', el.name_badge_style)}>
+                {el.name_badge}
+              </div>
+            )}
+          </li>
+        ))}
       </ul>
-    );
-  }, [data, scrollTo]);
+    ),
+    [data, scrollTo]
+  );
 
-  const renderBlocks = useCallback(() => {
-    return (
+  const renderBlocks = useCallback(
+    () => (
       <div className="content-block">
         <div className="title">
           <span>API Documentation</span>
         </div>
-        {data.map((el, i) => {
-          return (
-            <Block
-              key={i}
-              ref={_refs[i]}
-              data={el}
-              unauthorizedClick={() => {
-                showAlert("Authorization is required");
+        {data.map((el, i) => (
+          <Block
+            key={i}
+            ref={_refs[i]}
+            data={el}
+            unauthorizedClick={() => {
+              showAlert('Authorization is required');
 
-                router.push("/account/login");
-              }}
-              clickDelete={(id) => {
-                setSelectedEndpoint(id);
+              router.push('/account/login');
+            }}
+            clickDelete={(id) => {
+              setSelectedEndpoint(id);
 
-                _deleteEndpoint.current?.show();
-              }}
-            />
-          );
-        })}
+              _deleteEndpoint.current?.show();
+            }}
+          />
+        ))}
       </div>
-    );
-  }, [_refs, data, showAlert]);
+    ),
+    [_refs, data, router, showAlert]
+  );
 
   const renderSidebar = useCallback(() => {
     const dropdownItems = data.filter((el) => {
@@ -138,10 +132,10 @@ const Component = () => {
     return (
       <div ref={_sidebar} className="sidebar-block">
         <div className="top-section">
-          <Link href={"/endpoints/add"}>
-            <a className={"add-endpoint-btn"}>+ Add new endpoint</a>
+          <Link href="/endpoints/add">
+            <a className="add-endpoint-btn">+ Add new endpoint</a>
           </Link>
-          <div className={"search-field"}>
+          <div className="search-field">
             <div className="inp-with-dropdown">
               <input
                 type="text"
@@ -157,29 +151,27 @@ const Component = () => {
               />
               <button
                 type="button"
-                className={classnames("clear-btn", { active: searchText })}
-                onClick={() => onSearch("")}
+                className={classnames('clear-btn', { active: searchText })}
+                onClick={() => onSearch('')}
               />
               {!!(searchText && dropdownItems.length) && (
-                <div className={classnames("menu", { active: isFocused })}>
-                  {dropdownItems.map((item, i) => {
-                    return (
-                      <div
-                        key={i}
-                        onClick={() => {
-                          onSearch(item.name);
+                <div className={classnames('menu', { active: isFocused })}>
+                  {dropdownItems.map((item, i) => (
+                    <div
+                      key={i}
+                      onClick={() => {
+                        onSearch(item.name);
 
-                          scrollTo(item.key);
-                        }}
-                      >
-                        {item.name}
-                      </div>
-                    );
-                  })}
+                        scrollTo(item.key);
+                      }}
+                    >
+                      {item.name}
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
-            <button type={"button"} className={"filter-btn"} />
+            <button type="button" className="filter-btn" />
           </div>
         </div>
         <div className="bottom-section">

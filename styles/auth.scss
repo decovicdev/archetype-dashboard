@@ -55,9 +55,9 @@
           }
         }
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
+        input[type='text'],
+        input[type='email'],
+        input[type='password'] {
           width: 100%;
           background-color: transparent;
           margin-top: 5px;
@@ -91,7 +91,7 @@
         );
         margin-top: 15px;
 
-        input[type="checkbox"] {
+        input[type='checkbox'] {
           margin-right: 10px;
         }
 
@@ -157,7 +157,7 @@
         }
       }
 
-      button[type="submit"] {
+      button[type='submit'] {
         margin-top: 20px;
         margin-left: auto;
         margin-right: auto;
@@ -224,7 +224,7 @@
           &::before {
             width: 18px;
             height: 18px;
-            content: "\2713";
+            content: '\2713';
             display: block;
             position: absolute;
             left: 0px;

@@ -26,10 +26,10 @@
     }
 
     select,
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="number"],
+    input[type='text'],
+    input[type='email'],
+    input[type='password'],
+    input[type='number'],
     textarea {
       width: 100%;
       min-height: 44px;
@@ -70,11 +70,11 @@
         position: absolute;
         top: 50%;
         left: 15px;
-        content: "$";
+        content: '$';
         margin-top: -12px;
       }
 
-      input[type="text"] {
+      input[type='text'] {
         padding: 9px 15px 9px 25px;
       }
     }
@@ -101,7 +101,7 @@
       width: 46%;
     }
 
-    input[type="checkbox"] {
+    input[type='checkbox'] {
       margin-right: 10px;
     }
 

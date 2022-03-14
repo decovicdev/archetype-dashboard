@@ -1,21 +1,21 @@
-import config from "../../config";
 
-import React, { useState, useCallback, useContext } from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import classnames from "classnames";
+import React, { useState, useCallback, useContext } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import classnames from 'classnames';
+import config from '../../config';
 
+import Spinner from '../_common/Spinner';
+
+import TierService from '../../services/tier.service';
+
+import { HelperContext } from '../../context/helper';
 import {
   TIME_FRAMES_OPTIONS,
   BILLING_OPTIONS,
-  PRICING_MODEL_OPTIONS,
-} from "./assets";
-import Spinner from "../_common/Spinner";
-
-import TierService from "../../services/tier.service";
-
-import { HelperContext } from "../../context/helper";
+  PRICING_MODEL_OPTIONS
+} from './assets';
 
 const Component = () => {
   const router = useRouter();
@@ -24,16 +24,16 @@ const Component = () => {
 
   const [inProgress, setProgress] = useState(false);
   const [fields, setFields] = useState({
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     quota: 1000,
     pricingModel: 1,
-    price: "",
-    billingPeriod: "MONTH",
+    price: '',
+    billingPeriod: 'MONTH',
     meteredUsage: false,
     hasTrial: false,
     trialLen: 0,
-    trialTimeFrame: null,
+    trialTimeFrame: null
   });
 
   const changeFields = useCallback(
@@ -41,7 +41,7 @@ const Component = () => {
       const result = { ...fields };
 
       if (!field && !value && obj) {
-        for (let key in obj) {
+        for (const key in obj) {
           result[key] = obj[key];
         }
       } else {
@@ -60,10 +60,10 @@ const Component = () => {
       }
 
       if (!fields.name) {
-        return showAlert("Name is required field");
+        return showAlert('Name is required field');
       }
       if (!fields.price) {
-        return showAlert("Price is required field");
+        return showAlert('Price is required field');
       }
 
       setProgress(true);
@@ -72,40 +72,53 @@ const Component = () => {
         name: fields.name,
         description:
           !fields.hasTrial && !fields.description
-            ? "No trial"
+            ? 'No trial'
             : fields.description,
         price: parseFloat(parseFloat(fields.price).toFixed(2)),
         period: fields.billingPeriod,
-        currency: "usd",
+        currency: 'usd',
         has_quota: fields.meteredUsage && parseInt(fields.quota) > 0,
         quota: fields.meteredUsage ? parseInt(fields.quota) : 0,
         has_trial: fields.hasTrial,
         trial_length: fields.trialLen,
-        trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame],
+        trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame]
       });
 
-      showAlert("Success", true);
+      showAlert('Success', true);
 
-      router.push("/tiers");
+      router.push('/tiers');
     } catch (e) {
       showAlert(e.message);
     } finally {
       setProgress(false);
     }
-  }, [inProgress, fields, showAlert]);
+  }, [
+    inProgress,
+    fields.name,
+    fields.price,
+    fields.hasTrial,
+    fields.description,
+    fields.billingPeriod,
+    fields.meteredUsage,
+    fields.quota,
+    fields.trialLen,
+    fields.trialTimeFrame,
+    showAlert,
+    router
+  ]);
 
   const clickAddTrial = useCallback(() => {
     if (fields.hasTrial) {
       changeFields(null, null, {
         hasTrial: false,
         trialLen: 0,
-        trialTimeFrame: null,
+        trialTimeFrame: null
       });
     } else {
       changeFields(null, null, {
         hasTrial: true,
         trialLen: 1,
-        trialTimeFrame: "MONTH",
+        trialTimeFrame: 'MONTH'
       });
     }
   }, [fields, changeFields]);
@@ -116,84 +129,82 @@ const Component = () => {
         <title>Add Product - {config.meta.title}</title>
       </Head>
       {inProgress && <Spinner />}
-      <div className={"content with-lines"}>
-        <div className={"bread-crumbs"}>
-          <Link href={"/tiers"}>
+      <div className="content with-lines">
+        <div className="bread-crumbs">
+          <Link href="/tiers">
             <a>Products</a>
           </Link>
-          <span>{">"}</span>
-          <Link href={"/tiers/add"}>
-            <a className={"active"}>Add Product</a>
+          <span>{'>'}</span>
+          <Link href="/tiers/add">
+            <a className="active">Add Product</a>
           </Link>
         </div>
-        <div className={"form"}>
+        <div className="form">
           <h2>Product Information</h2>
-          <div className={"field"}>
+          <div className="field">
             <label>Name</label>
             <input
-              type={"text"}
+              type="text"
               value={fields.name}
-              onChange={(e) => changeFields("name", e.target.value)}
+              onChange={(e) => changeFields('name', e.target.value)}
             />
           </div>
-          <div className={"field description"}>
+          <div className="field description">
             <label>Description</label>
             <textarea
               value={fields.description}
-              onChange={(e) => changeFields("description", e.target.value)}
+              onChange={(e) => changeFields('description', e.target.value)}
             />
           </div>
-          <div className={"group-fields"}>
+          <div className="group-fields">
             <div className="box half">
               <input
                 type="checkbox"
                 checked={fields.meteredUsage}
-                onChange={(e) => changeFields("meteredUsage", e.target.checked)}
+                onChange={(e) => changeFields('meteredUsage', e.target.checked)}
               />
               <span>Usage is metered</span>
             </div>
             {fields.meteredUsage && (
-              <div className={"field half"}>
+              <div className="field half">
                 <label>Quota</label>
                 <input
-                  type={"text"}
+                  type="text"
                   value={fields.quota}
                   onChange={(e) => {
                     if (e.target.value && !/^[0-9]*$/g.test(e.target.value)) {
                       return;
                     }
 
-                    changeFields("quota", e.target.value);
+                    changeFields('quota', e.target.value);
                   }}
                 />
               </div>
             )}
           </div>
         </div>
-        <div className={"line"} />
-        <div className={"form"}>
+        <div className="line" />
+        <div className="form">
           <h2>Price Information</h2>
           <h3>Pricing details</h3>
-          <div className={"field"}>
+          <div className="field">
             <label>Pricing model</label>
             <select
               value={fields.pricingModel}
-              onChange={(e) => changeFields("pricingModel", e.target.value)}
+              onChange={(e) => changeFields('pricingModel', e.target.value)}
             >
-              {Object.entries(PRICING_MODEL_OPTIONS).map(([key, val]) => {
-                return (
-                  <option key={key} value={key}>
-                    {val}
-                  </option>
-                );
-              })}
+              {Object.entries(PRICING_MODEL_OPTIONS).map(([key, val]) => (
+                <option key={key} value={key}>
+                  {val}
+                </option>
+              ))}
             </select>
           </div>
-          <div className={"field"}>
+          <div className="field">
             <label>Price</label>
-            <div className={"inp-with-currency"}>
+            <div className="inp-with-currency">
               <input
-                type={"text"}
+                type="text"
                 value={fields.price}
                 onChange={(e) => {
                   if (
@@ -203,85 +214,81 @@ const Component = () => {
                     return;
                   }
 
-                  changeFields("price", e.target.value);
+                  changeFields('price', e.target.value);
                 }}
                 onBlur={(e) => {
                   if (!e.target.value) {
                     return;
                   }
-                  changeFields("price", parseFloat(e.target.value).toFixed(2));
+                  changeFields('price', parseFloat(e.target.value).toFixed(2));
                 }}
               />
             </div>
           </div>
-          <div className={"field"}>
+          <div className="field">
             <label>Billing period</label>
             <select
               value={fields.billingPeriod}
-              onChange={(e) => changeFields("billingPeriod", e.target.value)}
+              onChange={(e) => changeFields('billingPeriod', e.target.value)}
             >
-              {Object.entries(BILLING_OPTIONS).map(([key, val]) => {
-                return (
-                  <option key={key} value={val}>
-                    {val}
-                  </option>
-                );
-              })}
+              {Object.entries(BILLING_OPTIONS).map(([key, val]) => (
+                <option key={key} value={val}>
+                  {val}
+                </option>
+              ))}
             </select>
           </div>
-          <div className={"field"}>
+          <div className="field">
             <button
-              type={"button"}
-              className={classnames("btn small", {
-                "light-blue": !fields.hasTrial,
-                "gradient-pink": fields.hasTrial,
+              type="button"
+              className={classnames('btn small', {
+                'light-blue': !fields.hasTrial,
+                'gradient-pink': fields.hasTrial
               })}
               onClick={clickAddTrial}
             >
-              {fields.hasTrial ? "- Remove" : "+ Add"} free trial
+              {fields.hasTrial ? '- Remove' : '+ Add'} free trial
             </button>
           </div>
           {fields.hasTrial && (
-            <div style={{ width: "65%" }} className={"group-fields"}>
-              <div className={"field price-len"}>
+            <div style={{ width: '65%' }} className="group-fields">
+              <div className="field price-len">
                 <label>Length</label>
                 <input
-                  type={"number"}
+                  type="number"
                   value={fields.trialLen}
-                  onChange={(e) => changeFields("trialLen", e.target.value)}
+                  onChange={(e) => changeFields('trialLen', e.target.value)}
                 />
               </div>
-              <div className={"field price-type"}>
+              <div className="field price-type">
                 <label>Type</label>
                 <select
                   value={fields.trialTimeFrame}
                   onChange={(e) =>
-                    changeFields("trialTimeFrame", e.target.value)
+                    changeFields('trialTimeFrame', e.target.value)
                   }
                 >
-                  {Object.entries(TIME_FRAMES_OPTIONS).map(([key, val]) => {
-                    return (
-                      <option key={key} value={key}>
-                        {val}
-                      </option>
-                    );
-                  })}
+                  {Object.entries(TIME_FRAMES_OPTIONS).map(([key, val]) => (
+                    <option key={key} value={key}>
+                      {val}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
           )}
         </div>
-        <div className={"line"} />
-        <div className={"btns"}>
+        <div className="line" />
+        <div className="btns">
           <button
-            type={"button"}
-            className={"btn gradient-blue"}
+            type="button"
+            className="btn gradient-blue"
             onClick={() => submitForm()}
           >
             Create
           </button>
-          <Link href={`/tiers`}>
-            <a className={"btn clean-white"}>Cancel</a>
+          <Link href="/tiers">
+            <a className="btn clean-white">Cancel</a>
           </Link>
         </div>
       </div>

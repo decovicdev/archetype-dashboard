@@ -29,7 +29,7 @@ header {
         width: 173px;
         height: 36px;
         display: block;
-        background-image: url("../../public/logo.svg");
+        background-image: url('../../public/logo.svg');
         background-position: center;
         background-size: cover;
       }
@@ -77,7 +77,7 @@ header {
             width: 20px;
             height: 20px;
             display: block;
-            background-image: url("../../public/icons/settings.svg");
+            background-image: url('../../public/icons/settings.svg');
             background-repeat: no-repeat;
             background-size: cover;
           }
@@ -86,7 +86,7 @@ header {
             width: 36px;
             height: 36px;
             display: block;
-            background-image: url("../../public/icons/user.svg");
+            background-image: url('../../public/icons/user.svg');
             background-position: center;
             background-size: 20px 20px;
             background-color: $light-blue;

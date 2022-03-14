@@ -54,22 +54,22 @@
       background-position: center;
 
       &.puzzle-0 {
-        background-image: url("../public/images/pricing/0.svg");
+        background-image: url('../public/images/pricing/0.svg');
         background-size: 76px 82px;
       }
 
       &.puzzle-1 {
-        background-image: url("../public/images/pricing/1.svg");
+        background-image: url('../public/images/pricing/1.svg');
         background-size: 143px 116px;
       }
 
       &.puzzle-2 {
-        background-image: url("../public/images/pricing/2.svg");
+        background-image: url('../public/images/pricing/2.svg');
         background-size: 211px 116px;
       }
 
       &.puzzle-3 {
-        background-image: url("../public/images/pricing/3.svg");
+        background-image: url('../public/images/pricing/3.svg');
         background-size: 211px 146px;
       }
     }
