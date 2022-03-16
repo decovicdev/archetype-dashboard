@@ -1,5 +1,5 @@
-export enum Variant {
+export enum ButtonVariant {
   primary = 'primary',
-  outlined = 'oulined',
+  outlined = 'outlined',
   link = 'link'
 }

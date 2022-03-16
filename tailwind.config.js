@@ -2,7 +2,8 @@ module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
-    './context/**/*.{js,ts,jsx,tsx}'
+    './context/**/*.{js,ts,jsx,tsx}',
+    './types/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
     extend: {
@@ -15,11 +16,21 @@ module.exports = {
           700: '#131523'
         },
         tblue: {
+          100: '#09E4A8',
+          500: '#0d11d3',
+          600: '#181A82',
           700: '#1E5EFF'
         }
       },
+      backgroundImage: {
+        'gradient-radial':
+          'radial-gradient(circle at 40% -20%, var(--tw-gradient-stops))'
+      },
       boxShadow: {
         tblack: '0px 1px 4px rgba(21, 34, 50, 0.08)'
+      },
+      fontFamily: {
+        sans: ['Inter', 'Arial', 'sans-serif']
       }
     }
   },

@@ -2,14 +2,14 @@ type Props = {
   className?: string;
 };
 
-const PlusCircle: React.FC<Props> = ({ className = '' }) => (
+const PlusCircle: React.FC<Props> = ({ className }) => (
   <svg
     width="20"
     height="20"
     viewBox="10 10 20 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className={className}
+    className={className || ''}
   >
     <circle
       cx="19"

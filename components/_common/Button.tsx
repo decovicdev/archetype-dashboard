@@ -1,21 +1,29 @@
-import { Variant } from 'types/Button';
+import { ButtonVariant } from 'types/Button';
 
 const styles = {
-  [Variant.primary]: 'bg-tblue-700 text-white',
-  [Variant.outlined]: 'bg-white text-tblue-700 border border-tblack-100',
-  [Variant.link]: 'bg-transparent text-tblue-700'
+  [ButtonVariant.primary]: 'bg-tblue-700 text-white',
+  [ButtonVariant.outlined]:
+    'bg-white text-tblue-700 border border-solid border-tblack-100',
+  [ButtonVariant.link]: 'bg-transparent text-tblue-700'
 };
 
 type Props = {
   leftIcon?: React.ReactElement;
-  variant?: Variant;
+  variant?: ButtonVariant;
+  className?: string;
 };
 
-const Button: React.FC<Props> = ({ children, leftIcon, variant, ...props }) => (
+const Button: React.FC<Props> = ({
+  children,
+  leftIcon,
+  variant,
+  className,
+  ...props
+}) => (
   <button
-    className={`flex justify-center items-center rounded py-2 px-4 ${
+    className={`flex justify-center items-center rounded py-2 px-4 font-sans font-normal transition-all ${
       variant ? styles[variant] : ''
-    }`}
+    } ${className || ''}`}
     {...props}
   >
     {leftIcon ? (
@@ -29,7 +37,7 @@ const Button: React.FC<Props> = ({ children, leftIcon, variant, ...props }) => (
 );
 
 Button.defaultProps = {
-  variant: Variant.primary
+  variant: ButtonVariant.primary
 };
 
 export default Button;

@@ -17,6 +17,8 @@ import Analytics from '../helpers/analytics';
 import { AuthProvider } from '../context/auth';
 import { HelperProvider } from '../context/helper';
 
+const onboardingLayoutRoutes = ['/components', '/welcome', '/auth/signup'];
+
 const Layout = ({ children }) => {
   const router = useRouter();
 
@@ -64,15 +66,17 @@ const Layout = ({ children }) => {
     };
   }, [router.events]);
 
-  return (
-    <AuthProvider>
-      <HelperProvider>
-        <Header />
-        <section>{children}</section>
-        <Footer />
-        {isLoading && <Spinner />}
-      </HelperProvider>
-    </AuthProvider>
+  return onboardingLayoutRoutes.some((route) =>
+    router.pathname.includes(route)
+  ) ? (
+    children
+  ) : (
+    <>
+      <Header />
+      <section>{children}</section>
+      <Footer />
+      {isLoading && <Spinner />}
+    </>
   );
 };
 
@@ -104,9 +108,13 @@ class Application extends App {
           <meta name="theme-color" content="#ffffff" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <AuthProvider>
+          <HelperProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </HelperProvider>
+        </AuthProvider>
         <ScrollTop />
       </>
     );
