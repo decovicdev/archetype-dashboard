@@ -8,7 +8,6 @@ import ArcheTypeLogo from 'components/_icons/ArcheTypeLogo';
 // import PrivateRoute from 'components/_common/PrivateRoute';
 
 const WelcomePage: NextPage = () => (
-  //   <PrivateRoute>
   <OnboardingLayout>
     <div className="w-full h-full flex flex-col space-y-[80px] justify-center items-center">
       <ArcheTypeLogo />
@@ -25,7 +24,6 @@ const WelcomePage: NextPage = () => (
       </div>
     </div>
   </OnboardingLayout>
-  //   </PrivateRoute>
 );
 
 export default WelcomePage;
