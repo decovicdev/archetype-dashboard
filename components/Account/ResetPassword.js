@@ -1,10 +1,9 @@
-
 import React, { useContext, useState, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import config from '../../config';
 
-import Firebase from '../../firebase.js';
+// import Firebase from '../../firebase.js';
 
 import Spinner from '../_common/Spinner';
 
@@ -26,7 +25,7 @@ const Component = () => {
       }
       setProgress(true);
 
-      await Firebase.auth().sendPasswordResetEmail(email);
+      // await Firebase.auth().sendPasswordResetEmail(email);
 
       showAlert(
         'Your email with password reset hass been sent successfully',

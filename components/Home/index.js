@@ -42,7 +42,7 @@ const Component = () => {
           <div className="left-side">
             <h1>Hassle-free API creation, monetization, and management.</h1>
             <div className="link">
-              <Link href="/account/signup">
+              <Link href="/auth/signup">
                 <a>Start now</a>
               </Link>
             </div>
@@ -127,7 +127,7 @@ const Component = () => {
               <br /> billing, permissions, or quota systems.{' '}
             </div>
             <div className="link">
-              <Link href="/account/signup">
+              <Link href="/auth/signup">
                 <a>Start now</a>
               </Link>
             </div>

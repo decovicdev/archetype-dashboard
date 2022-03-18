@@ -1,11 +1,10 @@
-
 import React, { useContext, useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import config from '../../config';
 
-import Firebase from '../../firebase.js';
+// import Firebase from '../../firebase.js';
 
 import Spinner from '../_common/Spinner';
 
@@ -36,7 +35,7 @@ const Component = () => {
 
         setProgress(true);
 
-        await Firebase.auth().verifyPasswordResetCode(oobCode);
+        // await Firebase.auth().verifyPasswordResetCode(oobCode);
 
         setProgress(false);
       } catch (e) {
@@ -62,7 +61,7 @@ const Component = () => {
 
       setProgress(true);
 
-      await Firebase.auth().confirmPasswordReset(oobCode, password);
+      // await Firebase.auth().confirmPasswordReset(oobCode, password);
 
       showAlert('Password successfully changed', true);
 
@@ -75,7 +74,7 @@ const Component = () => {
 
       setProgress(false);
     }
-  }, [router, inProgress, password, showAlert]);
+  }, [router, inProgress, showAlert]);
 
   return (
     <>
