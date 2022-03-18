@@ -20,6 +20,9 @@ module.exports = {
           500: '#0d11d3',
           600: '#181A82',
           700: '#1E5EFF'
+        },
+        tpurple: {
+          700: '#1E00E9'
         }
       },
       backgroundImage: {

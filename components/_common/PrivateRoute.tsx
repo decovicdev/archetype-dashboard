@@ -1,20 +1,21 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-
-import { AuthContext } from '../../context/auth';
+import { ROUTES } from 'constant/routes';
+import { useAuth } from 'context/AuthProvider';
 
 const PrivateRoute = ({ children }) => {
   const router = useRouter();
-
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     if (!currentUser) {
-      router.push('/account/login');
+      router.push(ROUTES.AUTH.LOGIN);
+    } else if (!currentUser.emailVerified) {
+      router.push(ROUTES.AUTH.VERIFY);
     }
   }, [currentUser, router]);
 
-  if (currentUser) {
+  if (currentUser?.emailVerified) {
     return children;
   }
   return null;

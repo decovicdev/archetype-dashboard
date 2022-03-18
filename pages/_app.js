@@ -14,10 +14,19 @@ import Spinner from '../components/_common/Spinner';
 
 import Analytics from '../helpers/analytics';
 
-import { AuthProvider } from '../context/auth';
+import { AuthProvider } from '../context/AuthProvider';
 import { HelperProvider } from '../context/helper';
+import { ROUTES } from 'constant/routes';
 
-const onboardingLayoutRoutes = ['/components', '/welcome', '/auth/signup'];
+const onboardingLayoutRoutes = [
+  '/components',
+  '/welcome',
+  ROUTES.AUTH.SIGNUP,
+  ROUTES.AUTH.VERIFY,
+  ROUTES.AUTH.LOGIN,
+  ROUTES.AUTH.RESET,
+  ROUTES.AUTH.LOGOUT
+];
 
 const Layout = ({ children }) => {
   const router = useRouter();

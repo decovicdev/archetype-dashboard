@@ -7,15 +7,16 @@
     "node": ">=14"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.8.8",
     "@netlify/plugin-nextjs": "^4.1.1",
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.17.1",
     "axios": "^0.21.4",
     "classnames": "^2.3.1",
     "date-fns": "^2.27.0",
-    "firebase": "^8.6.8",
-    "firebase-admin": "^9.11.1",
-    "firebase-functions": "^3.15.6",
+    "firebase": "^9.6.8",
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.19.0",
     "lodash.debounce": "^4.0.8",
     "markdown-to-jsx": "^7.1.5",
     "next": "^12.1.0",
@@ -26,9 +27,11 @@
     "react-device-detect": "^1.17.0",
     "react-dom": "^17.0.2",
     "react-google-charts": "^3.0.15",
+    "react-hook-form": "^7.28.0",
     "react-select": "^5.2.1",
     "react-share": "^4.4.0",
-    "react-slick": "^0.28.1"
+    "react-slick": "^0.28.1",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "prebuild": "rimraf .next/cache",

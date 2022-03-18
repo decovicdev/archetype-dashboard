@@ -8,7 +8,8 @@ type Props = {
 
 const levels = {
   1: 'text-2xl leading-6',
-  2: 'text-base'
+  2: 'text-base',
+  3: 'text-sm'
 };
 
 const Paragraph: React.FC<Props> = ({
@@ -18,7 +19,7 @@ const Paragraph: React.FC<Props> = ({
   level
 }) => (
   <p
-    className={`w-full text-center font-normal text-white font-sans m-0 p-0 ${levels[level]} ${variant} ${className}`}
+    className={`w-full text-center font-normal font-sans m-0 p-0 ${levels[level]} ${variant} ${className}`}
   >
     {children}
   </p>

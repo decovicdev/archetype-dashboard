@@ -50,15 +50,11 @@ export const AuthProvider = ({ children }) => {
 
             setAuthPending(false);
           })
-          .catch((e) => {
-            console.error(e);
-
+          .catch(() => {
             setAuthPending(false);
           });
       });
     } catch (e) {
-      console.error(e);
-
       setAuthPending(false);
     }
   }, [router.pathname]);

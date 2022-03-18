@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { fetchSignInMethodsForEmail } from 'firebase/auth';
 import * as yup from 'yup';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -16,7 +15,7 @@ import Input from 'components/_common/Input';
 import { FormVariant } from 'types/Form';
 import Divider from 'components/_common/Divider';
 import ErrorText from 'components/_typography/ErrorText';
-import AuthService, { auth } from 'services/auth.service';
+import AuthService from 'services/auth.service';
 import { AuthFormData } from 'types/Auth';
 import AuthLayout from 'components/auth/AuthLayout';
 import { ROUTES } from 'constant/routes';
@@ -27,21 +26,12 @@ const schema = yup
     email: yup
       .string()
       .email('Email must be valid.')
-      .required('Email is Required.')
-      .test('unique', 'This email already exists.', async (value) => {
-        const list = await fetchSignInMethodsForEmail(auth, value);
-        return !list?.length;
-      }),
-    password: yup
-      .string()
-      .required()
-      .min(6, 'Password should be at least 6 characters.')
-      .matches(/(?=.*[0-9])/, 'Password must contain at least one number.')
-      .matches(/(?=.*[a-zA-Z])/, 'Password must contain at least one letter.')
+      .required('Email is Required.'),
+    password: yup.string().required()
   })
   .required();
 
-const SignupPage: NextPage = () => {
+const LoginPage: NextPage = () => {
   const {
     register,
     handleSubmit,
@@ -52,7 +42,7 @@ const SignupPage: NextPage = () => {
 
   const onSubmit = async (values: AuthFormData) => {
     try {
-      await AuthService.signup(values);
+      await AuthService.login(values);
     } catch (err) {
       setNetworkError(err);
     }
@@ -71,23 +61,27 @@ const SignupPage: NextPage = () => {
 
   return (
     <AuthLayout>
-      <ArcheTypeLogo variant={LogoVariant.darkText} className="w-40 mx-auto" />
       <div className="flex flex-col space-y-4">
-        <Title variant={TypographyVariant.dark}>Create an Account</Title>
+        <ArcheTypeLogo
+          variant={LogoVariant.darkText}
+          className="w-20 mx-auto"
+          direction="vertical"
+        />
+        <Title variant={TypographyVariant.dark}>Sign In</Title>
         <div className="flex space-x-2 justify-center items-center">
           <Paragraph
             variant={TypographyVariant.darkFaint}
             className="!w-auto"
             level={2}
           >
-            Have an Account?
+            Need an Account?
           </Paragraph>
           <Button
             variant={ButtonVariant.link}
             className="!p-0"
-            url={ROUTES.AUTH.LOGIN}
+            url={ROUTES.AUTH.SIGNUP}
           >
-            Sign In
+            Create an Account
           </Button>
         </div>
       </div>
@@ -112,25 +106,26 @@ const SignupPage: NextPage = () => {
           name="password"
           label="Password"
           variant={FormVariant.outlined}
-          placeholder="Create Password"
+          placeholder="Enter Password"
           {...register('password')}
         />
         <ErrorText>{errors.password?.message}</ErrorText>
         <Button className="w-full" type="submit">
-          Register
+          Sign In
         </Button>
         <div className="flex justify-center items-center">
-          <Button variant={ButtonVariant.link} className="!p-0">
-            Terms of Service
+          <Button
+            variant={ButtonVariant.link}
+            className="!p-0"
+            url={ROUTES.AUTH.RESET}
+          >
+            Forgot your password?
           </Button>
           <Divider direction="vertical" className="mx-2 h-5" />
-          <Button variant={ButtonVariant.link} className="!p-0">
-            Privacy Policy
-          </Button>
         </div>
         <Divider className="my-2" />
         <Paragraph variant={TypographyVariant.darkFaint} level={2}>
-          Or create an account using:
+          Or sign in using:
         </Paragraph>
         <Button variant={ButtonVariant.outlined}>Continue with Google</Button>
         <Button variant={ButtonVariant.outlined}>Continue with GitHub</Button>
@@ -139,4 +134,4 @@ const SignupPage: NextPage = () => {
   );
 };
 
-export default SignupPage;
+export default LoginPage;

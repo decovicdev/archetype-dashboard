@@ -1,12 +1,12 @@
-import config from "./config";
+import config from './config';
 
-import firebase from "firebase/app";
-import "firebase/auth";
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(config.firebase);
-}
+// if (!firebase.apps.length) {
+//   firebase.initializeApp(config.firebase);
+// }
 
 export default firebase;
 
-export const AuthPersistance = firebase.auth.Auth.Persistence;
+// export const AuthPersistance = firebase.auth.Auth.Persistence;

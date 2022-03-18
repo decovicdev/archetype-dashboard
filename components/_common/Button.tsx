@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import { MouseEventHandler } from 'react';
 import { ButtonVariant } from 'types/Button';
 
 const styles = {
@@ -11,6 +13,9 @@ type Props = {
   leftIcon?: React.ReactElement;
   variant?: ButtonVariant;
   className?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  url?: string;
+  type?: 'button' | 'submit' | 'reset';
 };
 
 const Button: React.FC<Props> = ({
@@ -18,23 +23,44 @@ const Button: React.FC<Props> = ({
   leftIcon,
   variant,
   className,
+  onClick,
+  url,
   ...props
-}) => (
-  <button
-    className={`flex justify-center items-center rounded py-2 px-4 font-sans font-normal transition-all ${
-      variant ? styles[variant] : ''
-    } ${className || ''}`}
-    {...props}
-  >
-    {leftIcon ? (
-      <leftIcon.type
-        {...leftIcon.props}
-        className={`${leftIcon.props.className} mr-1`}
-      />
-    ) : null}
-    {children}
-  </button>
-);
+}) =>
+  url ? (
+    <Link href={url}>
+      <a
+        className={`flex justify-center items-center rounded py-2 px-4 font-sans font-normal transition-all ${
+          variant ? styles[variant] : ''
+        } ${className || ''}`}
+        {...props}
+      >
+        {leftIcon ? (
+          <leftIcon.type
+            {...leftIcon.props}
+            className={`${leftIcon.props.className} mr-1`}
+          />
+        ) : null}
+        {children}
+      </a>
+    </Link>
+  ) : (
+    <button
+      className={`flex justify-center items-center rounded py-2 px-4 font-sans font-normal transition-all ${
+        variant ? styles[variant] : ''
+      } ${className || ''}`}
+      onClick={onClick}
+      {...props}
+    >
+      {leftIcon ? (
+        <leftIcon.type
+          {...leftIcon.props}
+          className={`${leftIcon.props.className} mr-1`}
+        />
+      ) : null}
+      {children}
+    </button>
+  );
 
 Button.defaultProps = {
   variant: ButtonVariant.primary
