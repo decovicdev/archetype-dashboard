@@ -9,7 +9,7 @@ const $analytics = {
   event: ({ action, params }) => {
     window.gtag('event', action, params);
   },
-  identify: () => {}
+  identify: () => {/** */}
 };
 
 export default $analytics;

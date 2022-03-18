@@ -1,21 +1,19 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-const Component = () => {
+const ScrollTop = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!window) {
-      return;
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
   }, [router.pathname]);
 
   return null;
 };
 
-export default Component;
+export default ScrollTop;
