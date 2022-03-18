@@ -11,7 +11,7 @@ const BLUE_DOTS = [
   'bottom-[24%] right-[16%]'
 ];
 
-const OnboardingLayout = ({ children }) => (
+const MainLayout = ({ children }) => (
   <div className="w-screen h-screen bg-gradient-radial from-tblue-500 to-tblue-600 overflow-x-hidden overflow-y-auto relative">
     <div className="absolute left-0 top-0 w-full h-full pointer-events-none z-0">
       {BLUE_DOTS.map((dotPosition) => (
@@ -29,4 +29,4 @@ const OnboardingLayout = ({ children }) => (
   </div>
 );
 
-export default OnboardingLayout;
+export default MainLayout;

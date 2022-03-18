@@ -5,7 +5,7 @@ import PlusCircle from 'components/_icons/PlusCircle';
 import Input from 'components/_common/Input';
 import Dropdown from 'components/_common/Dropdown';
 import Switch from 'components/_common/Switch';
-import OnboardingLayout from 'components/_common/OnboardingLayout';
+import MainLayout from 'components/_layout/MainLayout';
 import Title from 'components/_typography/Title';
 import Paragraph from 'components/_typography/Paragraph';
 import ArcheTypeLogo from 'components/_icons/ArcheTypeLogo';
@@ -13,7 +13,7 @@ import { TypographyVariant } from 'types/Typography';
 import { LogoVariant } from 'types/ArcheTypeLogo';
 
 const Components = () => (
-  <OnboardingLayout>
+  <MainLayout>
     <div className="flex flex-col space-y-4 p-20">
       <Card>Hello</Card>
       <Button>Primary</Button>
@@ -44,7 +44,7 @@ const Components = () => (
       <ArcheTypeLogo variant={LogoVariant.lightText} />
       <ArcheTypeLogo variant={LogoVariant.darkText} />
     </div>
-  </OnboardingLayout>
+  </MainLayout>
 );
 
 export default Components;

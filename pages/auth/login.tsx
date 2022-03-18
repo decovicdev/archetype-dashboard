@@ -17,7 +17,7 @@ import Divider from 'components/_common/Divider';
 import ErrorText from 'components/_typography/ErrorText';
 import AuthService from 'services/auth.service';
 import { AuthFormData } from 'types/Auth';
-import AuthLayout from 'components/auth/AuthLayout';
+import AuthLayout from 'components/_layout/AuthLayout';
 import { ROUTES } from 'constant/routes';
 import { useAuth } from 'context/AuthProvider';
 
@@ -60,7 +60,7 @@ const LoginPage: NextPage = () => {
   }, [currentUser, router]);
 
   return (
-    <AuthLayout>
+    <AuthLayout title="Login">
       <div className="flex flex-col space-y-4">
         <ArcheTypeLogo
           variant={LogoVariant.darkText}

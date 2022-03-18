@@ -9,7 +9,7 @@ import ArcheTypeLogo from 'components/_icons/ArcheTypeLogo';
 import { LogoVariant } from 'types/ArcheTypeLogo';
 import { TypographyVariant } from 'types/Typography';
 import Divider from 'components/_common/Divider';
-import AuthLayout from 'components/auth/AuthLayout';
+import AuthLayout from 'components/_layout/AuthLayout';
 import { useAuth } from 'context/AuthProvider';
 import AuthService from 'services/auth.service';
 import { ROUTES } from 'constant/routes';
@@ -34,7 +34,7 @@ const VerifyPage: NextPage = () => {
     : '';
 
   return (
-    <AuthLayout>
+    <AuthLayout title="Verify Email">
       <div className="h-full flex flex-col justify-center">
         <ArcheTypeLogo
           variant={LogoVariant.darkText}

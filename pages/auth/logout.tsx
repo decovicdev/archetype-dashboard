@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from 'components/_common/Button';
 import AuthService from 'services/auth.service';
-import AuthLayout from 'components/auth/AuthLayout';
+import AuthLayout from 'components/_layout/AuthLayout';
 import { ROUTES } from 'constant/routes';
 import { useAuth } from 'context/AuthProvider';
 import Spinner from 'components/_common/Spinner';
@@ -28,7 +28,7 @@ const LogoutPage: NextPage = () => {
   }, [logout]);
 
   return (
-    <AuthLayout>
+    <AuthLayout title="Logout">
       {networkError ? <Button onClick={logout}>Try Again</Button> : <Spinner />}
     </AuthLayout>
   );

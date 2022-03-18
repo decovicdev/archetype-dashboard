@@ -18,7 +18,7 @@ import Divider from 'components/_common/Divider';
 import ErrorText from 'components/_typography/ErrorText';
 import AuthService, { auth } from 'services/auth.service';
 import { AuthFormData } from 'types/Auth';
-import AuthLayout from 'components/auth/AuthLayout';
+import AuthLayout from 'components/_layout/AuthLayout';
 import { ROUTES } from 'constant/routes';
 import { useAuth } from 'context/AuthProvider';
 
@@ -70,7 +70,7 @@ const SignupPage: NextPage = () => {
   }, [currentUser, router]);
 
   return (
-    <AuthLayout>
+    <AuthLayout title="Sign up">
       <ArcheTypeLogo variant={LogoVariant.darkText} className="w-40 mx-auto" />
       <div className="flex flex-col space-y-4">
         <Title variant={TypographyVariant.dark}>Create an Account</Title>

@@ -1,14 +1,14 @@
 import type { NextPage } from 'next';
 import Button from 'components/_common/Button';
 import { ButtonVariant } from 'types/Button';
-import OnboardingLayout from 'components/_common/OnboardingLayout';
+import MainLayout from 'components/_layout/MainLayout';
 import Title from 'components/_typography/Title';
 import Paragraph from 'components/_typography/Paragraph';
 import ArcheTypeLogo from 'components/_icons/ArcheTypeLogo';
 // import PrivateRoute from 'components/_common/PrivateRoute';
 
 const WelcomePage: NextPage = () => (
-  <OnboardingLayout>
+  <MainLayout>
     <div className="w-full h-full flex flex-col space-y-[80px] justify-center items-center">
       <ArcheTypeLogo />
       <Title>Welcome to Archetype</Title>
@@ -23,7 +23,7 @@ const WelcomePage: NextPage = () => (
         </Button>
       </div>
     </div>
-  </OnboardingLayout>
+  </MainLayout>
 );
 
 export default WelcomePage;
