@@ -5,24 +5,23 @@ import Image from 'next/image';
 import AccountVerifiedIcon from '../public/icons/account-verified.svg';
 import AccountUnverifiedIcon from '../public/icons/account-unverified.svg';
 
-import { AuthContext } from '../context/auth';
 import { HelperContext } from '../context/helper';
+import { useAuth } from '../context/AuthProvider';
 import EditIcon from './_icons/EditIcon';
 import Spinner from './_common/Spinner';
 
 import Analytics from './../helpers/analytics';
 
-
 const Component = () => {
   const router = useRouter();
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useAuth();
   const { showAlert } = useContext(HelperContext);
 
   const [inProgress, setProgress] = useState(false);
   const [linkSent, setLinkSent] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(currentUser.displayName);
+  const [name, setName] = useState(currentUser?.displayName);
   const [email, setEmail] = useState(currentUser.email);
   const [password, setPassword] = useState('');
 
@@ -67,18 +66,18 @@ const Component = () => {
       }
       setProgress(true);
 
-      if (currentUser.displayName !== name) {
-        await currentUser.updateProfile({
+      if (currentUser?.displayName !== name) {
+        await currentUser?.updateProfile({
           displayName: name
         });
       }
 
       if (currentUser.email !== email) {
-        await currentUser.updateEmail(password);
+        await currentUser?.updateEmail(password);
       }
 
       if (password) {
-        await currentUser.updatePassword(password);
+        await currentUser?.updatePassword(password);
       }
 
       setIsEditing(false);

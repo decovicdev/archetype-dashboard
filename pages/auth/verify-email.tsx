@@ -25,7 +25,7 @@ const VerifyPage: NextPage = () => {
 
   useEffect(() => {
     if (currentUser?.emailVerified) {
-      router.push(ROUTES.HOME);
+      router.push(ROUTES.SETTINGS);
     }
   }, [currentUser, router]);
 

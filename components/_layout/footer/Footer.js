@@ -29,10 +29,10 @@ const Footer = () => {
           </button>
         ) : (
           <>
-            <Link href="/account/signup">
+            <Link href="/auth/signup">
               <a className="btn">Sign Up</a>
             </Link>
-            <Link href="/account/login">
+            <Link href="/auth/login">
               <a className="btn">Login</a>
             </Link>
           </>

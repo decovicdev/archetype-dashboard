@@ -1,4 +1,3 @@
-
 import { useContext, useState, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -56,7 +55,7 @@ const Component = () => {
             </>
           )}
           {!currentUser && (
-            <Link href="/account/signup">
+            <Link href="/auth/signup">
               <a className="action-btn">Sign Up</a>
             </Link>
           )}

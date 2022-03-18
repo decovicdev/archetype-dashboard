@@ -68,7 +68,7 @@ const Component = () => {
       setProgress(false);
       setPassword('');
 
-      router.push('/account/login');
+      router.push('/auth/login');
     } catch (e) {
       showAlert(e.message);
 
@@ -112,7 +112,7 @@ const Component = () => {
               </button>
             </form>
             <div className="bottom-info">
-              <Link href="/account/reset-password">
+              <Link href="/auth/reset-password">
                 <a>Go back</a>
               </Link>
             </div>

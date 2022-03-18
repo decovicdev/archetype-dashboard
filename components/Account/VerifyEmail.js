@@ -1,4 +1,3 @@
-
 import React, { useContext, useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -78,7 +77,7 @@ const Component = () => {
                   <a>Profile</a>
                 </Link>
               ) : (
-                <Link href="/account/login">
+                <Link href="/auth/login">
                   <a>Login</a>
                 </Link>
               )}

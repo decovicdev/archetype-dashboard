@@ -1,4 +1,3 @@
-
 import React, { useContext, useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -108,13 +107,13 @@ const Component = () => {
             </form>
             <div className="bottom-info">
               <span>Don&apos;t have an account?</span>
-              <Link href="/account/signup">
+              <Link href="/auth/signup">
                 <a>Sign Up</a>
               </Link>
             </div>
             <div className="bottom-info">
               <span>Or</span>
-              <Link href="/account/reset-password">
+              <Link href="/auth/reset-password">
                 <a>Forgot Password?</a>
               </Link>
             </div>

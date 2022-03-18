@@ -78,7 +78,7 @@ const Component = () => {
             </form>
             <div className="bottom-info">
               <span>Go back to</span>
-              <Link href="/account/login">
+              <Link href="/auth/login">
                 <a>Login</a>
               </Link>
             </div>

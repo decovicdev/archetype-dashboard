@@ -187,7 +187,7 @@ const Component = () => {
             </form>
             <div className="bottom-info">
               <span>Already have an account?</span>
-              <Link href="/account/login">
+              <Link href="/auth/login">
                 <a>Log In</a>
               </Link>
             </div>

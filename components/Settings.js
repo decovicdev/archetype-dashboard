@@ -15,7 +15,6 @@ import Modal from './_common/Modal';
 
 import ApiService from './../services/api.service';
 
-
 const AUTH_TYPES = {
   NONE: 'none',
   HEADER: 'header',
@@ -56,7 +55,8 @@ const Component = () => {
 
   useEffect(() => {
     fetch();
-  }, [fetch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const { message, status } = router.query;

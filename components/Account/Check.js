@@ -19,7 +19,7 @@ const Component = () => {
     }
 
     if (router.query.mode === 'verifyEmail') {
-      router.push({ pathname: '/account/verify-email', query: router.query });
+      router.push({ pathname: '/auth/verify-email', query: router.query });
     }
   }, [router]);
 

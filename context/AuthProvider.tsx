@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     init();
   }, [init]);
-
+  console.log(currentUser);
   return (
     <AuthContext.Provider value={{ isAuthLoading, currentUser }}>
       {children}

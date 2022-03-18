@@ -1,4 +1,3 @@
-
 import {
   useContext,
   useRef,
@@ -107,7 +106,7 @@ const Component = () => {
             unauthorizedClick={() => {
               showAlert('Authorization is required');
 
-              router.push('/account/login');
+              router.push('/auth/login');
             }}
             clickDelete={(id) => {
               setSelectedEndpoint(id);

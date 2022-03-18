@@ -1,7 +1,6 @@
 import { useRef, useContext, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
-
 import AccountService from '../../../services/account.service';
 
 import { AuthContext } from '../../../context/auth';
@@ -70,11 +69,11 @@ const Component = () => {
           </div>
         ) : (
           <>
-            <Link href="/account/signup">
+            <Link href="/auth/signup">
               <a>Sign Up</a>
             </Link>
             <span>|</span>
-            <Link href="/account/login">
+            <Link href="/auth/login">
               <a>Login</a>
             </Link>
           </>

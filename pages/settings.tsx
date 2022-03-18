@@ -1,19 +1,15 @@
-import { useContext } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import config from 'config';
+import PrivateRoute from 'components/_common/PrivateRoute';
+import Spinner from 'components/_common/Spinner';
+import Settings from 'components/Settings';
+import { useAuth } from 'context/AuthProvider';
 
-import config from '../config';
+const SettingsPage = () => {
+  const { isAuthLoading } = useAuth();
 
-import PrivateRoute from '../components/_common/PrivateRoute';
-import Spinner from '../components/_common/Spinner';
-import Settings from '../components/Settings';
-
-import { AuthContext } from '../context/auth';
-
-const Component = () => {
-  const { authPending } = useContext(AuthContext);
-
-  if (authPending) {
+  if (isAuthLoading) {
     return (
       <div className="page">
         <Spinner />
@@ -49,4 +45,4 @@ const Component = () => {
   );
 };
 
-export default Component;
+export default SettingsPage;

@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 // import App from 'next/app';
 import Head from 'next/head';
 import Router, { useRouter } from 'next/router';
 // import dynamic from 'next/dynamic';
-// import debounce from 'lodash.debounce';
+import debounce from 'lodash.debounce';
 
 import 'styles/index.scss';
 
@@ -27,14 +27,14 @@ const Layout = ({ children }) => {
 
   const [isLoading, setLoading] = useState(false);
 
-  // const onApiNotFoundErr = useCallback(() => {
-  //   router.push('/account/signup/next');
-  // }, [router]);
+  const onApiNotFoundErr = useCallback(() => {
+    router.push('/account/signup/next');
+  }, [router]);
 
   useEffect(() => {
-    // const apiNotFoundErr = debounce(onApiNotFoundErr, 200);
+    const apiNotFoundErr = debounce(onApiNotFoundErr, 200);
 
-    // window.addEventListener('apiNotFoundErr', apiNotFoundErr);
+    window.addEventListener('apiNotFoundErr', apiNotFoundErr);
 
     Router.events.on('routeChangeStart', () => setLoading(true));
     Router.events.on('routeChangeComplete', () => setLoading(false));
@@ -54,12 +54,12 @@ const Layout = ({ children }) => {
 
     //   window.addEventListener('resize', onResized);
 
-    //   return () => {
-    //     window.removeEventListener('apiNotFoundErr', apiNotFoundErr);
+    return () => {
+      window.removeEventListener('apiNotFoundErr', apiNotFoundErr);
 
-    //     window.removeEventListener('resize', onResized);
-    //   };
-  }, []);
+      // window.removeEventListener('resize', onResized);
+    };
+  }, [onApiNotFoundErr]);
 
   useEffect(() => {
     router.events.on('routeChangeComplete', Analytics.page);

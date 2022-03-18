@@ -55,7 +55,7 @@ const LoginPage: NextPage = () => {
     if (currentUser && !currentUser.emailVerified) {
       router.push(ROUTES.AUTH.VERIFY);
     } else if (currentUser) {
-      router.push(ROUTES.HOME);
+      router.push(ROUTES.SETTINGS);
     }
   }, [currentUser, router]);
 
