@@ -17,6 +17,7 @@ import Spinner from 'components/_common/Spinner';
 import Analytics from 'helpers/analytics';
 
 import { AuthProvider } from 'context/AuthProvider';
+import { AuthProvider as OldAuthProvider } from 'context/auth';
 import { HelperProvider } from 'context/helper';
 import MainLayout from 'components/_layout/MainLayout';
 // import { ROUTES } from 'constant/routes';
@@ -109,7 +110,9 @@ const App = ({ Component, pageProps }) => (
       <AuthProvider>
         <HelperProvider>
           <Layout>
-            <Component {...pageProps} />
+            <OldAuthProvider>
+              <Component {...pageProps} />
+            </OldAuthProvider>
           </Layout>
         </HelperProvider>
       </AuthProvider>

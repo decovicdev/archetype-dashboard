@@ -10,7 +10,7 @@ export const AuthContext = React.createContext();
 export const AuthProvider = ({ children }) => {
   // const router = useRouter();
 
-  const [authPending, setAuthPending] = useState(true);
+  const [authPending, setAuthPending] = useState(false);
   const [currentUser] = useState(null);
 
   const init = useCallback(() => {
