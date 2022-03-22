@@ -1,11 +1,4 @@
-
-import React, {
-  useRef,
-  useState,
-  useEffect,
-  useCallback,
-  useContext
-} from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -16,14 +9,14 @@ import Modal from '../_common/Modal';
 
 import TierService from '../../services/tier.service';
 
-import { HelperContext } from '../../context/helper';
+import { useHelpers } from '../../context/HelperProvider';
 
 const Component = () => {
   const _deleteProduct = useRef(null);
 
   const router = useRouter();
 
-  const { showAlert } = useContext(HelperContext);
+  const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
   const [fields, setFields] = useState(null);

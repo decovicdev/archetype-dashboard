@@ -1,13 +1,13 @@
-import React, { forwardRef, useCallback, useContext, useState } from 'react';
+import React, { forwardRef, useCallback, useState } from 'react';
 
 import Modal from '../_common/Modal';
 
 import TierService from '../../services/tier.service';
 
-import { HelperContext } from '../../context/helper';
+import { useHelpers } from '../../context/HelperProvider';
 
 const Component = forwardRef(function Component({ id, onSuccess }, ref) {
-  const { showAlert } = useContext(HelperContext);
+  const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
 

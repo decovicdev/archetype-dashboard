@@ -7,5 +7,21 @@ export const ROUTES = {
     RESET: '/auth/reset-password',
     LOGOUT: '/auth/logout'
   },
-  SETTINGS: '/settings'
+  DASHBOARD: {
+    DASHBOARD: '/dashboard',
+    PRODUCTS: '/products',
+    ENDPOINTS: '/endpoints',
+    USERS: '/users',
+    ANALYTICS: '/analytics',
+    INTEGRTION: '/integrtion',
+    DOCUMENTATIONS: '/docs'
+  },
+  USER_MANUAL: {
+    WALKTHROUGH: '/walkthrough',
+    PRODUCT_UPDATES: '/updates'
+  },
+  SETTINGS: {
+    ACCOUNT_SETTINGS: '/profile',
+    SETTINGS: '/settings'
+  }
 };

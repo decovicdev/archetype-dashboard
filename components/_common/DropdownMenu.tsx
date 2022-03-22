@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import classnames from 'classnames';
 
-const Component = (props) => {
+const DropdownMenu = ({ className, title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = useCallback(() => {
@@ -10,15 +10,15 @@ const Component = (props) => {
 
   return (
     <div
-      className={classnames('dropdown', props.className, {
+      className={classnames('dropdown', className, {
         opened: isOpen
       })}
       onClick={toggleDropdown}
     >
-      <a className="dropdownBtn">{props.title}</a>
-      <div className={classnames('dropdownContent')}>{props.children}</div>
+      <a className="dropdownBtn">{title}</a>
+      <div className={classnames('dropdownContent')}>{children}</div>
     </div>
   );
 };
 
-export default Component;
+export default DropdownMenu;

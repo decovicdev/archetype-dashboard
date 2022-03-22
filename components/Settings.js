@@ -1,4 +1,4 @@
-import { useRef, useContext, useState, useEffect, useCallback } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -7,7 +7,7 @@ import config from '../config';
 
 import KeyIcon from '../public/icons/key.svg';
 import AuthIcon from '../public/icons/auth.svg';
-import { HelperContext } from '../context/helper';
+import { useHelpers } from '../context/HelperProvider';
 import DeleteIcon from './_icons/DeleteIcon';
 
 import Spinner from './_common/Spinner';
@@ -27,7 +27,7 @@ const Component = () => {
 
   const _deleteAccount = useRef(null);
 
-  const { showAlert } = useContext(HelperContext);
+  const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
   const [isDeleting, setDeleting] = useState(false);

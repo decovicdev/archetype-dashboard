@@ -1,5 +1,4 @@
 import {
-  useContext,
   useRef,
   createRef,
   useMemo,
@@ -17,7 +16,7 @@ import Spinner from '../_common/Spinner';
 
 import EndpointService from '../../services/endpoint.service';
 
-import { HelperContext } from '../../context/helper';
+import { useHelpers } from '../../context/HelperProvider';
 import DeleteModal from './DeleteModal';
 import Block from './Block';
 
@@ -27,7 +26,7 @@ const Component = () => {
   const _deleteEndpoint = useRef(null);
   const _sidebar = useRef(null);
 
-  const { showAlert } = useContext(HelperContext);
+  const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
   const [data, setData] = useState([]);

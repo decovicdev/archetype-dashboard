@@ -18,7 +18,7 @@ import Analytics from 'helpers/analytics';
 
 import { AuthProvider } from 'context/AuthProvider';
 import { AuthProvider as OldAuthProvider } from 'context/auth';
-import { HelperProvider } from 'context/helper';
+import { HelperProvider } from 'context/HelperProvider';
 import MainLayout from 'components/_layout/MainLayout';
 // import { ROUTES } from 'constant/routes';
 

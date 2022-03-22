@@ -1,11 +1,11 @@
-import { useContext, useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import AccountVerifiedIcon from '../public/icons/account-verified.svg';
 import AccountUnverifiedIcon from '../public/icons/account-unverified.svg';
 
-import { HelperContext } from '../context/helper';
+import { useHelpers } from '../context/HelperProvider';
 import { useAuth } from '../context/AuthProvider';
 import EditIcon from './_icons/EditIcon';
 import Spinner from './_common/Spinner';
@@ -16,7 +16,7 @@ const Component = () => {
   const router = useRouter();
 
   const { currentUser } = useAuth();
-  const { showAlert } = useContext(HelperContext);
+  const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
   const [linkSent, setLinkSent] = useState(false);

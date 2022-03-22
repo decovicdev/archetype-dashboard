@@ -1,34 +1,34 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import config from 'config';
-import Settings from 'components/Settings';
+import config from '../config';
+import Profile from '../components/Profile';
 import DashboardLayout from 'components/_layout/DashboardLayout';
 
-const SettingsPage = () => (
+const Component = () => (
   <DashboardLayout>
     <Head>
-      <title>Settings - {config.meta.title}</title>
+      <title>User Profile - {config.meta.title}</title>
     </Head>
-    <div className="page settings-page">
+    <div className="page profile-page">
       <div className="content with-lines">
         <ul className="tabs">
-          <li className="tab active">
+          <li className="tab">
             <Link href="/settings">
               <a>Settings</a>
             </Link>
           </li>
-          <li className="tab">
+          <li className="tab active">
             <Link href="/profile">
               <a>Profile</a>
             </Link>
           </li>
         </ul>
         <div className="tab-content">
-          <Settings />
+          <Profile />
         </div>
       </div>
     </div>
   </DashboardLayout>
 );
 
-export default SettingsPage;
+export default Component;

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import config from '../config';
 
-
 const $api = axios.create(config.axios);
 
 $api.interceptors.request.use((config) => {
@@ -10,6 +9,7 @@ $api.interceptors.request.use((config) => {
   }
 
   const token = sessionStorage.getItem('token');
+  console.log({ token });
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

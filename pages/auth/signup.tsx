@@ -59,15 +59,16 @@ const SignupPage: NextPage = () => {
   };
 
   const router = useRouter();
-  const { currentUser } = useAuth();
+  const { currentUser, isAuthLoading } = useAuth();
 
   useEffect(() => {
+    if (isAuthLoading) return;
     if (currentUser && !currentUser.emailVerified) {
       router.push(ROUTES.AUTH.VERIFY);
     } else if (currentUser) {
-      router.push(ROUTES.SETTINGS);
+      router.push(ROUTES.SETTINGS.SETTINGS);
     }
-  }, [currentUser, router]);
+  }, [currentUser, router, isAuthLoading]);
 
   return (
     <AuthLayout title="Sign up">

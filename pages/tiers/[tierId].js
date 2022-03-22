@@ -1,15 +1,13 @@
-import { useContext } from 'react';
-
 import PrivateRoute from '../../components/_common/PrivateRoute';
 import Spinner from '../../components/_common/Spinner';
 import TierOverview from '../../components/Tiers/Overview';
 
-import { AuthContext } from '../../context/auth';
+import { useAuth } from '../../context/AuthProvider';
 
 const Component = () => {
-  const { authPending } = useContext(AuthContext);
+  const { isAuthLoading } = useAuth();
 
-  if (authPending) {
+  if (isAuthLoading) {
     return (
       <div className="page">
         <Spinner />

@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import { isMobile } from 'react-device-detect';
+import Alert from 'components/_common/Alert';
 
-import Alert from '../components/_common/Alert';
+const HelperContext = createContext({});
 
-export const HelperContext = React.createContext();
+export const useHelpers = () => useContext(HelperContext);
 
-export const HelperProvider = (props) => {
+export const HelperProvider = ({ children }) => {
   const [isMobileView, setMobileView] = useState(false);
   const [alertMsg, setAlertMsg] = useState({});
 
@@ -30,7 +31,7 @@ export const HelperProvider = (props) => {
         }
       }}
     >
-      {props.children}
+      {children}
       <Alert data={alertMsg} />
     </HelperContext.Provider>
   );

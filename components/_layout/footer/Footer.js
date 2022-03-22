@@ -1,14 +1,14 @@
-import { useContext, useCallback } from 'react';
+import { useCallback } from 'react';
 import Link from 'next/link';
 
 import AccountService from '../../../services/account.service';
 
-import { AuthContext } from '../../../context/auth';
-import { HelperContext } from '../../../context/helper';
+import { useAuth } from '../../../context/AuthProvider';
+import { useHelpers } from '../../../context/HelperProvider';
 
 const Footer = () => {
-  const { currentUser } = useContext(AuthContext);
-  const { isMobile, showAlert } = useContext(HelperContext);
+  const { currentUser } = useAuth();
+  const { isMobile, showAlert } = useHelpers();
 
   const clickSignOut = useCallback(async () => {
     await AccountService.logout();

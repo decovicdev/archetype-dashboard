@@ -1,14 +1,11 @@
-import { useContext } from 'react';
-
-import { HelperContext } from '../../../context/helper';
+import { useHelpers } from '../../../context/HelperProvider';
 import DesktopHeader from './Desktop';
 import MobileHeader from './Mobile';
 
-
 const Header = () => {
-  const _helper = useContext(HelperContext);
+  const { isMobile } = useHelpers();
 
-  if (_helper.isMobile) {
+  if (isMobile) {
     return <MobileHeader />;
   }
 

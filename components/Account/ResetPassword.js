@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import config from '../../config';
@@ -7,10 +7,10 @@ import config from '../../config';
 
 import Spinner from '../_common/Spinner';
 
-import { HelperContext } from '../../context/helper';
+import { useHelpers } from '../../context/HelperProvider';
 
 const Component = () => {
-  const { showAlert } = useContext(HelperContext);
+  const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
   const [email, setEmail] = useState('');

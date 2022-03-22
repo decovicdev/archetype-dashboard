@@ -11,7 +11,7 @@ import Spinner from 'components/_common/Spinner';
 const LogoutPage: NextPage = () => {
   const [networkError, setNetworkError] = useState(null);
   const router = useRouter();
-  const { currentUser } = useAuth();
+  const { currentUser, isAuthLoading } = useAuth();
 
   const logout = useCallback(async () => {
     if (!currentUser) return router.push(ROUTES.AUTH.LOGIN);
@@ -24,8 +24,9 @@ const LogoutPage: NextPage = () => {
   }, [currentUser, router]);
 
   useEffect(() => {
+    if (isAuthLoading) return;
     logout();
-  }, [logout]);
+  }, [isAuthLoading, logout]);
 
   return (
     <AuthLayout title="Logout">

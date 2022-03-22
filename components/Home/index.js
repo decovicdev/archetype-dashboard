@@ -1,11 +1,11 @@
-import { useState, useCallback, useContext } from 'react';
+import { useState, useCallback } from 'react';
 import classnames from 'classnames';
 
 import Head from 'next/head';
 import Link from 'next/link';
 import config from '../../config';
 
-import { HelperContext } from '../../context/helper';
+import { useHelpers } from '../../context/HelperProvider';
 
 const Square = ({ reversed, children }) => (
   <div className={classnames('square', { 'on-the-right': reversed })}>
@@ -17,7 +17,7 @@ const Square = ({ reversed, children }) => (
 );
 
 const Component = () => {
-  const { showAlert } = useContext(HelperContext);
+  const { showAlert } = useHelpers();
 
   const [emailAddress, setEmailAddress] = useState('');
 

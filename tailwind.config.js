@@ -8,6 +8,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        twhite: {
+          700: '#f5f6fa',
+          600: '#D9E4FF'
+        },
         tblack: {
           100: '#D7DBEC',
           200: '#A1A7C4',
@@ -23,6 +27,9 @@ module.exports = {
         },
         tpurple: {
           700: '#1E00E9'
+        },
+        tgreen: {
+          400: '#1BED49'
         }
       },
       backgroundImage: {
@@ -34,6 +41,12 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter', 'Arial', 'sans-serif']
+      },
+      gridTemplateColumns: {
+        aside: '270px 1fr'
+      },
+      gridTemplateRows: {
+        header: 'auto 1fr'
       }
     }
   },

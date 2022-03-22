@@ -1,14 +1,14 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import ResetPassword from '../../components/Account/ResetPassword';
 
-import { AuthContext } from '../../context/auth';
+import { useAuth } from '../../context/AuthProvider';
 
 const Component = () => {
   const router = useRouter();
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     if (currentUser) {

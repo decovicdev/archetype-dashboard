@@ -21,13 +21,14 @@ const VerifyPage: NextPage = () => {
   const [emailSent, setEmailSent] = useState(false);
 
   const router = useRouter();
-  const { currentUser } = useAuth();
+  const { currentUser, isAuthLoading } = useAuth();
 
   useEffect(() => {
+    if (isAuthLoading) return;
     if (currentUser?.emailVerified) {
-      router.push(ROUTES.SETTINGS);
+      router.push(ROUTES.SETTINGS.SETTINGS);
     }
-  }, [currentUser, router]);
+  }, [currentUser, isAuthLoading, router]);
 
   const email = currentUser?.email?.length
     ? `${currentUser.email[0]}**********${currentUser.email.slice(-4)}`

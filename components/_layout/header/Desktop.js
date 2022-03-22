@@ -1,17 +1,17 @@
-import { useRef, useContext, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
 import AccountService from '../../../services/account.service';
 
-import { AuthContext } from '../../../context/auth';
+import { useAuth } from '../../../context/AuthProvider';
+import { useHelpers } from '../../../context/HelperProvider';
 import Links from './links';
-// import { HelperContext } from "../../../context/helper";
 
 const Component = () => {
   const _header = useRef(null);
 
-  const { currentUser } = useContext(AuthContext);
-  // const { showAlert } = useContext(HelperContext);
+  const { currentUser } = useAuth();
+  const { showAlert } = useHelpers();
 
   const updatePostion = useCallback(() => {
     if (!window || !_header.current) {
@@ -39,11 +39,11 @@ const Component = () => {
     };
   }, [updatePostion]);
 
-  // const clickSignOut = useCallback(async () => {
-  //   await AccountService.logout();
+  const clickSignOut = useCallback(async () => {
+    await AccountService.logout();
 
-  //   showAlert("Logged out", true);
-  // }, [showAlert]);
+    showAlert('Logged out', true);
+  }, [showAlert]);
 
   const renderLinks = useCallback(
     () => (
@@ -59,11 +59,7 @@ const Component = () => {
             <Link href="/profile">
               <a className="name">{currentUser.displayName}</a>
             </Link>
-            <button
-              type="button"
-              className="logout-btn"
-              onClick={() => AccountService.logout()}
-            >
+            <button type="button" className="logout-btn" onClick={clickSignOut}>
               Sign Out
             </button>
           </div>
@@ -80,7 +76,7 @@ const Component = () => {
         )}
       </div>
     ),
-    [currentUser]
+    [clickSignOut, currentUser]
   );
 
   return (

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import classnames from 'classnames';
@@ -9,7 +9,7 @@ import Spinner from '../../_common/Spinner';
 import ApiService from '../../../services/api.service.js';
 
 import { useAuth } from '../../../context/AuthProvider';
-import { HelperContext } from '../../../context/helper';
+import { useHelpers } from '../../../context/HelperProvider';
 import { AUTH_TYPES } from './assets';
 
 const Component = () => {
@@ -17,7 +17,7 @@ const Component = () => {
 
   const { currentUser, isAuthLoading } = useAuth();
 
-  const { showAlert } = useContext(HelperContext);
+  const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
   const [apiName, setApiName] = useState('');

@@ -1,5 +1,4 @@
-
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -11,12 +10,12 @@ import CustomerService from '../../services/customer.service';
 
 import { getHash } from '../../helpers/utils';
 
-import { HelperContext } from '../../context/helper';
+import { useHelpers } from '../../context/HelperProvider';
 
 const Component = () => {
   const router = useRouter();
 
-  const { showAlert } = useContext(HelperContext);
+  const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
   const [fields, setFields] = useState({

@@ -1,14 +1,12 @@
-import { useContext } from 'react';
-
 import Spinner from '../components/_common/Spinner';
 import Pricing from '../components/Pricing';
 
-import { AuthContext } from '../context/auth';
+import { useAuth } from '../context/AuthProvider';
 
 const Component = () => {
-  const { authPending } = useContext(AuthContext);
+  const { isAuthLoading } = useAuth();
 
-  if (authPending) {
+  if (isAuthLoading) {
     return (
       <div className="page">
         <Spinner />

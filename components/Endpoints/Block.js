@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import Link from 'next/link';
 import classnames from 'classnames';
 
-import Dropdown from '../_common/Dropdown';
+import DropdownMenu from '../_common/DropdownMenu';
 
 const Component = forwardRef(function Component({ data, clickDelete }, ref) {
   return (
@@ -20,7 +20,7 @@ const Component = forwardRef(function Component({ data, clickDelete }, ref) {
               {method}
             </div>
           ))}
-          <Dropdown title={<div className="product-context-menu" />}>
+          <DropdownMenu title={<div className="product-context-menu" />}>
             <Link href={`/endpoints/edit/${data.uid}`}>
               <a className="edit-btn">Edit</a>
             </Link>
@@ -31,7 +31,7 @@ const Component = forwardRef(function Component({ data, clickDelete }, ref) {
             >
               Delete
             </button>
-          </Dropdown>
+          </DropdownMenu>
         </div>
         {data.description && data.description.length && (
           <div className="text">{data.description}</div>

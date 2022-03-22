@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -8,15 +8,15 @@ import Spinner from '../../_common/Spinner';
 
 import AccountService from '../../../services/account.service.js';
 
-import { AuthContext } from '../../../context/auth';
-import { HelperContext } from '../../../context/helper';
+import { useHelpers } from '../../../context/HelperProvider';
+import { useAuth } from '../../../context/AuthProvider';
 
 const Component = () => {
   const router = useRouter();
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useAuth();
   const { authEmail, setAuthEmail, authPassword, setAuthPassword, showAlert } =
-    useContext(HelperContext);
+    useHelpers();
 
   const [inProgress, setProgress] = useState(false);
   const [agreedTerms, setAgreedTerms] = useState(false);

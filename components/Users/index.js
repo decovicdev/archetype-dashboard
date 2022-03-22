@@ -1,16 +1,15 @@
-
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import config from '../../config';
 
-import Dropdown from '../_common/Dropdown';
+import DropdownMenu from '../_common/DropdownMenu';
 import Spinner from '../_common/Spinner';
 
 import CustomerService from '../../services/customer.service';
 
-import { HelperContext } from '../../context/helper';
+import { useHelpers } from '../../context/HelperProvider';
 import GenerateKey from './GenerateKey';
 import DeleteModal from './DeleteModal';
 
@@ -20,7 +19,7 @@ const Users = () => {
   const _deleteModal = useRef(null);
   const _generateKey = useRef(null);
 
-  const { showAlert } = useContext(HelperContext);
+  const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
   const [data, setData] = useState([]);
@@ -48,8 +47,8 @@ const Users = () => {
     (e, item) => {
       if (
         e.target.className === 'context-menu-dots' ||
-        e.target.parentNode.classList.contains('dropdown') ||
-        e.target.parentNode.classList.contains('dropdownContent')
+        e.target.parentNode.classList.contains('dropdownMenu') ||
+        e.target.parentNode.classList.contains('dropdownMenuContent')
       ) {
         return;
       }
@@ -95,7 +94,7 @@ const Users = () => {
               </div>
               <div className="col">
                 {customer.status.replace('_', ' ')}
-                <Dropdown title={<div className="context-menu-dots" />}>
+                <DropdownMenu title={<div className="context-menu-dots" />}>
                   <Link href={`/users/edit/${customer.custom_uid}`}>
                     <a className="edit-btn">Edit</a>
                   </Link>
@@ -121,7 +120,7 @@ const Users = () => {
                   >
                     Delete
                   </button>
-                </Dropdown>
+                </DropdownMenu>
               </div>
             </div>
           ))}
