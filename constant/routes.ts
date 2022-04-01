@@ -23,5 +23,10 @@ export const ROUTES = {
   SETTINGS: {
     ACCOUNT_SETTINGS: '/profile',
     SETTINGS: '/settings'
+  },
+  PRODUCTS: {
+    BASE_URL: '/products',
+    ADD: '/products/add',
+    EDIT: '/products/edit'
   }
 };

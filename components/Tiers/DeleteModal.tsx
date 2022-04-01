@@ -1,12 +1,9 @@
-import React, { forwardRef, useCallback, useState } from 'react';
-
+import React, { useCallback, useState } from 'react';
 import Modal from '../_common/Modal';
-
-import EndpointService from '../../services/endpoint.service';
-
+import TierService from '../../services/tier.service';
 import { useHelpers } from '../../context/HelperProvider';
 
-const Component = forwardRef(function Component({ id, onSuccess }, ref) {
+const Component = ({ id, onSuccess, isOpen, onClose }) => {
   const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
@@ -18,11 +15,11 @@ const Component = forwardRef(function Component({ id, onSuccess }, ref) {
       }
       setProgress(true);
 
-      await EndpointService.deleteById(id);
+      await TierService.deleteById(id);
 
       showAlert('Success', true);
 
-      ref.current?.hide();
+      onClose();
 
       if (onSuccess) {
         onSuccess();
@@ -32,35 +29,30 @@ const Component = forwardRef(function Component({ id, onSuccess }, ref) {
     } finally {
       setProgress(false);
     }
-  }, [id, onSuccess, ref, inProgress, showAlert]);
+  }, [inProgress, id, showAlert, onClose, onSuccess]);
 
   return (
-    <Modal ref={ref} title="Delete endpoint?" isBusy={inProgress}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Delete product?"
+      isBusy={inProgress}
+    >
       <div className="data">
         <p>
-          Do you want <span>to delete</span> this endpoint?
+          Do you want <span>to delete</span> this product?
         </p>
       </div>
       <div className="btns">
-        <button
-          type="button"
-          className="half-width action"
-          onClick={submitForm}
-        >
+        <button type="button" onClick={submitForm}>
           Delete
         </button>
-        <button
-          type="button"
-          className="half-width"
-          onClick={() => {
-            ref.current?.hide();
-          }}
-        >
+        <button type="button" onClick={onClose}>
           Cancel
         </button>
       </div>
     </Modal>
   );
-});
+};
 
 export default Component;

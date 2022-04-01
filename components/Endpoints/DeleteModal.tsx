@@ -1,12 +1,9 @@
-import React, { forwardRef, useCallback, useState } from 'react';
-
+import React, { useCallback, useState } from 'react';
 import Modal from '../_common/Modal';
-
-import TierService from '../../services/tier.service';
-
+import EndpointService from '../../services/endpoint.service';
 import { useHelpers } from '../../context/HelperProvider';
 
-const Component = forwardRef(function Component({ id, onSuccess }, ref) {
+const Component = ({ id, onSuccess, isOpen, onClose }) => {
   const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
@@ -18,11 +15,11 @@ const Component = forwardRef(function Component({ id, onSuccess }, ref) {
       }
       setProgress(true);
 
-      await TierService.deleteById(id);
+      await EndpointService.deleteById(id);
 
       showAlert('Success', true);
 
-      ref.current?.hide();
+      onClose();
 
       if (onSuccess) {
         onSuccess();
@@ -32,13 +29,18 @@ const Component = forwardRef(function Component({ id, onSuccess }, ref) {
     } finally {
       setProgress(false);
     }
-  }, [id, onSuccess, ref, inProgress, showAlert]);
+  }, [inProgress, id, showAlert, onClose, onSuccess]);
 
   return (
-    <Modal ref={ref} title="Delete product?" isBusy={inProgress}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Delete endpoint?"
+      isBusy={inProgress}
+    >
       <div className="data">
         <p>
-          Do you want <span>to delete</span> this product?
+          Do you want <span>to delete</span> this endpoint?
         </p>
       </div>
       <div className="btns">
@@ -49,18 +51,12 @@ const Component = forwardRef(function Component({ id, onSuccess }, ref) {
         >
           Delete
         </button>
-        <button
-          type="button"
-          className="half-width"
-          onClick={() => {
-            ref.current?.hide();
-          }}
-        >
+        <button type="button" className="half-width" onClick={onClose}>
           Cancel
         </button>
       </div>
     </Modal>
   );
-});
+};
 
 export default Component;

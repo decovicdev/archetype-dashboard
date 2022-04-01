@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,16 +10,17 @@ import Modal from '../_common/Modal';
 import CustomerService from '../../services/customer.service';
 
 import { useHelpers } from '../../context/HelperProvider';
+import useDisclosure from 'hooks/useDisclosure';
 
 const Component = () => {
-  const _deleteUser = useRef(null);
-
   const router = useRouter();
 
   const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
   const [fields, setFields] = useState(null);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     async function fetch() {
@@ -42,7 +43,7 @@ const Component = () => {
   }, [router.query.userId, showAlert]);
 
   const changeFields = useCallback(
-    (field, value, obj) => {
+    (field, value, obj?: any) => {
       const result = { ...fields };
 
       if (!field && !value && obj) {
@@ -105,13 +106,7 @@ const Component = () => {
       <>
         <div className="top-block">
           <h2>Customer Information</h2>
-          <button
-            type="button"
-            className="delete-btn"
-            onClick={() => {
-              _deleteUser.current?.show();
-            }}
-          />
+          <button type="button" className="delete-btn" onClick={onOpen} />
         </div>
         <div className="form">
           <div className="field">
@@ -138,7 +133,7 @@ const Component = () => {
         </div>
       </>
     );
-  }, [fields, changeFields, saveUser]);
+  }, [fields, onOpen, changeFields, saveUser]);
 
   return (
     <>
@@ -160,7 +155,7 @@ const Component = () => {
           {renderContent()}
         </div>
       </div>
-      <Modal ref={_deleteUser} title="Delete a customer?">
+      <Modal isOpen={isOpen} onClose={onClose} title="Delete a customer?">
         <div className="data">
           <p>
             Do you want <span>to delete</span> the customer?
@@ -174,13 +169,7 @@ const Component = () => {
           >
             Delete
           </button>
-          <button
-            type="button"
-            className="half-width"
-            onClick={() => {
-              _deleteUser.current?.hide();
-            }}
-          >
+          <button type="button" className="half-width" onClick={onClose}>
             Cancel
           </button>
         </div>

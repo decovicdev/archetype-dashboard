@@ -20,7 +20,7 @@ import { AuthProvider } from 'context/AuthProvider';
 import { AuthProvider as OldAuthProvider } from 'context/auth';
 import { HelperProvider } from 'context/HelperProvider';
 import MainLayout from 'components/_layout/MainLayout';
-// import { ROUTES } from 'constant/routes';
+import { ROUTES } from 'constant/routes';
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
   const [isLoading, setLoading] = useState(false);
 
   const onApiNotFoundErr = useCallback(() => {
-    router.push('/account/signup/next');
+    router.push(ROUTES.AUTH.SIGNUP);
   }, [router]);
 
   useEffect(() => {

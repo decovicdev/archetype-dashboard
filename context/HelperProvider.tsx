@@ -2,17 +2,24 @@ import React, { useState, useEffect, createContext, useContext } from 'react';
 import { isMobile } from 'react-device-detect';
 import Alert from 'components/_common/Alert';
 
-const HelperContext = createContext({});
+type HelperContextValue = {
+  isMobile: boolean;
+  showAlert: (message: string, isSuccess?: boolean) => void;
+};
+
+const HelperContext = createContext<HelperContextValue>({
+  isMobile: false,
+  showAlert: null
+});
 
 export const useHelpers = () => useContext(HelperContext);
 
 export const HelperProvider = ({ children }) => {
   const [isMobileView, setMobileView] = useState(false);
-  const [alertMsg, setAlertMsg] = useState({});
-
-  // shared email and password fields between Login and SignUp components
-  const [authEmail, setAuthEmail] = useState('');
-  const [authPassword, setAuthPassword] = useState('');
+  const [alertMsg, setAlertMsg] = useState<{
+    message?: string;
+    isSuccess?: boolean;
+  }>({});
 
   useEffect(() => {
     setMobileView(isMobile);
@@ -22,11 +29,7 @@ export const HelperProvider = ({ children }) => {
     <HelperContext.Provider
       value={{
         isMobile: isMobileView,
-        authEmail,
-        setAuthEmail,
-        authPassword,
-        setAuthPassword,
-        showAlert: (message, isSuccess = false) => {
+        showAlert: (message: string, isSuccess = false) => {
           setAlertMsg({ message, isSuccess });
         }
       }}

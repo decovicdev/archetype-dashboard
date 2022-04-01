@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,10 +10,10 @@ import Modal from '../_common/Modal';
 import TierService from '../../services/tier.service';
 
 import { useHelpers } from '../../context/HelperProvider';
+import { ROUTES } from 'constant/routes';
+import useDisclosure from 'hooks/useDisclosure';
 
 const Component = () => {
-  const _deleteProduct = useRef(null);
-
   const router = useRouter();
 
   const { showAlert } = useHelpers();
@@ -26,7 +26,9 @@ const Component = () => {
       try {
         setProgress(true);
 
-        const response = await TierService.getById(router.query.tierId);
+        const response = await TierService.getById(
+          router.query.tierId as string
+        );
 
         setFields(response);
       } catch (e) {
@@ -39,13 +41,17 @@ const Component = () => {
     fetch();
   }, [router.query.tierId, showAlert]);
 
+  console.log(router.query);
+
   const renderContent = useCallback(() => {
     if (!fields) {
       return <div className="no-content">Product not found.</div>;
     }
 
     return (
-      <>
+      <div
+        style={{ backgroundColor: '#333', overflowY: 'auto', height: '600px' }}
+      >
         <div className="basic-info-block">
           <div className="left-side">
             <div className="pic" />
@@ -57,7 +63,7 @@ const Component = () => {
             </div>
           </div>
           <div className="right-side">
-            <Link href={`/tiers/edit/${router.query.tierId}`}>
+            <Link href={`${ROUTES.PRODUCTS.EDIT}/${router.query.tierId}`}>
               <a className="btn gradient-pink">Edit product</a>
             </Link>
           </div>
@@ -113,12 +119,15 @@ const Component = () => {
             <span>{new Date().toLocaleDateString()}</span>
           </div>
         </div>
-      </>
+      </div>
     );
   }, [fields, router.query.tierId]);
 
+  const { isOpen, onClose } = useDisclosure();
   return (
-    <>
+    <div
+      style={{ backgroundColor: '#333', overflowY: 'auto', height: '600px' }}
+    >
       <div className="page tiers-details-page">
         <Head>
           <title>Product Overview - {config.meta.title}</title>
@@ -126,7 +135,7 @@ const Component = () => {
         {inProgress && <Spinner />}
         <div className="content">
           <div className="bread-crumbs">
-            <Link href="/tiers">
+            <Link href={ROUTES.PRODUCTS.BASE_URL}>
               <a>Products</a>
             </Link>
             <span>{'>'}</span>
@@ -137,7 +146,7 @@ const Component = () => {
           {renderContent()}
         </div>
       </div>
-      <Modal ref={_deleteProduct} title="Save product?">
+      <Modal isOpen={isOpen} onClose={onClose} title="Save product?">
         <div className="data">
           <p>
             Do you want <span>to delete</span> the product?
@@ -151,18 +160,12 @@ const Component = () => {
           >
             Delete
           </button>
-          <button
-            type="button"
-            className="half-width"
-            onClick={() => {
-              _deleteProduct.current?.hide();
-            }}
-          >
+          <button type="button" className="half-width" onClick={onClose}>
             Cancel
           </button>
         </div>
       </Modal>
-    </>
+    </div>
   );
 };
 

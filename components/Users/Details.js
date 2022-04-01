@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -11,10 +11,9 @@ import CustomerService from '../../services/customer.service';
 
 import { useHelpers } from '../../context/HelperProvider';
 import DeleteModal from './DeleteModal';
+import useDisclosure from 'hooks/useDisclosure';
 
 const Component = () => {
-  const _deleteModal = useRef(null);
-
   const router = useRouter();
 
   const { showAlert } = useHelpers();
@@ -52,13 +51,7 @@ const Component = () => {
             <Link href={`/users/edit/${data.custom_uid}`}>
               <a className="edit-btn">Edit</a>
             </Link>
-            <button
-              type="button"
-              className="delete-btn"
-              onClick={() => {
-                _deleteModal.current?.show();
-              }}
-            >
+            <button type="button" className="delete-btn" onClick={onOpen}>
               Delete
             </button>
           </DropdownMenu>
@@ -98,7 +91,9 @@ const Component = () => {
         <h3>Customer history</h3>
       </>
     );
-  }, [_deleteModal, data]);
+  }, [data, onOpen]);
+
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
     <div className="page users-details-page">
@@ -119,7 +114,8 @@ const Component = () => {
         {renderContent()}
       </div>
       <DeleteModal
-        ref={_deleteModal}
+        isOpen={isOpen}
+        onClose={onClose}
         id={router.query.userId}
         onSuccess={() => {
           router.push('/users');

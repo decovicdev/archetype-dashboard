@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import Modal from '../_common/Modal';
 
@@ -6,61 +6,58 @@ import CustomerService from '../../services/customer.service';
 
 import { useHelpers } from '../../context/HelperProvider';
 
-const Component = forwardRef(function Component({ id, onSuccess }, ref) {
+const Component = ({ id, onSuccess, isOpen, onClose }) => {
   const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
 
-  const deleteUser = useCallback(async () => {
+  const clickSubmit = useCallback(async () => {
     try {
       if (inProgress) {
         return;
       }
       setProgress(true);
 
-      await CustomerService.deleteById(id);
+      await CustomerService.resetApiKey(id);
 
       showAlert('Success', true);
 
       if (onSuccess) {
         onSuccess();
       }
+
+      onClose();
     } catch (e) {
       showAlert(e.message);
     } finally {
       setProgress(false);
     }
-  }, [id, onSuccess, inProgress, showAlert]);
+  }, [inProgress, id, showAlert, onSuccess, onClose]);
 
   return (
-    <Modal ref={ref} title="Delete a customer?" isBusy={inProgress}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Delete a customer?"
+      isBusy={inProgress}
+    >
       <div className="data">
-        <p>
-          Do you want to <span>delete</span> the customer?
-        </p>
+        <p>Are you sure you want to reset this user’s api key?</p>
       </div>
       <div className="btns">
         <button
           type="button"
           className="half-width action"
-          onClick={() => deleteUser()}
+          onClick={() => clickSubmit()}
         >
-          Delete
+          Yes
         </button>
-        <button
-          type="button"
-          className="half-width"
-          onClick={() => {
-            if (ref.current) {
-              ref.current.hide();
-            }
-          }}
-        >
+        <button type="button" className="half-width" onClick={onClose}>
           Cancel
         </button>
       </div>
     </Modal>
   );
-});
+};
 
 export default Component;

@@ -6,12 +6,17 @@ import React, {
   useContext
 } from 'react';
 import { useRouter } from 'next/router';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import AuthService, { auth } from 'services/auth.service';
 
 const signupPages = ['/auth/signup', '/auth/signup/next'];
 
-export const AuthContext = createContext({
+type AuthContextValue = {
+  isAuthLoading: boolean;
+  currentUser?: User | null;
+};
+
+export const AuthContext = createContext<AuthContextValue>({
   isAuthLoading: false,
   currentUser: null
 });
@@ -21,7 +26,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
   const [isAuthLoading, setIsAuthLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState<User>(null);
 
   const init = useCallback(() => {
     try {
@@ -60,7 +65,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     init();
   }, [init]);
-  console.log(currentUser);
+
   return (
     <AuthContext.Provider value={{ isAuthLoading, currentUser }}>
       {children}

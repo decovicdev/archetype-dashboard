@@ -19,11 +19,11 @@ import EndpointService from '../../services/endpoint.service';
 import { useHelpers } from '../../context/HelperProvider';
 import DeleteModal from './DeleteModal';
 import Block from './Block';
+import useDisclosure from 'hooks/useDisclosure';
 
 const Component = () => {
   const router = useRouter();
 
-  const _deleteEndpoint = useRef(null);
   const _sidebar = useRef(null);
 
   const { showAlert } = useHelpers();
@@ -110,13 +110,13 @@ const Component = () => {
             clickDelete={(id) => {
               setSelectedEndpoint(id);
 
-              _deleteEndpoint.current?.show();
+              onOpen();
             }}
           />
         ))}
       </div>
     ),
-    [_refs, data, router, showAlert]
+    [_refs, data, onOpen, router, showAlert]
   );
 
   const renderSidebar = useCallback(() => {
@@ -180,6 +180,8 @@ const Component = () => {
     );
   }, [_sidebar, data, searchText, isFocused, scrollTo, renderBtns]);
 
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
   return (
     <>
       <Head>
@@ -191,7 +193,8 @@ const Component = () => {
         {renderBlocks()}
       </div>
       <DeleteModal
-        ref={_deleteEndpoint}
+        isOpen={isOpen}
+        onClose={onClose}
         id={selectedEndpoint}
         onSuccess={fetch}
       />

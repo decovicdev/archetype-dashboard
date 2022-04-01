@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -11,10 +11,9 @@ import EndpointService from '../../services/endpoint.service';
 
 import { useHelpers } from '../../context/HelperProvider';
 import DeleteModal from './DeleteModal';
+import useDisclosure from 'hooks/useDisclosure';
 
 const Component = () => {
-  const _deleteModal = useRef(null);
-
   const router = useRouter();
 
   const { showAlert } = useHelpers();
@@ -36,8 +35,10 @@ const Component = () => {
       }
     }
 
-    fetch();
+    void fetch();
   }, [router.query.endpointId, showAlert]);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const renderContent = useCallback(() => {
     if (!data) {
@@ -52,13 +53,7 @@ const Component = () => {
             <Link href={`/endpoints/edit/${data.uid}`}>
               <a className="edit-btn">Edit</a>
             </Link>
-            <button
-              type="button"
-              className="delete-btn"
-              onClick={() => {
-                _deleteModal.current?.show();
-              }}
-            >
+            <button type="button" className="delete-btn" onClick={onOpen}>
               Delete
             </button>
           </DropdownMenu>
@@ -81,7 +76,7 @@ const Component = () => {
         </div>
       </>
     );
-  }, [_deleteModal, data]);
+  }, [data, onOpen]);
 
   return (
     <div className="page endpoints-details-page">
@@ -102,7 +97,8 @@ const Component = () => {
         {renderContent()}
       </div>
       <DeleteModal
-        ref={_deleteModal}
+        isOpen={isOpen}
+        onClose={onClose}
         id={router.query.endpointId}
         onSuccess={() => {
           router.push('/endpoints');

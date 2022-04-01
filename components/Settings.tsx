@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -8,12 +8,12 @@ import config from '../config';
 import KeyIcon from '../public/icons/key.svg';
 import AuthIcon from '../public/icons/auth.svg';
 import { useHelpers } from '../context/HelperProvider';
+import ApiService from '../services/api.service';
 import DeleteIcon from './_icons/DeleteIcon';
 
 import Spinner from './_common/Spinner';
 import Modal from './_common/Modal';
-
-import ApiService from './../services/api.service';
+import useDisclosure from 'hooks/useDisclosure';
 
 const AUTH_TYPES = {
   NONE: 'none',
@@ -25,8 +25,6 @@ const AUTH_TYPES = {
 const Component = () => {
   const router = useRouter();
 
-  const _deleteAccount = useRef(null);
-
   const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
@@ -35,6 +33,8 @@ const Component = () => {
   const [authType, setAuthType] = useState('');
   const [redirectUrl, setRedirectUrl] = useState('');
   const [returnUrl, setReturnUrl] = useState('');
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const fetch = useCallback(async () => {
     try {
@@ -269,15 +269,7 @@ const Component = () => {
       </div>
       <div className="block">
         <DeleteIcon gradient />
-        <a
-          onClick={() => {
-            if (_deleteAccount.current) {
-              _deleteAccount.current.show();
-            }
-          }}
-        >
-          Delete App
-        </a>
+        <a onClick={onOpen}>Delete App</a>
       </div>
       <div className="btns">
         <button type="button" className="btn gradient-blue" onClick={saveForm}>
@@ -293,7 +285,7 @@ const Component = () => {
             : 'Connect your stripe account'}
         </button>
       </div>
-      <Modal ref={_deleteAccount} isBusy={isDeleting}>
+      <Modal isOpen={isOpen} onClose={onClose} isBusy={isDeleting}>
         <div className="data">
           <h1>Delete Account</h1>
           <p>
@@ -302,15 +294,7 @@ const Component = () => {
           </p>
         </div>
         <div className="btns">
-          <button
-            type="button"
-            className="btn grey"
-            onClick={() => {
-              if (_deleteAccount.current) {
-                _deleteAccount.current.hide();
-              }
-            }}
-          >
+          <button type="button" className="btn grey" onClick={onClose}>
             No, Cancel
           </button>
           <button

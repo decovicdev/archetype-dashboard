@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -16,10 +16,10 @@ import {
   BILLING_OPTIONS,
   PRICING_MODEL_OPTIONS
 } from './assets';
+import { ROUTES } from 'constant/routes';
+import useDisclosure from 'hooks/useDisclosure';
 
 const Component = () => {
-  const _saveProduct = useRef(null);
-
   const router = useRouter();
 
   const { showAlert } = useHelpers();
@@ -32,7 +32,9 @@ const Component = () => {
       try {
         setProgress(true);
 
-        const response = await TierService.getById(router.query.tierId);
+        const response = await TierService.getById(
+          router.query.tierId as string
+        );
 
         setFields({
           name: response.name,
@@ -57,7 +59,7 @@ const Component = () => {
   }, [router.query.tierId, showAlert]);
 
   const changeFields = useCallback(
-    (field, value, obj) => {
+    (field, value, obj?: any) => {
       const result = { ...fields };
 
       if (!field && !value && obj) {
@@ -98,26 +100,13 @@ const Component = () => {
 
       showAlert('Success', true);
 
-      router.push('/tiers');
+      router.push(ROUTES.PRODUCTS.BASE_URL);
     } catch (e) {
       showAlert(e.message);
     } finally {
       setProgress(false);
     }
-  }, [
-    inProgress,
-    router,
-    fields.name,
-    fields.hasTrial,
-    fields.description,
-    fields.price,
-    fields.billingPeriod,
-    fields.meteredUsage,
-    fields.quota,
-    fields.trialLen,
-    fields.trialTimeFrame,
-    showAlert
-  ]);
+  }, [inProgress, router, fields, showAlert]);
 
   const clickAddTrial = useCallback(() => {
     if (fields.hasTrial) {
@@ -134,14 +123,16 @@ const Component = () => {
       });
     }
   }, [fields, changeFields]);
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const renderContent = useCallback(() => {
     if (!fields) {
       return <div className="no-content">Product not found.</div>;
     }
 
     return (
-      <>
+      <div
+        style={{ backgroundColor: '#333', overflowY: 'auto', height: '600px' }}
+      >
         <div className="form">
           <h2>Product Information</h2>
           <div className="field">
@@ -283,25 +274,21 @@ const Component = () => {
         </div>
         <div className="line" />
         <div className="btns">
-          <button
-            type="button"
-            className="btn gradient-blue"
-            onClick={() => {
-              _saveProduct.current?.show();
-            }}
-          >
+          <button type="button" className="btn gradient-blue" onClick={onOpen}>
             Save
           </button>
-          <Link href={`/tiers/${router.query.tierId}`}>
+          <Link href={`${ROUTES.PRODUCTS.BASE_URL}/${router.query.tierId}`}>
             <a className="btn purple-w-border">Cancel</a>
           </Link>
         </div>
-      </>
+      </div>
     );
-  }, [changeFields, clickAddTrial, fields, router.query.tierId]);
+  }, [changeFields, clickAddTrial, fields, onOpen, router.query.tierId]);
 
   return (
-    <>
+    <div
+      style={{ backgroundColor: '#333', overflowY: 'auto', height: '600px' }}
+    >
       <div className="page tiers-edit-page">
         <Head>
           <title>Edit Product - {config.meta.title}</title>
@@ -309,7 +296,7 @@ const Component = () => {
         {inProgress && <Spinner />}
         <div className="content with-lines">
           <div className="bread-crumbs">
-            <Link href="/tiers">
+            <Link href={ROUTES.PRODUCTS.BASE_URL}>
               <a>Products</a>
             </Link>
             <span>{'>'}</span>
@@ -320,7 +307,7 @@ const Component = () => {
           {renderContent()}
         </div>
       </div>
-      <Modal ref={_saveProduct} title="Save product?">
+      <Modal isOpen={isOpen} onClose={onClose} title="Save product?">
         <div className="data">
           <p>
             Do you want <span>to save</span> the changes?
@@ -337,18 +324,12 @@ const Component = () => {
           >
             Save
           </button>
-          <button
-            type="button"
-            className="half-width"
-            onClick={() => {
-              _saveProduct.current?.hide();
-            }}
-          >
+          <button type="button" className="half-width" onClick={onClose}>
             Cancel
           </button>
         </div>
       </Modal>
-    </>
+    </div>
   );
 };
 

@@ -38,13 +38,13 @@ const LoginPage: NextPage = () => {
     formState: { errors }
   } = useForm<AuthFormData>({ resolver: yupResolver(schema) });
 
-  const [networkError, setNetworkError] = useState(null);
+  const [networkError, setNetworkError] = useState<Error>(null);
 
   const onSubmit = async (values: AuthFormData) => {
     try {
       await AuthService.login(values);
     } catch (err) {
-      setNetworkError(err);
+      setNetworkError(err as Error);
     }
   };
 
@@ -54,9 +54,9 @@ const LoginPage: NextPage = () => {
   useEffect(() => {
     if (isAuthLoading) return;
     if (currentUser && !currentUser.emailVerified) {
-      router.push(ROUTES.AUTH.VERIFY);
+      void router.push(ROUTES.AUTH.VERIFY);
     } else if (currentUser) {
-      router.push(ROUTES.SETTINGS.SETTINGS);
+      void router.push(ROUTES.SETTINGS.SETTINGS);
     }
   }, [currentUser, isAuthLoading, router]);
 
@@ -88,7 +88,7 @@ const LoginPage: NextPage = () => {
       </div>
       <form
         className="w-full flex flex-col space-y-[24px]"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={void handleSubmit(onSubmit)}
       >
         {networkError ? (
           <ErrorText>

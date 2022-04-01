@@ -21,9 +21,10 @@ const LINKS = [
   }
 ];
 
-const properCapitalize = (name) =>
+const properCapitalize = (name: string) =>
   `${name[0].toUpperCase()}${name.slice(1).toLowerCase()}`;
-const formatUrlName = (name) =>
+
+const formatUrlName = (name: string) =>
   name
     ?.split('_')
     .map((word) => properCapitalize(word))

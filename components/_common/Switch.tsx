@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const Switch = () => {
+const Switch: React.FC = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (

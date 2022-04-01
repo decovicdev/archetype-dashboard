@@ -13,7 +13,7 @@ const Component = () => {
 
     if (router.query.mode === 'resetPassword') {
       router.push({
-        pathname: '/account/change-password',
+        pathname: '/auth/change-password',
         query: router.query
       });
     }

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -12,12 +12,10 @@ import CustomerService from '../../services/customer.service';
 import { useHelpers } from '../../context/HelperProvider';
 import GenerateKey from './GenerateKey';
 import DeleteModal from './DeleteModal';
+import useDisclosure from 'hooks/useDisclosure';
 
 const Users = () => {
   const router = useRouter();
-
-  const _deleteModal = useRef(null);
-  const _generateKey = useRef(null);
 
   const { showAlert } = useHelpers();
 
@@ -104,7 +102,7 @@ const Users = () => {
                     onClick={() => {
                       setSelectedId(customer.custom_uid);
 
-                      _generateKey.current?.show();
+                      onGKOpen();
                     }}
                   >
                     Reset API key
@@ -115,7 +113,7 @@ const Users = () => {
                     onClick={() => {
                       setSelectedId(customer.custom_uid);
 
-                      _deleteModal.current?.show();
+                      onOpen();
                     }}
                   >
                     Delete
@@ -127,7 +125,14 @@ const Users = () => {
         </div>
       </>
     );
-  }, [clickItem, data, searchVal]);
+  }, [clickItem, data, onGKOpen, onOpen, searchVal]);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isGKOpen,
+    onOpen: onGKOpen,
+    onClose: onGKClose
+  } = useDisclosure();
 
   return (
     <div className="page users-page">
@@ -169,14 +174,16 @@ const Users = () => {
         {renderContent()}
       </div>
       <DeleteModal
-        ref={_deleteModal}
+        isOpen={isOpen}
+        onClose={onClose}
         id={selectedId}
         onSuccess={() => {
           fetch();
         }}
       />
       <GenerateKey
-        ref={_generateKey}
+        isOpen={isGKOpen}
+        onClose={onGKClose}
         id={selectedId}
         onSuccess={() => {
           fetch();

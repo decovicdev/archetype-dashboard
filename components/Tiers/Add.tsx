@@ -3,18 +3,15 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import classnames from 'classnames';
-import config from '../../config';
-
 import Spinner from '../_common/Spinner';
-
-import TierService from '../../services/tier.service';
-
-import { useHelpers } from '../../context/HelperProvider';
 import {
   TIME_FRAMES_OPTIONS,
   BILLING_OPTIONS,
   PRICING_MODEL_OPTIONS
 } from './assets';
+import config from 'config';
+import TierService from 'services/tier.service';
+import { useHelpers } from 'context/HelperProvider';
 
 const Component = () => {
   const router = useRouter();
@@ -35,8 +32,14 @@ const Component = () => {
     trialTimeFrame: null
   });
 
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors }
+  // } = useForm<CreateProductFormData>({ resolver: yupResolver(schema) });
+
   const changeFields = useCallback(
-    (field, value, obj) => {
+    (field, value, obj?: any) => {
       const result = { ...fields };
 
       if (!field && !value && obj) {
@@ -54,9 +57,7 @@ const Component = () => {
 
   const submitForm = useCallback(async () => {
     try {
-      if (inProgress) {
-        return;
-      }
+      if (inProgress) return;
 
       if (!fields.name) {
         return showAlert('Name is required field');
@@ -85,7 +86,7 @@ const Component = () => {
 
       showAlert('Success', true);
 
-      router.push('/tiers');
+      void router.push('/products');
     } catch (e) {
       showAlert(e.message);
     } finally {
@@ -123,7 +124,9 @@ const Component = () => {
   }, [fields, changeFields]);
 
   return (
-    <div className="page tiers-add-page">
+    <div
+      style={{ backgroundColor: '#333', overflowY: 'auto', height: '600px' }}
+    >
       <Head>
         <title>Add Product - {config.meta.title}</title>
       </Head>
