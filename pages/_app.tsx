@@ -6,7 +6,7 @@ import Router, { useRouter } from 'next/router';
 import debounce from 'lodash.debounce';
 
 import 'styles/index.scss';
-
+import { QueryClientProvider } from 'react-query';
 // const Header = dynamic(() => import('components/_layout/header'));
 // const Footer = dynamic(() => import('components/_layout/footer/Footer'));
 import { ErrorBoundary } from 'react-error-boundary';
@@ -15,7 +15,7 @@ import ScrollTop from 'components/_common/ScrollTop';
 import Spinner from 'components/_common/Spinner';
 
 import Analytics from 'helpers/analytics';
-
+import { queryClient } from 'services/queryClient.service';
 import { AuthProvider } from 'context/AuthProvider';
 import { AuthProvider as OldAuthProvider } from 'context/auth';
 import { HelperProvider } from 'context/HelperProvider';
@@ -78,7 +78,7 @@ const Layout = ({ children }) => {
 };
 
 const App = ({ Component, pageProps }) => (
-  <>
+  <QueryClientProvider client={queryClient}>
     <Head>
       <link rel="icon" href="/favicon.ico" />
       <link
@@ -118,7 +118,7 @@ const App = ({ Component, pageProps }) => (
       </AuthProvider>
     </ErrorBoundary>
     <ScrollTop />
-  </>
+  </QueryClientProvider>
 );
 
 export default App;

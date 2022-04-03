@@ -1,16 +1,24 @@
 import { useRef, useState, useEffect } from 'react';
 import ChevronDown from 'components/_icons/ChevronDown';
 
-type Option = { label: string; value: string };
+export type Option = { label: string; value: string | number };
 type Props = {
   className?: string;
   placeholder?: string;
+  value?: Option;
   options: Option[];
+  onChange?: (option?: Option) => void;
 };
 
-const Dropdown: React.FC<Props> = ({ className, placeholder, options }) => {
+const Dropdown: React.FC<Props> = ({
+  className,
+  placeholder,
+  onChange,
+  value,
+  options
+}) => {
   const [isOpen, setOpen] = useState(false);
-  const [selected, setSelected] = useState<Option>(null);
+  const [selected, setSelected] = useState<Option>(value);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -44,6 +52,9 @@ const Dropdown: React.FC<Props> = ({ className, placeholder, options }) => {
               className="py-2 px-4 w-full bg-transparent text-tblack-200 hover:text-tblack-700 hover:bg-tblack-100"
               onClick={() => {
                 setSelected(option);
+                if (onChange) {
+                  onChange(option);
+                }
                 setOpen(false);
               }}
             >

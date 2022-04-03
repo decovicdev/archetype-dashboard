@@ -1,6 +1,5 @@
 import {
   useState,
-  useEffect,
   useCallback,
   MouseEvent,
   Dispatch,
@@ -9,13 +8,11 @@ import {
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
 import config from '../../config';
-
 import Spinner from '../_common/Spinner';
 import DropdownMenu from '../_common/DropdownMenu';
-
 import TierService from '../../services/tier.service';
-
 import { useHelpers } from '../../context/HelperProvider';
 import DeleteModal from './DeleteModal';
 import { ROUTES } from 'constant/routes';
@@ -108,27 +105,19 @@ const TiersTable: React.FC<Props> = ({ data, onOpen, setSelectedTier }) => {
 
 const Component = () => {
   const { showAlert } = useHelpers();
-
-  const [inProgress, setProgress] = useState(false);
-  const [data, setData] = useState<Tier[]>([]);
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
 
-  const fetch = useCallback(async () => {
-    try {
-      setProgress(true);
-
-      const response = await TierService.getList();
-      setData(response);
-    } catch (e) {
-      showAlert(e.message);
-    } finally {
-      setProgress(false);
+  const { data, isLoading, isError, error } = useQuery(
+    'products',
+    TierService.getList,
+    {
+      onError: (err) => {
+        showAlert(err?.message);
+      }
     }
-  }, [showAlert]);
+  );
 
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
+  console.log({ data, isLoading, isError, error });
 
   const { isOpen, onClose, onOpen } = useDisclosure();
 
@@ -138,20 +127,23 @@ const Component = () => {
         <Head>
           <title>Products - {config.meta.title}</title>
         </Head>
-        {inProgress && <Spinner />}
-        <div className="grid grid-rows-header text-black">
-          <div>
-            <h1>List products</h1>
-            <Link href={ROUTES.PRODUCTS.ADD}>
-              <a>Add product</a>
-            </Link>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <div className="grid grid-rows-header text-black">
+            <div>
+              <h1>List products</h1>
+              <Link href={ROUTES.PRODUCTS.ADD}>
+                <a>Add product</a>
+              </Link>
+            </div>
+            <TiersTable
+              data={data}
+              setSelectedTier={setSelectedTier}
+              onOpen={onOpen}
+            />
           </div>
-          <TiersTable
-            data={data}
-            setSelectedTier={setSelectedTier}
-            onOpen={onOpen}
-          />
-        </div>
+        )}
       </div>
       <DeleteModal
         isOpen={isOpen}

@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import classnames from 'classnames';
 import Spinner from '../_common/Spinner';
 import {
   TIME_FRAMES_OPTIONS,
@@ -12,6 +11,15 @@ import {
 import config from 'config';
 import TierService from 'services/tier.service';
 import { useHelpers } from 'context/HelperProvider';
+import { ROUTES } from 'constant/routes';
+import BreadCrumbs from 'components/_common/BreadCrumbs';
+import Input from 'components/_common/Input';
+import Switch from 'components/_common/Switch';
+import Title from 'components/_typography/Title';
+import Dropdown, { Option } from 'components/_common/Dropdown';
+import Button from 'components/_common/Button';
+import Divider from 'components/_common/Divider';
+import { TypographyVariant } from 'types/Typography';
 
 const Component = () => {
   const router = useRouter();
@@ -123,178 +131,142 @@ const Component = () => {
     }
   }, [fields, changeFields]);
 
+  const pricingOptions: Option[] = Object.entries(PRICING_MODEL_OPTIONS).map(
+    ([key, val]) => ({
+      label: val,
+      value: key
+    })
+  );
+
+  const billingOptions: Option[] = Object.entries(BILLING_OPTIONS).map(
+    ([key, val]) => ({
+      label: val,
+      value: key
+    })
+  );
+
+  const trialTimeOptions: Option[] = Object.entries(TIME_FRAMES_OPTIONS).map(
+    ([key, val]) => ({
+      label: val,
+      value: key
+    })
+  );
+
   return (
-    <div
-      style={{ backgroundColor: '#333', overflowY: 'auto', height: '600px' }}
-    >
+    <>
       <Head>
         <title>Add Product - {config.meta.title}</title>
       </Head>
       {inProgress && <Spinner />}
-      <div className="content with-lines">
-        <div className="bread-crumbs">
-          <Link href="/tiers">
-            <a>Products</a>
-          </Link>
-          <span>{'>'}</span>
-          <Link href="/tiers/add">
-            <a className="active">Add Product</a>
-          </Link>
-        </div>
-        <div className="form">
-          <h2>Product Information</h2>
-          <div className="field">
-            <label>Name</label>
-            <input
-              type="text"
-              value={fields.name}
-              onChange={(e) => changeFields('name', e.target.value)}
-            />
-          </div>
-          <div className="field description">
-            <label>Description</label>
-            <textarea
-              value={fields.description}
-              onChange={(e) => changeFields('description', e.target.value)}
-            />
-          </div>
-          <div className="group-fields">
-            <div className="box half">
-              <input
-                type="checkbox"
-                checked={fields.meteredUsage}
-                onChange={(e) => changeFields('meteredUsage', e.target.checked)}
-              />
-              <span>Usage is metered</span>
-            </div>
-            {fields.meteredUsage && (
-              <div className="field half">
-                <label>Quota</label>
-                <input
-                  type="text"
-                  value={fields.quota}
-                  onChange={(e) => {
-                    if (e.target.value && !/^[0-9]*$/g.test(e.target.value)) {
-                      return;
-                    }
-
-                    changeFields('quota', e.target.value);
-                  }}
-                />
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="line" />
-        <div className="form">
-          <h2>Price Information</h2>
-          <h3>Pricing details</h3>
-          <div className="field">
-            <label>Pricing model</label>
-            <select
-              value={fields.pricingModel}
-              onChange={(e) => changeFields('pricingModel', e.target.value)}
-            >
-              {Object.entries(PRICING_MODEL_OPTIONS).map(([key, val]) => (
-                <option key={key} value={key}>
-                  {val}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="field">
-            <label>Price</label>
-            <div className="inp-with-currency">
-              <input
-                type="text"
-                value={fields.price}
-                onChange={(e) => {
-                  if (
-                    e.target.value &&
-                    !/^[0-9]*\.?[0-9]*$/g.test(e.target.value)
-                  ) {
-                    return;
-                  }
-
-                  changeFields('price', e.target.value);
-                }}
-                onBlur={(e) => {
-                  if (!e.target.value) {
-                    return;
-                  }
-                  changeFields('price', parseFloat(e.target.value).toFixed(2));
-                }}
-              />
-            </div>
-          </div>
-          <div className="field">
-            <label>Billing period</label>
-            <select
-              value={fields.billingPeriod}
-              onChange={(e) => changeFields('billingPeriod', e.target.value)}
-            >
-              {Object.entries(BILLING_OPTIONS).map(([key, val]) => (
-                <option key={key} value={val}>
-                  {val}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="field">
-            <button
-              type="button"
-              className={classnames('btn small', {
-                'light-blue': !fields.hasTrial,
-                'gradient-pink': fields.hasTrial
-              })}
-              onClick={clickAddTrial}
-            >
-              {fields.hasTrial ? '- Remove' : '+ Add'} free trial
-            </button>
-          </div>
-          {fields.hasTrial && (
-            <div style={{ width: '65%' }} className="group-fields">
-              <div className="field price-len">
-                <label>Length</label>
-                <input
-                  type="number"
-                  value={fields.trialLen}
-                  onChange={(e) => changeFields('trialLen', e.target.value)}
-                />
-              </div>
-              <div className="field price-type">
-                <label>Type</label>
-                <select
-                  value={fields.trialTimeFrame}
-                  onChange={(e) =>
-                    changeFields('trialTimeFrame', e.target.value)
-                  }
-                >
-                  {Object.entries(TIME_FRAMES_OPTIONS).map(([key, val]) => (
-                    <option key={key} value={key}>
-                      {val}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
+      <div className="flex flex-col space-y-2">
+        <BreadCrumbs
+          links={[
+            { url: ROUTES.PRODUCTS.BASE_URL, title: 'Products' },
+            { url: ROUTES.PRODUCTS.ADD, title: 'Add Product' }
+          ]}
+        />
+        <Title variant={TypographyVariant.dark}>Product Information</Title>
+        <Input
+          name="name"
+          placeholder="Add name"
+          label="Name"
+          value={fields.name}
+          onChange={(e) => changeFields('name', e.target.value)}
+        />
+        <Input
+          name="description"
+          placeholder="Add description"
+          label="Description"
+          value={fields.description}
+          onChange={(e) => changeFields('description', e.target.value)}
+        />
+        <Switch
+          checked={fields.meteredUsage}
+          onChange={(checked) => changeFields('meteredUsage', checked)}
+        />
+        {fields.meteredUsage && (
+          <Input
+            name="quota"
+            placeholder="Add quota"
+            label="Quota"
+            value={fields.quota}
+            onChange={(e) => {
+              if (e.target.value && !/^[0-9]*$/g.test(e.target.value)) return;
+              changeFields('quota', e.target.value);
+            }}
+          />
+        )}
+        <Divider />
+        <Title variant={TypographyVariant.dark}>Price Information</Title>
+        <Title variant={TypographyVariant.dark}>Pricing details</Title>
+        <Dropdown
+          label="Pricing model"
+          name="pricingModel"
+          value={pricingOptions.find(
+            (option) => option.value === fields.pricingModel
           )}
-        </div>
-        <div className="line" />
-        <div className="btns">
-          <button
-            type="button"
-            className="btn gradient-blue"
-            onClick={() => submitForm()}
-          >
-            Create
-          </button>
-          <Link href="/tiers">
-            <a className="btn clean-white">Cancel</a>
-          </Link>
-        </div>
+          onChange={(option) => changeFields('pricingModel', option.value)}
+          options={pricingOptions}
+        />
+        <Input
+          name="price"
+          placeholder="Add price"
+          label="Price"
+          value={fields.price}
+          onChange={(e) => {
+            if (e.target.value && !/^[0-9]*\.?[0-9]*$/g.test(e.target.value))
+              return;
+            changeFields('price', e.target.value);
+          }}
+          onBlur={(e) => {
+            if (!e.target.value) return;
+            changeFields('price', parseFloat(e.target.value).toFixed(2));
+          }}
+        />
+        <Dropdown
+          name="billingPeriod"
+          placeholder="Add billing period"
+          label="Billing period"
+          value={billingOptions.find(
+            (option) => option.value === fields.billingPeriod
+          )}
+          onChange={(option) => changeFields('billingPeriod', option.value)}
+          options={billingOptions}
+        />
+        <Button onClick={clickAddTrial}>
+          {fields.hasTrial ? '- Remove' : '+ Add'} free trial
+        </Button>
+        {fields.hasTrial && (
+          <>
+            <Input
+              name="length"
+              placeholder="Add length"
+              label="Length"
+              type="number"
+              value={fields.trialLen}
+              onChange={(e) => changeFields('trialLen', e.target.value)}
+            />
+            <Dropdown
+              name="trialTimeFrame"
+              placeholder="Add trial time"
+              label="Type"
+              value={trialTimeOptions.find(
+                (option) => option.value === fields.trialTimeFrame
+              )}
+              onChange={(option) =>
+                changeFields('trialTimeFrame', option.value)
+              }
+              options={trialTimeOptions}
+            />
+          </>
+        )}
+        <Divider />
+        <Button onClick={submitForm}>Create</Button>
+        <Link href={ROUTES.PRODUCTS.BASE_URL}>
+          <a className="text-black">Cancel</a>
+        </Link>
       </div>
-    </div>
+    </>
   );
 };
 
