@@ -5,7 +5,8 @@ export const ROUTES = {
     LOGIN: '/auth/login',
     VERIFY: '/auth/verify-email',
     RESET: '/auth/reset-password',
-    LOGOUT: '/auth/logout'
+    LOGOUT: '/auth/logout',
+    ONBOARD: '/auth/onboard'
   },
   DASHBOARD: {
     DASHBOARD: '/dashboard',
@@ -33,5 +34,5 @@ export const ROUTES = {
     BASE_URL: '/endpoints',
     ADD: '/endpoints/add',
     EDIT: '/endpoints/edit'
-  },
+  }
 };

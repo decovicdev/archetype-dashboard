@@ -5,11 +5,8 @@ import React, {
   createContext,
   useContext
 } from 'react';
-import { useRouter } from 'next/router';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import AuthService, { auth } from 'services/auth.service';
-
-const signupPages = ['/auth/signup', '/auth/signup/next'];
 
 type AuthContextValue = {
   isAuthLoading: boolean;
@@ -24,7 +21,6 @@ export const AuthContext = createContext<AuthContextValue>({
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const router = useRouter();
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<User>(null);
 
@@ -40,10 +36,7 @@ export const AuthProvider = ({ children }) => {
           .getIdToken()
           .then((token) => {
             sessionStorage.setItem('token', token);
-            if (
-              !sessionStorage.getItem('appId') &&
-              !signupPages.includes(router.pathname)
-            ) {
+            if (!sessionStorage.getItem('appId')) {
               return AuthService.getDetails();
             }
           })
@@ -60,7 +53,7 @@ export const AuthProvider = ({ children }) => {
     } catch {
       setIsAuthLoading(false);
     }
-  }, [router.pathname]);
+  }, []);
 
   useEffect(() => {
     init();

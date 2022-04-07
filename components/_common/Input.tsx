@@ -1,17 +1,19 @@
-import { forwardRef } from 'react';
+import { forwardRef, ReactNode } from 'react';
 import { FormVariant } from 'types/Form';
 
 type Props = {
   placeholder: string;
   variant?: FormVariant;
-  label?: string;
+  label?: ReactNode;
   name: string;
   className?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
   function Input(
-    { placeholder, variant, label, name, className, ...props },
+    { placeholder, variant, label, name, value, onChange, className, ...props },
     ref
   ) {
     return label ? (
@@ -21,7 +23,9 @@ const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
           name={name}
           className={`w-full rounded-md bg-white text-tblack-700 placeholder:text-tblack-200 py-3 px-4 font-sans ${variant}`}
           placeholder={placeholder}
+          value={value}
           ref={ref}
+          onChange={onChange}
           {...props}
         />
       </label>
@@ -30,7 +34,9 @@ const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
         name={name}
         className={`w-full rounded-md bg-white text-tblack-700 placeholder:text-tblack-200 py-3 px-4 font-sans ${variant} ${className}`}
         placeholder={placeholder}
+        value={value}
         ref={ref}
+        onChange={onChange}
         {...props}
       />
     );

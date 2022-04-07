@@ -19,6 +19,9 @@ const PrivateRoute = ({
     } else if (!currentUser.emailVerified) {
       void router.push(ROUTES.AUTH.VERIFY);
     }
+    if (!sessionStorage.getItem('appId')) {
+      void router.push(ROUTES.AUTH.ONBOARD);
+    }
   }, [currentUser, isAuthLoading, router]);
 
   if (isAuthLoading) return <Spinner />;

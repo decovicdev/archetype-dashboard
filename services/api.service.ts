@@ -10,6 +10,7 @@ export default class ApiService {
   }
 
   static async getCurrent() {
+    console.log('Invoked');
     return http.get('api');
   }
 
