@@ -1,19 +1,22 @@
 import { useState, useEffect, useCallback } from 'react';
-
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import classnames from 'classnames';
 import config from '../config';
-
 import KeyIcon from '../public/icons/key.svg';
 import AuthIcon from '../public/icons/auth.svg';
 import { useHelpers } from '../context/HelperProvider';
 import ApiService from '../services/api.service';
 import DeleteIcon from './_icons/DeleteIcon';
-
 import Spinner from './_common/Spinner';
 import Modal from './_common/Modal';
+import Input from './_common/Input';
+import RadioGroup from './_common/RadioGroup';
+import Button from './_common/Button';
 import useDisclosure from 'hooks/useDisclosure';
+import { ButtonVariant } from 'types/Button';
+import Paragraph from './_typography/Paragraph';
+import { TypographyVariant } from 'types/Typography';
 
 const AUTH_TYPES = {
   NONE: 'none',
@@ -41,6 +44,7 @@ const Component = () => {
       setProgress(true);
 
       const data = await ApiService.getCurrent();
+      console.log({ data });
 
       setData(data);
       setAuthType(data.auth_type);
@@ -100,6 +104,7 @@ const Component = () => {
       setProgress(true);
 
       const response = await ApiService.stripeCheckout();
+      console.log({ response });
 
       if (!response.connect_url) {
         throw new Error('Oops, could not get enough data to proceed');
@@ -140,7 +145,7 @@ const Component = () => {
     const isBlurred = !data?.has_completed_checkout;
 
     return (
-      <div className="block">
+      <div>
         <Image
           className="icon"
           src={KeyIcon}
@@ -149,34 +154,54 @@ const Component = () => {
           height={18}
         />{' '}
         <div>
-          <span className={classnames({ blurred: isBlurred })}>
-            App ID: {data?.app_id}
-          </span>
-          <br />
-          <br />
-          <span className={classnames({ blurred: isBlurred })}>
-            Public key: {data?.public_key}
-          </span>
-          <br />
-          <br />
-          <span className={classnames({ blurred: isBlurred })}>
-            Secret key: {data?.secret_key.join(', ')}
-          </span>
+          <Paragraph
+            className="text-left"
+            level={2}
+            variant={TypographyVariant.dark}
+          >
+            App ID: <span className="blur-sm">{data?.app_id}</span>
+          </Paragraph>
+          <Paragraph
+            className="text-left"
+            level={2}
+            variant={TypographyVariant.dark}
+          >
+            Public key: <span className="blur-sm">{data?.public_key}</span>
+          </Paragraph>
+          <Paragraph
+            className="text-left"
+            level={2}
+            variant={TypographyVariant.dark}
+          >
+            Secret key:{' '}
+            <span className="blur-sm">{data?.secret_key?.join(', ')}</span>
+          </Paragraph>
         </div>
         {isBlurred && (
-          <div className="tip">
+          <Paragraph
+            className="text-left"
+            level={2}
+            variant={TypographyVariant.dark}
+          >
             Important! Link your account to Stripe to access your keys
-          </div>
+          </Paragraph>
         )}
       </div>
     );
   }, [data]);
 
+  const radioOptions = [
+    { id: 'noAuth', label: 'No auth', value: AUTH_TYPES.NONE },
+    { id: 'url', label: 'URL', value: AUTH_TYPES.URL },
+    { id: 'header', label: 'Header', value: AUTH_TYPES.HEADER },
+    { id: 'body', label: 'Body', value: AUTH_TYPES.BODY }
+  ];
+
   return (
     <>
       {inProgress && <Spinner />}
       {renderSensitiveData()}
-      <div className="block">
+      <div className="text-black">
         <Image
           className="icon"
           src={AuthIcon}
@@ -185,106 +210,60 @@ const Component = () => {
           height={18}
         />{' '}
         Change auth type
-        <div className="auth-types">
-          <input
-            type="radio"
-            name="auth_type"
-            value={AUTH_TYPES.NONE}
-            checked={authType === AUTH_TYPES.NONE}
-            onChange={updateAuthType}
-            id="noAuth"
-          />{' '}
-          <label htmlFor="noAuth">No auth</label>
-          <br />
-          <input
-            type="radio"
-            name="auth_type"
-            value={AUTH_TYPES.URL}
-            checked={authType === AUTH_TYPES.URL}
-            onChange={updateAuthType}
-            id="url"
-          />{' '}
-          <label htmlFor="url">URL</label>
-          <br />
-          <input
-            type="radio"
-            name="auth_type"
-            value={AUTH_TYPES.HEADER}
-            checked={authType === AUTH_TYPES.HEADER}
-            onChange={updateAuthType}
-            id="header"
-          />{' '}
-          <label htmlFor="header">Header</label>
-          <br />
-          <input
-            type="radio"
-            name="auth_type"
-            value={AUTH_TYPES.BODY}
-            checked={authType === AUTH_TYPES.BODY}
-            onChange={updateAuthType}
-            id="body"
-          />{' '}
-          <label htmlFor="body">Body</label>
-        </div>
       </div>
-      <div className="block">
-        <Image
-          className="icon"
-          src={AuthIcon}
-          width={18}
-          height={18}
-          alt="redirect url"
-        />{' '}
-        Redirect URL
-        <div className="form">
-          <div className="field">
-            <input
-              type="text"
-              placeholder="URL"
-              value={redirectUrl}
-              onChange={(e) => setRedirectUrl(e.target.value)}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="block">
-        <Image
-          className="icon"
-          src={AuthIcon}
-          width={18}
-          height={18}
-          alt="return url"
-        />{' '}
-        Return URL
-        <div className="form">
-          <div className="field">
-            <input
-              type="text"
-              placeholder="URL"
-              value={returnUrl}
-              onChange={(e) => setReturnUrl(e.target.value)}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="block">
+      <RadioGroup
+        options={radioOptions}
+        onChange={updateAuthType}
+        checked={authType}
+      />
+      <Input
+        name="redirectUrl"
+        placeholder="URL"
+        label={
+          <>
+            <Image
+              className="icon"
+              src={AuthIcon}
+              width={18}
+              height={18}
+              alt="redirect url"
+            />{' '}
+            Redirect URL
+          </>
+        }
+        value={redirectUrl}
+        onChange={(e) => setRedirectUrl(e.target.value)}
+      />
+      <Input
+        name="returnUrl"
+        placeholder="URL"
+        label={
+          <>
+            <Image
+              className="icon"
+              src={AuthIcon}
+              width={18}
+              height={18}
+              alt="return url"
+            />{' '}
+            Return URL
+          </>
+        }
+        value={returnUrl}
+        onChange={(e) => setReturnUrl(e.target.value)}
+      />
+      <Button variant={ButtonVariant.danger} onClick={onOpen}>
         <DeleteIcon gradient />
-        <a onClick={onOpen}>Delete App</a>
-      </div>
-      <div className="btns">
-        <button type="button" className="btn gradient-blue" onClick={saveForm}>
-          Save
-        </button>
-        <button
-          type="button"
-          className="btn gradient-blue"
-          onClick={connectStripe}
-        >
-          {data?.has_completed_checkout
-            ? 'Stripe Successfully Linked'
-            : 'Connect your stripe account'}
-        </button>
-      </div>
+        <span className="ml-4">Delete App</span>
+      </Button>
+      <Button variant={ButtonVariant.primary} onClick={saveForm}>
+        Save
+      </Button>
+      <Button variant={ButtonVariant.outlined} onClick={connectStripe}>
+        {data?.has_completed_checkout
+          ? 'Stripe Successfully Linked'
+          : 'Connect your stripe account'}
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose} isBusy={isDeleting}>
         <div className="data">
           <h1>Delete Account</h1>

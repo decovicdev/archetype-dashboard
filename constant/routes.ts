@@ -28,5 +28,10 @@ export const ROUTES = {
     BASE_URL: '/products',
     ADD: '/products/add',
     EDIT: '/products/edit'
-  }
+  },
+  ENDPOINTS: {
+    BASE_URL: '/endpoints',
+    ADD: '/endpoints/add',
+    EDIT: '/endpoints/edit'
+  },
 };

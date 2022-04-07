@@ -35,7 +35,7 @@ const Component = () => {
       }
     }
 
-    void fetch();
+    fetch();
   }, [router.query.endpointId, showAlert]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();

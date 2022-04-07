@@ -1,16 +1,27 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-
+import {
+  sendEmailVerification,
+  updateEmail,
+  updatePassword,
+  updateProfile
+} from 'firebase/auth';
 import AccountVerifiedIcon from '../public/icons/account-verified.svg';
 import AccountUnverifiedIcon from '../public/icons/account-unverified.svg';
-
 import { useHelpers } from '../context/HelperProvider';
 import { useAuth } from '../context/AuthProvider';
+import Analytics from '../helpers/analytics';
 import EditIcon from './_icons/EditIcon';
 import Spinner from './_common/Spinner';
-
-import Analytics from './../helpers/analytics';
+import Input from './_common/Input';
+import Button from './_common/Button';
+import SuccessText from './_typography/SuccessText';
+import ErrorText from './_typography/ErrorText';
+import Paragraph from './_typography/Paragraph';
+import { TypographyVariant } from 'types/Typography';
+import Divider from './_common/Divider';
+import Title from './_typography/Title';
 
 const Component = () => {
   const router = useRouter();
@@ -30,7 +41,6 @@ const Component = () => {
 
     if (message) {
       showAlert(message, status === 'success');
-
       router.replace('/profile');
     }
   }, [router, showAlert]);
@@ -47,7 +57,7 @@ const Component = () => {
       }
       setProgress(true);
 
-      await currentUser.sendEmailVerification();
+      await sendEmailVerification(currentUser);
 
       showAlert('Verification link sent, please check your mailbox', true);
 
@@ -61,28 +71,19 @@ const Component = () => {
 
   const saveForm = useCallback(async () => {
     try {
-      if (inProgress) {
-        return;
-      }
+      if (inProgress) return;
       setProgress(true);
-
       if (currentUser?.displayName !== name) {
-        await currentUser?.updateProfile({
-          displayName: name
-        });
+        await updateProfile(currentUser, { displayName: name });
       }
-
       if (currentUser.email !== email) {
-        await currentUser?.updateEmail(password);
+        await updateEmail(currentUser, password);
       }
-
       if (password) {
-        await currentUser?.updatePassword(password);
+        await updatePassword(currentUser, password);
       }
-
       setIsEditing(false);
       setPassword('');
-
       showAlert('Saved Successfully', true);
     } catch (err) {
       showAlert(err.message);
@@ -105,77 +106,64 @@ const Component = () => {
           alt="Key"
           width={18}
           height={18}
-        />{' '}
-        <div className="status">
-          Status account:
+        />
+        <div className="flex justify-start">
+          <Paragraph variant={TypographyVariant.dark} level={3}>
+            Status account:
+          </Paragraph>
           {currentUser.emailVerified ? (
-            <span className="badge success">Verified</span>
+            <SuccessText>Verified</SuccessText>
           ) : (
-            <span className="badge error">Not verified</span>
+            <ErrorText>Not verified</ErrorText>
           )}
         </div>
         {!linkSent && (
-          <button
-            type="button"
-            className="verify-email-btn"
-            onClick={sendEmail}
-          >
+          <Button type="button" onClick={sendEmail}>
             Send an email to verify
-          </button>
+          </Button>
         )}
       </div>
-      <div className="separate-line" />
+      <Divider />
       <div className="caption-block">
-        <span>Information</span>
-        <button type="button" onClick={() => setIsEditing(!isEditing)}>
+        <Title variant={TypographyVariant.dark}>Information</Title>
+        <Button onClick={() => setIsEditing(!isEditing)}>
           <EditIcon gradient={isEditing} fill="#ffffff" />
-        </button>
+        </Button>
       </div>
       <form className="form">
-        <div className="field">
-          <label htmlFor="userName">Name</label>
-          <input
-            type="text"
-            value={name}
-            id="userName"
-            placeholder="Name"
-            disabled={!isEditing}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className="field">
-          <label htmlFor="userEmail">Email</label>
-          <input
-            type="email"
-            autoComplete="email"
-            value={email}
-            id="userEmail"
-            placeholder="Email"
-            disabled={!isEditing}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="field">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            value={password}
-            id="password"
-            placeholder="Password"
-            disabled={!isEditing}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-      </form>
-      <div className="separate-line" />
-      <div className="btns">
-        <button
-          className="btn gradient-blue"
+        <Input
+          name="userName"
+          placeholder="Name"
+          label="Name"
+          value={name}
           disabled={!isEditing}
-          onClick={saveForm}
-        >
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <Input
+          name="userEmail"
+          placeholder="Email"
+          label="Email"
+          htmlType="email"
+          value={email}
+          disabled={!isEditing}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <Input
+          name="password"
+          placeholder="Password"
+          label="Password"
+          htmlType="password"
+          value={password}
+          disabled={!isEditing}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </form>
+      <div>
+        <Button disabled={!isEditing} onClick={saveForm}>
           Save
-        </button>
+        </Button>
       </div>
     </>
   );

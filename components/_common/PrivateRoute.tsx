@@ -27,6 +27,8 @@ const PrivateRoute = ({
     return children;
   }
 
+  console.log({ currentUser });
+
   return null;
 };
 

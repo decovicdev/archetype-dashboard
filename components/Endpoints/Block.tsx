@@ -3,6 +3,8 @@ import Link from 'next/link';
 import classnames from 'classnames';
 
 import DropdownMenu from '../_common/DropdownMenu';
+import Button from 'components/_common/Button';
+import { ButtonVariant } from 'types/Button';
 
 const Component = forwardRef(function Component({ data, clickDelete }, ref) {
   return (
@@ -24,23 +26,18 @@ const Component = forwardRef(function Component({ data, clickDelete }, ref) {
             <Link href={`/endpoints/edit/${data.uid}`}>
               <a className="edit-btn">Edit</a>
             </Link>
-            <button
-              type="button"
-              className="delete-btn"
+            <Button
+              variant={ButtonVariant.danger}
               onClick={() => clickDelete(data.uid)}
             >
               Delete
-            </button>
+            </Button>
           </DropdownMenu>
         </div>
         {data.description && data.description.length && (
           <div className="text">{data.description}</div>
         )}
-        <input
-          type="text"
-          readOnly
-          defaultValue={data?.path ? data?.path : null}
-        />
+        <input type="text" readOnly defaultValue={data?.path ?? null} />
       </div>
     </div>
   );

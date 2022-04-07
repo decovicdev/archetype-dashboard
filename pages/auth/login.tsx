@@ -50,6 +50,7 @@ const LoginPage: NextPage = () => {
 
   const router = useRouter();
   const { isAuthLoading, currentUser } = useAuth();
+  console.log({ isAuthLoading, currentUser });
 
   useEffect(() => {
     if (isAuthLoading) return;
@@ -88,7 +89,7 @@ const LoginPage: NextPage = () => {
       </div>
       <form
         className="w-full flex flex-col space-y-[24px]"
-        onSubmit={void handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
       >
         {networkError ? (
           <ErrorText>

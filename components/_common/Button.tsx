@@ -8,7 +8,9 @@ const styles = {
     'bg-white text-tblue-700 border border-solid border-tblack-100 py-2',
   [ButtonVariant.link]: 'bg-transparent text-tblue-700 py-2',
   [ButtonVariant.navLink]:
-    'bg-transparent text-twhite-600 hover:text-white hover:bg-tgreen-400 transiation-all py-3'
+    'bg-transparent text-twhite-600 hover:text-white hover:bg-tgreen-400 transiation-all py-3',
+  [ButtonVariant.danger]:
+    'bg-red-400 text-twhite-600 hover:text-white hover:bg-red-500 transiation-all py-3'
 };
 
 const activeStyles = {
