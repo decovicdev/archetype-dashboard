@@ -107,17 +107,15 @@ const Component = () => {
   const { showAlert } = useHelpers();
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
 
-  const { data, isLoading, isError, error } = useQuery(
+  const { data, isLoading, isError } = useQuery(
     'products',
     TierService.getList,
     {
-      onError: (err) => {
+      onError: (err: any) => {
         showAlert(err?.message);
       }
     }
   );
-
-  console.log({ data, isLoading, isError, error });
 
   const { isOpen, onClose, onOpen } = useDisclosure();
 
@@ -127,7 +125,9 @@ const Component = () => {
         <Head>
           <title>Products - {config.meta.title}</title>
         </Head>
-        {isLoading ? (
+        {isError ? (
+          <div>Error</div>
+        ) : isLoading ? (
           <Spinner />
         ) : (
           <div className="grid grid-rows-header text-black">
@@ -138,7 +138,7 @@ const Component = () => {
               </Link>
             </div>
             <TiersTable
-              data={data}
+              data={data as unknown as Tier[]}
               setSelectedTier={setSelectedTier}
               onOpen={onOpen}
             />

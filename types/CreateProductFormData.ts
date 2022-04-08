@@ -2,7 +2,7 @@ export type CreateProductFormData = {
   name: string;
   description: string;
   price: number;
-  period: Date;
+  period: string;
   currency: string;
   has_quota: boolean;
   quota: number;

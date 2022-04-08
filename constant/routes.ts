@@ -34,5 +34,10 @@ export const ROUTES = {
     BASE_URL: '/endpoints',
     ADD: '/endpoints/add',
     EDIT: '/endpoints/edit'
+  },
+  USERS: {
+    BASE_URL: '/users',
+    ADD: '/users/add',
+    EDIT: '/users/edit'
   }
 };

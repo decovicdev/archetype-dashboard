@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useMutation, useQueryClient } from 'react-query';
 import Spinner from '../_common/Spinner';
 import {
   TIME_FRAMES_OPTIONS,
@@ -20,13 +20,13 @@ import Dropdown, { Option } from 'components/_common/Dropdown';
 import Button from 'components/_common/Button';
 import Divider from 'components/_common/Divider';
 import { TypographyVariant } from 'types/Typography';
+import { ButtonVariant } from 'types/Button';
 
 const Component = () => {
   const router = useRouter();
-
   const { showAlert } = useHelpers();
+  const queryClient = useQueryClient();
 
-  const [inProgress, setProgress] = useState(false);
   const [fields, setFields] = useState({
     name: '',
     description: '',
@@ -39,12 +39,6 @@ const Component = () => {
     trialLen: 0,
     trialTimeFrame: null
   });
-
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors }
-  // } = useForm<CreateProductFormData>({ resolver: yupResolver(schema) });
 
   const changeFields = useCallback(
     (field, value, obj?: any) => {
@@ -63,57 +57,43 @@ const Component = () => {
     [fields]
   );
 
-  const submitForm = useCallback(async () => {
-    try {
-      if (inProgress) return;
+  const { mutate: submitForm, isLoading } = useMutation(
+    async () => {
+      try {
+        if (isLoading) return;
+        if (!fields.name) return showAlert('Name is required field');
+        if (!fields.price) return showAlert('Price is required field');
 
-      if (!fields.name) {
-        return showAlert('Name is required field');
+        await TierService.addNew({
+          name: fields.name,
+          description:
+            !fields.hasTrial && !fields.description
+              ? 'No trial'
+              : fields.description,
+          price: parseFloat(parseFloat(fields.price).toFixed(2)),
+          period: fields.billingPeriod,
+          currency: 'usd',
+          has_quota: fields.meteredUsage && parseInt(`${fields.quota}`) > 0,
+          quota: fields.meteredUsage ? parseInt(`${fields.quota}`) : 0,
+          has_trial: fields.hasTrial,
+          trial_length: fields.trialLen,
+          trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame]
+        });
+      } catch (e) {
+        showAlert(e.message);
       }
-      if (!fields.price) {
-        return showAlert('Price is required field');
+    },
+    {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries('products');
+        showAlert('Success', true);
+        void router.push(ROUTES.PRODUCTS.BASE_URL);
+      },
+      onError: (e: any) => {
+        showAlert(e.message);
       }
-
-      setProgress(true);
-
-      await TierService.addNew({
-        name: fields.name,
-        description:
-          !fields.hasTrial && !fields.description
-            ? 'No trial'
-            : fields.description,
-        price: parseFloat(parseFloat(fields.price).toFixed(2)),
-        period: fields.billingPeriod,
-        currency: 'usd',
-        has_quota: fields.meteredUsage && parseInt(fields.quota) > 0,
-        quota: fields.meteredUsage ? parseInt(fields.quota) : 0,
-        has_trial: fields.hasTrial,
-        trial_length: fields.trialLen,
-        trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame]
-      });
-
-      showAlert('Success', true);
-
-      void router.push('/products');
-    } catch (e) {
-      showAlert(e.message);
-    } finally {
-      setProgress(false);
     }
-  }, [
-    inProgress,
-    fields.name,
-    fields.price,
-    fields.hasTrial,
-    fields.description,
-    fields.billingPeriod,
-    fields.meteredUsage,
-    fields.quota,
-    fields.trialLen,
-    fields.trialTimeFrame,
-    showAlert,
-    router
-  ]);
+  );
 
   const clickAddTrial = useCallback(() => {
     if (fields.hasTrial) {
@@ -157,7 +137,7 @@ const Component = () => {
       <Head>
         <title>Add Product - {config.meta.title}</title>
       </Head>
-      {inProgress && <Spinner />}
+      {isLoading && <Spinner />}
       <div className="flex flex-col space-y-2">
         <BreadCrumbs
           links={[
@@ -181,6 +161,7 @@ const Component = () => {
           onChange={(e) => changeFields('description', e.target.value)}
         />
         <Switch
+          label={fields.meteredUsage ? 'Limited Quota' : 'Unlimited Quota'}
           checked={fields.meteredUsage}
           onChange={(checked) => changeFields('meteredUsage', checked)}
         />
@@ -201,7 +182,7 @@ const Component = () => {
         <Title variant={TypographyVariant.dark}>Pricing details</Title>
         <Dropdown
           label="Pricing model"
-          name="pricingModel"
+          // name="pricingModel"
           value={pricingOptions.find(
             (option) => option.value === fields.pricingModel
           )}
@@ -224,7 +205,7 @@ const Component = () => {
           }}
         />
         <Dropdown
-          name="billingPeriod"
+          // name="billingPeriod"
           placeholder="Add billing period"
           label="Billing period"
           value={billingOptions.find(
@@ -242,12 +223,12 @@ const Component = () => {
               name="length"
               placeholder="Add length"
               label="Length"
-              type="number"
+              htmlType="number"
               value={fields.trialLen}
               onChange={(e) => changeFields('trialLen', e.target.value)}
             />
             <Dropdown
-              name="trialTimeFrame"
+              // name="trialTimeFrame"
               placeholder="Add trial time"
               label="Type"
               value={trialTimeOptions.find(
@@ -261,10 +242,10 @@ const Component = () => {
           </>
         )}
         <Divider />
-        <Button onClick={submitForm}>Create</Button>
-        <Link href={ROUTES.PRODUCTS.BASE_URL}>
-          <a className="text-black">Cancel</a>
-        </Link>
+        <Button onClick={() => submitForm()}>Create</Button>
+        <Button variant={ButtonVariant.outlined} url={ROUTES.PRODUCTS.BASE_URL}>
+          Cancel
+        </Button>
       </div>
     </>
   );

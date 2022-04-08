@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, ReactNode } from 'react';
 import ChevronDown from 'components/_icons/ChevronDown';
 
 export type Option = { label: string; value: string | number };
@@ -6,6 +6,7 @@ type Props = {
   className?: string;
   placeholder?: string;
   value?: Option;
+  label?: ReactNode;
   options: Option[];
   onChange?: (option?: Option) => void;
 };
@@ -15,6 +16,7 @@ const Dropdown: React.FC<Props> = ({
   placeholder,
   onChange,
   value,
+  label,
   options
 }) => {
   const [isOpen, setOpen] = useState(false);
@@ -32,6 +34,11 @@ const Dropdown: React.FC<Props> = ({
   return (
     <div className={className} ref={dropdownRef}>
       <div className="relative min-w-max w-full">
+        {label ? (
+          <span className="text-sm text-tblack-400 mb-3 font-sans">
+            {label}
+          </span>
+        ) : null}
         <button
           className={`rounded-md bg-white py-3 px-4 w-full flex justify-between items-center group ${
             selected ? 'text-tblack-200' : 'text-tblack-200'

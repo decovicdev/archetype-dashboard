@@ -1,4 +1,9 @@
-import { forwardRef, ReactNode } from 'react';
+import {
+  ChangeEventHandler,
+  FocusEventHandler,
+  forwardRef,
+  ReactNode
+} from 'react';
 import { FormVariant } from 'types/Form';
 
 type Props = {
@@ -7,13 +12,26 @@ type Props = {
   label?: ReactNode;
   name: string;
   className?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string | number;
+  htmlType?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
 };
 
 const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
   function Input(
-    { placeholder, variant, label, name, value, onChange, className, ...props },
+    {
+      placeholder,
+      variant,
+      label,
+      name,
+      value,
+      onChange,
+      onBlur,
+      htmlType = 'text',
+      className,
+      ...props
+    },
     ref
   ) {
     return label ? (
@@ -26,6 +44,8 @@ const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
           value={value}
           ref={ref}
           onChange={onChange}
+          onBlur={onBlur}
+          type={htmlType}
           {...props}
         />
       </label>
@@ -37,6 +57,8 @@ const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
         value={value}
         ref={ref}
         onChange={onChange}
+        onBlur={onBlur}
+        type={htmlType}
         {...props}
       />
     );
