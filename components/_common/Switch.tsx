@@ -9,7 +9,7 @@ const Switch: React.FC<Props> = ({ checked, label, onChange, ...props }) => {
   const [isChecked, setIsChecked] = useState(checked);
 
   return (
-    <>
+    <div className="flex items-center space-x-2 py-2">
       <button
         className={`w-10 p-1 rounded-2xl flex items-center ${
           isChecked ? 'bg-tblue-700' : 'bg-tblack-100'
@@ -29,9 +29,9 @@ const Switch: React.FC<Props> = ({ checked, label, onChange, ...props }) => {
         />
       </button>
       {label ? (
-        <span className="text-sm text-tblack-400 mb-3 font-sans">{label}</span>
+        <span className="text-sm text-tblack-400 font-sans">{label}</span>
       ) : null}
-    </>
+    </div>
   );
 };
 

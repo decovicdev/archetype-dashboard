@@ -170,6 +170,7 @@ const Component = () => {
             name="quota"
             placeholder="Add quota"
             label="Quota"
+            htmlType="number"
             value={fields.quota}
             onChange={(e) => {
               if (e.target.value && !/^[0-9]*$/g.test(e.target.value)) return;

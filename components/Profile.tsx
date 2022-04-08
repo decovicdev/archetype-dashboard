@@ -95,7 +95,7 @@ const Component = () => {
   return (
     <>
       {inProgress && <Spinner />}
-      <div className="block">
+      <div className="w-full flex space-x-2 items-center">
         <Image
           className="icon"
           src={
@@ -107,29 +107,43 @@ const Component = () => {
           width={18}
           height={18}
         />
-        <div className="flex justify-start">
-          <Paragraph variant={TypographyVariant.dark} level={3}>
+        <div className="w-full flex items-center justify-start">
+          <Paragraph
+            className="w-fit whitespace-nowrap"
+            variant={TypographyVariant.dark}
+            level={3}
+          >
             Status account:
           </Paragraph>
           {currentUser.emailVerified ? (
-            <SuccessText>Verified</SuccessText>
+            <SuccessText className="w-fit ml-2 !font-bold whitespace-nowrap">
+              Verified
+            </SuccessText>
           ) : (
             <ErrorText>Not verified</ErrorText>
           )}
         </div>
-        {!linkSent && (
-          <Button type="button" onClick={sendEmail}>
+        {!linkSent && !currentUser.emailVerified && (
+          <Button className="whitespace-nowrap" onClick={sendEmail}>
             Send an email to verify
           </Button>
         )}
       </div>
-      <Divider />
-      <div className="caption-block">
-        <Title variant={TypographyVariant.dark}>Information</Title>
+      <Divider className="my-4" />
+
+      <div className="flex space-x-2 items-center">
+        <Title
+          level={3}
+          className="!text-left mb-2"
+          variant={TypographyVariant.dark}
+        >
+          Information
+        </Title>
         <Button onClick={() => setIsEditing(!isEditing)}>
           <EditIcon gradient={isEditing} fill="#ffffff" />
         </Button>
       </div>
+
       <form className="form">
         <Input
           name="userName"

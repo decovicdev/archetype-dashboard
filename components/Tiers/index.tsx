@@ -19,6 +19,10 @@ import { ROUTES } from 'constant/routes';
 import { Tier } from 'types/Tiers';
 import Card from 'components/_common/Card';
 import useDisclosure from 'hooks/useDisclosure';
+import Title from 'components/_typography/Title';
+import { TypographyVariant } from 'types/Typography';
+import Button from 'components/_common/Button';
+import { ButtonVariant } from 'types/Button';
 
 type Props = {
   data?: Tier[];
@@ -49,7 +53,7 @@ const TiersTable: React.FC<Props> = ({ data, onOpen, setSelectedTier }) => {
 
   return (
     <Card>
-      <div className="grid grid-cols-6">
+      <div className="w-full grid grid-cols-7">
         <div>Type product</div>
         <div>Price</div>
         <div>Length</div>
@@ -57,48 +61,42 @@ const TiersTable: React.FC<Props> = ({ data, onOpen, setSelectedTier }) => {
         <div>Subscribers</div>
         <div>Quota</div>
       </div>
-      <div>
-        {data.map((item, i) => (
-          <div
-            key={i}
-            onClick={(e) => {
-              onClickTier(e, item);
-            }}
-            className="grid grid-cols-6"
-          >
-            <div>{item.name}</div>
-            <div>${item.price}</div>
-            <div>{`${item.period}ly`}</div>
-            <div>
-              {item.has_trial
-                ? `${item.trial_length} ${item.trial_time_frame}`
-                : '-'}
-            </div>
-            <div>{item.users.length} users</div>
-            <div>
-              <div>{item.quota ? `${item.quota}/day` : `Unlimited`}</div>
-              <DropdownMenu
-                title={
-                  <div className="border border-red-400 h-10 w-10 bg-red-700" />
-                }
-              >
-                <Link href={`${ROUTES.PRODUCTS.EDIT}/${item.tier_id}`}>
-                  <a>Edit</a>
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedTier(item.tier_id);
-                    onOpen();
-                  }}
-                >
-                  Delete
-                </button>
-              </DropdownMenu>
-            </div>
+
+      {data.map((item, i) => (
+        <div
+          key={i}
+          onClick={(e) => {
+            onClickTier(e, item);
+          }}
+          className="w-full grid grid-cols-7"
+        >
+          <div>{item.name}</div>
+          <div>${item.price}</div>
+          <div>{`${item.period}ly`}</div>
+          <div>
+            {item.has_trial
+              ? `${item.trial_length} ${item.trial_time_frame}`
+              : '-'}
           </div>
-        ))}
-      </div>
+          <div>{item.users.length} users</div>
+
+          <div>{item.quota ? `${item.quota}/day` : `Unlimited`}</div>
+          <DropdownMenu title={<Button>Options</Button>}>
+            <Button url={`${ROUTES.PRODUCTS.EDIT}/${item.tier_id}`}>
+              Edit
+            </Button>
+            <Button
+              variant={ButtonVariant.danger}
+              onClick={() => {
+                setSelectedTier(item.tier_id);
+                onOpen();
+              }}
+            >
+              Delete
+            </Button>
+          </DropdownMenu>
+        </div>
+      ))}
     </Card>
   );
 };
@@ -121,30 +119,34 @@ const Component = () => {
 
   return (
     <>
-      <div className="page tiers-page !text-black">
-        <Head>
-          <title>Products - {config.meta.title}</title>
-        </Head>
-        {isError ? (
-          <div>Error</div>
-        ) : isLoading ? (
-          <Spinner />
-        ) : (
-          <div className="grid grid-rows-header text-black">
-            <div>
-              <h1>List products</h1>
-              <Link href={ROUTES.PRODUCTS.ADD}>
-                <a>Add product</a>
-              </Link>
-            </div>
-            <TiersTable
-              data={data as unknown as Tier[]}
-              setSelectedTier={setSelectedTier}
-              onOpen={onOpen}
-            />
+      <Head>
+        <title>Products - {config.meta.title}</title>
+      </Head>
+      {isError ? (
+        <div>Error</div>
+      ) : isLoading ? (
+        <Spinner />
+      ) : (
+        <div className="grid grid-rows-header text-black">
+          <div className="flex space-x-2 items-center mb-2">
+            <Title
+              variant={TypographyVariant.dark}
+              level={3}
+              className="!text-left mb-2"
+            >
+              List products
+            </Title>
+            <Button className="whitespace-nowrap" url={ROUTES.PRODUCTS.ADD}>
+              Add product
+            </Button>
           </div>
-        )}
-      </div>
+          <TiersTable
+            data={data as unknown as Tier[]}
+            setSelectedTier={setSelectedTier}
+            onOpen={onOpen}
+          />
+        </div>
+      )}
       <DeleteModal
         isOpen={isOpen}
         onClose={onClose}

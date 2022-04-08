@@ -1,62 +1,60 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import classnames from 'classnames';
-import config from '../../config';
-
-import Spinner from '../_common/Spinner';
-import Modal from '../_common/Modal';
-
-import TierService from '../../services/tier.service';
-
-import { useHelpers } from '../../context/HelperProvider';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import {
   TIME_FRAMES_OPTIONS,
   BILLING_OPTIONS,
   PRICING_MODEL_OPTIONS
 } from './assets';
+import config from 'config';
+import Spinner from 'components/_common/Spinner';
+import Modal from 'components/_common/Modal';
+import TierService from 'services/tier.service';
+import { useHelpers } from 'context/HelperProvider';
 import { ROUTES } from 'constant/routes';
 import useDisclosure from 'hooks/useDisclosure';
+import Input from 'components/_common/Input';
+import { TypographyVariant } from 'types/Typography';
+import Title from 'components/_typography/Title';
+import Switch from 'components/_common/Switch';
+import Divider from 'components/_common/Divider';
+import Dropdown, { Option } from 'components/_common/Dropdown';
+import Button from 'components/_common/Button';
+import { ButtonVariant } from 'types/Button';
+import ErrorText from 'components/_typography/ErrorText';
+import Paragraph from 'components/_typography/Paragraph';
+import BreadCrumbs from 'components/_common/BreadCrumbs';
 
 const Component = () => {
   const router = useRouter();
 
   const { showAlert } = useHelpers();
 
-  const [inProgress, setProgress] = useState(false);
   const [fields, setFields] = useState(null);
 
-  useEffect(() => {
-    async function fetch() {
-      try {
-        setProgress(true);
-
-        const response = await TierService.getById(
-          router.query.tierId as string
-        );
-
+  const { isLoading } = useQuery(
+    ['product', router.query.tierId],
+    async () => TierService.getById(router.query.tierId as string),
+    {
+      onError: (e: any) => showAlert(e.message),
+      onSuccess: (newData) => {
         setFields({
-          name: response.name,
-          description: response.description,
-          quota: response.quota,
+          name: newData.name,
+          description: newData.description,
+          quota: newData.quota,
           pricingModel: 1,
-          price: response.price,
-          billingPeriod: response.period,
-          meteredUsage: response.has_quota && parseInt(response.quota) > 0,
-          hasTrial: response.has_trial,
-          trialLen: response.trial_length,
-          trialTimeFrame: response.trial_time_frame
+          price: newData.price,
+          billingPeriod: newData.period,
+          meteredUsage: newData.has_quota && parseInt(newData.quota) > 0,
+          hasTrial: newData.has_trial,
+          trialLen: newData.trial_length,
+          trialTimeFrame: newData.trial_time_frame
         });
-      } catch (e) {
-        showAlert(e.message);
-      } finally {
-        setProgress(false);
       }
     }
-
-    fetch();
-  }, [router.query.tierId, showAlert]);
+  );
 
   const changeFields = useCallback(
     (field, value, obj?: any) => {
@@ -75,38 +73,40 @@ const Component = () => {
     [fields]
   );
 
-  const submitForm = useCallback(async () => {
-    try {
-      if (inProgress) {
-        return;
+  const queryClient = useQueryClient();
+
+  const { mutate: submitForm, isLoading: isMutationLoading } = useMutation(
+    async () => {
+      try {
+        if (isMutationLoading) return;
+        await TierService.updateById(router.query.tierId, {
+          name: fields.name,
+          description:
+            !fields.hasTrial && !fields.description
+              ? 'No trial'
+              : fields.description,
+          price: parseFloat(parseFloat(fields.price).toFixed(2)),
+          period: fields.billingPeriod,
+          currency: 'usd',
+          has_quota: fields.meteredUsage && parseInt(fields.quota) > 0,
+          quota: fields.meteredUsage ? parseInt(fields.quota) : 0,
+          has_trial: fields.hasTrial,
+          trial_length: fields.trialLen,
+          trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame]
+        });
+      } catch (e) {
+        showAlert(e.message);
       }
-      setProgress(true);
-
-      await TierService.updateById(router.query.tierId, {
-        name: fields.name,
-        description:
-          !fields.hasTrial && !fields.description
-            ? 'No trial'
-            : fields.description,
-        price: parseFloat(parseFloat(fields.price).toFixed(2)),
-        period: fields.billingPeriod,
-        currency: 'usd',
-        has_quota: fields.meteredUsage && parseInt(fields.quota) > 0,
-        quota: fields.meteredUsage ? parseInt(fields.quota) : 0,
-        has_trial: fields.hasTrial,
-        trial_length: fields.trialLen,
-        trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame]
-      });
-
-      showAlert('Success', true);
-
-      router.push(ROUTES.PRODUCTS.BASE_URL);
-    } catch (e) {
-      showAlert(e.message);
-    } finally {
-      setProgress(false);
+    },
+    {
+      onError: (e: any) => showAlert(e.message),
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(['product', router.query.tierId]);
+        showAlert('Success', true);
+        void router.push(ROUTES.PRODUCTS.BASE_URL);
+      }
     }
-  }, [inProgress, router, fields, showAlert]);
+  );
 
   const clickAddTrial = useCallback(() => {
     if (fields.hasTrial) {
@@ -123,213 +123,198 @@ const Component = () => {
       });
     }
   }, [fields, changeFields]);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const renderContent = useCallback(() => {
-    if (!fields) {
-      return <div className="no-content">Product not found.</div>;
-    }
 
-    return (
-      <div
-        style={{ backgroundColor: '#333', overflowY: 'auto', height: '600px' }}
-      >
-        <div className="form">
-          <h2>Product Information</h2>
-          <div className="field">
-            <label>Name</label>
-            <input
-              type="text"
-              value={fields.name}
-              onChange={(e) => changeFields('name', e.target.value)}
-            />
-          </div>
-          <div className="field description">
-            <label>Description</label>
-            <textarea
-              value={fields.description}
-              onChange={(e) => changeFields('description', e.target.value)}
-            />
-          </div>
-          <div className="group-fields">
-            <div className="box half">
-              <input
-                type="checkbox"
-                checked={fields.meteredUsage}
-                onChange={(e) => changeFields('meteredUsage', e.target.checked)}
-              />
-              <span>Usage is metered</span>
-            </div>
-            {fields.meteredUsage && (
-              <div className="field half">
-                <label>Quota</label>
-                <input
-                  type="number"
-                  value={fields.quota}
-                  onChange={(e) => {
-                    if (e.target.value && !/^[0-9]*$/g.test(e.target.value)) {
-                      return;
-                    }
+  const pricingOptions: Option[] = Object.entries(PRICING_MODEL_OPTIONS).map(
+    ([key, val]) => ({
+      label: val,
+      value: key
+    })
+  );
 
-                    changeFields('quota', e.target.value);
-                  }}
-                />
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="line" />
-        <div className="form">
-          <h2>Price Information</h2>
-          <h3>Pricing details</h3>
-          <div className="field">
-            <label>Pricing model</label>
-            <select
-              value={fields.pricingModel}
-              onChange={(e) => changeFields('pricingModel', e.target.value)}
-            >
-              {Object.entries(PRICING_MODEL_OPTIONS).map(([key, val]) => (
-                <option key={key} value={key}>
-                  {val}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="field">
-            <label>Price</label>
-            <div className="inp-with-currency">
-              <input
-                type="text"
-                value={fields.price}
-                onChange={(e) => {
-                  if (
-                    e.target.value &&
-                    !/^[0-9]*\.?[0-9]*$/g.test(e.target.value)
-                  ) {
-                    return;
-                  }
+  const billingOptions: Option[] = Object.entries(BILLING_OPTIONS).map(
+    ([key, val]) => ({
+      label: val,
+      value: key
+    })
+  );
 
-                  changeFields('price', e.target.value);
-                }}
-                onBlur={(e) => {
-                  if (!e.target.value) {
-                    return;
-                  }
-                  changeFields('price', parseFloat(e.target.value).toFixed(2));
-                }}
-              />
-            </div>
-          </div>
-          <div className="field">
-            <label>Billing period</label>
-            <select
-              value={fields.billingPeriod}
-              onChange={(e) => changeFields('billingPeriod', e.target.value)}
-            >
-              {Object.entries(BILLING_OPTIONS).map(([key, val]) => (
-                <option key={key} value={val}>
-                  {val}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="field">
-            <button
-              type="button"
-              className={classnames('btn small', {
-                'light-blue': !fields.hasTrial,
-                'gradient-pink': fields.hasTrial
-              })}
-              onClick={clickAddTrial}
-            >
-              {fields.hasTrial ? '- Remove' : '+ Add'} free trial
-            </button>
-          </div>
-          {fields.hasTrial && (
-            <div style={{ width: '65%' }} className="group-fields">
-              <div className="field price-len">
-                <label>Length</label>
-                <input
-                  type="number"
-                  value={fields.trialLen}
-                  onChange={(e) => changeFields('trialLen', e.target.value)}
-                />
-              </div>
-              <div className="field price-type">
-                <label>Type</label>
-                <select
-                  value={fields.trialTimeFrame}
-                  onChange={(e) =>
-                    changeFields('trialTimeFrame', e.target.value)
-                  }
-                >
-                  {Object.entries(TIME_FRAMES_OPTIONS).map(([key, val]) => (
-                    <option key={key} value={key}>
-                      {val}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          )}
-        </div>
-        <div className="line" />
-        <div className="btns">
-          <button type="button" className="btn gradient-blue" onClick={onOpen}>
-            Save
-          </button>
-          <Link href={`${ROUTES.PRODUCTS.BASE_URL}/${router.query.tierId}`}>
-            <a className="btn purple-w-border">Cancel</a>
-          </Link>
-        </div>
-      </div>
-    );
-  }, [changeFields, clickAddTrial, fields, onOpen, router.query.tierId]);
+  const trialTimeOptions: Option[] = Object.entries(TIME_FRAMES_OPTIONS).map(
+    ([key, val]) => ({
+      label: val,
+      value: key
+    })
+  );
 
   return (
-    <div
-      style={{ backgroundColor: '#333', overflowY: 'auto', height: '600px' }}
-    >
-      <div className="page tiers-edit-page">
-        <Head>
-          <title>Edit Product - {config.meta.title}</title>
-        </Head>
-        {inProgress && <Spinner />}
-        <div className="content with-lines">
-          <div className="bread-crumbs">
-            <Link href={ROUTES.PRODUCTS.BASE_URL}>
-              <a>Products</a>
-            </Link>
-            <span>{'>'}</span>
-            <Link href={router.pathname}>
-              <a className="active">Edit Product</a>
-            </Link>
-          </div>
-          {renderContent()}
-        </div>
-      </div>
-      <Modal isOpen={isOpen} onClose={onClose} title="Save product?">
-        <div className="data">
-          <p>
-            Do you want <span>to save</span> the changes?
-          </p>
-          <p>
-            If you choose <span>not to save</span> changes will be lost
-          </p>
-        </div>
-        <div className="btns">
-          <button
-            type="button"
-            className="half-width action"
-            onClick={submitForm}
+    <>
+      <Head>
+        <title>Edit Product - {config.meta.title}</title>
+      </Head>
+      {isLoading && <Spinner />}
+
+      <BreadCrumbs
+        links={[
+          { url: ROUTES.PRODUCTS.BASE_URL, title: 'Products' },
+          {
+            url: `${ROUTES.PRODUCTS.EDIT}/${router.query.tierId}`,
+            title: 'Edit Product'
+          }
+        ]}
+      />
+      {fields ? (
+        <>
+          <Title
+            variant={TypographyVariant.dark}
+            level={3}
+            className="!text-left mb-2"
           >
-            Save
-          </button>
-          <button type="button" className="half-width" onClick={onClose}>
+            Product Information
+          </Title>
+          <Input
+            name="name"
+            placeholder="Name"
+            label="Name"
+            value={fields.name}
+            onChange={(e) => changeFields('name', e.target.value)}
+          />
+          <Input
+            name="description"
+            placeholder="Description"
+            label="Description"
+            value={fields.description}
+            onChange={(e) => changeFields('description', e.target.value)}
+          />
+
+          <Switch
+            label={fields.meteredUsage ? 'Usage is metered' : 'Unlimited Quota'}
+            checked={fields.meteredUsage}
+            onChange={(checked) => changeFields('meteredUsage', checked)}
+          />
+          {fields.meteredUsage && (
+            <Input
+              name="quota"
+              placeholder="Add quota"
+              htmlType="number"
+              label="Quota"
+              value={fields.quota}
+              onChange={(e) => {
+                if (e.target.value && !/^[0-9]*$/g.test(e.target.value)) return;
+                changeFields('quota', e.target.value);
+              }}
+            />
+          )}
+
+          <Divider className="my-3" />
+
+          <Title
+            variant={TypographyVariant.dark}
+            level={3}
+            className="!text-left mb-2"
+          >
+            Price Information
+          </Title>
+          <Title
+            variant={TypographyVariant.dark}
+            level={3}
+            className="!text-left mb-2"
+          >
+            Pricing details
+          </Title>
+          <Dropdown
+            label="Pricing model"
+            // name="pricingModel"
+            value={pricingOptions.find(
+              (option) => option.value === fields.pricingModel
+            )}
+            onChange={(option) => changeFields('pricingModel', option.value)}
+            options={pricingOptions}
+          />
+          <Input
+            name="price"
+            placeholder="Add price"
+            label="Price"
+            value={fields.price}
+            onChange={(e) => {
+              if (e.target.value && !/^[0-9]*\.?[0-9]*$/g.test(e.target.value))
+                return;
+              changeFields('price', e.target.value);
+            }}
+            onBlur={(e) => {
+              if (!e.target.value) return;
+              changeFields('price', parseFloat(e.target.value).toFixed(2));
+            }}
+          />
+          <Dropdown
+            // name="billingPeriod"
+            placeholder="Add billing period"
+            label="Billing period"
+            value={billingOptions.find(
+              (option) => option.value === fields.billingPeriod
+            )}
+            onChange={(option) => changeFields('billingPeriod', option.value)}
+            options={billingOptions}
+          />
+          <Button onClick={clickAddTrial}>
+            {fields.hasTrial ? '- Remove' : '+ Add'} free trial
+          </Button>
+          {fields.hasTrial && (
+            <>
+              <Input
+                name="length"
+                placeholder="Add length"
+                label="Length"
+                htmlType="number"
+                value={fields.trialLen}
+                onChange={(e) => changeFields('trialLen', e.target.value)}
+              />
+              <Dropdown
+                // name="trialTimeFrame"
+                placeholder="Add trial time"
+                label="Type"
+                value={trialTimeOptions.find(
+                  (option) => option.value === fields.trialTimeFrame
+                )}
+                onChange={(option) =>
+                  changeFields('trialTimeFrame', option.value)
+                }
+                options={trialTimeOptions}
+              />
+            </>
+          )}
+          <Divider />
+
+          <div className="flex space-x-2">
+            <Button onClick={onOpen}>Save</Button>
+            <Button
+              variant={ButtonVariant.outlined}
+              url={`${ROUTES.PRODUCTS.BASE_URL}/${router.query.tierId}`}
+            >
+              Cancel
+            </Button>
+          </div>
+        </>
+      ) : (
+        <ErrorText>Product not found.</ErrorText>
+      )}
+
+      <Modal isOpen={isOpen} onClose={onClose} title="Save product?">
+        <Paragraph>
+          Do you want <span className="font-bold">to save</span> the changes?
+        </Paragraph>
+        <Paragraph>
+          If you choose <span className="font-bold">not to save</span> changes
+          will be lost
+        </Paragraph>
+        <div className="w-full flex space-x-2">
+          <Button onClick={() => submitForm()}>Save</Button>
+          <Button variant={ButtonVariant.outlined} onClick={onClose}>
             Cancel
-          </button>
+          </Button>
         </div>
       </Modal>
-    </div>
+    </>
   );
 };
 

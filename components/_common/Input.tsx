@@ -14,6 +14,7 @@ type Props = {
   className?: string;
   value?: string | number;
   htmlType?: string;
+  disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
 };
@@ -28,6 +29,7 @@ const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
       value,
       onChange,
       onBlur,
+      disabled,
       htmlType = 'text',
       className,
       ...props
@@ -46,6 +48,7 @@ const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
           onChange={onChange}
           onBlur={onBlur}
           type={htmlType}
+          disabled={disabled}
           {...props}
         />
       </label>
@@ -59,6 +62,7 @@ const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
         onChange={onChange}
         onBlur={onBlur}
         type={htmlType}
+        disabled={disabled}
         {...props}
       />
     );

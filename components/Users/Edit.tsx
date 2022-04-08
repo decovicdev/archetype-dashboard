@@ -1,46 +1,40 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import config from '../../config';
-
-import Spinner from '../_common/Spinner';
-import Modal from '../_common/Modal';
-
-import CustomerService from '../../services/customer.service';
-
-import { useHelpers } from '../../context/HelperProvider';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import DeleteUserModal from './DeleteUserModal';
+import config from 'config';
+import Spinner from 'components/_common/Spinner';
+import CustomerService from 'services/customer.service';
+import { useHelpers } from 'context/HelperProvider';
 import useDisclosure from 'hooks/useDisclosure';
+import { ROUTES } from 'constant/routes';
+import BreadCrumbs from 'components/_common/BreadCrumbs';
+import Button from 'components/_common/Button';
+import { ButtonVariant } from 'types/Button';
+import Divider from 'components/_common/Divider';
+import ErrorText from 'components/_typography/ErrorText';
+import Input from 'components/_common/Input';
+import Title from 'components/_typography/Title';
+import { TypographyVariant } from 'types/Typography';
 
 const Component = () => {
   const router = useRouter();
-
   const { showAlert } = useHelpers();
-
-  const [inProgress, setProgress] = useState(false);
   const [fields, setFields] = useState(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  useEffect(() => {
-    async function fetch() {
-      try {
-        setProgress(true);
-
-        const response = await CustomerService.getById(router.query.userId);
-
-        setFields({
-          email: response.email
-        });
-      } catch (e) {
-        showAlert(e.message);
-      } finally {
-        setProgress(false);
+  const { isLoading } = useQuery(
+    ['user', router.query.userId],
+    async () => CustomerService.getById(router.query.userId),
+    {
+      onError: (e: any) => showAlert(e.message),
+      onSuccess: (newData) => {
+        setFields({ email: newData?.email });
       }
     }
-
-    fetch();
-  }, [router.query.userId, showAlert]);
+  );
 
   const changeFields = useCallback(
     (field, value, obj?: any) => {
@@ -59,121 +53,76 @@ const Component = () => {
     [fields]
   );
 
-  const saveUser = useCallback(async () => {
-    try {
-      if (inProgress) {
-        return;
+  const queryClient = useQueryClient();
+
+  const { mutate: saveUser, isLoading: isEditUserLoading } = useMutation(
+    async () => {
+      try {
+        if (isEditUserLoading) return;
+        await CustomerService.updateById(router.query.userId, {
+          email: fields.email
+        });
+      } catch (e) {
+        showAlert(e.message);
       }
-      setProgress(true);
-
-      await CustomerService.updateById(router.query.userId, {
-        email: fields.email
-      });
-
-      showAlert('Success', true);
-    } catch (e) {
-      showAlert(e.message);
-    } finally {
-      setProgress(false);
-    }
-  }, [inProgress, router.query.userId, fields.email, showAlert]);
-
-  const deleteUser = useCallback(async () => {
-    try {
-      if (inProgress) {
-        return;
+    },
+    {
+      onError: (e: any) => showAlert(e.message),
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(['user', router.query.userId]);
+        showAlert('Success', true);
       }
-      setProgress(true);
-
-      await CustomerService.deleteById(router.query.userId);
-
-      showAlert('Success', true);
-
-      router.push('/users');
-    } catch (e) {
-      showAlert(e.message);
-    } finally {
-      setProgress(false);
     }
-  }, [router, inProgress, showAlert]);
-
-  const renderContent = useCallback(() => {
-    if (!fields) {
-      return <div className="no-content">Customer not found.</div>;
-    }
-
-    return (
-      <>
-        <div className="top-block">
-          <h2>Customer Information</h2>
-          <button type="button" className="delete-btn" onClick={onOpen} />
-        </div>
-        <div className="form">
-          <div className="field">
-            <label>Email</label>
-            <input
-              type="text"
-              value={fields.email}
-              onChange={(e) => changeFields('email', e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="line" />
-        <div className="btns">
-          <button
-            type="button"
-            className="btn gradient-blue"
-            onClick={() => saveUser()}
-          >
-            Save
-          </button>
-          <Link href="/users">
-            <a className="btn purple-w-border">Cancel</a>
-          </Link>
-        </div>
-      </>
-    );
-  }, [fields, onOpen, changeFields, saveUser]);
+  );
 
   return (
     <>
-      <div className="page users-edit-page">
-        <Head>
-          <title>Edit Customer - {config.meta.title}</title>
-        </Head>
-        {inProgress && <Spinner />}
-        <div className="content with-lines">
-          <div className="bread-crumbs">
-            <Link href="/users">
-              <a>Customers</a>
-            </Link>
-            <span>{'>'}</span>
-            <Link href={router.pathname}>
-              <a className="active">Edit Customer</a>
-            </Link>
+      <Head>
+        <title>Edit Customer - {config.meta.title}</title>
+      </Head>
+      {isLoading && <Spinner />}
+      <BreadCrumbs
+        links={[
+          { url: ROUTES.USERS.BASE_URL, title: 'Customers' },
+          {
+            url: `${ROUTES.USERS.EDIT}/${router.query.userId}`,
+            title: 'Edit Customer'
+          }
+        ]}
+      />
+      {fields ? (
+        <>
+          <div className="flex items-center">
+            <Title
+              variant={TypographyVariant.dark}
+              level={3}
+              className="!text-left mb-2"
+            >
+              Customer Information
+            </Title>
+            <Button variant={ButtonVariant.danger} onClick={onOpen}>
+              Delete
+            </Button>
           </div>
-          {renderContent()}
-        </div>
-      </div>
-      <Modal isOpen={isOpen} onClose={onClose} title="Delete a customer?">
-        <div className="data">
-          <p>
-            Do you want <span>to delete</span> the customer?
-          </p>
-        </div>
-        <div className="btns">
-          <button
-            type="button"
-            className="half-width action"
-            onClick={() => deleteUser()}
-          >
-            Delete
-          </button>
-          <button type="button" className="half-width" onClick={onClose}>
-            Cancel
-          </button>
-        </div>
-      </Modal>
+          <Input
+            name="email"
+            placeholder="Email"
+            label="Email"
+            value={fields.email}
+            onChange={(e) => changeFields('email', e.target.value)}
+          />
+          <Divider className="my-2" />
+          <div className="w-full flex space-x-2">
+            <Button onClick={() => saveUser()}>Save</Button>
+            <Button variant={ButtonVariant.link} url={ROUTES.USERS.BASE_URL}>
+              Cancel
+            </Button>
+          </div>
+        </>
+      ) : (
+        <ErrorText>Customer not found.</ErrorText>
+      )}
+      <DeleteUserModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 };
