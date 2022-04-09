@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Spinner from './Spinner';
 import { ROUTES } from 'constant/routes';
 import { useAuth } from 'context/AuthProvider';
+import { useApi } from 'hooks/useApi';
 
 const PrivateRoute = ({
   children
@@ -11,6 +12,7 @@ const PrivateRoute = ({
 }): ReactElement => {
   const router = useRouter();
   const { currentUser, isAuthLoading } = useAuth();
+  const { data: api, isLoading } = useApi();
 
   useEffect(() => {
     if (isAuthLoading) return;
@@ -19,18 +21,16 @@ const PrivateRoute = ({
     } else if (!currentUser.emailVerified) {
       void router.push(ROUTES.AUTH.VERIFY);
     }
-    if (!sessionStorage.getItem('appId')) {
+    if (!isLoading && !api && !sessionStorage.getItem('appId')) {
       void router.push(ROUTES.AUTH.ONBOARD);
     }
-  }, [currentUser, isAuthLoading, router]);
+  }, [api, currentUser, isAuthLoading, isLoading, router]);
 
-  if (isAuthLoading) return <Spinner />;
+  if (isAuthLoading || isLoading) return <Spinner />;
 
   if (currentUser?.emailVerified) {
     return children;
   }
-
-  console.log({ currentUser });
 
   return null;
 };

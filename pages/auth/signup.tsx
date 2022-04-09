@@ -112,6 +112,7 @@ const SignupPage: NextPage = () => {
         <Input
           name="password"
           label="Password"
+          htmlType="password"
           variant={FormVariant.outlined}
           placeholder="Create Password"
           {...register('password')}

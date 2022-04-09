@@ -107,6 +107,7 @@ const LoginPage: NextPage = () => {
         <Input
           name="password"
           label="Password"
+          htmlType="password"
           variant={FormVariant.outlined}
           placeholder="Enter Password"
           {...register('password')}
