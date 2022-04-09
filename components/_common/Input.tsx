@@ -17,6 +17,7 @@ type Props = {
   disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
+  onFocus?: FocusEventHandler<HTMLInputElement>
 };
 
 const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
@@ -29,6 +30,7 @@ const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
       value,
       onChange,
       onBlur,
+      onFocus,
       disabled,
       htmlType = 'text',
       className,
@@ -49,6 +51,7 @@ const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
           onBlur={onBlur}
           type={htmlType}
           disabled={disabled}
+          onFocus={onFocus}
           {...props}
         />
       </label>
@@ -63,6 +66,7 @@ const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
         onBlur={onBlur}
         type={htmlType}
         disabled={disabled}
+        onFocus={onFocus}
         {...props}
       />
     );

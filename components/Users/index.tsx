@@ -2,14 +2,11 @@ import { useCallback, useMemo, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
 import GenerateKey from './GenerateKey';
 import DeleteUserModal from './DeleteUserModal';
 import config from 'config';
 import DropdownMenu from 'components/_common/DropdownMenu';
 import Spinner from 'components/_common/Spinner';
-import CustomerService from 'services/customer.service';
-import { useHelpers } from 'context/HelperProvider';
 import useDisclosure from 'hooks/useDisclosure';
 import Card from 'components/_common/Card';
 import Title from 'components/_typography/Title';
@@ -17,16 +14,14 @@ import Input from 'components/_common/Input';
 import Button from 'components/_common/Button';
 import { ROUTES } from 'constant/routes';
 import { TypographyVariant } from 'types/Typography';
+import { useUsers } from 'hooks/useUsers';
 
 const Users = () => {
   const router = useRouter();
-  const { showAlert } = useHelpers();
   const [searchVal, setSearchVal] = useState('');
   const [selectedId, setSelectedId] = useState(null);
 
-  const { data, isLoading } = useQuery('users', CustomerService.getList, {
-    onError: (e: any) => showAlert(e.message)
-  });
+  const { data, isLoading } = useUsers();
 
   const clickItem = useCallback(
     (e, item) => {
@@ -169,7 +164,7 @@ const Users = () => {
         onClose={onGKClose}
         id={selectedId}
         onSuccess={() => {
-          fetch();
+          // fetch();
         }}
       />
     </>

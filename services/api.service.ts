@@ -1,21 +1,22 @@
 import http from '../helpers/http';
+import type { Api } from 'types/Api';
 
 export default class ApiService {
   static async createNew(params) {
-    const response = await http.post('create-api', params);
-
-    if (response.app_id) {
-      sessionStorage.setItem('appId', response.app_id);
+    const result: { app_id?: string } = await http.post('create-api', params);
+    if (result.app_id) {
+      sessionStorage.setItem('appId', result.app_id);
     }
   }
 
   static async getCurrent() {
-    console.log('Invoked');
-    return http.get('api');
+    const result: Api = await http.get('api');
+    return result;
   }
 
   static async stripeCheckout() {
-    return await http.post('api/checkout');
+    const result: { connect_url?: string } = await http.post('api/checkout');
+    return result;
   }
 
   static async update(params) {

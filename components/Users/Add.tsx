@@ -46,26 +46,22 @@ const Component = () => {
 
   const { mutate: submitForm, isLoading } = useMutation(
     async () => {
-      try {
-        if (isLoading) return;
-        if (!fields.id) {
-          return showAlert('ID is required field');
-        }
-        if (!fields.name) {
-          return showAlert('Name is required field');
-        }
-        if (!fields.email) {
-          return showAlert('Email is required field');
-        }
-
-        await CustomerService.addNew({
-          uid: fields.id,
-          attrs: { name: fields.name },
-          email: fields.email
-        });
-      } catch (e) {
-        showAlert(e.message);
+      if (isLoading) return;
+      if (!fields.id) {
+        return showAlert('ID is required field');
       }
+      if (!fields.name) {
+        return showAlert('Name is required field');
+      }
+      if (!fields.email) {
+        return showAlert('Email is required field');
+      }
+
+      await CustomerService.addNew({
+        uid: fields.id,
+        attrs: { name: fields.name },
+        email: fields.email
+      });
     },
     {
       onSuccess: async () => {

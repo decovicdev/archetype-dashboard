@@ -4,8 +4,8 @@ export type AuthFormData = {
 };
 
 export enum AUTH_TYPES {
-  none = 'No Auth',
-  url = 'URL',
-  body = 'Body',
-  header = 'Header'
+  none = 'none',
+  url = 'url',
+  body = 'body',
+  header = 'header'
 }

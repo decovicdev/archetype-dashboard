@@ -1,36 +1,35 @@
 import React, { useCallback, useState } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import config from '../../config';
-
-import DefaultDropdown from '../_common/DefaultDropdown';
-import Spinner from '../_common/Spinner';
-// import HeadersTab from "./blocks/headers";
-// import QueryTab from "./blocks/query";
-// import BodyTab from "./blocks/body";
-
-import EndpointService from '../../services/endpoint.service';
-
-import { useHelpers } from '../../context/HelperProvider';
+import { useMutation, useQueryClient } from 'react-query';
 import { HTTP_METHODS } from './assets';
+import config from 'config';
+import DefaultDropdown from 'components/_common/DefaultDropdown';
+import Spinner from 'components/_common/Spinner';
+import EndpointService from 'services/endpoint.service';
+import { useHelpers } from 'context/HelperProvider';
+import BreadCrumbs from 'components/_common/BreadCrumbs';
+import { ROUTES } from 'constant/routes';
+import Title from 'components/_typography/Title';
+import { TypographyVariant } from 'types/Typography';
+import Input from 'components/_common/Input';
+import Divider from 'components/_common/Divider';
+import Button from 'components/_common/Button';
+import { ButtonVariant } from 'types/Button';
 
 const Component = () => {
   const router = useRouter();
-
   const { showAlert } = useHelpers();
 
-  const [inProgress, setProgress] = useState(false);
   const [fields, setFields] = useState({
     name: '',
     description: '',
     methods: [],
     path: '/'
   });
-  // const [activeTab, setActiveTab] = useState("headers");
 
   const changeFields = useCallback(
-    (field, value, obj) => {
+    (field, value, obj?: any) => {
       const result = { ...fields };
 
       if (!field && !value && obj) {
@@ -46,12 +45,11 @@ const Component = () => {
     [fields]
   );
 
-  const submitForm = useCallback(async () => {
-    try {
-      if (inProgress) {
-        return;
-      }
+  const queryClient = useQueryClient();
 
+  const { mutate: submitForm, isLoading: isMutationLoading } = useMutation(
+    async () => {
+      if (isMutationLoading) return;
       if (!fields.name) {
         return showAlert('Name is required field');
       }
@@ -62,8 +60,6 @@ const Component = () => {
         return showAlert(`Path is relative, starts with "/" symbol`);
       }
 
-      setProgress(true);
-
       await EndpointService.addNew({
         name: fields.name,
         description: fields.description,
@@ -71,60 +67,15 @@ const Component = () => {
         allowed_methods: fields.methods,
         allowed_tiers: []
       });
-
-      showAlert('Success', true);
-
-      router.push('/endpoints');
-    } catch (e) {
-      showAlert(e.message);
-    } finally {
-      setProgress(false);
+    },
+    {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries('endpoints');
+        showAlert('Success', true);
+        await router.push(ROUTES.ENDPOINTS.BASE_URL);
+      },
+      onError: (e: any) => showAlert(e.message)
     }
-  }, [
-    inProgress,
-    fields.name,
-    fields.methods,
-    fields.path,
-    fields.description,
-    showAlert,
-    router
-  ]);
-
-  const renderTabs = useCallback(
-    () =>
-      // not implemented yet
-      null,
-
-    // return (
-    //   <div className={"tabs"}>
-    //     <ul className={"tabs-list"}>
-    //       <li
-    //         className={classnames({ active: activeTab === "headers" })}
-    //         onClick={() => setActiveTab("headers")}
-    //       >
-    //         Headers
-    //       </li>
-    //       <li
-    //         className={classnames({ active: activeTab === "query" })}
-    //         onClick={() => setActiveTab("query")}
-    //       >
-    //         Query
-    //       </li>
-    //       <li
-    //         className={classnames({ active: activeTab === "body" })}
-    //         onClick={() => setActiveTab("body")}
-    //       >
-    //         Body
-    //       </li>
-    //     </ul>
-    //     <div className={"tabs-data"}>
-    //       {activeTab === "headers" && <HeadersTab />}
-    //       {activeTab === "query" && <QueryTab />}
-    //       {activeTab === "body" && <BodyTab />}
-    //     </div>
-    //   </div>
-    // );
-    []
   );
 
   return (
@@ -132,86 +83,78 @@ const Component = () => {
       <Head>
         <title>Add Endpoint - {config.meta.title}</title>
       </Head>
-      {inProgress && <Spinner />}
-      <div className="page endpoints-add-page">
-        <div className="content with-lines">
-          <div className="bread-crumbs">
-            <Link href="/endpoints">
-              <a>Endpoints</a>
-            </Link>
-            <span>{'>'}</span>
-            <Link href="/endpoints/add">
-              <a className="active">Add Endpoint</a>
-            </Link>
-          </div>
-          <div className="form">
-            <h2>Add new endpoint</h2>
-            <div className="field">
-              <label>Name</label>
-              <input
-                type="text"
-                value={fields.name}
-                placeholder="Name your endpoint"
-                onChange={(e) => changeFields('name', e.target.value)}
-              />
-            </div>
-            <div className="field description">
-              <label>Description</label>
-              <textarea
-                value={fields.description}
-                placeholder="Describe what this endpoint does"
-                onChange={(e) => changeFields('description', e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="line" />
-          <div className="form">
-            <div className="field method">
-              <label>Method</label>
-              <DefaultDropdown
-                isMulti={true}
-                placeholder="Select"
-                options={Object.entries(HTTP_METHODS).map(([key, val]) => ({
-                  label: key,
-                  value: val
-                }))}
-                value={fields.methods.map((method) => ({
-                  label: method,
-                  value: method
-                }))}
-                onChange={(values) => {
-                  changeFields(
-                    'methods',
-                    values.map((item) => item.value)
-                  );
-                }}
-              />
-            </div>
-            <div className="field path">
-              <label>Path</label>
-              <input
-                type="text"
-                value={fields.path}
-                onChange={(e) => changeFields('path', e.target.value)}
-              />
-              <small>{`Use <curly braces> to indicate path parameters if needed e.g.,/employees/{id}`}</small>
-            </div>
-          </div>
-          {renderTabs()}
-          <div className="line" />
-          <div className="btns">
-            <button
-              type="button"
-              className="btn gradient-blue"
-              onClick={() => submitForm()}
-            >
-              Create
-            </button>
-            <Link href="/endpoints">
-              <a className="btn clean-white">Cancel</a>
-            </Link>
-          </div>
-        </div>
+      {isMutationLoading && <Spinner />}
+
+      <BreadCrumbs
+        links={[
+          { url: ROUTES.ENDPOINTS.BASE_URL, title: 'Endpoints' },
+          { url: ROUTES.ENDPOINTS.ADD, title: 'Add Endpoint' }
+        ]}
+      />
+
+      <Title
+        variant={TypographyVariant.dark}
+        level={3}
+        className="!text-left mb-2"
+      >
+        Add new endpoint
+      </Title>
+      <Input
+        name="name"
+        placeholder="Name your endpoint"
+        label="Name"
+        value={fields.name}
+        onChange={(e) => changeFields('name', e.target.value)}
+      />
+      <Input
+        name="description"
+        placeholder="Describe what this endpoint does"
+        label="Description"
+        value={fields.description}
+        onChange={(e) => changeFields('description', e.target.value)}
+      />
+
+      <Divider className="my-4" />
+
+      <div className="flex flex-col mb-2">
+        <label className="text-black">Method</label>
+        <DefaultDropdown
+          isMulti={true}
+          placeholder="Select"
+          options={Object.entries(HTTP_METHODS).map(([key, val]) => ({
+            label: key,
+            value: val
+          }))}
+          value={fields.methods.map((method) => ({
+            label: method,
+            value: method
+          }))}
+          onChange={(values) => {
+            changeFields(
+              'methods',
+              values.map((item) => item.value)
+            );
+          }}
+        />
+      </div>
+      <Input
+        name="path"
+        placeholder="Path"
+        label="Path"
+        value={fields.path}
+        onChange={(e) => changeFields('path', e.target.value)}
+      />
+      <small>{`Use <curly braces> to indicate path parameters if needed e.g.,/employees/{id}`}</small>
+
+      <Divider className="my-4" />
+      <div className="flex items-center space-x-2">
+        <Button onClick={() => submitForm()}>Create</Button>
+        <Button
+          variant={ButtonVariant.outlined}
+          url={ROUTES.ENDPOINTS.BASE_URL}
+        >
+          Cancel
+        </Button>
       </div>
     </>
   );

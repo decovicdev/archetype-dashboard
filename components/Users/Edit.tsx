@@ -57,14 +57,10 @@ const Component = () => {
 
   const { mutate: saveUser, isLoading: isEditUserLoading } = useMutation(
     async () => {
-      try {
-        if (isEditUserLoading) return;
-        await CustomerService.updateById(router.query.userId, {
-          email: fields.email
-        });
-      } catch (e) {
-        showAlert(e.message);
-      }
+      if (isEditUserLoading) return;
+      await CustomerService.updateById(router.query.userId, {
+        email: fields.email
+      });
     },
     {
       onError: (e: any) => showAlert(e.message),

@@ -15,12 +15,8 @@ const DeleteUserModal = ({ id, isOpen, onClose }) => {
 
   const { mutate: deleteUser, isLoading: isDeleteUserLoading } = useMutation(
     async () => {
-      try {
-        if (isDeleteUserLoading) return;
-        await CustomerService.deleteById(router.query.userId || id);
-      } catch (e) {
-        showAlert(e.message);
-      }
+      if (isDeleteUserLoading) return;
+      await CustomerService.deleteById(router.query.userId || id);
     },
     {
       onError: (e: any) => showAlert(e.message),

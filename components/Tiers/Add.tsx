@@ -59,29 +59,25 @@ const Component = () => {
 
   const { mutate: submitForm, isLoading } = useMutation(
     async () => {
-      try {
-        if (isLoading) return;
-        if (!fields.name) return showAlert('Name is required field');
-        if (!fields.price) return showAlert('Price is required field');
+      if (isLoading) return;
+      if (!fields.name) return showAlert('Name is required field');
+      if (!fields.price) return showAlert('Price is required field');
 
-        await TierService.addNew({
-          name: fields.name,
-          description:
-            !fields.hasTrial && !fields.description
-              ? 'No trial'
-              : fields.description,
-          price: parseFloat(parseFloat(fields.price).toFixed(2)),
-          period: fields.billingPeriod,
-          currency: 'usd',
-          has_quota: fields.meteredUsage && parseInt(`${fields.quota}`) > 0,
-          quota: fields.meteredUsage ? parseInt(`${fields.quota}`) : 0,
-          has_trial: fields.hasTrial,
-          trial_length: fields.trialLen,
-          trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame]
-        });
-      } catch (e) {
-        showAlert(e.message);
-      }
+      await TierService.addNew({
+        name: fields.name,
+        description:
+          !fields.hasTrial && !fields.description
+            ? 'No trial'
+            : fields.description,
+        price: parseFloat(parseFloat(fields.price).toFixed(2)),
+        period: fields.billingPeriod,
+        currency: 'usd',
+        has_quota: fields.meteredUsage && parseInt(`${fields.quota}`) > 0,
+        quota: fields.meteredUsage ? parseInt(`${fields.quota}`) : 0,
+        has_trial: fields.hasTrial,
+        trial_length: fields.trialLen,
+        trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame]
+      });
     },
     {
       onSuccess: async () => {
@@ -145,7 +141,13 @@ const Component = () => {
             { url: ROUTES.PRODUCTS.ADD, title: 'Add Product' }
           ]}
         />
-        <Title variant={TypographyVariant.dark}>Product Information</Title>
+        <Title
+          level={3}
+          className="!text-left my-4"
+          variant={TypographyVariant.dark}
+        >
+          Product Information
+        </Title>
         <Input
           name="name"
           placeholder="Add name"
@@ -179,8 +181,20 @@ const Component = () => {
           />
         )}
         <Divider />
-        <Title variant={TypographyVariant.dark}>Price Information</Title>
-        <Title variant={TypographyVariant.dark}>Pricing details</Title>
+        <Title
+          level={3}
+          className="!text-left my-4"
+          variant={TypographyVariant.dark}
+        >
+          Price Information
+        </Title>
+        <Title
+          level={3}
+          className="!text-left my-4"
+          variant={TypographyVariant.dark}
+        >
+          Pricing details
+        </Title>
         <Dropdown
           label="Pricing model"
           // name="pricingModel"

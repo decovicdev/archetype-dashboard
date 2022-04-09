@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import Button from 'components/_common/Button';
-import Input from 'components/_common/Input';
+// import Input from 'components/_common/Input';
 import ArcheTypeLogo from 'components/_icons/ArcheTypeLogo';
 import PlusCircle from 'components/_icons/PlusCircle';
 import { ROUTES } from 'constant/routes';
@@ -8,7 +8,9 @@ import { LogoVariant } from 'types/ArcheTypeLogo';
 import { ButtonVariant } from 'types/Button';
 import Paragraph from 'components/_typography/Paragraph';
 import PrivateRoute from 'components/_common/PrivateRoute';
-import { useQueryClient } from 'react-query';
+import { useProducts } from 'hooks/useProducts';
+import { useEndpoints } from 'hooks/useEndpoints';
+import { useUsers } from 'hooks/useUsers';
 
 const LINKS = [
   { title: '', links: Object.entries(ROUTES.DASHBOARD) },
@@ -33,11 +35,10 @@ const formatUrlName = (name: string) =>
 
 const DashboardLayout = ({ children }) => {
   const router = useRouter();
-  const queryClient = useQueryClient();
-  const products = queryClient.getQueryData('products');
-  const endpoints = queryClient.getQueryData('endpoints');
-  const users = queryClient.getQueryData('users');
-  console.log(products);
+  const { data: products } = useProducts();
+  const { data: endpoints } = useEndpoints();
+  const { data: users } = useUsers();
+
   return (
     <PrivateRoute>
       <div className="grid grid-cols-aside w-screen h-screen overflow-hidden bg-twhite-700">
@@ -97,13 +98,13 @@ const DashboardLayout = ({ children }) => {
           ))}
         </div>
         <div className="grid grid-rows-header h-full overflow-hidden">
-          <div className="flex w-full justify-between bg-white py-2">
+          {/* <div className="flex w-full justify-between bg-white py-2">
             <Input
               placeholder="Search..."
               name="search"
               className="w-full m-0"
             />
-          </div>
+          </div> */}
           <div className="py-6 pl-6 pr-12 h-full overflow-y-auto">
             {children}
           </div>

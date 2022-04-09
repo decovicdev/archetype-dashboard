@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import config from '../config';
 import KeyIcon from '../public/icons/key.svg';
 import AuthIcon from '../public/icons/auth.svg';
@@ -25,7 +25,7 @@ import { AUTH_TYPES } from 'types/Auth';
 import { RadioOption } from 'types/Form';
 
 const radioOptions: RadioOption[] = [
-  { id: 'noAuth', label: 'No auth', value: AUTH_TYPES.none },
+  { id: 'none', label: 'No auth', value: AUTH_TYPES.none },
   { id: 'url', label: 'URL', value: AUTH_TYPES.url },
   { id: 'header', label: 'Header', value: AUTH_TYPES.header },
   { id: 'body', label: 'Body', value: AUTH_TYPES.body }
@@ -33,15 +33,12 @@ const radioOptions: RadioOption[] = [
 
 const SettingsPage = () => {
   const router = useRouter();
-
   const { showAlert } = useHelpers();
-
   const [isDeleting, setDeleting] = useState(false);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { data, isLoading } = useQuery('api', ApiService.getCurrent, {
-    onError: (e) => {
+    onError: (e: any) => {
       showAlert(e.message as string);
     }
   });
@@ -66,42 +63,30 @@ const SettingsPage = () => {
     }
   }, [router, showAlert]);
 
-  const saveForm = useCallback(async () => {
-    try {
-      // if (inProgress) return;
-      // setProgress(true);
+  const { mutate: saveForm } = useMutation(
+    async () => {
       await ApiService.update({
         auth_type: authType,
         url: redirectUrl,
         return_url: returnUrl
       });
-      showAlert('Saved Successfully', true);
-    } catch (err) {
-      showAlert(err.message);
-    } finally {
-      // setProgress(false);
+    },
+    {
+      onSuccess: () => showAlert('Saved Successfully', true),
+      onError: (e: any) => showAlert(e.message)
     }
-  }, [showAlert, authType, redirectUrl, returnUrl]);
+  );
 
   const connectStripe = useCallback(async () => {
     try {
       if (data?.has_completed_checkout) {
         return showAlert('Stripe already linked');
       }
-      // if (inProgress) {
-      //   return showAlert('Already in progress');
-      // }
-      // setProgress(true);
-
       const response = await ApiService.stripeCheckout();
-      console.log({ response });
-
       if (!response.connect_url) {
         throw new Error('Oops, could not get enough data to proceed');
       }
-
       const redirectUrl = `${config.app_url}settings`;
-
       window.location.replace(
         `${response.connect_url}?return_url=${redirectUrl}&refresh_url=${redirectUrl}`
       );
@@ -173,7 +158,8 @@ const SettingsPage = () => {
             >
               Secret key:{' '}
               <span className="blur-sm">
-                {(data?.secret_key || data?.secret_keys)?.join(', ')}
+                {data?.secret_keys // TODO: it's secret_key for prod api not secret_keys
+                  ?.join(', ')}
               </span>
             </Paragraph>
           </div>
@@ -242,7 +228,7 @@ const SettingsPage = () => {
           <DeleteIcon gradient />
           <span className="ml-4">Delete App</span>
         </Button>
-        <Button variant={ButtonVariant.primary} onClick={saveForm}>
+        <Button variant={ButtonVariant.primary} onClick={() => saveForm()}>
           Save
         </Button>
         <Button variant={ButtonVariant.outlined} onClick={connectStripe}>

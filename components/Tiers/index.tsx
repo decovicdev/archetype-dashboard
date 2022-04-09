@@ -6,14 +6,10 @@ import {
   SetStateAction
 } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
 import config from '../../config';
 import Spinner from '../_common/Spinner';
 import DropdownMenu from '../_common/DropdownMenu';
-import TierService from '../../services/tier.service';
-import { useHelpers } from '../../context/HelperProvider';
 import DeleteModal from './DeleteModal';
 import { ROUTES } from 'constant/routes';
 import { Tier } from 'types/Tiers';
@@ -23,6 +19,7 @@ import Title from 'components/_typography/Title';
 import { TypographyVariant } from 'types/Typography';
 import Button from 'components/_common/Button';
 import { ButtonVariant } from 'types/Button';
+import { useProducts } from 'hooks/useProducts';
 
 type Props = {
   data?: Tier[];
@@ -102,18 +99,9 @@ const TiersTable: React.FC<Props> = ({ data, onOpen, setSelectedTier }) => {
 };
 
 const Component = () => {
-  const { showAlert } = useHelpers();
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
 
-  const { data, isLoading, isError } = useQuery(
-    'products',
-    TierService.getList,
-    {
-      onError: (err: any) => {
-        showAlert(err?.message);
-      }
-    }
-  );
+  const { data, isLoading, isError } = useProducts();
 
   const { isOpen, onClose, onOpen } = useDisclosure();
 

@@ -26,9 +26,9 @@ const styles = {
     ...provided,
     minWidth: 140,
     minHeight: 44,
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     borderRadius: 5,
-    border: 'solid 1px #9599b1',
+    border: 'solid 1px transparent',
     boxShadow: 'none',
     marginTop: 5,
 
@@ -61,7 +61,7 @@ const styles = {
 
     return {
       ...provided,
-      backgroundColor: '#080e36',
+      backgroundColor: 'white',
       padding: '5px 12px',
       color: '#ffffff',
       zIndex: 999
@@ -80,10 +80,10 @@ const styles = {
     ...provided,
     padding: '3px 0',
     backgroundColor: 'transparent',
-    color: '#9599b1',
+    color: '#333',
 
     '&:hover': {
-      color: '#ffffff'
+      color: '#000'
     },
     '&:active': {
       backgroundColor: 'transparent',
@@ -105,7 +105,7 @@ const styles = {
       padding: '8px 12px',
       fontSize: '15px',
       lineHeight: '20px',
-      color: '#ffffff',
+      color: '#000',
       textAlign: 'left'
     };
 
@@ -124,7 +124,7 @@ const styles = {
   }),
   multiValue: (provided) => ({
     ...provided,
-    background: 'linear-gradient(175deg, #4b466c, #1b2145)'
+    background: '#1e5eff'
   }),
   multiValueLabel: (provided) => ({
     ...provided,

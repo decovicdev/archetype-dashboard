@@ -77,26 +77,22 @@ const Component = () => {
 
   const { mutate: submitForm, isLoading: isMutationLoading } = useMutation(
     async () => {
-      try {
-        if (isMutationLoading) return;
-        await TierService.updateById(router.query.tierId, {
-          name: fields.name,
-          description:
-            !fields.hasTrial && !fields.description
-              ? 'No trial'
-              : fields.description,
-          price: parseFloat(parseFloat(fields.price).toFixed(2)),
-          period: fields.billingPeriod,
-          currency: 'usd',
-          has_quota: fields.meteredUsage && parseInt(fields.quota) > 0,
-          quota: fields.meteredUsage ? parseInt(fields.quota) : 0,
-          has_trial: fields.hasTrial,
-          trial_length: fields.trialLen,
-          trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame]
-        });
-      } catch (e) {
-        showAlert(e.message);
-      }
+      if (isMutationLoading) return;
+      await TierService.updateById(router.query.tierId, {
+        name: fields.name,
+        description:
+          !fields.hasTrial && !fields.description
+            ? 'No trial'
+            : fields.description,
+        price: parseFloat(parseFloat(fields.price).toFixed(2)),
+        period: fields.billingPeriod,
+        currency: 'usd',
+        has_quota: fields.meteredUsage && parseInt(fields.quota) > 0,
+        quota: fields.meteredUsage ? parseInt(fields.quota) : 0,
+        has_trial: fields.hasTrial,
+        trial_length: fields.trialLen,
+        trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame]
+      });
     },
     {
       onError: (e: any) => showAlert(e.message),
