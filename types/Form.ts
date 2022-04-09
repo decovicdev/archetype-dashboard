@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { AUTH_TYPES } from './Auth';
 
 export enum FormVariant {
@@ -7,6 +8,6 @@ export enum FormVariant {
 
 export type RadioOption = {
   id: string;
-  label: string;
+  label: ReactNode;
   value: AUTH_TYPES | string;
 };

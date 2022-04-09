@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation } from 'react-query';
 import config from '../config';
 import KeyIcon from '../public/icons/key.svg';
 import AuthIcon from '../public/icons/auth.svg';
@@ -23,6 +23,7 @@ import BreadCrumbs from 'components/_common/BreadCrumbs';
 import { ROUTES } from 'constant/routes';
 import { AUTH_TYPES } from 'types/Auth';
 import { RadioOption } from 'types/Form';
+import { useApi } from 'hooks/useApi';
 
 const radioOptions: RadioOption[] = [
   { id: 'none', label: 'No auth', value: AUTH_TYPES.none },
@@ -37,23 +38,17 @@ const SettingsPage = () => {
   const [isDeleting, setDeleting] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { data, isLoading } = useQuery('api', ApiService.getCurrent, {
-    onError: (e: any) => {
-      showAlert(e.message as string);
-    }
-  });
+  const { data: api, isLoading } = useApi();
 
-  const [authType, setAuthType] = useState(data?.auth_type);
-  const [redirectUrl, setRedirectUrl] = useState(
-    data?.url || data?.redirect_url
-  );
-  const [returnUrl, setReturnUrl] = useState(data?.return_url);
+  const [authType, setAuthType] = useState(api?.auth_type);
+  const [redirectUrl, setRedirectUrl] = useState(api?.url || api?.redirect_url);
+  const [returnUrl, setReturnUrl] = useState(api?.return_url);
 
   useEffect(() => {
-    setAuthType(data?.auth_type);
-    setRedirectUrl(data?.url || data?.redirect_url);
-    setReturnUrl(data?.return_url);
-  }, [data?.auth_type, data?.redirect_url, data?.return_url, data?.url]);
+    setAuthType(api?.auth_type);
+    setRedirectUrl(api?.url || api?.redirect_url);
+    setReturnUrl(api?.return_url);
+  }, [api?.auth_type, api?.redirect_url, api?.return_url, api?.url]);
 
   useEffect(() => {
     const { message, status } = router.query;
@@ -79,7 +74,7 @@ const SettingsPage = () => {
 
   const connectStripe = useCallback(async () => {
     try {
-      if (data?.has_completed_checkout) {
+      if (api?.has_completed_checkout) {
         return showAlert('Stripe already linked');
       }
       const response = await ApiService.stripeCheckout();
@@ -95,7 +90,7 @@ const SettingsPage = () => {
     } finally {
       // setProgress(false);
     }
-  }, [showAlert, data]);
+  }, [showAlert, api]);
 
   const clickDeleteAccount = useCallback(async () => {
     try {
@@ -112,7 +107,7 @@ const SettingsPage = () => {
     setAuthType(e.target.value);
   }, []);
 
-  const isBlurred = !data?.has_completed_checkout;
+  const isBlurred = !api?.has_completed_checkout;
 
   return (
     <DashboardLayout>
@@ -142,14 +137,14 @@ const SettingsPage = () => {
               level={2}
               variant={TypographyVariant.dark}
             >
-              App ID: <span className="blur-sm">{data?.app_id}</span>
+              App ID: <span className="blur-sm">{api?.app_id}</span>
             </Paragraph>
             <Paragraph
               className="text-left"
               level={2}
               variant={TypographyVariant.dark}
             >
-              Public key: <span className="blur-sm">{data?.public_key}</span>
+              Public key: <span className="blur-sm">{api?.public_key}</span>
             </Paragraph>
             <Paragraph
               className="text-left"
@@ -158,7 +153,7 @@ const SettingsPage = () => {
             >
               Secret key:{' '}
               <span className="blur-sm">
-                {data?.secret_keys // TODO: it's secret_key for prod api not secret_keys
+                {api?.secret_keys // TODO: it's secret_key for prod api not secret_keys
                   ?.join(', ')}
               </span>
             </Paragraph>
@@ -232,7 +227,7 @@ const SettingsPage = () => {
           Save
         </Button>
         <Button variant={ButtonVariant.outlined} onClick={connectStripe}>
-          {data?.has_completed_checkout
+          {api?.has_completed_checkout
             ? 'Stripe Successfully Linked'
             : 'Connect your stripe account'}
         </Button>
