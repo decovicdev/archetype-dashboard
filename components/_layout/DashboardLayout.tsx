@@ -11,6 +11,25 @@ import PrivateRoute from 'components/_common/PrivateRoute';
 import { useProducts } from 'hooks/useProducts';
 import { useEndpoints } from 'hooks/useEndpoints';
 import { useUsers } from 'hooks/useUsers';
+import DashboardIcon from 'components/_icons/DashboardIcon';
+import TagIcon from 'components/_icons/TagIcon';
+import DatabaseIcon from 'components/_icons/DatabaseIcon';
+import UsersIcon from 'components/_icons/UsersIcon';
+import ChartIcon from 'components/_icons/ChartIcon';
+import ChatIcon from 'components/_icons/ChatIcon';
+import UserIcon from 'components/_icons/UserIcon';
+import SettingsIcon from 'components/_icons/SettingsIcon';
+
+const ICONS = {
+  [ROUTES.DASHBOARD.DASHBOARD]: DashboardIcon,
+  [ROUTES.DASHBOARD.PRODUCTS]: TagIcon,
+  [ROUTES.DASHBOARD.ENDPOINTS]: DatabaseIcon,
+  [ROUTES.DASHBOARD.USERS]: UsersIcon,
+  [ROUTES.DASHBOARD.ANALYTICS]: ChartIcon,
+  [ROUTES.DASHBOARD.DOCUMENTATIONS]: ChatIcon,
+  [ROUTES.SETTINGS.ACCOUNT_SETTINGS]: UserIcon,
+  [ROUTES.SETTINGS.SETTINGS]: SettingsIcon
+};
 
 const LINKS = [
   { title: '', links: Object.entries(ROUTES.DASHBOARD) },
@@ -57,50 +76,55 @@ const DashboardLayout = ({ children }) => {
                   {section.title}
                 </Paragraph>
               ) : null}
-              {section.links.map(([name, url]) => (
-                <Button
-                  key={url}
-                  url={url}
-                  externalUrl={
-                    url === ROUTES.DASHBOARD.DOCUMENTATIONS
-                      ? 'https://docs.archetype.dev/docs'
-                      : null
-                  }
-                  variant={ButtonVariant.navLink}
-                  className={`w-full !justify-start ${
-                    url === ROUTES.AUTH.LOGOUT ? '!mb-0 !mt-auto' : ''
-                  }`}
-                  active={router.pathname.includes(url)}
-                  leftIcon={
-                    <PlusCircle
-                      className={`mr-4 ${
-                        router.pathname.includes(url)
-                          ? 'text-white'
-                          : 'text-tblue-700 group-hover:text-white'
-                      }`}
-                    />
-                  }
-                >
-                  <span>{formatUrlName(name)}</span>
-                  {url.includes(ROUTES.PRODUCTS.BASE_URL) &&
-                  products?.length ? (
-                    <span className="px-3 py-1 bg-white text-tblue-700 rounded-2xl ml-auto text-xs">
-                      {products.length}
-                    </span>
-                  ) : null}
-                  {url.includes(ROUTES.ENDPOINTS.BASE_URL) &&
-                  endpoints?.length ? (
-                    <span className="px-3 py-1 bg-white text-tblue-700 rounded-2xl ml-auto text-xs">
-                      {endpoints.length}
-                    </span>
-                  ) : null}
-                  {url.includes(ROUTES.USERS.BASE_URL) && users?.length ? (
-                    <span className="px-3 py-1 bg-white text-tblue-700 rounded-2xl ml-auto text-xs">
-                      {users.length}
-                    </span>
-                  ) : null}
-                </Button>
-              ))}
+              {section.links.map(([name, url]) => {
+                const Icon = ICONS[url];
+                return (
+                  <Button
+                    key={url}
+                    url={url}
+                    externalUrl={
+                      url === ROUTES.DASHBOARD.DOCUMENTATIONS
+                        ? 'https://docs.archetype.dev/docs'
+                        : null
+                    }
+                    variant={ButtonVariant.navLink}
+                    className={`w-full !justify-start ${
+                      url === ROUTES.AUTH.LOGOUT ? '!mb-0 !mt-auto' : ''
+                    }`}
+                    active={router.pathname.includes(url)}
+                    leftIcon={
+                      Icon ? (
+                        <Icon
+                          className={`mr-4 ${
+                            router.pathname.includes(url)
+                              ? 'text-white'
+                              : 'text-tblue-700 group-hover:text-white'
+                          }`}
+                        />
+                      ) : null
+                    }
+                  >
+                    <span>{formatUrlName(name)}</span>
+                    {url.includes(ROUTES.PRODUCTS.BASE_URL) &&
+                    products?.length ? (
+                      <span className="px-3 py-1 bg-white text-tblue-700 rounded-2xl ml-auto text-xs">
+                        {products.length}
+                      </span>
+                    ) : null}
+                    {url.includes(ROUTES.ENDPOINTS.BASE_URL) &&
+                    endpoints?.length ? (
+                      <span className="px-3 py-1 bg-white text-tblue-700 rounded-2xl ml-auto text-xs">
+                        {endpoints.length}
+                      </span>
+                    ) : null}
+                    {url.includes(ROUTES.USERS.BASE_URL) && users?.length ? (
+                      <span className="px-3 py-1 bg-white text-tblue-700 rounded-2xl ml-auto text-xs">
+                        {users.length}
+                      </span>
+                    ) : null}
+                  </Button>
+                );
+              })}
             </>
           ))}
         </div>
