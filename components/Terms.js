@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import config from '../config';
 
-
 const Component = () => (
   <div className="page static-page">
     <Head>

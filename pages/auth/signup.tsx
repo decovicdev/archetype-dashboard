@@ -122,11 +122,19 @@ const SignupPage: NextPage = () => {
           Register
         </Button>
         <div className="flex justify-center items-center">
-          <Button variant={ButtonVariant.link} className="!p-0">
+          <Button
+            url={ROUTES.TERMS}
+            variant={ButtonVariant.link}
+            className="!p-0"
+          >
             Terms of Service
           </Button>
           <Divider direction="vertical" className="mx-2 h-5" />
-          <Button variant={ButtonVariant.link} className="!p-0">
+          <Button
+            url={ROUTES.PRIVACY}
+            variant={ButtonVariant.link}
+            className="!p-0"
+          >
             Privacy Policy
           </Button>
         </div>

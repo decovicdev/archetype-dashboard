@@ -77,7 +77,8 @@ const Button: React.FC<Props> = ({
   );
 
 Button.defaultProps = {
-  variant: ButtonVariant.primary
+  variant: ButtonVariant.primary,
+  type: 'button'
 };
 
 export default Button;

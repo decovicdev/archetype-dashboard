@@ -39,5 +39,7 @@ export const ROUTES = {
     BASE_URL: '/users',
     ADD: '/users/add',
     EDIT: '/users/edit'
-  }
+  },
+  TERMS: '/terms-of-service',
+  PRIVACY: '/privacy-policy'
 };
