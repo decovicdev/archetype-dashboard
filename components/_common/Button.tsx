@@ -27,6 +27,7 @@ type Props = {
   className?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   url?: string;
+  externalUrl?: string;
   active?: boolean;
   type?: 'button' | 'submit' | 'reset';
 };
@@ -38,10 +39,29 @@ const Button: React.FC<Props> = ({
   className,
   onClick,
   url,
+  externalUrl,
   active,
   ...props
 }) =>
-  url ? (
+  externalUrl ? (
+    <a
+      href={externalUrl}
+      target="_blank"
+      rel="noreferrer"
+      className={`group flex justify-center items-center rounded px-4 font-sans font-normal transition-all ${
+        className || ''
+      } ${active ? activeStyles[variant] : styles[variant]}`}
+      {...props}
+    >
+      {leftIcon ? (
+        <leftIcon.type
+          {...leftIcon.props}
+          className={`${leftIcon.props.className} mr-1`}
+        />
+      ) : null}
+      {children}
+    </a>
+  ) : url ? (
     <Link href={url}>
       <a
         className={`group flex justify-center items-center rounded px-4 font-sans font-normal transition-all ${

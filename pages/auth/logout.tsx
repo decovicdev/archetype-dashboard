@@ -17,7 +17,7 @@ const LogoutPage: NextPage = () => {
     if (!currentUser) return router.push(ROUTES.AUTH.LOGIN);
     try {
       await AuthService.logout();
-      router.push(ROUTES.HOME);
+      void router.push(ROUTES.HOME);
     } catch (err) {
       setNetworkError(err);
     }

@@ -14,7 +14,7 @@ export const ROUTES = {
     ENDPOINTS: '/endpoints',
     USERS: '/users',
     ANALYTICS: '/analytics',
-    INTEGRTION: '/integrtion',
+    // INTEGRTION: '/integrtion',
     DOCUMENTATIONS: '/docs'
   },
   USER_MANUAL: {

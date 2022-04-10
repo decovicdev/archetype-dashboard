@@ -14,13 +14,13 @@ import { useUsers } from 'hooks/useUsers';
 
 const LINKS = [
   { title: '', links: Object.entries(ROUTES.DASHBOARD) },
-  {
-    title: 'User Manual',
-    links: Object.entries(ROUTES.USER_MANUAL)
-  },
+  // {
+  //   title: 'User Manual',
+  //   links: Object.entries(ROUTES.USER_MANUAL)
+  // },
   {
     title: 'Settings',
-    links: Object.entries(ROUTES.SETTINGS)
+    links: [...Object.entries(ROUTES.SETTINGS), ['LOGOUT', ROUTES.AUTH.LOGOUT]]
   }
 ];
 
@@ -42,7 +42,7 @@ const DashboardLayout = ({ children }) => {
   return (
     <PrivateRoute>
       <div className="grid grid-cols-aside w-screen h-screen overflow-hidden bg-twhite-700">
-        <div className="border py-8 pl-4 pr-8 bg-tpurple-700 space-y-2">
+        <div className="flex flex-col border border-solid border-red-500 py-8 pl-4 pr-8 bg-tpurple-700 space-y-2">
           <ArcheTypeLogo
             variant={LogoVariant.lightText}
             className="p-2 mb-8 mr-4"
@@ -61,8 +61,15 @@ const DashboardLayout = ({ children }) => {
                 <Button
                   key={url}
                   url={url}
+                  externalUrl={
+                    url === ROUTES.DASHBOARD.DOCUMENTATIONS
+                      ? 'https://docs.archetype.dev/docs'
+                      : null
+                  }
                   variant={ButtonVariant.navLink}
-                  className="w-full !justify-start"
+                  className={`w-full !justify-start ${
+                    url === ROUTES.AUTH.LOGOUT ? '!mb-0 !mt-auto' : ''
+                  }`}
                   active={router.pathname.includes(url)}
                   leftIcon={
                     <PlusCircle
