@@ -42,7 +42,7 @@ const DashboardLayout = ({ children }) => {
   return (
     <PrivateRoute>
       <div className="grid grid-cols-aside w-screen h-screen overflow-hidden bg-twhite-700">
-        <div className="flex flex-col border border-solid border-red-500 py-8 pl-4 pr-8 bg-tpurple-700 space-y-2">
+        <div className="flex flex-col py-8 pl-4 pr-8 bg-tpurple-700 space-y-2">
           <ArcheTypeLogo
             variant={LogoVariant.lightText}
             className="p-2 mb-8 mr-4"
