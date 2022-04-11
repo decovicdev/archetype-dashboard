@@ -27,6 +27,16 @@ const Component = () => {
     }
   }, [currentUser, isAuthLoading, router]);
 
+  useEffect(() => {
+    if (
+      currentUser &&
+      currentUser.emailVerified &&
+      sessionStorage.getItem('appId')
+    ) {
+      void router.push(ROUTES.SETTINGS.SETTINGS);
+    }
+  }, [currentUser, isAuthLoading, router]);
+
   const [step, setStep] = useState(0);
   const { data: api, isLoading } = useApi();
 
@@ -64,25 +74,32 @@ const Component = () => {
       <Head>
         <title>Create API - {config.meta.title}</title>
       </Head>
-      {isLoading ? <Spinner /> : null}
-      {step === 0 ? (
-        <StepOneWelcome
-          onClick={() => {
-            setStep(1);
-          }}
-        />
-      ) : null}
-      {step > 0 ? (
-        <FormProvider {...methods}>
-          <form
-            onSubmit={methods.handleSubmit(onSubmit)}
-            className="w-full max-w-[450px]"
-          >
-            {step === 1 ? <StepTwoForm onClick={() => setStep(2)} /> : null}
-            {step === 2 ? <StepThreeAuth onClick={() => setStep(1)} /> : null}
-          </form>
-        </FormProvider>
-      ) : null}
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          {step === 0 ? (
+            <StepOneWelcome
+              onClick={() => {
+                setStep(1);
+              }}
+            />
+          ) : null}
+          {step > 0 ? (
+            <FormProvider {...methods}>
+              <form
+                onSubmit={methods.handleSubmit(onSubmit)}
+                className="w-full max-w-[450px]"
+              >
+                {step === 1 ? <StepTwoForm onClick={() => setStep(2)} /> : null}
+                {step === 2 ? (
+                  <StepThreeAuth onClick={() => setStep(1)} />
+                ) : null}
+              </form>
+            </FormProvider>
+          ) : null}
+        </>
+      )}
     </OnboardingLayout>
   );
 };
