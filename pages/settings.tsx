@@ -82,13 +82,12 @@ const SettingsPage = () => {
         throw new Error('Oops, could not get enough data to proceed');
       }
       const redirectUrl = `${config.app_url}settings`;
-      window.location.replace(
-        `${response.connect_url}?return_url=${redirectUrl}&refresh_url=${redirectUrl}`
+      window.open(
+        `${response.connect_url}?return_url=${redirectUrl}&refresh_url=${redirectUrl}`,
+        '_blank'
       );
     } catch (e) {
       showAlert(e.message);
-    } finally {
-      // setProgress(false);
     }
   }, [showAlert, api]);
 
