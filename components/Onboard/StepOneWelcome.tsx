@@ -2,8 +2,8 @@ import { MouseEventHandler } from 'react';
 import Button from 'components/_common/Button';
 import Paragraph from 'components/_typography/Paragraph';
 import Title from 'components/_typography/Title';
-import { ROUTES } from 'constant/routes';
-import { ButtonVariant } from 'types/Button';
+// import { ROUTES } from 'constant/routes';
+// import { ButtonVariant } from 'types/Button';
 
 type Props = {
   onClick: MouseEventHandler<HTMLButtonElement>;
@@ -17,13 +17,13 @@ const StepOneWelcome: React.FC<Props> = ({ onClick }) => (
       <Button onClick={onClick} className="!px-[50px]">
         Start
       </Button>
-      <Button
+      {/* <Button
         className="!text-tblack-200 hover:!text-tblue-700"
         variant={ButtonVariant.link}
         url={ROUTES.DASHBOARD.DASHBOARD}
       >
         Skip to dashboard
-      </Button>
+      </Button> */}
     </div>
   </div>
 );
