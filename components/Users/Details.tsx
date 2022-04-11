@@ -75,10 +75,18 @@ const Component = () => {
           <div className="grid grid-cols-2">
             <div>App User ID</div>
             <div>{data.custom_uid}</div>
+            <div>User apiKeys</div>
+            <div>{data.apikeys?.join(',') || ''}</div>
+            <div>User app_id</div>
+            <div>{data.app_id}</div>
             <div>Name</div>
             <div>{data.attrs?.name}</div>
             <div>Email</div>
             <div>{data.email}</div>
+            <div>Status</div>
+            <div>{data.status}</div>
+            <div>Trial active</div>
+            <div>{data.is_trial ? 'true' : 'false'}</div>
             {data.tier_id && (
               <>
                 <div>Tier</div>
