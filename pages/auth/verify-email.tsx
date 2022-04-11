@@ -106,7 +106,7 @@ const VerifyPage: NextPage = () => {
                 router.push(ROUTES.AUTH.SIGNUP);
               }}
             >
-              Sing Up
+              Sign Up
             </Button>
           </div>
         </div>
