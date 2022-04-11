@@ -136,14 +136,20 @@ const SettingsPage = () => {
               level={2}
               variant={TypographyVariant.dark}
             >
-              App ID: <span className="blur-sm">{api?.app_id}</span>
+              App ID:{' '}
+              <span className={api?.has_completed_checkout ? '' : 'blur-sm'}>
+                {api?.app_id}
+              </span>
             </Paragraph>
             <Paragraph
               className="text-left"
               level={2}
               variant={TypographyVariant.dark}
             >
-              Public key: <span className="blur-sm">{api?.public_key}</span>
+              Public key:{' '}
+              <span className={api?.has_completed_checkout ? '' : 'blur-sm'}>
+                {api?.public_key}
+              </span>
             </Paragraph>
             <Paragraph
               className="text-left"
@@ -151,7 +157,7 @@ const SettingsPage = () => {
               variant={TypographyVariant.dark}
             >
               Secret key:{' '}
-              <span className="blur-sm">
+              <span className={api?.has_completed_checkout ? '' : 'blur-sm'}>
                 {api?.secret_keys // TODO: it's secret_key for prod api not secret_keys
                   ?.join(', ')}
               </span>
