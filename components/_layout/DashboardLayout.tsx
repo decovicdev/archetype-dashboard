@@ -19,6 +19,9 @@ import ChartIcon from 'components/_icons/ChartIcon';
 import ChatIcon from 'components/_icons/ChatIcon';
 import UserIcon from 'components/_icons/UserIcon';
 import SettingsIcon from 'components/_icons/SettingsIcon';
+import { useApi } from 'hooks/useApi';
+import AuthService from 'services/auth.service';
+import { useQuery } from 'react-query';
 
 const ICONS = {
   [ROUTES.DASHBOARD.DASHBOARD]: DashboardIcon,
@@ -54,9 +57,10 @@ const formatUrlName = (name: string) =>
 
 const DashboardLayout = ({ children }) => {
   const router = useRouter();
-  const { data: products } = useProducts();
-  const { data: endpoints } = useEndpoints();
-  const { data: users } = useUsers();
+  const { data: api, isLoading } = useQuery('lostApi', AuthService.getDetails);
+  const { data: products } = useProducts({ enabled: !isLoading && !!api });
+  const { data: endpoints } = useEndpoints({ enabled: !isLoading && !!api });
+  const { data: users } = useUsers({ enabled: !isLoading && !!api });
 
   return (
     <PrivateRoute>

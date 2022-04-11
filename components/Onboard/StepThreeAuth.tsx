@@ -48,6 +48,7 @@ const StepThreeAuth: React.FC<Props> = ({ onClick }) => {
                 key={key}
               >
                 <button
+                  type="button"
                   className="w-full flex flex-col justify-start items-start"
                   onClick={() => setValue('auth_type', key)}
                 >
@@ -102,7 +103,11 @@ const StepThreeAuth: React.FC<Props> = ({ onClick }) => {
         processing and return url is for when the user cancels the transaction.
       </p>
       <div className="flex space-x-2">
-        <Button variant={ButtonVariant.outlined} onClick={onClick}>
+        <Button
+          type="button"
+          variant={ButtonVariant.outlined}
+          onClick={onClick}
+        >
           Back
         </Button>
         <Button type="submit">Next</Button>

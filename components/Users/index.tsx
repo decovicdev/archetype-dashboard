@@ -58,7 +58,6 @@ const Users = () => {
     [data, searchVal]
   );
 
-  console.log({ list });
   return (
     <>
       <Head>

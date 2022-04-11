@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { FormProvider, useForm } from 'react-hook-form';
 import config from 'config';
-import Spinner from 'components/_common/Spinner';
 import ApiService from 'services/api.service';
 import { useAuth } from 'context/AuthProvider';
 import { useHelpers } from 'context/HelperProvider';
 import OnboardingLayout from 'components/_layout/OnboardingLayout';
 import { ROUTES } from 'constant/routes';
-import { useApi } from 'hooks/useApi';
 import StepOneWelcome from 'components/Onboard/StepOneWelcome';
 import StepTwoForm from 'components/Onboard/StepTwoForm';
 import StepThreeAuth from 'components/Onboard/StepThreeAuth';
+import Spinner from 'components/_common/Spinner';
+import AuthService from 'services/auth.service';
 
 const Component = () => {
   const router = useRouter();
@@ -27,21 +27,14 @@ const Component = () => {
     }
   }, [currentUser, isAuthLoading, router]);
 
+  const [step, setStep] = useState(0);
+  const { data: api, isLoading } = useQuery('lostApi', AuthService.getDetails);
+
   useEffect(() => {
-    if (
-      currentUser &&
-      currentUser.emailVerified &&
-      sessionStorage.getItem('appId')
-    ) {
+    if (currentUser && currentUser.emailVerified && api) {
       void router.push(ROUTES.SETTINGS.SETTINGS);
     }
-  }, [currentUser, isAuthLoading, router]);
-
-  const [step, setStep] = useState(0);
-  const { data: api, isLoading } = useApi();
-
-  // // TODO: use api data as initial values for this page
-  // console.log({ api });
+  }, [api, currentUser, isAuthLoading, router]);
 
   const methods = useForm({ defaultValues: api });
   const queryClient = useQueryClient();
@@ -69,37 +62,34 @@ const Component = () => {
 
   const onSubmit = (data) => submitForm(data);
 
+  if (isAuthLoading || isLoading) return <Spinner fullPage />;
+
   return (
     <OnboardingLayout>
       <Head>
         <title>Create API - {config.meta.title}</title>
       </Head>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <>
-          {step === 0 ? (
-            <StepOneWelcome
-              onClick={() => {
-                setStep(1);
-              }}
-            />
-          ) : null}
-          {step > 0 ? (
-            <FormProvider {...methods}>
-              <form
-                onSubmit={methods.handleSubmit(onSubmit)}
-                className="w-full max-w-[450px]"
-              >
-                {step === 1 ? <StepTwoForm onClick={() => setStep(2)} /> : null}
-                {step === 2 ? (
-                  <StepThreeAuth onClick={() => setStep(1)} />
-                ) : null}
-              </form>
-            </FormProvider>
-          ) : null}
-        </>
-      )}
+
+      {step === 0 ? (
+        <StepOneWelcome
+          onClick={() => {
+            setStep(1);
+          }}
+        />
+      ) : null}
+      {step > 0 ? (
+        <FormProvider {...methods}>
+          <form
+            onSubmit={methods.handleSubmit(onSubmit)}
+            className="w-full max-w-[450px]"
+          >
+            {step === 1 ? (
+              <StepTwoForm disabled={isLoading} onClick={() => setStep(2)} />
+            ) : null}
+            {step === 2 ? <StepThreeAuth onClick={() => setStep(1)} /> : null}
+          </form>
+        </FormProvider>
+      ) : null}
     </OnboardingLayout>
   );
 };

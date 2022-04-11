@@ -6,9 +6,10 @@ import Button from 'components/_common/Button';
 
 type Props = {
   onClick: MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 };
 
-const StepTwoForm: React.FC<Props> = ({ onClick }) => {
+const StepTwoForm: React.FC<Props> = ({ onClick, disabled }) => {
   const { register } = useFormContext();
 
   return (
@@ -20,19 +21,24 @@ const StepTwoForm: React.FC<Props> = ({ onClick }) => {
         autoComplete="name"
         placeholder="Api Name"
         label="Name"
+        disabled={disabled}
         {...register('name', { required: true })}
       />
       <Input
         placeholder="Company Name"
         label="Company"
+        disabled={disabled}
         {...register('company', { required: true })}
       />
       <Input
         placeholder="Base URL"
         label="Base URL"
+        disabled={disabled}
         {...register('url', { required: true })}
       />
-      <Button onClick={onClick}>Next</Button>
+      <Button type="button" onClick={onClick}>
+        Next
+      </Button>
     </div>
   );
 };

@@ -32,7 +32,7 @@ const radioOptions: RadioOption[] = [
   { id: 'body', label: 'Body', value: AUTH_TYPES.body }
 ];
 
-const SettingsPage = () => {
+const SettingsComponent = () => {
   const router = useRouter();
   const { showAlert } = useHelpers();
   const [isDeleting, setDeleting] = useState(false);
@@ -109,157 +109,160 @@ const SettingsPage = () => {
   const isBlurred = !api?.has_completed_checkout;
 
   return (
-    <DashboardLayout>
-      <Head>
-        <title>Settings - {config.meta.title}</title>
-      </Head>
-      <div className="flex flex-col space-y-2">
-        <BreadCrumbs
-          links={[
-            { url: ROUTES.SETTINGS.SETTINGS, title: 'Settings' },
-            { url: ROUTES.SETTINGS.ACCOUNT_SETTINGS, title: 'Profile' }
-          ]}
-        />
+    <div className="flex flex-col space-y-2">
+      <BreadCrumbs
+        links={[
+          { url: ROUTES.SETTINGS.SETTINGS, title: 'Settings' },
+          { url: ROUTES.SETTINGS.ACCOUNT_SETTINGS, title: 'Profile' }
+        ]}
+      />
 
-        {isLoading && <Spinner />}
+      {isLoading && <Spinner />}
+      <div>
+        <Image
+          className="icon"
+          src={KeyIcon}
+          alt="Key"
+          width={18}
+          height={18}
+        />{' '}
         <div>
-          <Image
-            className="icon"
-            src={KeyIcon}
-            alt="Key"
-            width={18}
-            height={18}
-          />{' '}
-          <div>
-            <Paragraph
-              className="text-left"
-              level={2}
-              variant={TypographyVariant.dark}
-            >
-              App ID:{' '}
-              <span className={api?.has_completed_checkout ? '' : 'blur-sm'}>
-                {api?.app_id}
-              </span>
-            </Paragraph>
-            <Paragraph
-              className="text-left"
-              level={2}
-              variant={TypographyVariant.dark}
-            >
-              Public key:{' '}
-              <span className={api?.has_completed_checkout ? '' : 'blur-sm'}>
-                {api?.public_key}
-              </span>
-            </Paragraph>
-            <Paragraph
-              className="text-left"
-              level={2}
-              variant={TypographyVariant.dark}
-            >
-              Secret key:{' '}
-              <span className={api?.has_completed_checkout ? '' : 'blur-sm'}>
-                {api?.secret_keys // TODO: it's secret_key for prod api not secret_keys
-                  ?.join(', ')}
-              </span>
-            </Paragraph>
-          </div>
-          {isBlurred && (
-            <Paragraph
-              className="text-left"
-              level={2}
-              variant={TypographyVariant.dark}
-            >
-              Important! Link your account to Stripe to access your keys
-            </Paragraph>
-          )}
+          <Paragraph
+            className="text-left"
+            level={2}
+            variant={TypographyVariant.dark}
+          >
+            App ID:{' '}
+            <span className={api?.has_completed_checkout ? '' : 'blur-sm'}>
+              {api?.app_id}
+            </span>
+          </Paragraph>
+          <Paragraph
+            className="text-left"
+            level={2}
+            variant={TypographyVariant.dark}
+          >
+            Public key:{' '}
+            <span className={api?.has_completed_checkout ? '' : 'blur-sm'}>
+              {api?.public_key}
+            </span>
+          </Paragraph>
+          <Paragraph
+            className="text-left"
+            level={2}
+            variant={TypographyVariant.dark}
+          >
+            Secret key:{' '}
+            <span className={api?.has_completed_checkout ? '' : 'blur-sm'}>
+              {api?.secret_keys // TODO: it's secret_key for prod api not secret_keys
+                ?.join(', ')}
+            </span>
+          </Paragraph>
         </div>
-        <div className="text-black">
-          <Image
-            className="icon"
-            src={AuthIcon}
-            alt="User"
-            width={18}
-            height={18}
-          />{' '}
-          Change auth type
-        </div>
-        <RadioGroup
-          options={radioOptions}
-          onChange={updateAuthType}
-          checked={authType}
-        />
-        <Input
-          name="redirectUrl"
-          placeholder="URL"
-          label={
-            <>
-              <Image
-                className="icon"
-                src={AuthIcon}
-                width={18}
-                height={18}
-                alt="redirect url"
-              />{' '}
-              Redirect URL
-            </>
-          }
-          value={redirectUrl}
-          onChange={(e) => setRedirectUrl(e.target.value)}
-        />
-        <Input
-          name="returnUrl"
-          placeholder="URL"
-          label={
-            <>
-              <Image
-                className="icon"
-                src={AuthIcon}
-                width={18}
-                height={18}
-                alt="return url"
-              />{' '}
-              Return URL
-            </>
-          }
-          value={returnUrl}
-          onChange={(e) => setReturnUrl(e.target.value)}
-        />
-        <Button variant={ButtonVariant.danger} onClick={onOpen}>
-          <DeleteIcon gradient />
-          <span className="ml-4">Delete App</span>
-        </Button>
-        <Button variant={ButtonVariant.primary} onClick={() => saveForm()}>
-          Save
-        </Button>
-        <Button variant={ButtonVariant.outlined} onClick={connectStripe}>
-          {api?.has_completed_checkout
-            ? 'Stripe Successfully Linked'
-            : 'Connect your stripe account'}
-        </Button>
-        <Modal isOpen={isOpen} onClose={onClose} isBusy={isDeleting}>
-          <div className="data">
-            <h1>Delete Account</h1>
-            <p>
-              Are you sure you want to delete your account and lose access to
-              all of your data?
-            </p>
-          </div>
-          <div className="btns">
-            <button type="button" className="btn grey" onClick={onClose}>
-              No, Cancel
-            </button>
-            <button
-              type="button"
-              className="btn gradient-pink"
-              onClick={clickDeleteAccount}
-            >
-              Yes, Delete
-            </button>
-          </div>
-        </Modal>
+        {isBlurred && (
+          <Paragraph
+            className="text-left"
+            level={2}
+            variant={TypographyVariant.dark}
+          >
+            Important! Link your account to Stripe to access your keys
+          </Paragraph>
+        )}
       </div>
-    </DashboardLayout>
+      <div className="text-black">
+        <Image
+          className="icon"
+          src={AuthIcon}
+          alt="User"
+          width={18}
+          height={18}
+        />{' '}
+        Change auth type
+      </div>
+      <RadioGroup
+        options={radioOptions}
+        onChange={updateAuthType}
+        checked={authType}
+      />
+      <Input
+        name="redirectUrl"
+        placeholder="URL"
+        label={
+          <>
+            <Image
+              className="icon"
+              src={AuthIcon}
+              width={18}
+              height={18}
+              alt="redirect url"
+            />{' '}
+            Redirect URL
+          </>
+        }
+        value={redirectUrl}
+        onChange={(e) => setRedirectUrl(e.target.value)}
+      />
+      <Input
+        name="returnUrl"
+        placeholder="URL"
+        label={
+          <>
+            <Image
+              className="icon"
+              src={AuthIcon}
+              width={18}
+              height={18}
+              alt="return url"
+            />{' '}
+            Return URL
+          </>
+        }
+        value={returnUrl}
+        onChange={(e) => setReturnUrl(e.target.value)}
+      />
+      <Button variant={ButtonVariant.danger} onClick={onOpen}>
+        <DeleteIcon gradient />
+        <span className="ml-4">Delete App</span>
+      </Button>
+      <Button variant={ButtonVariant.primary} onClick={() => saveForm()}>
+        Save
+      </Button>
+      <Button variant={ButtonVariant.outlined} onClick={connectStripe}>
+        {api?.has_completed_checkout
+          ? 'Stripe Successfully Linked'
+          : 'Connect your stripe account'}
+      </Button>
+      <Modal isOpen={isOpen} onClose={onClose} isBusy={isDeleting}>
+        <div className="data">
+          <h1>Delete Account</h1>
+          <p>
+            Are you sure you want to delete your account and lose access to all
+            of your data?
+          </p>
+        </div>
+        <div className="btns">
+          <button type="button" className="btn grey" onClick={onClose}>
+            No, Cancel
+          </button>
+          <button
+            type="button"
+            className="btn gradient-pink"
+            onClick={clickDeleteAccount}
+          >
+            Yes, Delete
+          </button>
+        </div>
+      </Modal>
+    </div>
   );
 };
+const SettingsPage = () => (
+  <DashboardLayout>
+    <Head>
+      <title>Settings - {config.meta.title}</title>
+    </Head>
+    <SettingsComponent />
+  </DashboardLayout>
+);
 
 export default SettingsPage;

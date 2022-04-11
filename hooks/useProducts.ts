@@ -3,8 +3,9 @@ import { useHelpers } from 'context/HelperProvider';
 import TierService from 'services/tier.service';
 
 export const useProducts = ({
-  onError
-}: { onError?: (err: any) => void } = {}) => {
+  onError,
+  enabled = true
+}: { onError?: (err: any) => void; enabled?: boolean } = {}) => {
   const { showAlert } = useHelpers();
   const { data, isLoading, isError } = useQuery(
     'products',
@@ -14,7 +15,8 @@ export const useProducts = ({
         onError ??
         ((err: any) => {
           showAlert(err?.message);
-        })
+        }),
+      enabled
     }
   );
 

@@ -26,29 +26,21 @@ export const AuthProvider = ({ children }) => {
 
   const init = useCallback(() => {
     try {
-      onAuthStateChanged(auth, (user) => {
+      onAuthStateChanged(auth, async (user) => {
         setCurrentUser(user);
         if (!user) {
           sessionStorage.clear();
           return setIsAuthLoading(false);
         }
-        user
-          .getIdToken()
-          .then((token) => {
-            sessionStorage.setItem('token', token);
-            if (!sessionStorage.getItem('appId')) {
-              return AuthService.getDetails();
-            }
-          })
-          .then((response) => {
-            if (response?.app_id) {
-              sessionStorage.setItem('appId', response.app_id);
-            }
-            setIsAuthLoading(false);
-          })
-          .catch(() => {
-            setIsAuthLoading(false);
-          });
+        const token = await user?.getIdToken();
+        sessionStorage.setItem('token', token);
+        if (!sessionStorage.getItem('appId')) {
+          const response = await AuthService.getDetails();
+          if (response?.app_id) {
+            sessionStorage.setItem('appId', response.app_id);
+          }
+        }
+        setIsAuthLoading(false);
       });
     } catch {
       setIsAuthLoading(false);

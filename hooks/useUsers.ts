@@ -3,8 +3,9 @@ import { useHelpers } from 'context/HelperProvider';
 import CustomerService from 'services/customer.service';
 
 export const useUsers = ({
-  onError
-}: { onError?: (err: any) => void } = {}) => {
+  onError,
+  enabled = true
+}: { onError?: (err: any) => void; enabled?: boolean } = {}) => {
   const { showAlert } = useHelpers();
   const { data, isLoading, isError } = useQuery(
     'users',
@@ -14,7 +15,8 @@ export const useUsers = ({
         onError ??
         ((err: any) => {
           showAlert(err?.message);
-        })
+        }),
+      enabled
     }
   );
 

@@ -3,8 +3,9 @@ import { useHelpers } from 'context/HelperProvider';
 import EndpointService from 'services/endpoint.service';
 
 export const useEndpoints = ({
-  onError
-}: { onError?: (err: any) => void } = {}) => {
+  onError,
+  enabled = true
+}: { onError?: (err: any) => void; enabled?: boolean } = {}) => {
   const { showAlert } = useHelpers();
   const { data, isLoading, isError } = useQuery(
     'endpoints',
@@ -14,7 +15,8 @@ export const useEndpoints = ({
         onError ??
         ((err: any) => {
           showAlert(err?.message);
-        })
+        }),
+      enabled
     }
   );
 

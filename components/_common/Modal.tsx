@@ -17,27 +17,26 @@ const Modal: React.FC<Props> = ({
   title,
   alwaysVisible,
   children
-}) =>
-  console.log(isOpen) || (
-    <div
-      className={classnames('modal-layer', className, { visible: isOpen })}
-      style={{
-        backgroundColor: isOpen ? '#333' : 'white',
-        overflowY: 'auto',
-        height: isOpen ? '600px' : '0'
-      }}
-    >
-      <div>
-        {title && <div className="tit">{title}</div>}
-        {children}
-        {!alwaysVisible && <button type="button" onClick={onClose} />}
-        {isBusy ? (
-          <div>
-            <div className="spinner" />
-          </div>
-        ) : null}
-      </div>
+}) => (
+  <div
+    className={classnames('modal-layer', className, { visible: isOpen })}
+    style={{
+      backgroundColor: isOpen ? '#333' : 'white',
+      overflowY: 'auto',
+      height: isOpen ? '600px' : '0'
+    }}
+  >
+    <div>
+      {title && <div className="tit">{title}</div>}
+      {children}
+      {!alwaysVisible && <button type="button" onClick={onClose} />}
+      {isBusy ? (
+        <div>
+          <div className="spinner" />
+        </div>
+      ) : null}
     </div>
-  );
+  </div>
+);
 
 export default Modal;

@@ -41,8 +41,6 @@ const Component = () => {
     fetch();
   }, [router.query.tierId, showAlert]);
 
-  console.log(router.query);
-
   const renderContent = useCallback(() => {
     if (!fields) {
       return <div className="no-content">Product not found.</div>;

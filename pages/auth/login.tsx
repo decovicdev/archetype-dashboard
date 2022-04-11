@@ -50,7 +50,6 @@ const LoginPage: NextPage = () => {
 
   const router = useRouter();
   const { isAuthLoading, currentUser } = useAuth();
-  console.log({ isAuthLoading, currentUser });
 
   useEffect(() => {
     if (isAuthLoading) return;
