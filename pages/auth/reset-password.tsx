@@ -55,10 +55,10 @@ const ResetPage: NextPage = () => {
 
   useEffect(() => {
     if (isAuthLoading) return;
-    if (currentUser && !currentUser.emailVerified) {
-      router.push(ROUTES.AUTH.VERIFY);
+    if (currentUser && !currentUser.emailVerified && !currentUser.providerId) {
+      void router.push(ROUTES.AUTH.VERIFY);
     } else if (currentUser) {
-      router.push(ROUTES.SETTINGS.SETTINGS);
+      void router.push(ROUTES.SETTINGS.SETTINGS);
     }
   }, [currentUser, isAuthLoading, router]);
 

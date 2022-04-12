@@ -8,7 +8,10 @@ import {
   sendEmailVerification,
   applyActionCode,
   signOut,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  signInWithPopup
 } from 'firebase/auth';
 import type { AxiosResponse } from 'axios';
 import http from '../helpers/http';
@@ -18,6 +21,8 @@ import { AuthFormData } from 'types/Auth';
 const app = initializeApp(config.firebase);
 export const auth = getAuth(app);
 
+const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
 export default class AuthService {
   static async getDetails(): Promise<
     AxiosResponse<{ app_id: string }>['data']
@@ -38,6 +43,16 @@ export default class AuthService {
   static async login({ email, password }: AuthFormData) {
     await setPersistence(auth, browserLocalPersistence);
     await signInWithEmailAndPassword(auth, email, password);
+  }
+
+  static async loginWithGoogle() {
+    await signInWithPopup(auth, googleProvider);
+    // const credential = GoogleAuthProvider.credentialFromResult(result);
+  }
+
+  static async loginWithGithub() {
+    await signInWithPopup(auth, githubProvider);
+    // const credential = GithubAuthProvider.credentialFromResult(result);
   }
 
   static async logout() {

@@ -20,6 +20,8 @@ import { AuthFormData } from 'types/Auth';
 import AuthLayout from 'components/_layout/AuthLayout';
 import { ROUTES } from 'constant/routes';
 import { useAuth } from 'context/AuthProvider';
+import GoogleIcon from 'components/_icons/GoogleIcon';
+import GithubIcon from 'components/_icons/GithubIcon';
 
 const schema = yup
   .object({
@@ -53,7 +55,7 @@ const LoginPage: NextPage = () => {
 
   useEffect(() => {
     if (isAuthLoading) return;
-    if (currentUser && !currentUser.emailVerified) {
+    if (currentUser && !currentUser.emailVerified && !currentUser.providerId) {
       void router.push(ROUTES.AUTH.VERIFY);
     } else if (currentUser) {
       void router.push(ROUTES.SETTINGS.SETTINGS);
@@ -129,8 +131,20 @@ const LoginPage: NextPage = () => {
         <Paragraph variant={TypographyVariant.darkFaint} level={2}>
           Or sign in using:
         </Paragraph>
-        <Button variant={ButtonVariant.outlined}>Continue with Google</Button>
-        <Button variant={ButtonVariant.outlined}>Continue with GitHub</Button>
+        <Button
+          variant={ButtonVariant.outlined}
+          onClick={AuthService.loginWithGoogle}
+        >
+          <GoogleIcon className="mr-2" />
+          Continue with Google
+        </Button>
+        <Button
+          variant={ButtonVariant.outlined}
+          onClick={AuthService.loginWithGithub}
+        >
+          <GithubIcon className="mr-2" />
+          Continue with GitHub
+        </Button>
       </form>
     </AuthLayout>
   );

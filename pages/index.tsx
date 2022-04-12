@@ -12,11 +12,15 @@ const HomePage = () => {
   useEffect(() => {
     if (isAuthLoading) return;
     if (!currentUser) {
-      router.push(ROUTES.AUTH.SIGNUP);
-    } else if (currentUser && !currentUser.emailVerified) {
-      router.push(ROUTES.AUTH.VERIFY);
+      void router.push(ROUTES.AUTH.SIGNUP);
+    } else if (
+      currentUser &&
+      !currentUser.emailVerified &&
+      !currentUser.providerId
+    ) {
+      void router.push(ROUTES.AUTH.VERIFY);
     } else {
-      router.push(ROUTES.DASHBOARD.DASHBOARD);
+      void router.push(ROUTES.DASHBOARD.DASHBOARD);
     }
   }, [currentUser, isAuthLoading, router]);
 

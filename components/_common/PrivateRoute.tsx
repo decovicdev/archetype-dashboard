@@ -19,7 +19,7 @@ const PrivateRoute = ({
     if (isAuthLoading) return;
     if (!currentUser) {
       void router.push(ROUTES.AUTH.LOGIN);
-    } else if (!currentUser.emailVerified) {
+    } else if (!currentUser.emailVerified && !currentUser.providerId) {
       void router.push(ROUTES.AUTH.VERIFY);
     }
     if (!api) {

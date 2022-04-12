@@ -25,8 +25,8 @@ const VerifyPage: NextPage = () => {
 
   useEffect(() => {
     if (isAuthLoading) return;
-    if (currentUser?.emailVerified) {
-      router.push(ROUTES.SETTINGS.SETTINGS);
+    if (currentUser?.emailVerified || currentUser.providerId) {
+      void router.push(ROUTES.SETTINGS.SETTINGS);
     }
   }, [currentUser, isAuthLoading, router]);
 

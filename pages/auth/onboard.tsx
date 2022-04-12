@@ -31,7 +31,11 @@ const Component = () => {
   const { data: api, isLoading } = useQuery('lostApi', AuthService.getDetails);
 
   useEffect(() => {
-    if (currentUser && currentUser.emailVerified && api) {
+    if (
+      currentUser &&
+      (currentUser.emailVerified || currentUser.providerId) &&
+      api
+    ) {
       void router.push(ROUTES.SETTINGS.SETTINGS);
     }
   }, [api, currentUser, isAuthLoading, router]);
