@@ -19,7 +19,10 @@ const PrivateRoute = ({
     if (isAuthLoading) return;
     if (!currentUser) {
       void router.push(ROUTES.AUTH.LOGIN);
-    } else if (!currentUser.emailVerified && !currentUser.providerId) {
+    } else if (
+      !currentUser.emailVerified &&
+      !currentUser?.providerId?.includes('github')
+    ) {
       void router.push(ROUTES.AUTH.VERIFY);
     }
     if (!api) {
@@ -31,7 +34,10 @@ const PrivateRoute = ({
 
   if (!api) return <Spinner fullPage />;
 
-  if (currentUser?.emailVerified) {
+  if (
+    currentUser?.emailVerified ||
+    currentUser?.providerId?.includes('github')
+  ) {
     return children;
   }
 

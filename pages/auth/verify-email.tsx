@@ -25,7 +25,10 @@ const VerifyPage: NextPage = () => {
 
   useEffect(() => {
     if (isAuthLoading) return;
-    if (currentUser?.emailVerified || currentUser.providerId) {
+    if (
+      currentUser?.emailVerified ||
+      currentUser?.providerId?.includes('github')
+    ) {
       void router.push(ROUTES.SETTINGS.SETTINGS);
     }
   }, [currentUser, isAuthLoading, router]);

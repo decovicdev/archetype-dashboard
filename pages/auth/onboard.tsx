@@ -33,7 +33,8 @@ const Component = () => {
   useEffect(() => {
     if (
       currentUser &&
-      (currentUser.emailVerified || currentUser.providerId) &&
+      (currentUser.emailVerified ||
+        currentUser?.providerId?.includes('github')) &&
       api
     ) {
       void router.push(ROUTES.SETTINGS.SETTINGS);

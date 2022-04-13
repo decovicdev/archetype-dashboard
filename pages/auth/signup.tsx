@@ -65,7 +65,11 @@ const SignupPage: NextPage = () => {
 
   useEffect(() => {
     if (isAuthLoading) return;
-    if (currentUser && !currentUser.emailVerified && !currentUser.providerId) {
+    if (
+      currentUser &&
+      !currentUser.emailVerified &&
+      !currentUser?.providerId?.includes('github')
+    ) {
       void router.push(ROUTES.AUTH.VERIFY);
     } else if (currentUser) {
       void router.push(ROUTES.SETTINGS.SETTINGS);

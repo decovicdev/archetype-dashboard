@@ -37,7 +37,9 @@ export default class AuthService {
       email,
       password
     );
-    await sendEmailVerification(response.user);
+    await sendEmailVerification(response.user, {
+      url: process.env.NEXT_PUBLIC_REDIRECT_URL
+    });
   }
 
   static async login({ email, password }: AuthFormData) {
@@ -60,7 +62,9 @@ export default class AuthService {
   }
 
   static async sendVerificationEmail({ user }) {
-    return await sendEmailVerification(user);
+    return await sendEmailVerification(user, {
+      url: process.env.NEXT_PUBLIC_REDIRECT_URL
+    });
   }
 
   static async sendResetPasswordEmail({ email }) {

@@ -16,7 +16,7 @@ const HomePage = () => {
     } else if (
       currentUser &&
       !currentUser.emailVerified &&
-      !currentUser.providerId
+      !currentUser?.providerId?.includes('github')
     ) {
       void router.push(ROUTES.AUTH.VERIFY);
     } else {
