@@ -12,6 +12,7 @@ import EndpointService from '../../services/endpoint.service';
 import { useHelpers } from '../../context/HelperProvider';
 import DeleteModal from './DeleteModal';
 import useDisclosure from 'hooks/useDisclosure';
+import Button from 'components/_common/Button';
 
 const Component = () => {
   const router = useRouter();
@@ -49,7 +50,7 @@ const Component = () => {
       <>
         <div className="top-block">
           <h2>{data.name}</h2>
-          <DropdownMenu title={<div className="context-menu-dots" />}>
+          <DropdownMenu title={<Button>Options</Button>}>
             <Link href={`/endpoints/edit/${data.uid}`}>
               <a className="edit-btn">Edit</a>
             </Link>

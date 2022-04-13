@@ -22,7 +22,7 @@ const Component = forwardRef(function Component({ data, clickDelete }, ref) {
               {method}
             </div>
           ))}
-          <DropdownMenu title={<div className="product-context-menu" />}>
+          <DropdownMenu title={<Button>Options</Button>}>
             <Link href={`/endpoints/edit/${data.uid}`}>
               <a className="edit-btn">Edit</a>
             </Link>

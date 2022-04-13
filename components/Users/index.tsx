@@ -15,6 +15,7 @@ import Button from 'components/_common/Button';
 import { ROUTES } from 'constant/routes';
 import { TypographyVariant } from 'types/Typography';
 import { useUsers } from 'hooks/useUsers';
+import { ButtonVariant } from 'types/Button';
 
 const Users = () => {
   const router = useRouter();
@@ -33,7 +34,7 @@ const Users = () => {
         return;
       }
 
-      router.push(`${ROUTES.USERS.BASE_URL}/${item.custom_uid}`);
+      void router.push(`${ROUTES.USERS.BASE_URL}/${item.custom_uid}`);
     },
     [router]
   );
@@ -104,8 +105,9 @@ const Users = () => {
           </div>
         </Card>
         <Card className="mt-4">
-          <div className="w-full grid grid-cols-5">
-            <div>Customer</div>
+          <div className="w-full grid grid-cols-7">
+            <div>Customer Id</div>
+            <div>Name</div>
             <div>API key</div>
             <div>Tier</div>
             <div>Last seen</div>
@@ -114,43 +116,41 @@ const Users = () => {
           {list?.map((customer) => (
             <div
               key={customer.custom_uid}
-              className="w-full grid grid-cols-5"
+              className="w-full grid grid-cols-7"
               onClick={(e) => clickItem(e, customer)}
             >
               <div>{customer.custom_uid}</div>
+              <div>{customer.name}</div>
               <div>{customer.apikey}</div>
               <div>{customer.tier_id || '-'}</div>
               <div>
                 {new Date(customer.last_seen * 1000).toLocaleDateString()}
               </div>
+              <div>{customer.status.replace('_', ' ')}</div>
               <div>
-                {customer.status.replace('_', ' ')}
-                <DropdownMenu title={<div className="context-menu-dots" />}>
-                  <Link href={`/users/edit/${customer.custom_uid}`}>
-                    <a className="edit-btn">Edit</a>
-                  </Link>
-                  <button
+                <DropdownMenu title={<Button>Options</Button>}>
+                  <Button url={`${ROUTES.USERS.EDIT}/${customer.custom_uid}`}>
+                    Edit
+                  </Button>
+                  <Button
                     type="button"
-                    className="generate-key-btn"
                     onClick={() => {
                       setSelectedId(customer.custom_uid);
-
                       onGKOpen();
                     }}
                   >
                     Reset API key
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     type="button"
-                    className="delete-btn"
+                    variant={ButtonVariant.danger}
                     onClick={() => {
                       setSelectedId(customer.custom_uid);
-
                       onOpen();
                     }}
                   >
                     Delete
-                  </button>
+                  </Button>
                 </DropdownMenu>
               </div>
             </div>

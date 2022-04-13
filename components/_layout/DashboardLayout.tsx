@@ -132,7 +132,7 @@ const DashboardLayout = ({ children }) => {
             </>
           ))}
         </div>
-        <div className="grid grid-rows-header h-full overflow-hidden">
+        <div className="h-full overflow-hidden">
           {/* <div className="flex w-full justify-between bg-white py-2">
             <Input
               placeholder="Search..."

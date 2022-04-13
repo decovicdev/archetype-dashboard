@@ -24,11 +24,10 @@ const PrivateRoute = ({
       !currentUser?.providerId?.includes('github')
     ) {
       void router.push(ROUTES.AUTH.VERIFY);
-    }
-    if (!api) {
+    } else if (!api && !isLoading) {
       void router.push(ROUTES.AUTH.ONBOARD);
     }
-  }, [api, currentUser, isAuthLoading, router]);
+  }, [api, currentUser, isAuthLoading, isLoading, router]);
 
   if (isAuthLoading || isLoading) return <Spinner fullPage />;
 

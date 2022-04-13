@@ -60,8 +60,8 @@ const Component = () => {
   const { mutate: submitForm, isLoading } = useMutation(
     async () => {
       if (isLoading) return;
-      if (!fields.name) return showAlert('Name is required field');
-      if (!fields.price) return showAlert('Price is required field');
+      if (!fields.name) throw new Error('Name is required field');
+      if (!fields.price) throw new Error('Price is required field');
 
       await TierService.addNew({
         name: fields.name,
@@ -134,13 +134,19 @@ const Component = () => {
         <title>Add Product - {config.meta.title}</title>
       </Head>
       {isLoading && <Spinner />}
-      <div className="flex flex-col space-y-2">
-        <BreadCrumbs
-          links={[
-            { url: ROUTES.PRODUCTS.BASE_URL, title: 'Products' },
-            { url: ROUTES.PRODUCTS.ADD, title: 'Add Product' }
-          ]}
-        />
+      <BreadCrumbs
+        links={[
+          { url: ROUTES.PRODUCTS.BASE_URL, title: 'Products' },
+          { url: ROUTES.PRODUCTS.ADD, title: 'Add Product' }
+        ]}
+      />
+      <form
+        className="flex flex-col space-y-2"
+        onSubmit={(e) => {
+          e?.preventDefault();
+          submitForm();
+        }}
+      >
         <Title
           level={3}
           className="!text-left my-4"
@@ -257,11 +263,15 @@ const Component = () => {
           </>
         )}
         <Divider />
-        <Button onClick={() => submitForm()}>Create</Button>
-        <Button variant={ButtonVariant.outlined} url={ROUTES.PRODUCTS.BASE_URL}>
+        <Button type="submit">Create</Button>
+        <Button
+          type="button"
+          variant={ButtonVariant.outlined}
+          url={ROUTES.PRODUCTS.BASE_URL}
+        >
           Cancel
         </Button>
-      </div>
+      </form>
     </>
   );
 };

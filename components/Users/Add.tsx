@@ -59,7 +59,8 @@ const Component = () => {
 
       await CustomerService.addNew({
         uid: fields.id,
-        attrs: { name: fields.name },
+        // attrs: { name: fields.name },
+        name: fields.name,
         email: fields.email
       });
     },
