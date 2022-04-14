@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
 import config from '../../config';
 
 import Spinner from '../_common/Spinner';
@@ -12,34 +12,54 @@ import TierService from '../../services/tier.service';
 import { useHelpers } from '../../context/HelperProvider';
 import { ROUTES } from 'constant/routes';
 import useDisclosure from 'hooks/useDisclosure';
+import BreadCrumbs from 'components/_common/BreadCrumbs';
+import Button from 'components/_common/Button';
+import { ButtonVariant } from 'types/Button';
+import Title from 'components/_typography/Title';
+import { TypographyVariant } from 'types/Typography';
+import Paragraph from 'components/_typography/Paragraph';
+import Divider from 'components/_common/Divider';
 
 const Component = () => {
   const router = useRouter();
 
   const { showAlert } = useHelpers();
 
-  const [inProgress, setProgress] = useState(false);
+  // const [inProgress, setProgress] = useState(false);
   const [fields, setFields] = useState(null);
 
-  useEffect(() => {
-    async function fetch() {
-      try {
-        setProgress(true);
-
-        const response = await TierService.getById(
-          router.query.tierId as string
-        );
-
-        setFields(response);
-      } catch (e) {
+  const { isLoading } = useQuery(
+    ['product', router.query.tierId],
+    async () => await TierService.getById(router.query.tierId as string),
+    {
+      onSuccess: (newData) => {
+        setFields(newData);
+      },
+      onError: (e: any) => {
         showAlert(e.message);
-      } finally {
-        setProgress(false);
       }
     }
+  );
 
-    fetch();
-  }, [router.query.tierId, showAlert]);
+  // useEffect(() => {
+  //   async function fetch() {
+  //     try {
+  //       setProgress(true);
+
+  //       const response = await TierService.getById(
+  //         router.query.tierId as string
+  //       );
+
+  //       setFields(response);
+  //     } catch (e) {
+  //       showAlert(e.message);
+  //     } finally {
+  //       setProgress(false);
+  //     }
+  //   }
+
+  //   fetch();
+  // }, [router.query.tierId, showAlert]);
 
   const renderContent = useCallback(() => {
     if (!fields) {
@@ -47,123 +67,241 @@ const Component = () => {
     }
 
     return (
-      <div
-        style={{ backgroundColor: '#333', overflowY: 'auto', height: '600px' }}
-      >
-        <div className="basic-info-block">
-          <div className="left-side">
-            <div className="pic" />
-            <div className="data">
-              <div className="name">{fields.name}</div>
-              <div className="price">
-                ${fields.price} {fields.currency} / <span>{fields.period}</span>
-              </div>
-            </div>
+      <>
+        <div className="flex justify-between">
+          <div className="data">
+            <Title
+              level={2}
+              className="!text-left"
+              variant={TypographyVariant.dark}
+            >
+              {fields.name}
+            </Title>
+            <Paragraph
+              level={2}
+              className="!text-left"
+              variant={TypographyVariant.dark}
+            >
+              ${fields.price} {fields.currency} / <span>{fields.period}</span>
+            </Paragraph>
           </div>
-          <div className="right-side">
-            <Link href={`${ROUTES.PRODUCTS.EDIT}/${router.query.tierId}`}>
-              <a className="btn gradient-pink">Edit product</a>
-            </Link>
-          </div>
-          <div className="bottom-side">
-            <div className="field">
-              <span>Updated:</span>
-              <span>{new Date().toLocaleDateString()}</span>
-            </div>
-          </div>
+
+          <Button url={`${ROUTES.PRODUCTS.EDIT}/${router.query.tierId}`}>
+            Edit product
+          </Button>
         </div>
-        <h2>Details</h2>
-        <div className="details-block">
-          <div className="field">
-            <span>Name:</span>
-            <span>{fields.name}</span>
-          </div>
-          <div className="field">
-            <span>ID:</span>
-            <span>{fields.tier_id}</span>
-          </div>
-          <div className="field">
-            <span>Description:</span>
-            <span>{fields.description}</span>
-          </div>
-          <div className="field">
-            <span>Trial:</span>
-            <span>
-              {fields.trial_length} {fields.trial_time_frame}
-            </span>
-          </div>
+        <div className="flex justify-start">
+          <Paragraph
+            level={2}
+            className="!text-left !w-fit mr-2"
+            variant={TypographyVariant.dark}
+          >
+            Updated:
+          </Paragraph>
+          <Paragraph
+            level={2}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            {new Date().toLocaleDateString()}
+          </Paragraph>
         </div>
-        <h2>Pricing</h2>
-        <div className="pricing-block">
-          <div className="field">
-            <span>Price:</span>
-            <span>
-              {!fields.price
-                ? `Free`
-                : `${fields.price} ${fields.currency} / ${fields.period}`}
-            </span>
-          </div>
-          <div className="field">
-            <span>API ID:</span>
-            <span className="colored">price_1WQ678SDFkzzzIs54f</span>
-            <button type="button" className="delete-btn" />
-          </div>
-          <div className="field">
-            <span>Subscription:</span>
-            <span>None</span>
-          </div>
-          <div className="field">
-            <span>Created:</span>
-            <span>{new Date().toLocaleDateString()}</span>
-          </div>
+        <Divider className="my-4" />
+        <Title
+          variant={TypographyVariant.dark}
+          level={3}
+          className="!text-left my-4"
+        >
+          Details
+        </Title>
+        <div className="grid grid-cols-2">
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            Name:
+          </Paragraph>
+          <Paragraph
+            level={3}
+            className="!text-left font-bold"
+            variant={TypographyVariant.dark}
+          >
+            {fields.name}
+          </Paragraph>
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            ID:
+          </Paragraph>
+          <Paragraph
+            level={3}
+            className="!text-left font-bold"
+            variant={TypographyVariant.dark}
+          >
+            {fields.tier_id}
+          </Paragraph>
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            Description:
+          </Paragraph>
+          <Paragraph
+            level={3}
+            className="!text-left font-bold"
+            variant={TypographyVariant.dark}
+          >
+            {fields.description}
+          </Paragraph>
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            Trial:
+          </Paragraph>
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            {fields.trial_length} {fields.trial_time_frame}
+          </Paragraph>
         </div>
-      </div>
+        <Divider className="my-4" />
+        <Title
+          variant={TypographyVariant.dark}
+          level={3}
+          className="!text-left mb-4"
+        >
+          Pricing
+        </Title>
+        <div className="grid grid-cols-2">
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            Price:
+          </Paragraph>
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            {!fields.price
+              ? `Free`
+              : `${fields.price} ${fields.currency} / ${fields.period}`}
+          </Paragraph>
+
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            API ID:
+          </Paragraph>
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            {fields.app_id}
+          </Paragraph>
+
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            Subscription:
+          </Paragraph>
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            {fields.period}
+          </Paragraph>
+
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            Created:
+          </Paragraph>
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            {new Date().toLocaleDateString()}
+          </Paragraph>
+          <Button
+            className="col-span-2 mt-4"
+            variant={ButtonVariant.danger}
+            type="button"
+          >
+            Delete
+          </Button>
+        </div>
+      </>
     );
   }, [fields, router.query.tierId]);
 
   const { isOpen, onClose } = useDisclosure();
   return (
-    <div
-      style={{ backgroundColor: '#333', overflowY: 'auto', height: '600px' }}
-    >
+    <>
       <div className="page tiers-details-page">
         <Head>
           <title>Product Overview - {config.meta.title}</title>
         </Head>
-        {inProgress && <Spinner />}
+        {isLoading && <Spinner />}
         <div className="content">
-          <div className="bread-crumbs">
-            <Link href={ROUTES.PRODUCTS.BASE_URL}>
-              <a>Products</a>
-            </Link>
-            <span>{'>'}</span>
-            <Link href={router.pathname}>
-              <a className="active">Overview a product</a>
-            </Link>
-          </div>
+          <BreadCrumbs
+            links={[
+              { url: ROUTES.PRODUCTS.BASE_URL, title: 'Products' },
+              {
+                url: `${ROUTES.PRODUCTS.BASE_URL}/${router.query.tierId}`,
+                title: 'Overview a product'
+              }
+            ]}
+          />
+
           {renderContent()}
         </div>
       </div>
-      <Modal isOpen={isOpen} onClose={onClose} title="Save product?">
+      <Modal isOpen={isOpen} onClose={onClose} title="Delete product?">
         <div className="data">
           <p>
             Do you want <span>to delete</span> the product?
           </p>
         </div>
         <div className="btns">
-          <button
+          <Button
+            variant={ButtonVariant.danger}
             type="button"
             className="half-width action"
             // onClick={() => {}}
           >
             Delete
-          </button>
-          <button type="button" className="half-width" onClick={onClose}>
+          </Button>
+          <Button
+            variant={ButtonVariant.outlined}
+            type="button"
+            className="half-width"
+            onClick={onClose}
+          >
             Cancel
-          </button>
+          </Button>
         </div>
       </Modal>
-    </div>
+    </>
   );
 };
 

@@ -2,15 +2,15 @@ import { useRouter } from 'next/router';
 import Button from 'components/_common/Button';
 // import Input from 'components/_common/Input';
 import ArcheTypeLogo from 'components/_icons/ArcheTypeLogo';
-import PlusCircle from 'components/_icons/PlusCircle';
+// import PlusCircle from 'components/_icons/PlusCircle';
 import { ROUTES } from 'constant/routes';
 import { LogoVariant } from 'types/ArcheTypeLogo';
 import { ButtonVariant } from 'types/Button';
 import Paragraph from 'components/_typography/Paragraph';
 import PrivateRoute from 'components/_common/PrivateRoute';
-import { useProducts } from 'hooks/useProducts';
-import { useEndpoints } from 'hooks/useEndpoints';
-import { useUsers } from 'hooks/useUsers';
+// import { useProducts } from 'hooks/useProducts';
+// import { useEndpoints } from 'hooks/useEndpoints';
+// import { useUsers } from 'hooks/useUsers';
 import DashboardIcon from 'components/_icons/DashboardIcon';
 import TagIcon from 'components/_icons/TagIcon';
 import DatabaseIcon from 'components/_icons/DatabaseIcon';
@@ -19,9 +19,9 @@ import ChartIcon from 'components/_icons/ChartIcon';
 import ChatIcon from 'components/_icons/ChatIcon';
 import UserIcon from 'components/_icons/UserIcon';
 import SettingsIcon from 'components/_icons/SettingsIcon';
-import { useApi } from 'hooks/useApi';
-import AuthService from 'services/auth.service';
-import { useQuery } from 'react-query';
+// import { useApi } from 'hooks/useApi';
+// import AuthService from 'services/auth.service';
+// import { useQuery } from 'react-query';
 
 const ICONS = {
   [ROUTES.DASHBOARD.DASHBOARD]: DashboardIcon,
@@ -57,10 +57,10 @@ const formatUrlName = (name: string) =>
 
 const DashboardLayout = ({ children }) => {
   const router = useRouter();
-  const { data: api, isLoading } = useQuery('lostApi', AuthService.getDetails);
-  const { data: products } = useProducts({ enabled: !isLoading && !!api });
-  const { data: endpoints } = useEndpoints({ enabled: !isLoading && !!api });
-  const { data: users } = useUsers({ enabled: !isLoading && !!api });
+  // const { data: api, isLoading } = useQuery('lostApi', AuthService.getDetails);
+  // const { data: products } = useProducts({ enabled: !isLoading && !!api });
+  // const { data: endpoints } = useEndpoints({ enabled: !isLoading && !!api });
+  // const { data: users } = useUsers({ enabled: !isLoading && !!api });
 
   return (
     <PrivateRoute>
@@ -109,7 +109,7 @@ const DashboardLayout = ({ children }) => {
                     }
                   >
                     <span>{formatUrlName(name)}</span>
-                    {url.includes(ROUTES.PRODUCTS.BASE_URL) &&
+                    {/* {url.includes(ROUTES.PRODUCTS.BASE_URL) &&
                     products?.length ? (
                       <span className="px-3 py-1 bg-white text-tblue-700 rounded-2xl ml-auto text-xs">
                         {products.length}
@@ -125,7 +125,7 @@ const DashboardLayout = ({ children }) => {
                       <span className="px-3 py-1 bg-white text-tblue-700 rounded-2xl ml-auto text-xs">
                         {users.length}
                       </span>
-                    ) : null}
+                    ) : null} */}
                   </Button>
                 );
               })}
