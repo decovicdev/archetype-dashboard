@@ -35,13 +35,25 @@ const Component = () => {
           name: newData.name,
           description: newData.description,
           quota: newData.quota,
-          pricingModel: 1,
+          pricingModel: {
+            id:
+              newData.usage_type === 'licensed' &&
+              newData.billing_scheme === 'per_unit'
+                ? 'subscription'
+                : newData.tier_mode === 'graduated'
+                ? 'graduated'
+                : 'tiered',
+            usage_type: newData.usage_type,
+            billing_schema: newData.billing_scheme,
+            tier_mode: newData.tier_mode
+          },
           price: newData.price,
           billingPeriod: newData.period,
           meteredUsage: newData.has_quota && newData.quota > 0,
           hasTrial: newData.has_trial,
           trialLen: newData.trial_length,
-          trialTimeFrame: newData.trial_time_frame
+          trialTimeFrame: newData.trial_time_frame,
+          plans: newData.usage_tiers
         });
       }
     }
@@ -82,7 +94,11 @@ const Component = () => {
         quota: fields.meteredUsage ? parseInt(fields.quota) : 0,
         has_trial: fields.hasTrial,
         trial_length: fields.trialLen,
-        trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame]
+        trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame],
+        usage_type: fields.pricingModel.usage_type,
+        billing_scheme: fields.pricingModel.billing_scheme,
+        tier_mode: fields.pricingModel.tier_mode,
+        usage_tiers: fields.plans
       });
     },
     {

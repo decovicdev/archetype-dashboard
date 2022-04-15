@@ -1,5 +1,9 @@
-import { useState } from 'react';
-import { billingOptions, pricingOptions, trialTimeOptions } from './assets';
+import {
+  billingOptions,
+  pricingOptions,
+  PRICING_MODEL_VALUES,
+  trialTimeOptions
+} from './assets';
 import Button from 'components/_common/Button';
 import Divider from 'components/_common/Divider';
 import Dropdown, { Option } from 'components/_common/Dropdown';
@@ -24,8 +28,6 @@ const Form = ({
   const title = type === 'edit' ? 'Edit a product' : 'Create a product';
   const onConfirmText = type === 'edit' ? 'Save' : 'Create';
   const onCancelText = type === 'edit' ? 'Discard' : 'Cancel';
-
-  const [plans, setPlans] = useState([]);
 
   return (
     <form
@@ -88,9 +90,11 @@ const Form = ({
         placeholder="choose pricing model"
         innerClassName="grid grid-cols-aside items-center"
         value={pricingOptions.find(
-          (option) => option.value === fields.pricingModel
+          (option) => option.value === fields.pricingModel?.id
         )}
-        onChange={(option) => changeFields('pricingModel', option.value)}
+        onChange={(option) =>
+          changeFields('pricingModel', PRICING_MODEL_VALUES[option.value])
+        }
         options={pricingOptions}
       />
       <Input
@@ -160,18 +164,21 @@ const Form = ({
         )}
       </div>
       <Divider className="!my-4" />
-      {fields.pricingModel === 1 ? null : (
+      {fields.pricingModel?.id === 'subscription' ? null : (
         <>
           <Button
             onClick={() => {
-              setPlans([...plans, { id: Date.now() }]);
+              changeFields('plans', [
+                ...(fields.plans || []),
+                { id: Date.now() }
+              ]);
             }}
           >
             + Add Plan
           </Button>
-          {plans.map((plan) => (
-            <div key={plan.id} className="grid grid-cols-5 items-center">
-              <Dropdown
+          {fields.plans?.map((plan) => (
+            <div key={plan.id} className="grid grid-cols-3 items-center">
+              {/* <Dropdown
                 placeholder="Dimention"
                 value={dimensionOptions.find(
                   (option) =>
@@ -179,59 +186,61 @@ const Form = ({
                     plan.dimension?.toLowerCase?.()
                 )}
                 onChange={(option) => {
-                  setPlans(
-                    plans.map((p) =>
+                  changeFields(
+                    'plans',
+                    fields.plans?.map((p) =>
                       p.id === plan.id ? { ...p, dimension: option.value } : p
-                    )
+                    ) || []
                   );
                 }}
                 options={dimensionOptions}
-              />
+              /> */}
               <Input
                 name="price"
                 labelClassName="text-tblack-400 mb-0"
                 placeholder="Price"
                 htmlType="number"
-                value={plan.price}
+                value={plan.unit_amount}
                 onChange={(e) => {
-                  setPlans(
-                    plans.map((p) =>
+                  changeFields(
+                    'plans',
+                    fields.plans?.map((p) =>
                       p.id === plan.id
-                        ? { ...p, price: parseInt(e.target.value) }
+                        ? { ...p, unit_amount: e.target.value }
                         : p
-                    )
+                    ) || []
                   );
                 }}
               />
-              <Input
+              {/* <Input
                 name="startCount"
                 labelClassName="text-tblack-400 mb-0"
                 placeholder="Start Count"
                 htmlType="number"
                 value={plan.startCount}
                 onChange={(e) => {
-                  setPlans(
-                    plans.map((p) =>
+                  changeFields(
+                    'plans',
+                    fields.plans?.map((p) =>
                       p.id === plan.id
                         ? { ...p, startCount: parseInt(e.target.value) }
                         : p
-                    )
+                    ) || []
                   );
                 }}
-              />
+              /> */}
               <Input
                 name="endCount"
                 labelClassName="text-tblack-400 mb-0"
                 placeholder="End Count"
                 htmlType="number"
-                value={plan.endCount}
+                value={plan.up_to}
                 onChange={(e) => {
-                  setPlans(
-                    plans.map((p) =>
-                      p.id === plan.id
-                        ? { ...p, endCount: parseInt(e.target.value) }
-                        : p
-                    )
+                  changeFields(
+                    'plans',
+                    fields.plans?.map((p) =>
+                      p.id === plan.id ? { ...p, up_to: e.target.value } : p
+                    ) || []
                   );
                 }}
               />
@@ -239,7 +248,10 @@ const Form = ({
                 className="w-fit h-fit ml-auto !p-2 text-xs"
                 variant={ButtonVariant.danger}
                 onClick={() => {
-                  setPlans(plans.filter((p) => p.id !== plan.id));
+                  changeFields(
+                    'plans',
+                    fields.plans.filter((p) => p.id !== plan.id) || []
+                  );
                 }}
               >
                 X

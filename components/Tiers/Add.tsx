@@ -20,13 +20,19 @@ const Component = () => {
     name: '',
     description: '',
     quota: 1000,
-    pricingModel: 1,
+    pricingModel: {
+      id: 'subscription',
+      usage_type: 'licensed',
+      billing_scheme: 'per_unit',
+      tier_mode: undefined
+    },
     price: '',
     billingPeriod: 'MONTH',
     meteredUsage: false,
     hasTrial: false,
     trialLen: 0,
-    trialTimeFrame: null
+    trialTimeFrame: null,
+    plans: []
   });
 
   const changeFields = useCallback(
@@ -65,7 +71,11 @@ const Component = () => {
         quota: fields.meteredUsage ? parseInt(`${fields.quota}`) : 0,
         has_trial: fields.hasTrial,
         trial_length: fields.trialLen,
-        trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame]
+        trial_time_frame: TIME_FRAMES_OPTIONS[fields.trialTimeFrame],
+        usage_type: fields.pricingModel.usage_type,
+        billing_scheme: fields.pricingModel.billing_scheme,
+        tier_mode: fields.pricingModel.tier_mode,
+        usage_tiers: fields.plans
       });
     },
     {

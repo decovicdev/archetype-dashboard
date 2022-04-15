@@ -207,7 +207,34 @@ const Component = () => {
           >
             {fields.period}
           </Paragraph>
-
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            Usage type
+          </Paragraph>
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            {fields.usage_type}
+          </Paragraph>
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            Billing Scheme
+          </Paragraph>
+          <Paragraph
+            level={3}
+            className="!text-left"
+            variant={TypographyVariant.dark}
+          >
+            {fields.billing_scheme}
+          </Paragraph>
           <Paragraph
             level={3}
             className="!text-left"
@@ -222,14 +249,42 @@ const Component = () => {
           >
             {new Date().toLocaleDateString()}
           </Paragraph>
-          <Button
-            className="col-span-2 mt-4"
-            variant={ButtonVariant.danger}
-            type="button"
-          >
-            Delete
-          </Button>
         </div>
+        <Divider className="my-4" />
+        {fields.usage_tiers?.length ? (
+          <Title
+            variant={TypographyVariant.dark}
+            level={3}
+            className="!text-left mb-4"
+          >
+            Plans
+          </Title>
+        ) : null}
+        {fields.usage_tiers?.map((tier) => (
+          <div className="grid grid-cols-2" key={tier.id}>
+            <Paragraph
+              level={3}
+              className="!text-left"
+              variant={TypographyVariant.dark}
+            >
+              price: {tier.unit_amount}
+            </Paragraph>
+            <Paragraph
+              level={3}
+              className="!text-left"
+              variant={TypographyVariant.dark}
+            >
+              up to: {tier.up_to}
+            </Paragraph>
+          </div>
+        ))}
+        <Button
+          className="col-span-2 mt-4"
+          variant={ButtonVariant.danger}
+          type="button"
+        >
+          Delete product
+        </Button>
       </>
     );
   }, [fields, router.query.tierId]);

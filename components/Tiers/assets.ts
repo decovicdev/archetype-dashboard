@@ -12,16 +12,36 @@ export const BILLING_OPTIONS = {
 };
 
 export const PRICING_MODEL_OPTIONS = {
-  1: 'Subscription',
-  2: 'Tiered Pricing',
-  3: 'Graduated Pricing'
+  subscription: 'Subscription',
+  tiered: 'Tiered Pricing',
+  graduated: 'Graduated Pricing'
+};
+
+export const PRICING_MODEL_VALUES = {
+  subscription: {
+    id: 'subscription',
+    usage_type: 'licensed',
+    billing_schema: 'per_unit'
+  },
+  tiered: {
+    id: 'tiered',
+    usage_type: 'metered',
+    billing_schema: 'tiered',
+    tier_mode: 'volume'
+  },
+  graduated: {
+    id: 'graduated',
+    usage_type: 'metered',
+    billing_schema: 'tiered',
+    tier_mode: 'graduated'
+  }
 };
 
 export const pricingOptions: Option[] = Object.entries(
   PRICING_MODEL_OPTIONS
 ).map(([key, val]) => ({
   label: val,
-  value: parseInt(key, 10)
+  value: PRICING_MODEL_VALUES[key]?.id
 }));
 
 export const billingOptions: Option[] = Object.entries(BILLING_OPTIONS).map(

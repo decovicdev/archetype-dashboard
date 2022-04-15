@@ -9,4 +9,8 @@ export type CreateProductFormData = {
   has_trial: boolean;
   trial_length: number;
   trial_time_frame: Date;
+  usage_tiers?: { unit_amount: string; up_to: string }[];
+  usage_type: string;
+  billing_scheme: string;
+  tier_mode?: string;
 };
