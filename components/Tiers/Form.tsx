@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { billingOptions, pricingOptions, trialTimeOptions } from './assets';
 import Button from 'components/_common/Button';
 import Divider from 'components/_common/Divider';
-import Dropdown from 'components/_common/Dropdown';
+import Dropdown, { Option } from 'components/_common/Dropdown';
 import Input from 'components/_common/Input';
 import Switch from 'components/_common/Switch';
 import Title from 'components/_typography/Title';
@@ -9,6 +10,10 @@ import { ROUTES } from 'constant/routes';
 import { ButtonVariant } from 'types/Button';
 import { TypographyVariant } from 'types/Typography';
 
+const dimensionOptions: Option[] = [
+  { label: 'Requests', value: 'requests' },
+  { label: 'Domain', value: 'domain' }
+];
 const Form = ({
   fields,
   changeFields,
@@ -19,6 +24,8 @@ const Form = ({
   const title = type === 'edit' ? 'Edit a product' : 'Create a product';
   const onConfirmText = type === 'edit' ? 'Save' : 'Create';
   const onCancelText = type === 'edit' ? 'Discard' : 'Cancel';
+
+  const [plans, setPlans] = useState([]);
 
   return (
     <form
@@ -152,6 +159,91 @@ const Form = ({
           </div>
         )}
       </div>
+      <Divider className="!my-4" />
+      <Button
+        onClick={() => {
+          setPlans([...plans, { id: Date.now() }]);
+        }}
+      >
+        + Add Plan
+      </Button>
+      {plans.map((plan) => (
+        <div key={plan.id} className="grid grid-cols-5 items-center">
+          <Dropdown
+            placeholder="Dimention"
+            value={dimensionOptions.find(
+              (option) =>
+                (option.value as string)?.toLowerCase?.() ===
+                plan.dimension?.toLowerCase?.()
+            )}
+            onChange={(option) => {
+              setPlans(
+                plans.map((p) =>
+                  p.id === plan.id ? { ...p, dimension: option.value } : p
+                )
+              );
+            }}
+            options={dimensionOptions}
+          />
+          <Input
+            name="price"
+            labelClassName="text-tblack-400 mb-0"
+            placeholder="Price"
+            htmlType="number"
+            value={plan.price}
+            onChange={(e) => {
+              setPlans(
+                plans.map((p) =>
+                  p.id === plan.id
+                    ? { ...p, price: parseInt(e.target.value) }
+                    : p
+                )
+              );
+            }}
+          />
+          <Input
+            name="startCount"
+            labelClassName="text-tblack-400 mb-0"
+            placeholder="Start Count"
+            htmlType="number"
+            value={plan.startCount}
+            onChange={(e) => {
+              setPlans(
+                plans.map((p) =>
+                  p.id === plan.id
+                    ? { ...p, startCount: parseInt(e.target.value) }
+                    : p
+                )
+              );
+            }}
+          />
+          <Input
+            name="endCount"
+            labelClassName="text-tblack-400 mb-0"
+            placeholder="End Count"
+            htmlType="number"
+            value={plan.endCount}
+            onChange={(e) => {
+              setPlans(
+                plans.map((p) =>
+                  p.id === plan.id
+                    ? { ...p, endCount: parseInt(e.target.value) }
+                    : p
+                )
+              );
+            }}
+          />
+          <Button
+            className="w-fit h-fit ml-auto !p-2 text-xs"
+            variant={ButtonVariant.danger}
+            onClick={() => {
+              setPlans(plans.filter((p) => p.id !== plan.id));
+            }}
+          >
+            X
+          </Button>
+        </div>
+      ))}
       <Divider className="!my-4" />
       <div className="flex justify-between">
         <Button
