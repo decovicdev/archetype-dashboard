@@ -41,26 +41,6 @@ const Component = () => {
     }
   );
 
-  // useEffect(() => {
-  //   async function fetch() {
-  //     try {
-  //       setProgress(true);
-
-  //       const response = await TierService.getById(
-  //         router.query.tierId as string
-  //       );
-
-  //       setFields(response);
-  //     } catch (e) {
-  //       showAlert(e.message);
-  //     } finally {
-  //       setProgress(false);
-  //     }
-  //   }
-
-  //   fetch();
-  // }, [router.query.tierId, showAlert]);
-
   const renderContent = useCallback(() => {
     if (!fields) {
       return <div className="no-content">Product not found.</div>;

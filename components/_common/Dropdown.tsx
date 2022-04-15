@@ -4,6 +4,7 @@ import ChevronDown from 'components/_icons/ChevronDown';
 export type Option = { label: string; value: string | number };
 type Props = {
   className?: string;
+  innerClassName?: string;
   placeholder?: string;
   value?: Option;
   label?: ReactNode;
@@ -17,11 +18,16 @@ const Dropdown: React.FC<Props> = ({
   onChange,
   value,
   label,
+  innerClassName,
   options
 }) => {
   const [isOpen, setOpen] = useState(false);
   const [selected, setSelected] = useState<Option>(value);
   const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    if (value?.value !== selected?.value) setSelected(value);
+  }, [selected?.value, value]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -33,15 +39,16 @@ const Dropdown: React.FC<Props> = ({
 
   return (
     <div className={className} ref={dropdownRef}>
-      <div className="relative min-w-max w-full">
+      <div className={`relative min-w-max w-full ${innerClassName}`}>
         {label ? (
           <span className="text-sm text-tblack-400 mb-3 font-sans">
             {label}
           </span>
         ) : null}
         <button
+          type="button"
           className={`rounded-md bg-white py-3 px-4 w-full flex justify-between items-center group ${
-            selected ? 'text-tblack-200' : 'text-tblack-200'
+            selected ? 'text-tblack-700' : 'text-tblack-200'
           }`}
           onClick={() => setOpen(!isOpen)}
         >
@@ -55,6 +62,7 @@ const Dropdown: React.FC<Props> = ({
         >
           {options.map((option) => (
             <button
+              type="button"
               key={option.label}
               className="py-2 px-4 w-full bg-transparent text-tblack-200 hover:text-tblack-700 hover:bg-tblack-100"
               onClick={() => {

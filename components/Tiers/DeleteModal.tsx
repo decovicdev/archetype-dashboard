@@ -1,55 +1,60 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
+import { useMutation } from 'react-query';
 import Modal from '../_common/Modal';
 import TierService from '../../services/tier.service';
 import { useHelpers } from '../../context/HelperProvider';
+import Button from 'components/_common/Button';
+import { ButtonVariant } from 'types/Button';
 
 const Component = ({ id, onSuccess, isOpen, onClose }) => {
   const { showAlert } = useHelpers();
 
-  const [inProgress, setProgress] = useState(false);
-
-  const submitForm = useCallback(async () => {
-    try {
-      if (inProgress) {
-        return;
-      }
-      setProgress(true);
-
+  const { mutate: submitForm, isLoading: isMutationLoading } = useMutation(
+    async () => {
+      if (isMutationLoading) return;
       await TierService.deleteById(id);
-
-      showAlert('Success', true);
-
-      onClose();
-
-      if (onSuccess) {
-        onSuccess();
+    },
+    {
+      onSuccess: () => {
+        showAlert('Success', true);
+        onClose();
+        if (onSuccess) {
+          onSuccess();
+        }
+      },
+      onError: (e: any) => {
+        showAlert(e.message);
       }
-    } catch (e) {
-      showAlert(e.message);
-    } finally {
-      setProgress(false);
     }
-  }, [inProgress, id, showAlert, onClose, onSuccess]);
+  );
 
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
       title="Delete product?"
-      isBusy={inProgress}
+      isBusy={isMutationLoading}
     >
       <div className="data">
         <p>
           Do you want <span>to delete</span> this product?
         </p>
       </div>
-      <div className="btns">
-        <button type="button" onClick={submitForm}>
+      <div className="w-full flex justify-between items-center mt-20">
+        <Button
+          variant={ButtonVariant.danger}
+          type="button"
+          onClick={() => submitForm()}
+        >
           Delete
-        </button>
-        <button type="button" onClick={onClose}>
+        </Button>
+        <Button
+          variant={ButtonVariant.outlined}
+          type="button"
+          onClick={onClose}
+        >
           Cancel
-        </button>
+        </Button>
       </div>
     </Modal>
   );

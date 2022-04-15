@@ -83,6 +83,7 @@ const Button: React.FC<Props> = ({
       className={`group flex justify-center items-center rounded px-4 font-sans font-normal transition-all ${
         variant ? styles[variant] : ''
       } ${className || ''}`}
+      type={props.type || 'button'}
       onClick={onClick}
       {...props}
     >

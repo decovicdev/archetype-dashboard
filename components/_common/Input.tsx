@@ -38,8 +38,8 @@ const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
     return label ? (
       <label htmlFor={name} className={`w-full ${className}`}>
         <span
-          className={`text-sm mb-3 font-sans ${
-            labelClassName ?? 'text-tblack-400'
+          className={`text-sm font-sans flex items-center ${
+            labelClassName ?? 'text-tblack-400 mb-3'
           }`}
         >
           {label}
