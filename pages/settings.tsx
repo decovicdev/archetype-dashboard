@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import config from '../config';
 import KeyIcon from '../public/icons/key.svg';
 import AuthIcon from '../public/icons/auth.svg';
@@ -72,24 +72,27 @@ const SettingsComponent = () => {
     }
   );
 
+  const { data } = useQuery('stripeCheckout', ApiService.stripeCheckout);
+
   const connectStripe = useCallback(async () => {
     try {
       if (api?.has_completed_checkout) {
         return showAlert('Stripe already linked');
       }
-      const response = await ApiService.stripeCheckout();
-      if (!response.connect_url) {
+      // const response = await ApiService.stripeCheckout();
+      if (!data?.connect_url) {
         throw new Error('Oops, could not get enough data to proceed');
       }
       const redirectUrl = `${config.app_url}settings`;
       window.open(
-        `${response.connect_url}?return_url=${redirectUrl}&refresh_url=${redirectUrl}`,
-        '_blank'
+        `${data?.connect_url}?return_url=${redirectUrl}&refresh_url=${redirectUrl}`,
+        '_blank',
+        'noopener,noreferrer'
       );
     } catch (e) {
       showAlert(e.message);
     }
-  }, [showAlert, api]);
+  }, [api?.has_completed_checkout, data?.connect_url, showAlert]);
 
   const clickDeleteAccount = useCallback(async () => {
     try {

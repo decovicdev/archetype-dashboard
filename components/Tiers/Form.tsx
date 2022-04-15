@@ -160,91 +160,95 @@ const Form = ({
         )}
       </div>
       <Divider className="!my-4" />
-      <Button
-        onClick={() => {
-          setPlans([...plans, { id: Date.now() }]);
-        }}
-      >
-        + Add Plan
-      </Button>
-      {plans.map((plan) => (
-        <div key={plan.id} className="grid grid-cols-5 items-center">
-          <Dropdown
-            placeholder="Dimention"
-            value={dimensionOptions.find(
-              (option) =>
-                (option.value as string)?.toLowerCase?.() ===
-                plan.dimension?.toLowerCase?.()
-            )}
-            onChange={(option) => {
-              setPlans(
-                plans.map((p) =>
-                  p.id === plan.id ? { ...p, dimension: option.value } : p
-                )
-              );
-            }}
-            options={dimensionOptions}
-          />
-          <Input
-            name="price"
-            labelClassName="text-tblack-400 mb-0"
-            placeholder="Price"
-            htmlType="number"
-            value={plan.price}
-            onChange={(e) => {
-              setPlans(
-                plans.map((p) =>
-                  p.id === plan.id
-                    ? { ...p, price: parseInt(e.target.value) }
-                    : p
-                )
-              );
-            }}
-          />
-          <Input
-            name="startCount"
-            labelClassName="text-tblack-400 mb-0"
-            placeholder="Start Count"
-            htmlType="number"
-            value={plan.startCount}
-            onChange={(e) => {
-              setPlans(
-                plans.map((p) =>
-                  p.id === plan.id
-                    ? { ...p, startCount: parseInt(e.target.value) }
-                    : p
-                )
-              );
-            }}
-          />
-          <Input
-            name="endCount"
-            labelClassName="text-tblack-400 mb-0"
-            placeholder="End Count"
-            htmlType="number"
-            value={plan.endCount}
-            onChange={(e) => {
-              setPlans(
-                plans.map((p) =>
-                  p.id === plan.id
-                    ? { ...p, endCount: parseInt(e.target.value) }
-                    : p
-                )
-              );
-            }}
-          />
+      {fields.pricingModel === 1 ? null : (
+        <>
           <Button
-            className="w-fit h-fit ml-auto !p-2 text-xs"
-            variant={ButtonVariant.danger}
             onClick={() => {
-              setPlans(plans.filter((p) => p.id !== plan.id));
+              setPlans([...plans, { id: Date.now() }]);
             }}
           >
-            X
+            + Add Plan
           </Button>
-        </div>
-      ))}
-      <Divider className="!my-4" />
+          {plans.map((plan) => (
+            <div key={plan.id} className="grid grid-cols-5 items-center">
+              <Dropdown
+                placeholder="Dimention"
+                value={dimensionOptions.find(
+                  (option) =>
+                    (option.value as string)?.toLowerCase?.() ===
+                    plan.dimension?.toLowerCase?.()
+                )}
+                onChange={(option) => {
+                  setPlans(
+                    plans.map((p) =>
+                      p.id === plan.id ? { ...p, dimension: option.value } : p
+                    )
+                  );
+                }}
+                options={dimensionOptions}
+              />
+              <Input
+                name="price"
+                labelClassName="text-tblack-400 mb-0"
+                placeholder="Price"
+                htmlType="number"
+                value={plan.price}
+                onChange={(e) => {
+                  setPlans(
+                    plans.map((p) =>
+                      p.id === plan.id
+                        ? { ...p, price: parseInt(e.target.value) }
+                        : p
+                    )
+                  );
+                }}
+              />
+              <Input
+                name="startCount"
+                labelClassName="text-tblack-400 mb-0"
+                placeholder="Start Count"
+                htmlType="number"
+                value={plan.startCount}
+                onChange={(e) => {
+                  setPlans(
+                    plans.map((p) =>
+                      p.id === plan.id
+                        ? { ...p, startCount: parseInt(e.target.value) }
+                        : p
+                    )
+                  );
+                }}
+              />
+              <Input
+                name="endCount"
+                labelClassName="text-tblack-400 mb-0"
+                placeholder="End Count"
+                htmlType="number"
+                value={plan.endCount}
+                onChange={(e) => {
+                  setPlans(
+                    plans.map((p) =>
+                      p.id === plan.id
+                        ? { ...p, endCount: parseInt(e.target.value) }
+                        : p
+                    )
+                  );
+                }}
+              />
+              <Button
+                className="w-fit h-fit ml-auto !p-2 text-xs"
+                variant={ButtonVariant.danger}
+                onClick={() => {
+                  setPlans(plans.filter((p) => p.id !== plan.id));
+                }}
+              >
+                X
+              </Button>
+            </div>
+          ))}
+          <Divider className="!my-4" />
+        </>
+      )}
       <div className="flex justify-between">
         <Button
           type="button"

@@ -12,7 +12,9 @@ export const BILLING_OPTIONS = {
 };
 
 export const PRICING_MODEL_OPTIONS = {
-  1: 'Subscription'
+  1: 'Subscription',
+  2: 'Tiered Pricing',
+  3: 'Graduated Pricing'
 };
 
 export const pricingOptions: Option[] = Object.entries(

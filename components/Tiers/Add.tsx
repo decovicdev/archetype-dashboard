@@ -3,26 +3,13 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from 'react-query';
 import Spinner from '../_common/Spinner';
-import {
-  billingOptions,
-  pricingOptions,
-  TIME_FRAMES_OPTIONS,
-  trialTimeOptions
-} from './assets';
+import { TIME_FRAMES_OPTIONS } from './assets';
+import Form from './Form';
 import config from 'config';
 import TierService from 'services/tier.service';
 import { useHelpers } from 'context/HelperProvider';
 import { ROUTES } from 'constant/routes';
 import BreadCrumbs from 'components/_common/BreadCrumbs';
-import Input from 'components/_common/Input';
-import Switch from 'components/_common/Switch';
-import Title from 'components/_typography/Title';
-import Dropdown from 'components/_common/Dropdown';
-import Button from 'components/_common/Button';
-import Divider from 'components/_common/Divider';
-import { TypographyVariant } from 'types/Typography';
-import { ButtonVariant } from 'types/Button';
-import Form from './Form';
 
 const Component = () => {
   const router = useRouter();
