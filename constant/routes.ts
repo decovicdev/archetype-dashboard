@@ -15,7 +15,8 @@ export const ROUTES = {
     USERS: '/users',
     ANALYTICS: '/analytics',
     // INTEGRTION: '/integrtion',
-    DOCUMENTATIONS: '/docs'
+    DOCUMENTATIONS: '/docs',
+    DIMENSIONS: '/dimensions'
   },
   USER_MANUAL: {
     WALKTHROUGH: '/walkthrough',
