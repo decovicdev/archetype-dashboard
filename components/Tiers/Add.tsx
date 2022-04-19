@@ -76,6 +76,14 @@ const Component = () => {
         billing_scheme: fields.pricingModel.billing_scheme,
         tier_mode: fields.pricingModel.tier_mode,
         usage_tiers: fields.plans
+          ?.map(({ id, ...tier }) => ({
+            ...tier,
+            unit_amount: parseFloat(tier.unit_amount)
+          }))
+          ?.concat({
+            up_to: 'inf',
+            unit_amount: parseFloat(fields.plans.at(-1).unit_amount)
+          })
       });
     },
     {

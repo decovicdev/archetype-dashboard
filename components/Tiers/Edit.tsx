@@ -44,7 +44,7 @@ const Component = () => {
                 ? 'graduated'
                 : 'tiered',
             usage_type: newData.usage_type,
-            billing_schema: newData.billing_scheme,
+            billing_scheme: newData.billing_scheme,
             tier_mode: newData.tier_mode
           },
           price: newData.price,
