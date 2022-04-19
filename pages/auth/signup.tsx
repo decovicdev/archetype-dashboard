@@ -9,8 +9,7 @@ import Button from 'components/_common/Button';
 import { ButtonVariant } from 'types/Button';
 import Title from 'components/_typography/Title';
 import Paragraph from 'components/_typography/Paragraph';
-import ArcheTypeLogo from 'components/_icons/ArcheTypeLogo';
-import { LogoVariant } from 'types/ArcheTypeLogo';
+import ArcheTypeNlogo from 'components/_icons/ArchTypeNlogo';
 import { TypographyVariant } from 'types/Typography';
 import Input from 'components/_common/Input';
 import { FormVariant } from 'types/Form';
@@ -78,7 +77,7 @@ const SignupPage: NextPage = () => {
 
   return (
     <AuthLayout title="Sign up">
-      <ArcheTypeLogo variant={LogoVariant.darkText} className="w-40 mx-auto" />
+      <ArcheTypeNlogo variant="dark" className="w-40 mx-auto" />
       <div className="flex flex-col space-y-4">
         <Title variant={TypographyVariant.dark}>Create an Account</Title>
         <div className="flex space-x-2 justify-center items-center">

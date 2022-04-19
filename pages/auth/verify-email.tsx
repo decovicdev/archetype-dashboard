@@ -5,8 +5,7 @@ import Button from 'components/_common/Button';
 import { ButtonVariant } from 'types/Button';
 import Title from 'components/_typography/Title';
 import Paragraph from 'components/_typography/Paragraph';
-import ArcheTypeLogo from 'components/_icons/ArcheTypeLogo';
-import { LogoVariant } from 'types/ArcheTypeLogo';
+import ArcheTypeNlogo from 'components/_icons/ArchTypeNlogo';
 import { TypographyVariant } from 'types/Typography';
 import Divider from 'components/_common/Divider';
 import AuthLayout from 'components/_layout/AuthLayout';
@@ -40,11 +39,7 @@ const VerifyPage: NextPage = () => {
   return (
     <AuthLayout title="Verify Email">
       <div className="h-full flex flex-col justify-center">
-        <ArcheTypeLogo
-          variant={LogoVariant.darkText}
-          className="w-24 mx-auto"
-          direction="vertical"
-        />
+        <ArcheTypeNlogo variant="dark" className="w-full mx-auto" />
         <div className="flex flex-col space-y-4 mt-24">
           <Title variant={TypographyVariant.dark}>Confirm your email</Title>
           <Paragraph variant={TypographyVariant.darkFaint} level={2}>
