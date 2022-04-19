@@ -1,9 +1,8 @@
 import Head from 'next/head';
 import config from '../config';
-import ArcheTypeLogo from './_icons/ArcheTypeLogo';
+import ArcheTypeNlogo from './_icons/ArchTypeNlogo';
 import MainLayout from './_layout/MainLayout';
 import Title from './_typography/Title';
-import { LogoVariant } from 'types/ArcheTypeLogo';
 
 const Component = () => (
   <MainLayout>
@@ -13,7 +12,7 @@ const Component = () => (
       <meta name="keywords" content={config.meta.keywords} />
     </Head>
     <div className="p-20">
-      <ArcheTypeLogo variant={LogoVariant.lightText} className="pb-2" />
+      <ArcheTypeNlogo className="pb-2" />
       <Title className="my-2">Terms of Use Agreement</Title>
       <Title className="my-4" level={3}>
         Last Updated: Aug 12, 2021
@@ -54,17 +53,18 @@ const Component = () => (
         NOTIFICATIONS.
       </p>
       <p className="text-justify my-2">
-        PLEASE NOTE THAT THE TERMS ARE SUBJECT TO CHANGE BY ARCHETYPE IN ITS SOLE
-        DISCRETION AT ANY TIME. WHEN CHANGES ARE MADE, ARCHETYPE WILL MAKE A NEW
-        COPY OF THE TERMS AVAILABLE AT THE WEBSITE AND WITHIN THE APPLICATION
-        AND ANY NEW SUPPLEMENTAL TERMS WILL BE MADE AVAILABLE FROM WITHIN, OR
-        THROUGH, THE AFFECTED SERVICE ON THE WEBSITE OR WITHIN THE APPLICATION.
-        WE WILL ALSO UPDATE THE “LAST UPDATED” DATE AT THE TOP OF THE TERMS. IF
-        YOU DO NOT AGREE TO ANY CHANGE(S) AFTER RECEIVING A NOTICE OF SUCH
-        CHANGE(S), YOU SHALL STOP USING THE WEBSITE, THE APPLICATION AND/OR THE
-        SERVICES. OTHERWISE, YOUR CONTINUED USE OF THE WEBSITE, THE APPLICATION
-        AND/OR SERVICES CONSTITUTES YOUR ACCEPTANCE OF SUCH CHANGE(S). PLEASE
-        REGULARLY CHECK THE WEBSITE TO VIEW THE THEN-CURRENT TERMS.
+        PLEASE NOTE THAT THE TERMS ARE SUBJECT TO CHANGE BY ARCHETYPE IN ITS
+        SOLE DISCRETION AT ANY TIME. WHEN CHANGES ARE MADE, ARCHETYPE WILL MAKE
+        A NEW COPY OF THE TERMS AVAILABLE AT THE WEBSITE AND WITHIN THE
+        APPLICATION AND ANY NEW SUPPLEMENTAL TERMS WILL BE MADE AVAILABLE FROM
+        WITHIN, OR THROUGH, THE AFFECTED SERVICE ON THE WEBSITE OR WITHIN THE
+        APPLICATION. WE WILL ALSO UPDATE THE “LAST UPDATED” DATE AT THE TOP OF
+        THE TERMS. IF YOU DO NOT AGREE TO ANY CHANGE(S) AFTER RECEIVING A NOTICE
+        OF SUCH CHANGE(S), YOU SHALL STOP USING THE WEBSITE, THE APPLICATION
+        AND/OR THE SERVICES. OTHERWISE, YOUR CONTINUED USE OF THE WEBSITE, THE
+        APPLICATION AND/OR SERVICES CONSTITUTES YOUR ACCEPTANCE OF SUCH
+        CHANGE(S). PLEASE REGULARLY CHECK THE WEBSITE TO VIEW THE THEN-CURRENT
+        TERMS.
       </p>
       <Title className="my-4 !text-left" level={3}>
         1. Accounts
@@ -79,14 +79,14 @@ const Component = () => (
         represent and warrant that: (a) all required registration information
         you submit is truthful and accurate; and (b) you will maintain the
         accuracy of such information. If you provide any information that is
-        untrue, inaccurate, not current or incomplete, or Archetype has reasonable
-        grounds to suspect that any information you provide is untrue,
-        inaccurate, not current or incomplete, Archetype has the right to suspend
-        or terminate your Account and refuse any and all current or future use
-        of Services (or any portion thereof). Archetype may also suspend or
-        terminate your Account in accordance with Section 10. You may delete
-        your Account at any time, for any reason, by following the instructions
-        on the Services.
+        untrue, inaccurate, not current or incomplete, or Archetype has
+        reasonable grounds to suspect that any information you provide is
+        untrue, inaccurate, not current or incomplete, Archetype has the right
+        to suspend or terminate your Account and refuse any and all current or
+        future use of Services (or any portion thereof). Archetype may also
+        suspend or terminate your Account in accordance with Section 10. You may
+        delete your Account at any time, for any reason, by following the
+        instructions on the Services.
       </p>
       <p className="text-justify my-2">
         <b>1.2. Access Through a Third-Party Service.</b> If you access the
@@ -100,34 +100,35 @@ const Component = () => (
         Third-Party Account (including, but not limited to, for use for the
         purposes described herein) without breach by you of any of the terms and
         conditions that govern your use of the applicable Third-Party Account
-        and without obligating Archetype to pay any fees or making Archetype subject
-        to any usage limitations imposed by such third-party service providers.
-        By granting Archetype access to any Third-Party Accounts, you understand
-        that Archetype may access, make available and store (if applicable) any
-        information, data, text, software, music, sound, photographs, graphics,
-        video, messages, tags and/or other materials accessible through the
-        Services (collectively, <b>“Content”</b>) that you have provided to and
-        stored in your Third-Party Account (<b>“Third-Party Content”</b>) so
-        that it is available on and through Services via your Account. Unless
-        otherwise specified in these Terms, all Third-Party Content shall be
-        considered to be User Content (as defined in Section 3.1 (User Content))
-        for all purposes of these Terms. Depending on the Third-Party Accounts
-        you choose and subject to the privacy settings that you have set in such
-        Third-Party Accounts, personally identifiable information that you post
-        to your Third-Party Accounts may be available on and through your
-        Account on the Services. Please note that if a Third-Party Account or
-        associated service becomes unavailable, or Archetype’s access to such
-        Third-Party Account is terminated by the third-party service provider,
-        then Third-Party Content will no longer be available on and through the
-        Services. You have the ability to disable the connection between your
-        Account and your Third-Party Accounts at any time by accessing the
-        “Settings” section of the Mobile App. PLEASE NOTE THAT YOUR RELATIONSHIP
-        WITH THE THIRD-PARTY SERVICE PROVIDERS ASSOCIATED WITH YOUR THIRD-PARTY
-        ACCOUNTS IS GOVERNED SOLELY BY YOUR AGREEMENT(S) WITH SUCH THIRD-PARTY
-        SERVICE PROVIDERS, AND ARCHETYPE DISCLAIMS ANY LIABILITY FOR PERSONALLY
-        IDENTIFIABLE INFORMATION THAT MAY BE PROVIDED TO IT BY SUCH THIRD-PARTY
-        SERVICE PROVIDERS IN VIOLATION OF THE PRIVACY SETTINGS THAT YOU HAVE SET
-        IN SUCH THIRD-PARTY ACCOUNTS. Archetype makes no effort to review any
+        and without obligating Archetype to pay any fees or making Archetype
+        subject to any usage limitations imposed by such third-party service
+        providers. By granting Archetype access to any Third-Party Accounts, you
+        understand that Archetype may access, make available and store (if
+        applicable) any information, data, text, software, music, sound,
+        photographs, graphics, video, messages, tags and/or other materials
+        accessible through the Services (collectively, <b>“Content”</b>) that
+        you have provided to and stored in your Third-Party Account (
+        <b>“Third-Party Content”</b>) so that it is available on and through
+        Services via your Account. Unless otherwise specified in these Terms,
+        all Third-Party Content shall be considered to be User Content (as
+        defined in Section 3.1 (User Content)) for all purposes of these Terms.
+        Depending on the Third-Party Accounts you choose and subject to the
+        privacy settings that you have set in such Third-Party Accounts,
+        personally identifiable information that you post to your Third-Party
+        Accounts may be available on and through your Account on the Services.
+        Please note that if a Third-Party Account or associated service becomes
+        unavailable, or Archetype’s access to such Third-Party Account is
+        terminated by the third-party service provider, then Third-Party Content
+        will no longer be available on and through the Services. You have the
+        ability to disable the connection between your Account and your
+        Third-Party Accounts at any time by accessing the “Settings” section of
+        the Mobile App. PLEASE NOTE THAT YOUR RELATIONSHIP WITH THE THIRD-PARTY
+        SERVICE PROVIDERS ASSOCIATED WITH YOUR THIRD-PARTY ACCOUNTS IS GOVERNED
+        SOLELY BY YOUR AGREEMENT(S) WITH SUCH THIRD-PARTY SERVICE PROVIDERS, AND
+        ARCHETYPE DISCLAIMS ANY LIABILITY FOR PERSONALLY IDENTIFIABLE
+        INFORMATION THAT MAY BE PROVIDED TO IT BY SUCH THIRD-PARTY SERVICE
+        PROVIDERS IN VIOLATION OF THE PRIVACY SETTINGS THAT YOU HAVE SET IN SUCH
+        THIRD-PARTY ACCOUNTS. Archetype makes no effort to review any
         Third-Party Content for any purpose, including but not limited to, for
         accuracy, legality or noninfringement, and Archetype is not responsible
         for any Third-Party Content.
@@ -142,26 +143,27 @@ const Component = () => (
         arising from your failure to comply with the above requirements.
       </p>
       <p className="inner1">
-        <b>(a)</b> You understand and agree that (A) Archetype does not guarantee
-        the performance of any investment portfolio, is not responsible to you
-        for any investment losses; (B) there are significant risks associated
-        with investing in stocks, exchange traded funds (ETFs), mutual funds,
-        and/or similarly traded instruments (<b>“Securities”</b>), including,
-        but not limited to, the risk that the investment account could suffer
-        substantial diminution in value, and this risk applies even when the
-        investment portfolio is managed by an investment adviser; and (C) the
-        past performance of any benchmark, market index, ETF, or other Security
-        does not indicate its future performance, and future transactions will
-        be made in different Securities and different economic environments.
-        There are significant risks associated with any investment program.
+        <b>(a)</b> You understand and agree that (A) Archetype does not
+        guarantee the performance of any investment portfolio, is not
+        responsible to you for any investment losses; (B) there are significant
+        risks associated with investing in stocks, exchange traded funds (ETFs),
+        mutual funds, and/or similarly traded instruments (<b>“Securities”</b>),
+        including, but not limited to, the risk that the investment account
+        could suffer substantial diminution in value, and this risk applies even
+        when the investment portfolio is managed by an investment adviser; and
+        (C) the past performance of any benchmark, market index, ETF, or other
+        Security does not indicate its future performance, and future
+        transactions will be made in different Securities and different economic
+        environments. There are significant risks associated with any investment
+        program.
       </p>
       <p className="inner2">
         <b>(i)</b> You understand and agree that Archetype’s sole obligation
         hereunder or otherwise is to provide market information and investment
-        recommendations to you, and you have not engaged Archetype to provide any
-        individual financial planning services. You understand and agree that
-        Archetype is not responsible for any losses as a result of information or
-        recommendations provided by the Services.
+        recommendations to you, and you have not engaged Archetype to provide
+        any individual financial planning services. You understand and agree
+        that Archetype is not responsible for any losses as a result of
+        information or recommendations provided by the Services.
       </p>
       <p className="inner2">
         <b>(ii)</b> You understand and agree that your investment portfolios
@@ -169,8 +171,8 @@ const Component = () => (
         executing any trade of Securities or other transaction.
       </p>
       <p className="inner2">
-        <b>(iii)</b> You understand and agree that Archetype is not responsible to
-        you for any failures, delays and/or interruptions in the timely or
+        <b>(iii)</b> You understand and agree that Archetype is not responsible
+        to you for any failures, delays and/or interruptions in the timely or
         proper execution of trades or any other orders placed by you on
         recommendation of Archetype, including but limited to delays resulting
         from: (A) hardware or software malfunction, failure or unavailability;
@@ -205,19 +207,19 @@ const Component = () => (
         2. Use of the Services
       </Title>
       <p className="text-justify my-2">
-        <b>2.1. Services License.</b> Subject to these Terms, Archetype grants you
-        a non-transferable, non-exclusive, revocable, limited license to use and
-        access the Site solely for your own personal, noncommercial use. Subject
-        to these Terms, Archetype grants you a non-transferable, non-exclusive,
-        limited, non-sublicensable, and revocable license to download, install,
-        and use a copy of the Mobile App on a single mobile device that you own
-        or control and to run such copy of the Mobile App solely for your own
-        personal, noncommercial use. Furthermore, with respect to any Mobile App
-        accessed through or downloaded from the Apple App Store (an{' '}
-        <b>“App Store Sourced Application”</b>), you will only use such App
-        Store Sourced Application (a) on Apple-branded product that runs iOS
-        (Apple’s proprietary operating system) and (b) as permitted by the
-        “Usage Rules” set forth in the App Store Terms of Service.
+        <b>2.1. Services License.</b> Subject to these Terms, Archetype grants
+        you a non-transferable, non-exclusive, revocable, limited license to use
+        and access the Site solely for your own personal, noncommercial use.
+        Subject to these Terms, Archetype grants you a non-transferable,
+        non-exclusive, limited, non-sublicensable, and revocable license to
+        download, install, and use a copy of the Mobile App on a single mobile
+        device that you own or control and to run such copy of the Mobile App
+        solely for your own personal, noncommercial use. Furthermore, with
+        respect to any Mobile App accessed through or downloaded from the Apple
+        App Store (an <b>“App Store Sourced Application”</b>), you will only use
+        such App Store Sourced Application (a) on Apple-branded product that
+        runs iOS (Apple’s proprietary operating system) and (b) as permitted by
+        the “Usage Rules” set forth in the App Store Terms of Service.
         Notwithstanding the first sentence in this section, with respect to any
         Mobile App accessed through or downloaded from the Google Play store (a{' '}
         <b>“Google Play Sourced Application”</b>), you may have additional
@@ -290,28 +292,28 @@ const Component = () => (
       </p>
       <p className="text-justify my-2">
         <b>3.2. No Obligation to Pre-Screen Content.</b> You acknowledge that
-        Archetype has no obligation to pre-screen User Content, although Archetype
-        reserves the right in its sole discretion to pre-screen, refuse or
-        remove any User Content. By entering into these Terms, you hereby
-        provide your irrevocable consent to such monitoring. You acknowledge and
-        agree that you have no expectation of privacy concerning the
-        transmission of User Content, including without limitation chat, text,
-        or voice communications. In the event that Archetype pre-screens, refuses
-        or removes any User Content, you acknowledge that Archetype will do so for
-        Archetype’s benefit, not yours. Without limiting the foregoing, Archetype
-        shall have the right to remove any User Content that violates these
-        Terms or is otherwise objectionable to Archetype.
+        Archetype has no obligation to pre-screen User Content, although
+        Archetype reserves the right in its sole discretion to pre-screen,
+        refuse or remove any User Content. By entering into these Terms, you
+        hereby provide your irrevocable consent to such monitoring. You
+        acknowledge and agree that you have no expectation of privacy concerning
+        the transmission of User Content, including without limitation chat,
+        text, or voice communications. In the event that Archetype pre-screens,
+        refuses or removes any User Content, you acknowledge that Archetype will
+        do so for Archetype’s benefit, not yours. Without limiting the
+        foregoing, Archetype shall have the right to remove any User Content
+        that violates these Terms or is otherwise objectionable to Archetype.
       </p>
       <p className="text-justify my-2">
         <b>3.3. User Content License. </b> You hereby grant (and you represent
-        and warrant that you have the right to grant) to Archetype an irrevocable,
-        nonexclusive, royalty-free and fully paid, worldwide license to
-        reproduce, distribute, publicly display and perform, prepare derivative
-        works of, incorporate into other works, and otherwise use and exploit
-        your User Content, and to grant sublicenses of the foregoing rights,
-        solely for the purposes of including your User Content in the Services.
-        You hereby irrevocably waive (and agree to cause to be waived) any
-        claims and assertions of moral rights or attribution with respect to
+        and warrant that you have the right to grant) to Archetype an
+        irrevocable, nonexclusive, royalty-free and fully paid, worldwide
+        license to reproduce, distribute, publicly display and perform, prepare
+        derivative works of, incorporate into other works, and otherwise use and
+        exploit your User Content, and to grant sublicenses of the foregoing
+        rights, solely for the purposes of including your User Content in the
+        Services. You hereby irrevocably waive (and agree to cause to be waived)
+        any claims and assertions of moral rights or attribution with respect to
         your User Content.
       </p>
       <p className="text-justify my-2">
@@ -320,14 +322,14 @@ const Component = () => (
         and collect and compile data and information related to your use of the
         Services which may be used by Archetype in an aggregate and anonymized
         manner (collectively, <b>“Aggregated User Data”</b>). As between you and
-        Archetype, all right, title, and interest in Aggregated User Data, and all
-        intellectual property rights therein, belong to and are retained solely
-        by Archetype. You acknowledge that Archetype may compile Aggregated User
-        Data based on User Content. You agree that Archetype may (i) make
-        Aggregated User Data publicly available in compliance with applicable
-        law, and (ii) use Aggregated User Data to the extent and in the manner
-        permitted under applicable law; provided that such Aggregated User Data
-        does not identify you or any of your personal information.
+        Archetype, all right, title, and interest in Aggregated User Data, and
+        all intellectual property rights therein, belong to and are retained
+        solely by Archetype. You acknowledge that Archetype may compile
+        Aggregated User Data based on User Content. You agree that Archetype may
+        (i) make Aggregated User Data publicly available in compliance with
+        applicable law, and (ii) use Aggregated User Data to the extent and in
+        the manner permitted under applicable law; provided that such Aggregated
+        User Data does not identify you or any of your personal information.
       </p>
       <p className="text-justify my-2">
         <b>3.5. Acceptable Use Policy. </b>The following terms constitute our{' '}
@@ -387,9 +389,9 @@ const Component = () => (
         suggestions regarding the Services (<b>“Feedback”</b>), you hereby
         assign to Archetype all right, title and interest, including all
         intellectual property rights in and to such Feedback and agree that
-        Archetype shall have the right to use and fully exploit such Feedback and
-        related information in any manner it deems appropriate. Archetype will
-        treat any Feedback you provide to Archetype as non-confidential and
+        Archetype shall have the right to use and fully exploit such Feedback
+        and related information in any manner it deems appropriate. Archetype
+        will treat any Feedback you provide to Archetype as non-confidential and
         non-proprietary. You agree that you will not submit to Archetype any
         information or ideas that you consider to be confidential or
         proprietary.
@@ -400,23 +402,23 @@ const Component = () => (
       <p className="text-justify my-2">
         <b>4.1. Payment.</b> You agree to pay all fees or charges to your
         Account in accordance with the fees, charges and billing terms in effect
-        at the time a fee or charge is due and payable. You must provide Archetype
-        with a valid credit card (Visa, MasterCard, or any other issuer accepted
-        by us) or PayPal account of a payment provider (
+        at the time a fee or charge is due and payable. You must provide
+        Archetype with a valid credit card (Visa, MasterCard, or any other
+        issuer accepted by us) or PayPal account of a payment provider (
         <b>“Payment Provider”</b>), or purchase order information, as a
         condition to purchasing any paid item or feature offered by Archetype
         through the Services. Your Payment Provider agreement governs your use
         of the designated credit card or PayPal account, and you must refer to
         that agreement, not these Terms, to determine your rights and
-        liabilities. By providing Archetype with your credit card number or PayPal
-        account and associated payment information, you agree that Archetype is
-        authorized to immediately invoice your Account for all fees and charges
-        due and payable to Archetype hereunder and that no additional notice or
-        consent is required. You agree to immediately notify Archetype of any
-        change in your billing address or the credit card or PayPal account used
-        for payment hereunder. Archetype reserves the right at any time to change
-        its prices and billing methods, either immediately upon posting on the
-        Services or by e-mail delivery to you.
+        liabilities. By providing Archetype with your credit card number or
+        PayPal account and associated payment information, you agree that
+        Archetype is authorized to immediately invoice your Account for all fees
+        and charges due and payable to Archetype hereunder and that no
+        additional notice or consent is required. You agree to immediately
+        notify Archetype of any change in your billing address or the credit
+        card or PayPal account used for payment hereunder. Archetype reserves
+        the right at any time to change its prices and billing methods, either
+        immediately upon posting on the Services or by e-mail delivery to you.
       </p>
       <p className="text-justify my-2">
         <b>4.2. Taxes. </b> If at any point in the future, Archetype begins to
@@ -486,11 +488,11 @@ const Component = () => (
         as grounds for a claim against Archetype.
       </p>
       <p className="inner1">
-        <b>(h)</b> Archetype does not investigate and cannot guarantee or warrant
-        the authenticity, originality, uniqueness, marketability, legality or
-        value of any digital asset displayed on, promoted by or traded on the
-        Services. For the avoidance of doubt, Archetype shall have no
-        responsibility for any failure of any user to comply with any terms
+        <b>(h)</b> Archetype does not investigate and cannot guarantee or
+        warrant the authenticity, originality, uniqueness, marketability,
+        legality or value of any digital asset displayed on, promoted by or
+        traded on the Services. For the avoidance of doubt, Archetype shall have
+        no responsibility for any failure of any user to comply with any terms
         regarding the authenticity, originality, uniqueness, scarcity or other
         description or characteristics of any digital assets furnished by or on
         behalf of that user and displayed by Archetype on the Services.]
@@ -508,8 +510,8 @@ const Component = () => (
         defense and control of any matter for which you are required to
         indemnify us, and you agree to cooperate with our defense of these
         claims. You agree not to settle any matter without the prior written
-        consent of Archetype. Archetype will use reasonable efforts to notify you of
-        any such claim, action or proceeding upon becoming aware of it.
+        consent of Archetype. Archetype will use reasonable efforts to notify
+        you of any such claim, action or proceeding upon becoming aware of it.
       </p>
       <Title className="my-4 !text-left" level={3}>
         7. Third-Party Links & Ads; Other Users
@@ -518,43 +520,44 @@ const Component = () => (
         <b>7.1. Third-Party Links.</b> The Services may contain links to
         third-party websites and services (collectively,{' '}
         <b>“Third-Party Links”</b>). Such Third-Party Links are not under the
-        control of Archetype, and Archetype is not responsible for any Third-Party
-        Links. Archetype provides access to these Third-Party Links only as a
-        convenience to you, and does not review, approve, monitor, endorse,
-        warrant, or make any representations with respect to Third-Party Links.
-        You use all Third-Party Links at your own risk and should apply a
-        suitable level of caution and discretion in doing so. When you click on
-        any of the Third-Party Links, the applicable third party’s terms and
-        policies apply, including the third party’s privacy and data gathering
-        practices. You should make whatever investigation you feel necessary or
-        appropriate before proceeding with any transaction in connection with
-        such Third-Party Links.
+        control of Archetype, and Archetype is not responsible for any
+        Third-Party Links. Archetype provides access to these Third-Party Links
+        only as a convenience to you, and does not review, approve, monitor,
+        endorse, warrant, or make any representations with respect to
+        Third-Party Links. You use all Third-Party Links at your own risk and
+        should apply a suitable level of caution and discretion in doing so.
+        When you click on any of the Third-Party Links, the applicable third
+        party’s terms and policies apply, including the third party’s privacy
+        and data gathering practices. You should make whatever investigation you
+        feel necessary or appropriate before proceeding with any transaction in
+        connection with such Third-Party Links.
       </p>
       <p className="text-justify my-2">
-        <b>7.2. Advertising Revenue.</b> Archetype reserves the right to generate
-        advertising revenue in connection with the display of Third-Party Links
-        on the Services, and you acknowledge and agree that Archetype has no
-        obligation to you in connection therewith.
+        <b>7.2. Advertising Revenue.</b> Archetype reserves the right to
+        generate advertising revenue in connection with the display of
+        Third-Party Links on the Services, and you acknowledge and agree that
+        Archetype has no obligation to you in connection therewith.
       </p>
       <p className="text-justify my-2">
         <b>7.3. App Stores. </b> You acknowledge and agree that the availability
         of the Mobile App and the Services is dependent on the third party from
         whom you received the Mobile App license, e.g., the Apple App Store or
         Google Play (each, an <b>“App Store”</b>). You acknowledge that these
-        Terms are between you and Archetype and not with the App Store. Archetype,
-        not the App Store, is solely responsible for the Services, including the
-        Mobile App, the content thereof, maintenance, support services, and
-        warranty therefor, and addressing any claims relating thereto (e.g.,
-        product liability, legal compliance or intellectual property
-        infringement). In order to use the Mobile App, you must have access to a
-        wireless network, and you agree to pay all fees associated with such
-        access. You also agree to pay all fees (if any) charged by the App Store
-        in connection with Services, including the Mobile App. You agree to
-        comply with, and your license to use the Mobile App is conditioned upon
-        your compliance with all terms of agreement imposed by the applicable
-        App Store when using any of the Services, including the Mobile App. You
-        acknowledge that the App Store (and its subsidiaries) are third-party
-        beneficiaries of these Terms and will have the right to enforce them.
+        Terms are between you and Archetype and not with the App Store.
+        Archetype, not the App Store, is solely responsible for the Services,
+        including the Mobile App, the content thereof, maintenance, support
+        services, and warranty therefor, and addressing any claims relating
+        thereto (e.g., product liability, legal compliance or intellectual
+        property infringement). In order to use the Mobile App, you must have
+        access to a wireless network, and you agree to pay all fees associated
+        with such access. You also agree to pay all fees (if any) charged by the
+        App Store in connection with Services, including the Mobile App. You
+        agree to comply with, and your license to use the Mobile App is
+        conditioned upon your compliance with all terms of agreement imposed by
+        the applicable App Store when using any of the Services, including the
+        Mobile App. You acknowledge that the App Store (and its subsidiaries)
+        are third-party beneficiaries of these Terms and will have the right to
+        enforce them.
       </p>
       <p className="text-justify my-2">
         <b>7.4. Accessing and Downloading the Application from iTunes. </b> The
@@ -578,10 +581,10 @@ const Component = () => (
         any applicable warranty, you may notify Apple, and Apple will refund the
         purchase price for the Mobile App to you and to the maximum extent
         permitted by applicable law, Apple will have no other warranty
-        obligation whatsoever with respect to the Mobile App. As between Archetype
-        and Apple, any other claims, losses, liabilities, damages, costs or
-        expenses attributable to any failure to conform to any warranty will be
-        the sole responsibility of Archetype.
+        obligation whatsoever with respect to the Mobile App. As between
+        Archetype and Apple, any other claims, losses, liabilities, damages,
+        costs or expenses attributable to any failure to conform to any warranty
+        will be the sole responsibility of Archetype.
       </p>
       <p className="inner1">
         <b>(d)</b> You and Archetype acknowledge that, as between Archetype and
@@ -602,12 +605,13 @@ const Component = () => (
         by the Terms.
       </p>
       <p className="inner1">
-        <b>(f)</b> You and Archetype acknowledge and agree that Apple, and Apple’s
-        subsidiaries, are third-party beneficiaries of the Terms as related to
-        your license of the Mobile App, and that, upon your acceptance of the
-        Terms, Apple will have the right (and will be deemed to have accepted
-        the right) to enforce the Terms as related to your license of the Mobile
-        App against you as a third-party beneficiary thereof.
+        <b>(f)</b> You and Archetype acknowledge and agree that Apple, and
+        Apple’s subsidiaries, are third-party beneficiaries of the Terms as
+        related to your license of the Mobile App, and that, upon your
+        acceptance of the Terms, Apple will have the right (and will be deemed
+        to have accepted the right) to enforce the Terms as related to your
+        license of the Mobile App against you as a third-party beneficiary
+        thereof.
       </p>
       <p className="inner1">
         <b>(g)</b> Without limiting any of these Terms, you must comply with all
@@ -644,21 +648,21 @@ const Component = () => (
       </p>
       <p className="text-justify my-2">
         <b>2. Disclaimers.</b> THE SERVICES ARE PROVIDED ON AN “AS-IS” AND “AS
-        AVAILABLE” BASIS, AND ARCHETYPE (AND OUR SUPPLIERS) EXPRESSLY DISCLAIM ANY
-        AND ALL WARRANTIES AND CONDITIONS OF ANY KIND, WHETHER EXPRESS, IMPLIED,
-        OR STATUTORY, INCLUDING ALL WARRANTIES OR CONDITIONS OF MERCHANTABILITY,
-        FITNESS FOR A PARTICULAR PURPOSE, TITLE, QUIET ENJOYMENT, ACCURACY, OR
-        NON-INFRINGEMENT. WE (AND OUR SUPPLIERS) MAKE NO WARRANTY THAT THE
-        SERVICES WILL MEET YOUR REQUIREMENTS, WILL BE AVAILABLE ON AN
-        UNINTERRUPTED, TIMELY, SECURE, OR ERROR-FREE BASIS, OR WILL BE ACCURATE,
-        RELIABLE, FREE OF VIRUSES OR OTHER HARMFUL CODE, COMPLETE, LEGAL, OR
-        SAFE. WE WILL NOT BE LIABLE FOR ANY LOSS OF ANY KIND FROM ANY ACTION
-        TAKEN OR TAKEN IN RELIANCE ON MATERIAL OR INFORMATION, CONTAINED ON THE
-        SERVICES. NO ADVICE OR INFORMATION, WHETHER ORAL OR WRITTEN, OBTAINED
-        FROM COMPANY OR THROUGH COMPANY PROPERTIES WILL CREATE ANY WARRANTY NOT
-        EXPRESSLY MADE HEREIN. IF APPLICABLE LAW REQUIRES ANY WARRANTIES WITH
-        RESPECT TO THE SITE, ALL SUCH WARRANTIES ARE LIMITED IN DURATION TO
-        NINETY (90) DAYS FROM THE DATE OF FIRST USE.
+        AVAILABLE” BASIS, AND ARCHETYPE (AND OUR SUPPLIERS) EXPRESSLY DISCLAIM
+        ANY AND ALL WARRANTIES AND CONDITIONS OF ANY KIND, WHETHER EXPRESS,
+        IMPLIED, OR STATUTORY, INCLUDING ALL WARRANTIES OR CONDITIONS OF
+        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, QUIET
+        ENJOYMENT, ACCURACY, OR NON-INFRINGEMENT. WE (AND OUR SUPPLIERS) MAKE NO
+        WARRANTY THAT THE SERVICES WILL MEET YOUR REQUIREMENTS, WILL BE
+        AVAILABLE ON AN UNINTERRUPTED, TIMELY, SECURE, OR ERROR-FREE BASIS, OR
+        WILL BE ACCURATE, RELIABLE, FREE OF VIRUSES OR OTHER HARMFUL CODE,
+        COMPLETE, LEGAL, OR SAFE. WE WILL NOT BE LIABLE FOR ANY LOSS OF ANY KIND
+        FROM ANY ACTION TAKEN OR TAKEN IN RELIANCE ON MATERIAL OR INFORMATION,
+        CONTAINED ON THE SERVICES. NO ADVICE OR INFORMATION, WHETHER ORAL OR
+        WRITTEN, OBTAINED FROM COMPANY OR THROUGH COMPANY PROPERTIES WILL CREATE
+        ANY WARRANTY NOT EXPRESSLY MADE HEREIN. IF APPLICABLE LAW REQUIRES ANY
+        WARRANTIES WITH RESPECT TO THE SITE, ALL SUCH WARRANTIES ARE LIMITED IN
+        DURATION TO NINETY (90) DAYS FROM THE DATE OF FIRST USE.
       </p>
       <p className="text-justify my-2">
         YOU ACKNOWLEDGE AND AGREE THAT ARCHETYPE (AND OUR SUPPLIERS) ARE NOT
@@ -673,10 +677,10 @@ const Component = () => (
         ARCHETYPE DOES NOT MAKE ANY ATTEMPT TO VERIFY THE STATEMENTS OF USERS OF
         THE SERVICES. ARCHETYPE MAKES NO WARRANTY THAT THE GOODS OR SERVICES
         PROVIDED BY THIRD PARTIES WILL MEET YOUR REQUIREMENTS OR BE AVAILABLE ON
-        AN UNINTERRUPTED, SECURE, OR ERROR-FREE BASIS. ARCHETYPE MAKES NO WARRANTY
-        REGARDING THE QUALITY OF ANY SUCH GOODS OR SERVICES, OR THE ACCURACY,
-        TIMELINESS, TRUTHFULNESS, COMPLETENESS OR RELIABILITY OF ANY USER
-        CONTENT OBTAINED THROUGH THE SERVICES.
+        AN UNINTERRUPTED, SECURE, OR ERROR-FREE BASIS. ARCHETYPE MAKES NO
+        WARRANTY REGARDING THE QUALITY OF ANY SUCH GOODS OR SERVICES, OR THE
+        ACCURACY, TIMELINESS, TRUTHFULNESS, COMPLETENESS OR RELIABILITY OF ANY
+        USER CONTENT OBTAINED THROUGH THE SERVICES.
       </p>
       <p className="text-justify my-2">
         SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, SO
@@ -736,17 +740,17 @@ const Component = () => (
         <b>5. Copyright Policy.</b>
       </p>
       <p className="text-justify my-2">
-        Archetype respects the intellectual property of others and asks that users
-        of our Services do the same. In connection with our Services, we have
-        adopted and implemented a policy respecting copyright law that provides
-        for the removal of any infringing materials and for the termination, in
-        appropriate circumstances, of users of our online Services who are
-        repeat infringers of intellectual property rights, including copyrights.
-        If you believe that one of our users is, through the use of our
-        Services, unlawfully infringing the copyright(s) in a work, and wish to
-        have the allegedly infringing material removed, the following
-        information in the form of a written notification (pursuant to 17 U.S.C.
-        § 512(c)) must be provided to our designated Copyright Agent:
+        Archetype respects the intellectual property of others and asks that
+        users of our Services do the same. In connection with our Services, we
+        have adopted and implemented a policy respecting copyright law that
+        provides for the removal of any infringing materials and for the
+        termination, in appropriate circumstances, of users of our online
+        Services who are repeat infringers of intellectual property rights,
+        including copyrights. If you believe that one of our users is, through
+        the use of our Services, unlawfully infringing the copyright(s) in a
+        work, and wish to have the allegedly infringing material removed, the
+        following information in the form of a written notification (pursuant to
+        17 U.S.C. § 512(c)) must be provided to our designated Copyright Agent:
       </p>
       <ol>
         <li>your physical or electronic signature;</li>
@@ -794,8 +798,8 @@ const Component = () => (
         <b>(a)</b> <i>Applicability of Arbitration Agreement.</i> All claims and
         disputes (excluding claims for injunctive or other equitable relief as
         set forth below) in connection with the Terms or the use of any product
-        or service provided by Archetype that cannot be resolved informally or in
-        small claims court shall be resolved by binding arbitration on an
+        or service provided by Archetype that cannot be resolved informally or
+        in small claims court shall be resolved by binding arbitration on an
         individual basis under the terms of this Arbitration Agreement. Unless
         otherwise agreed to, all arbitration proceedings shall be held in
         English. This Arbitration Agreement applies to you and Archetype, and to
@@ -809,13 +813,13 @@ const Component = () => (
         Before either party may seek arbitration, the party must first send to
         the other party a written Notice of Dispute (<b>“Notice”</b>) describing
         the nature and basis of the claim or dispute, and the requested relief.
-        A Notice to Archetype should be sent to the contact information set forth
-        in Section 12.8 below. After the Notice is received, you and Archetype may
-        attempt to resolve the claim or dispute informally. If you and Archetype
-        do not resolve the claim or dispute within thirty (30) days after the
-        Notice is received, either party may begin an arbitration proceeding.
-        The amount of any settlement offer made by any party may not be
-        disclosed to the arbitrator until after the arbitrator has determined
+        A Notice to Archetype should be sent to the contact information set
+        forth in Section 12.8 below. After the Notice is received, you and
+        Archetype may attempt to resolve the claim or dispute informally. If you
+        and Archetype do not resolve the claim or dispute within thirty (30)
+        days after the Notice is received, either party may begin an arbitration
+        proceeding. The amount of any settlement offer made by any party may not
+        be disclosed to the arbitrator until after the arbitrator has determined
         the amount of the award, if any, to which either party is entitled.
       </p>
       <p className="inner1">
@@ -845,10 +849,10 @@ const Component = () => (
         the arbitrator may be entered in any court of competent jurisdiction. If
         the arbitrator grants you an award that is greater than the last
         settlement offer that Archetype made to you prior to the initiation of
-        arbitration, Archetype will pay you the greater of the award or $2,500.00.
-        Each party shall bear its own costs (including attorney’s fees) and
-        disbursements arising out of the arbitration and shall pay an equal
-        share of the fees and costs of the ADR Provider.
+        arbitration, Archetype will pay you the greater of the award or
+        $2,500.00. Each party shall bear its own costs (including attorney’s
+        fees) and disbursements arising out of the arbitration and shall pay an
+        equal share of the fees and costs of the ADR Provider.
       </p>
       <p className="inner1">
         <b>(d)</b> <i>Additional Rules for Non-Appearance Based Arbitration.</i>{' '}
@@ -860,10 +864,10 @@ const Component = () => (
         parties.
       </p>
       <p className="inner1">
-        <b>(e)</b> <i>Time Limits.</i> If you or Archetype pursue arbitration, the
-        arbitration action must be initiated and/or demanded within the statute
-        of limitations (i.e., the legal deadline for filing a claim) and within
-        any deadline imposed under the AAA Rules for the pertinent claim.
+        <b>(e)</b> <i>Time Limits.</i> If you or Archetype pursue arbitration,
+        the arbitration action must be initiated and/or demanded within the
+        statute of limitations (i.e., the legal deadline for filing a claim) and
+        within any deadline imposed under the AAA Rules for the pertinent claim.
       </p>
       <p className="inner1">
         <b>(f)</b> <i>Authority of Arbitrator.</i> If arbitration is initiated,
@@ -952,14 +956,14 @@ const Component = () => (
         of the provisions of this Arbitration Agreement by sending written
         notice of your decision to opt out to support@archetype.dev, within
         thirty (30) days after first becoming subject to this Arbitration
-        Agreement. Your notice must include your name and address, your Archetype
-        username (if any), the email address you used to set up your Account (if
-        you have one), and an unequivocal statement that you want to opt out of
-        this Arbitration Agreement. If you opt out of this Arbitration
-        Agreement, all other parts of this Agreement will continue to apply to
-        you. Opting out of this Arbitration Agreement has no effect on any other
-        arbitration agreements that you may currently have, or may enter in the
-        future, with us.
+        Agreement. Your notice must include your name and address, your
+        Archetype username (if any), the email address you used to set up your
+        Account (if you have one), and an unequivocal statement that you want to
+        opt out of this Arbitration Agreement. If you opt out of this
+        Arbitration Agreement, all other parts of this Agreement will continue
+        to apply to you. Opting out of this Arbitration Agreement has no effect
+        on any other arbitration agreements that you may currently have, or may
+        enter in the future, with us.
       </p>
       <p className="inner1">
         <b>(q)</b> <i>Courts.</i> In any circumstances where the foregoing
@@ -996,10 +1000,10 @@ const Component = () => (
         not affect your non-waivable rights.
       </p>
       <p className="text-justify my-2">
-        <b>6.5. Force Majeure. </b> Archetype shall not be liable for any delay or
-        failure to perform resulting from causes outside its reasonable control,
-        including, but not limited to, acts of God, war, terrorism, riots,
-        embargos, acts of civil or military authorities, fire, floods,
+        <b>6.5. Force Majeure. </b> Archetype shall not be liable for any delay
+        or failure to perform resulting from causes outside its reasonable
+        control, including, but not limited to, acts of God, war, terrorism,
+        riots, embargos, acts of civil or military authorities, fire, floods,
         accidents, epidemics, pandemics, governmental orders, strikes or
         shortages of transportation facilities, fuel, energy, labor or
         materials.
@@ -1020,9 +1024,9 @@ const Component = () => (
         rights and obligations herein, may not be assigned, subcontracted,
         delegated, or otherwise transferred by you without Archetype’s prior
         written consent, and any attempted assignment, subcontract, delegation,
-        or transfer in violation of the foregoing will be null and void. Archetype
-        may freely assign these Terms. The terms and conditions set forth in
-        these Terms shall be binding upon assignees.
+        or transfer in violation of the foregoing will be null and void.
+        Archetype may freely assign these Terms. The terms and conditions set
+        forth in these Terms shall be binding upon assignees.
       </p>
       <p className="text-justify my-2">
         <b>6.7. Copyright/Trademark Information. </b> Copyright © 2021 Archetype

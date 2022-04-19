@@ -1,9 +1,8 @@
 import Head from 'next/head';
 import config from '../config';
-import ArcheTypeLogo from './_icons/ArcheTypeLogo';
+import ArcheTypeNlogo from './_icons/ArchTypeNlogo';
 import MainLayout from './_layout/MainLayout';
 import Title from './_typography/Title';
-import { LogoVariant } from 'types/ArcheTypeLogo';
 
 const Component = () => (
   <MainLayout>
@@ -13,7 +12,7 @@ const Component = () => (
       <meta name="keywords" content={config.meta.keywords} />
     </Head>
     <div className="p-20">
-      <ArcheTypeLogo variant={LogoVariant.lightText} className="pb-2" />
+      <ArcheTypeNlogo className="pb-1" />
       <Title className="my-2">Privacy Policy</Title>
       <Title className="my-4" level={3}>
         Interpretation and Definitions

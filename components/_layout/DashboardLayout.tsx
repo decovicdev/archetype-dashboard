@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import Button from 'components/_common/Button';
 // import Input from 'components/_common/Input';
-import ArcheTypeLogo from 'components/_icons/ArcheTypeLogo';
+// import ArcheTypeLogo from 'components/_icons/ArcheTypeLogo';
+import ArcheTypeNlogo from 'components/_icons/ArchTypeNlogo';
 // import PlusCircle from 'components/_icons/PlusCircle';
 import { ROUTES } from 'constant/routes';
-import { LogoVariant } from 'types/ArcheTypeLogo';
+// import { LogoVariant } from 'types/ArcheTypeLogo';
 import { ButtonVariant } from 'types/Button';
 import Paragraph from 'components/_typography/Paragraph';
 import PrivateRoute from 'components/_common/PrivateRoute';
@@ -67,10 +68,7 @@ const DashboardLayout = ({ children }) => {
     <PrivateRoute>
       <div className="grid grid-cols-aside w-screen h-screen overflow-hidden bg-twhite-700">
         <div className="flex flex-col py-8 pl-4 pr-8 bg-tpurple-700 space-y-2">
-          <ArcheTypeLogo
-            variant={LogoVariant.lightText}
-            className="p-2 mb-8 mr-4"
-          />
+          <ArcheTypeNlogo className="p-2 mb-8 mr-4 " />
           {LINKS.map((section) => (
             <>
               {section.title ? (

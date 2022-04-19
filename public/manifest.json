@@ -1,13 +1,7 @@
 {
   "short_name": "Archetype",
   "name": "Archetype",
-  "icons": [
-    {
-      "src": "/icons/android-chrome-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-  ],
+  "icons": [{}],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
