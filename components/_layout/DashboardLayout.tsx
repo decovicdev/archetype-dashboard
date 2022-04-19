@@ -68,7 +68,7 @@ const DashboardLayout = ({ children }) => {
     <PrivateRoute>
       <div className="grid grid-cols-aside w-screen h-screen overflow-hidden bg-twhite-700">
         <div className="flex flex-col py-8 pl-4 pr-8 bg-tpurple-700 space-y-2">
-          <ArcheTypeNlogo className="p-2 mb-8 mr-4 " />
+          <ArcheTypeNlogo />
           {LINKS.map((section) => (
             <>
               {section.title ? (
