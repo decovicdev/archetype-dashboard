@@ -200,13 +200,13 @@ const Form = ({
                 labelClassName="text-tblack-400 mb-0"
                 placeholder="Price"
                 htmlType="number"
-                value={plan.unit_amount}
+                value={plan.unit_amount_decimal}
                 onChange={(e) => {
                   changeFields(
                     'plans',
                     fields.plans?.map((p) =>
                       p.id === plan.id
-                        ? { ...p, unit_amount: e.target.value }
+                        ? { ...p, unit_amount_decimal: e.target.value }
                         : p
                     ) || []
                   );
