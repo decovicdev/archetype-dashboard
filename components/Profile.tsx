@@ -174,7 +174,7 @@ const Component = () => {
         />
       </form>
       <div>
-        <Button disabled={!isEditing} onClick={saveForm}>
+        <Button active={isEditing} onClick={saveForm}>
           Save
         </Button>
       </div>
