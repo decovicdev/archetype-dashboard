@@ -32,7 +32,7 @@ const Component = () => {
     hasTrial: false,
     trialLen: 0,
     trialTimeFrame: null,
-    plans: []
+    plans: null
   });
 
   const changeFields = useCallback(
@@ -56,7 +56,10 @@ const Component = () => {
     async () => {
       if (isLoading) return;
       if (!fields.name) throw new Error('Name is required field');
-      if (!fields.price) throw new Error('Price is required field');
+      if (!fields.price && fields.pricingModel?.id === 'subscription')
+        throw new Error('Price is required field');
+      if (!fields.plans?.length && fields.pricingModel?.id !== 'subscription')
+        throw new Error('At least one tier is required');
 
       await TierService.addNew({
         name: fields.name,
@@ -82,7 +85,9 @@ const Component = () => {
           }))
           ?.concat({
             up_to: 'inf',
-            unit_amount_decimal: parseFloat(fields.plans.at(-1).unit_amount_decimal)
+            unit_amount_decimal: parseFloat(
+              fields.plans?.at(-1).unit_amount_decimal
+            )
           })
       });
     },
@@ -108,8 +113,8 @@ const Component = () => {
     } else {
       changeFields(null, null, {
         hasTrial: true,
-        trialLen: 1,
-        trialTimeFrame: 'MONTH'
+        trialLen: 7,
+        trialTimeFrame: 'DAY'
       });
     }
   }, [fields, changeFields]);
