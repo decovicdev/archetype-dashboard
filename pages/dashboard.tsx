@@ -12,6 +12,7 @@ import PlusCircle from 'components/_icons/PlusCircle';
 import Paragraph from 'components/_typography/Paragraph';
 import EndpointService from 'services/endpoint.service';
 import CustomerService from 'services/customer.service';
+import Chart from 'components/Dashboard/Chart';
 
 type Props = {
   queryName: string;
@@ -20,7 +21,6 @@ type Props = {
   mainPageUrl: string;
   addPageUrl: string;
 };
-
 const OverviewSection: React.FC<Props> = ({
   queryName,
   queryFn,
@@ -92,6 +92,7 @@ const DashboardPage = () => (
         />
       </div>
     </Card>
+    <Chart></Chart>
   </DashboardLayout>
 );
 
