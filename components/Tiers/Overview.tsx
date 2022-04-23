@@ -267,14 +267,16 @@ const Component = () => {
               className="!text-left"
               variant={TypographyVariant.dark}
             >
-              price: {tier.unit_amount}
+              price: ${tier.unit_amount_decimal}
             </Paragraph>
             <Paragraph
               level={3}
               className="!text-left"
               variant={TypographyVariant.dark}
             >
-              up to: {tier.up_to}
+              {tier.up_to === 'inf'
+                ? 'Unlimited API calls'
+                : `up to: ${tier.up_to} API calls`}
             </Paragraph>
           </div>
         ))}

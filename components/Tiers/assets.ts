@@ -21,18 +21,18 @@ export const PRICING_MODEL_VALUES = {
   subscription: {
     id: 'subscription',
     usage_type: 'licensed',
-    billing_schema: 'per_unit'
+    billing_scheme: 'per_unit'
   },
   tiered: {
     id: 'tiered',
     usage_type: 'metered',
-    billing_schema: 'tiered',
+    billing_scheme: 'tiered',
     tier_mode: 'volume'
   },
   graduated: {
     id: 'graduated',
     usage_type: 'metered',
-    billing_schema: 'tiered',
+    billing_scheme: 'tiered',
     tier_mode: 'graduated'
   }
 };

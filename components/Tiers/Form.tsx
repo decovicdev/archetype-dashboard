@@ -62,28 +62,6 @@ const Form = ({
         value={fields.description}
         onChange={(e) => changeFields('description', e.target.value)}
       />
-      <div className="grid grid-cols-aside items-center">
-        <Switch
-          label={fields.meteredUsage ? 'Limited Quota' : 'Unlimited Quota'}
-          checked={fields.meteredUsage}
-          onChange={(checked) => changeFields('meteredUsage', checked)}
-        />
-        {fields.meteredUsage && (
-          <Input
-            name="quota"
-            className="grid grid-cols-aside items-center"
-            labelClassName="text-tblack-400 mb-0"
-            placeholder="Add quota"
-            label="Quota"
-            htmlType="number"
-            value={fields.quota}
-            onChange={(e) => {
-              if (e.target.value && !/^[0-9]*$/g.test(e.target.value)) return;
-              changeFields('quota', e.target.value);
-            }}
-          />
-        )}
-      </div>
       <Dropdown
         label="Pricing model"
         // name="pricingModel"
@@ -163,9 +141,10 @@ const Form = ({
           </div>
         )}
       </div>
-      <Divider className="!my-4" />
+
       {fields.pricingModel?.id === 'subscription' ? null : (
         <>
+          <Divider className="!my-4" />
           <Button
             onClick={() => {
               changeFields('plans', [
@@ -174,7 +153,7 @@ const Form = ({
               ]);
             }}
           >
-            + Add Plan
+            + Add Tier
           </Button>
           {fields.plans?.map((plan) => (
             <div key={plan.id} className="grid grid-cols-3 items-center">
@@ -200,13 +179,14 @@ const Form = ({
                 labelClassName="text-tblack-400 mb-0"
                 placeholder="Price"
                 htmlType="number"
-                value={plan.unit_amount}
+                step="any"
+                value={plan.unit_amount_decimal}
                 onChange={(e) => {
                   changeFields(
                     'plans',
                     fields.plans?.map((p) =>
                       p.id === plan.id
-                        ? { ...p, unit_amount: e.target.value }
+                        ? { ...p, unit_amount_decimal: e.target.value }
                         : p
                     ) || []
                   );
@@ -233,7 +213,7 @@ const Form = ({
                 name="endCount"
                 labelClassName="text-tblack-400 mb-0"
                 placeholder="End Count"
-                htmlType="number"
+                htmlType={plan.up_to === 'inf' ? 'text' : 'number'}
                 value={plan.up_to}
                 onChange={(e) => {
                   changeFields(
@@ -258,9 +238,32 @@ const Form = ({
               </Button>
             </div>
           ))}
-          <Divider className="!my-4" />
         </>
       )}
+      <Divider className="!my-4" />
+      <div className="grid grid-cols-aside items-center">
+        <Switch
+          label={fields.meteredUsage ? 'Limited Quota' : 'Unlimited Quota'}
+          checked={fields.meteredUsage}
+          onChange={(checked) => changeFields('meteredUsage', checked)}
+        />
+        {fields.meteredUsage && (
+          <Input
+            name="quota"
+            className="grid grid-cols-aside items-center"
+            labelClassName="text-tblack-400 mb-0"
+            placeholder="Add quota"
+            label="Quota"
+            htmlType="number"
+            value={fields.quota}
+            onChange={(e) => {
+              if (e.target.value && !/^[0-9]*$/g.test(e.target.value)) return;
+              changeFields('quota', e.target.value);
+            }}
+          />
+        )}
+      </div>
+      <Divider className="!my-4" />
       <div className="flex justify-between">
         <Button
           type="button"
