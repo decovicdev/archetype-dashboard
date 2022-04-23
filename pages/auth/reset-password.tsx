@@ -50,20 +50,16 @@ const ResetPage: NextPage = () => {
   };
 
   const router = useRouter();
-  const { currentUser, isAuthLoading } = useAuth();
+  const { currentUser, isAuthLoading, isGithubAuth } = useAuth();
 
   useEffect(() => {
     if (isAuthLoading) return;
-    if (
-      currentUser &&
-      !currentUser.emailVerified &&
-      !currentUser?.providerId?.includes('github')
-    ) {
+    if (currentUser && !currentUser.emailVerified && !isGithubAuth) {
       void router.push(ROUTES.AUTH.VERIFY);
     } else if (currentUser) {
       void router.push(ROUTES.SETTINGS.SETTINGS);
     }
-  }, [currentUser, isAuthLoading, router]);
+  }, [currentUser, isAuthLoading, isGithubAuth, router]);
 
   return (
     <AuthLayout title="Reset password">

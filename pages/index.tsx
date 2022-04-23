@@ -7,22 +7,18 @@ import Spinner from 'components/_common/Spinner';
 
 const HomePage = () => {
   const router = useRouter();
-  const { isAuthLoading, currentUser } = useAuth();
+  const { isAuthLoading, currentUser, isGithubAuth } = useAuth();
 
   useEffect(() => {
     if (isAuthLoading) return;
     if (!currentUser) {
       void router.push(ROUTES.AUTH.SIGNUP);
-    } else if (
-      currentUser &&
-      !currentUser.emailVerified &&
-      !currentUser?.providerId?.includes('github')
-    ) {
+    } else if (currentUser && !currentUser.emailVerified && !isGithubAuth) {
       void router.push(ROUTES.AUTH.VERIFY);
     } else {
       void router.push(ROUTES.DASHBOARD.DASHBOARD);
     }
-  }, [currentUser, isAuthLoading, router]);
+  }, [currentUser, isAuthLoading, isGithubAuth, router]);
 
   return (
     <OnboardingLayout>

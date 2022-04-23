@@ -3,7 +3,8 @@ import React, {
   useState,
   useCallback,
   createContext,
-  useContext
+  useContext,
+  useMemo
 } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import AuthService, { auth } from 'services/auth.service';
@@ -11,11 +12,13 @@ import AuthService, { auth } from 'services/auth.service';
 type AuthContextValue = {
   isAuthLoading: boolean;
   currentUser?: User | null;
+  isGithubAuth?: boolean;
 };
 
 export const AuthContext = createContext<AuthContextValue>({
   isAuthLoading: false,
-  currentUser: null
+  currentUser: null,
+  isGithubAuth: undefined
 });
 
 export const useAuth = () => useContext(AuthContext);
@@ -55,8 +58,16 @@ export const AuthProvider = ({ children }) => {
     init();
   }, [init]);
 
+  const isGithubAuth = useMemo(
+    () =>
+      currentUser?.providerData?.some((provider) =>
+        provider?.providerId?.includes('github')
+      ),
+    [currentUser?.providerData]
+  );
+
   return (
-    <AuthContext.Provider value={{ isAuthLoading, currentUser }}>
+    <AuthContext.Provider value={{ isAuthLoading, currentUser, isGithubAuth }}>
       {children}
     </AuthContext.Provider>
   );

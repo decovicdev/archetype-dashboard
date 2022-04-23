@@ -60,20 +60,16 @@ const SignupPage: NextPage = () => {
   };
 
   const router = useRouter();
-  const { currentUser, isAuthLoading } = useAuth();
+  const { currentUser, isAuthLoading, isGithubAuth } = useAuth();
 
   useEffect(() => {
     if (isAuthLoading) return;
-    if (
-      currentUser &&
-      !currentUser.emailVerified &&
-      !currentUser?.providerId?.includes('github')
-    ) {
+    if (currentUser && !currentUser.emailVerified && !isGithubAuth) {
       void router.push(ROUTES.AUTH.VERIFY);
     } else if (currentUser) {
       void router.push(ROUTES.SETTINGS.SETTINGS);
     }
-  }, [currentUser, router, isAuthLoading]);
+  }, [currentUser, router, isAuthLoading, isGithubAuth]);
 
   return (
     <AuthLayout title="Sign up">
@@ -154,7 +150,7 @@ const SignupPage: NextPage = () => {
           <GoogleIcon className="mr-2" />
           Continue with Google
         </Button>
-        {/* 
+
         <Button
           variant={ButtonVariant.outlined}
           onClick={AuthService.loginWithGithub}
@@ -162,7 +158,6 @@ const SignupPage: NextPage = () => {
           <GithubIcon className="mr-2" />
           Continue with GitHub
         </Button>
-        */}
       </form>
     </AuthLayout>
   );
