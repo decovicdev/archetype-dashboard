@@ -8,7 +8,7 @@ import { ButtonVariant } from 'types/Button';
 
 const Component = forwardRef(function Component({ /*data, clickDelete*/ }, ref) {
   return (
-    <div ref={ref} className="block">
+    <div /*ref={ref}*/ className="block">
       {/*
       <div className="info-part">
         <div className="title">
