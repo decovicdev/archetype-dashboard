@@ -6,9 +6,10 @@ import DropdownMenu from '../_common/DropdownMenu';
 import Button from 'components/_common/Button';
 import { ButtonVariant } from 'types/Button';
 
-const Component = forwardRef(function Component({ data, clickDelete }, ref) {
+const Component = forwardRef(function Component({ /*data, clickDelete*/ }, ref) {
   return (
     <div ref={ref} className="block">
+      {/*
       <div className="info-part">
         <div className="title">
           <Link href={`/endpoints/${data.uid}`}>
@@ -39,6 +40,7 @@ const Component = forwardRef(function Component({ data, clickDelete }, ref) {
         )}
         <input type="text" readOnly defaultValue={data?.path ?? null} />
       </div>
+      */}
     </div>
   );
 });
