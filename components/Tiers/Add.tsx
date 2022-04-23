@@ -67,7 +67,7 @@ const Component = () => {
           !fields.hasTrial && !fields.description
             ? 'No trial'
             : fields.description,
-        price: parseFloat(parseFloat(fields.price).toFixed(2)),
+        price: parseFloat(parseFloat(fields.price).toFixed(2)) || 0,
         period: fields.billingPeriod,
         currency: 'usd',
         has_quota: fields.meteredUsage && parseInt(`${fields.quota}`) > 0,
