@@ -154,6 +154,7 @@ const SignupPage: NextPage = () => {
           <GoogleIcon className="mr-2" />
           Continue with Google
         </Button>
+        {/* 
         <Button
           variant={ButtonVariant.outlined}
           onClick={AuthService.loginWithGithub}
@@ -161,6 +162,7 @@ const SignupPage: NextPage = () => {
           <GithubIcon className="mr-2" />
           Continue with GitHub
         </Button>
+        */}
       </form>
     </AuthLayout>
   );

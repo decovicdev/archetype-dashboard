@@ -84,7 +84,7 @@ const Chart: React.FC = () => (
         level={3}
         variant={TypographyVariant.dark}
       >
-        Revenuye
+        Revenue
       </Title>
       <div className="flex m-auto">
         <div className="flex justify-center align-middle flex-col mr-auto gap-3">
