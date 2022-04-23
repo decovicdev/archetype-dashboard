@@ -5,7 +5,7 @@ import config from 'config';
 const DimensionsPage = () => (
   <DashboardLayout>
     <Head>
-      <title>Settings - {config.meta.title}</title>
+      <title>Dimensions - {config.meta.title}</title>
     </Head>
     <h1>Coming soon</h1>
   </DashboardLayout>
