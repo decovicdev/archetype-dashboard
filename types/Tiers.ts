@@ -20,4 +20,8 @@ export type Tier = {
   trial_time_frame?: string;
   unique_str?: string;
   users?: string[];
+  usage_type?: string;
+  billing_scheme?: string;
+  tier_mode?: string;
+  usage_tiers?: any;
 };

@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import classnames from 'classnames';
 
-const Component = ({ onClickItem }) => {
+const Component = ({ onClickItem }: {onClickItem?:any}) => {
   const router = useRouter();
 
   return (

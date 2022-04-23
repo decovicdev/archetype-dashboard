@@ -28,6 +28,8 @@ const Component = () => {
     { onError: (e: any) => showAlert(e.message) }
   );
 
+  const newData = data as any
+
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
@@ -56,7 +58,7 @@ const Component = () => {
               Customer Profile
             </Title>
             <DropdownMenu title={<Button>Options</Button>}>
-              <Button url={`${ROUTES.USERS.EDIT}/${data.custom_uid}`}>
+              <Button url={`${ROUTES.USERS.EDIT}/${newData.custom_uid}`}>
                 Edit
               </Button>
               <Button variant={ButtonVariant.danger} onClick={onOpen}>
@@ -74,29 +76,29 @@ const Component = () => {
           </Title>
           <div className="grid grid-cols-2">
             <div>App User ID</div>
-            <div>{data.custom_uid}</div>
+            <div>{newData.custom_uid}</div>
             <div>User apiKeys</div>
-            <div>{data.apikeys?.join(',') || ''}</div>
+            <div>{newData.apikeys?.join(',') || ''}</div>
             <div>User app_id</div>
-            <div>{data.app_id}</div>
+            <div>{newData.app_id}</div>
             <div>Name</div>
-            <div>{data.attrs?.name}</div>
+            <div>{newData.attrs?.name}</div>
             <div>Email</div>
-            <div>{data.email}</div>
+            <div>{newData.email}</div>
             <div>Status</div>
-            <div>{data.status}</div>
+            <div>{newData.status}</div>
             <div>Trial active</div>
-            <div>{data.is_trial ? 'true' : 'false'}</div>
-            {data.tier_id && (
+            <div>{newData.is_trial ? 'true' : 'false'}</div>
+            {newData.tier_id && (
               <>
                 <div>Tier</div>
                 <div>
-                  <Link href={`/tiers/${data.tier_id}`}>{data.tier_id}</Link>
+                  <Link href={`/tiers/${newData.tier_id}`}>{newData.tier_id}</Link>
                 </div>
               </>
             )}
             <div>Last Seen</div>
-            <div>{new Date(data.last_seen * 1000).toLocaleDateString()}</div>
+            <div>{new Date(newData.last_seen * 1000).toLocaleDateString()}</div>
           </div>
           <Divider className="my-4" />
           <Title
@@ -110,7 +112,7 @@ const Component = () => {
       ) : (
         <ErrorText>Customer not found.</ErrorText>
       )}
-      <DeleteUserModal isOpen={isOpen} onClose={onClose} />
+      <DeleteUserModal id="test" isOpen={isOpen} onClose={onClose} />
     </div>
   );
 };

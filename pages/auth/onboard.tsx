@@ -45,7 +45,7 @@ const Component = () => {
   const queryClient = useQueryClient();
 
   const { mutate: submitForm, isLoading: isMutationLoading } = useMutation(
-    async (data) => {
+    async (data: any) => {
       if (isMutationLoading) return;
       if (!data.name) {
         throw new Error('Name is required');

@@ -30,7 +30,7 @@ const Component = () => {
     async () => CustomerService.getById(router.query.userId),
     {
       onError: (e: any) => showAlert(e.message),
-      onSuccess: (newData) => {
+      onSuccess: (newData: any) => {
         setFields({ email: newData?.email });
       }
     }
@@ -118,7 +118,7 @@ const Component = () => {
       ) : (
         <ErrorText>Customer not found.</ErrorText>
       )}
-      <DeleteUserModal isOpen={isOpen} onClose={onClose} />
+      <DeleteUserModal id="data" isOpen={isOpen} onClose={onClose} />
     </>
   );
 };

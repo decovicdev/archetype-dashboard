@@ -24,7 +24,7 @@ const Component = () => {
 
   const { showAlert } = useHelpers();
 
-  const [fields, setFields] = useState({});
+  const [fields, setFields] = useState <any>({}) ;
 
   const { isLoading } = useQuery(
     ['product', router.query.tierId],

@@ -29,7 +29,7 @@ const OverviewSection: React.FC<Props> = ({
   addPageUrl
 }) => {
   const { data, isLoading, isError } = useQuery(queryName, queryFn);
-
+  const newData = data as any
   return (
     <div className="flex flex-col mr-4 items-start border-r border-solid border-tblack-100">
       <Button variant={ButtonVariant.link} url={mainPageUrl}>
@@ -44,7 +44,7 @@ const OverviewSection: React.FC<Props> = ({
           className="text-left py-2 px-3"
           variant={TypographyVariant.dark}
         >
-          {data?.length ?? 0}
+          {newData?.length ?? 0}
         </Paragraph>
       )}
       <Button

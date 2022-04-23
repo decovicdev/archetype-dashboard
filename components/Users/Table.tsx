@@ -23,7 +23,7 @@ const Table: React.FC<Props> = ({
   setSelectedId
 }) => {
   const router = useRouter();
-
+  const newData = data as any
   const clickItem = useCallback(
     (e: MouseEvent<HTMLDivElement, MouseEvent>, item: User) => {
       void router.push(`${ROUTES.USERS.BASE_URL}/${item.custom_uid}`);
@@ -31,7 +31,7 @@ const Table: React.FC<Props> = ({
     [router]
   );
 
-  if (!data?.length) {
+  if (!newData?.length) {
     return <div className="no-content">No products added yet.</div>;
   }
 
@@ -50,7 +50,7 @@ const Table: React.FC<Props> = ({
         <p>Quota</p>
       </div>
 
-      {data.map((item, i) => (
+      {newData.map((item, i) => (
         <div
           key={i}
           onClick={(e) =>

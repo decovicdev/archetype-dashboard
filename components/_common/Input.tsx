@@ -20,6 +20,7 @@ type Props = {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
+  step?: string
 };
 
 const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(

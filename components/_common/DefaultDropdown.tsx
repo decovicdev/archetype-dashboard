@@ -10,7 +10,7 @@ const Component = (props) => (
     isSearchable={false}
     isClearable={false}
     placeholder={props.placeholder}
-    cacheOptions={false}
+    //cacheOptions={false}
     onChange={props.onChange}
     onMenuOpen={props.onMenuOpen}
     styles={styles}

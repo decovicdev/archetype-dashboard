@@ -6,7 +6,7 @@ import config from '../../../config';
 
 import Spinner from '../../_common/Spinner';
 
-import ApiService from '../../../services/api.service.js';
+import ApiService from '../../../services/api.service';
 
 import { useAuth } from '../../../context/AuthProvider';
 import { useHelpers } from '../../../context/HelperProvider';

@@ -21,7 +21,7 @@ const Table: React.FC<Props> = ({
   setSelectedTier
 }) => {
   const router = useRouter();
-
+  const newData = data as any
   const onClickTier = useCallback(
     (e: MouseEvent<HTMLDivElement, MouseEvent>, item: Tier) => {
       void router.push(`${ROUTES.PRODUCTS.BASE_URL}/${item.tier_id}`);
@@ -29,7 +29,7 @@ const Table: React.FC<Props> = ({
     [router]
   );
 
-  if (!data?.length) {
+  if (!newData?.length) {
     return <div className="no-content">No products added yet.</div>;
   }
 
@@ -47,7 +47,7 @@ const Table: React.FC<Props> = ({
         <p>Quota</p>
       </div>
 
-      {data.map((item, i) => (
+      {newData.map((item, i) => (
         <div
           key={i}
           onClick={(e) => {
