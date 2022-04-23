@@ -1,5 +1,4 @@
-
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -9,14 +8,14 @@ import AccountService from '../../services/account.service.js';
 
 import Spinner from '../_common/Spinner';
 
-import { AuthContext } from '../../context/auth';
-import { HelperContext } from '../../context/helper';
+import { useHelpers } from '../../context/HelperProvider';
+import { useAuth } from '../../context/AuthProvider';
 
 const Component = () => {
   const router = useRouter();
 
-  const { currentUser } = useContext(AuthContext);
-  const { showAlert } = useContext(HelperContext);
+  const { currentUser } = useAuth();
+  const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
 
@@ -78,7 +77,7 @@ const Component = () => {
                   <a>Profile</a>
                 </Link>
               ) : (
-                <Link href="/account/login">
+                <Link href="/auth/login">
                   <a>Login</a>
                 </Link>
               )}

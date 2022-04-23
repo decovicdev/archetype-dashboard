@@ -1,0 +1,27 @@
+export type Tier = {
+  app_id?: string;
+  currency?: string;
+  description?: string;
+  endpoints?: string[];
+  has_full_access?: boolean;
+  has_quota?: boolean;
+  has_trial?: boolean;
+  is_active?: boolean;
+  is_free?: boolean;
+  is_new?: boolean;
+  name?: string;
+  period?: string;
+  price?: number;
+  quota?: number;
+  stripe_app_id?: string;
+  stripe_price_id?: string;
+  tier_id?: string;
+  trial_length?: number;
+  trial_time_frame?: string;
+  unique_str?: string;
+  users?: string[];
+  usage_type?: string;
+  billing_scheme?: string;
+  tier_mode?: string;
+  usage_tiers?: any;
+};

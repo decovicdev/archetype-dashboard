@@ -13,13 +13,13 @@ const Component = () => {
 
     if (router.query.mode === 'resetPassword') {
       router.push({
-        pathname: '/account/change-password',
+        pathname: '/auth/change-password',
         query: router.query
       });
     }
 
     if (router.query.mode === 'verifyEmail') {
-      router.push({ pathname: '/account/verify-email', query: router.query });
+      router.push({ pathname: '/auth/verify-email', query: router.query });
     }
   }, [router]);
 

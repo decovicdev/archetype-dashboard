@@ -1,0 +1,23 @@
+export type User = {
+  apikeys?: string[];
+  app_id?: string;
+  attrs?: { name?: string };
+  custom_uid?: string;
+  description?: string;
+  email?: string;
+  first_seen?: number;
+  group?: string;
+  is_new?: boolean;
+  is_trial?: boolean;
+  last_seen?: number;
+  name?: string;
+  quota?: number;
+  renewal_number?: number;
+  sandbox_end?: string;
+  status?: string;
+  subscription_date?: string;
+  subscription_id?: string;
+  tier_id?: string;
+  trial_end?: string;
+  uid?: string;
+};

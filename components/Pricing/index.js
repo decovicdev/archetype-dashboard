@@ -1,5 +1,4 @@
-
-import { useContext, useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import classnames from 'classnames';
@@ -9,12 +8,11 @@ import Spinner from '../_common/Spinner';
 
 import Analytics from '../../helpers/analytics';
 
-import { AuthContext } from '../../context/auth';
-
+import { useAuth } from '../../context/AuthProvider';
 import plans from './plans';
 
 const Component = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useAuth();
 
   const [inProgress] = useState(false);
   // const [billMonthly] = useState(true);
@@ -56,7 +54,7 @@ const Component = () => {
             </>
           )}
           {!currentUser && (
-            <Link href="/account/signup">
+            <Link href="/auth/signup">
               <a className="action-btn">Sign Up</a>
             </Link>
           )}

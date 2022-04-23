@@ -1,24 +1,23 @@
-
-import React, { useContext, useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import classnames from 'classnames';
 import config from '../../../config';
 
-
 import Spinner from '../../_common/Spinner';
 
-import ApiService from '../../../services/api.service.js';
+import ApiService from '../../../services/api.service';
 
-import { AuthContext } from '../../../context/auth';
-import { HelperContext } from '../../../context/helper';
+import { useAuth } from '../../../context/AuthProvider';
+import { useHelpers } from '../../../context/HelperProvider';
 import { AUTH_TYPES } from './assets';
 
 const Component = () => {
   const router = useRouter();
 
-  const { currentUser } = useContext(AuthContext);
-  const { showAlert } = useContext(HelperContext);
+  const { currentUser, isAuthLoading } = useAuth();
+
+  const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
   const [apiName, setApiName] = useState('');
@@ -27,10 +26,10 @@ const Component = () => {
   const [hasFree, setHasFree] = useState(false);
 
   useEffect(() => {
-    if (!currentUser) {
-      router.push('/account/signup');
+    if (!currentUser && !isAuthLoading) {
+      router.push('/auth/signup');
     }
-  }, [currentUser, router]);
+  }, [currentUser, isAuthLoading, router]);
 
   const submitForm = useCallback(async () => {
     try {

@@ -1,17 +1,16 @@
-
-import React, { useContext, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import config from '../../config';
 
-import Firebase from '../../firebase.js';
+// import Firebase from '../../firebase.js';
 
 import Spinner from '../_common/Spinner';
 
-import { HelperContext } from '../../context/helper';
+import { useHelpers } from '../../context/HelperProvider';
 
 const Component = () => {
-  const { showAlert } = useContext(HelperContext);
+  const { showAlert } = useHelpers();
 
   const [inProgress, setProgress] = useState(false);
   const [email, setEmail] = useState('');
@@ -26,7 +25,7 @@ const Component = () => {
       }
       setProgress(true);
 
-      await Firebase.auth().sendPasswordResetEmail(email);
+      // await Firebase.auth().sendPasswordResetEmail(email);
 
       showAlert(
         'Your email with password reset hass been sent successfully',
@@ -79,7 +78,7 @@ const Component = () => {
             </form>
             <div className="bottom-info">
               <span>Go back to</span>
-              <Link href="/account/login">
+              <Link href="/auth/login">
                 <a>Login</a>
               </Link>
             </div>
