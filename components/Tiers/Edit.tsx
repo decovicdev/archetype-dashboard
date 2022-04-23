@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { v4 as uuid } from 'uuid';
 import { TIME_FRAMES_OPTIONS } from './assets';
 import Form from './Form';
 import config from 'config';
@@ -53,7 +54,10 @@ const Component = () => {
           hasTrial: newData.has_trial,
           trialLen: newData.trial_length,
           trialTimeFrame: newData.trial_time_frame,
-          plans: newData.usage_tiers
+          plans: newData.usage_tiers?.map((field) => ({
+            ...field,
+            id: uuid()
+          }))
         });
       }
     }
@@ -121,8 +125,8 @@ const Component = () => {
     } else {
       changeFields(null, null, {
         hasTrial: true,
-        trialLen: 1,
-        trialTimeFrame: 'MONTH'
+        trialLen: 7,
+        trialTimeFrame: 'DAY'
       });
     }
   }, [fields, changeFields]);

@@ -213,7 +213,7 @@ const Form = ({
                 name="endCount"
                 labelClassName="text-tblack-400 mb-0"
                 placeholder="End Count"
-                htmlType="number"
+                htmlType={plan.up_to === 'inf' ? 'text' : 'number'}
                 value={plan.up_to}
                 onChange={(e) => {
                   changeFields(
