@@ -34,7 +34,9 @@
         "@typescript-eslint/no-unsafe-call": "off",
         "@typescript-eslint/require-await": "off",
         "@typescript-eslint/restrict-plus-operands": "off",
-        "@typescript-eslint/unbound-method": "off"
+        "@typescript-eslint/unbound-method": "off",
+        "no-unused-vars": "off",
+        "react/no-unescaped-entities": "off"
       }
     }
   ],
@@ -56,6 +58,7 @@
     "no-console": "warn",
     "no-implied-eval": "off",
     "require-await": "off",
+    "no-unused-vars": "off",
     "@typescript-eslint/no-unsafe-member-access": "warn",
     "@typescript-eslint/no-unsafe-return": "warn",
     "@typescript-eslint/no-unsafe-assignment": "warn",
@@ -73,6 +76,7 @@
     "@typescript-eslint/no-unsafe-call": "warn",
     "@typescript-eslint/require-await": "warn",
     "@typescript-eslint/restrict-plus-operands": "warn",
-    "@typescript-eslint/unbound-method": "warn"
+    "@typescript-eslint/unbound-method": "warn",
+    "react/no-unescaped-entities": "off"
   }
 }
