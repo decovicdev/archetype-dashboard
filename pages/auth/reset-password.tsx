@@ -8,8 +8,7 @@ import Button from 'components/_common/Button';
 import { ButtonVariant } from 'types/Button';
 import Title from 'components/_typography/Title';
 import Paragraph from 'components/_typography/Paragraph';
-import ArcheTypeLogo from 'components/_icons/ArcheTypeLogo';
-import { LogoVariant } from 'types/ArcheTypeLogo';
+import ArcheTypeNlogo from 'components/_icons/ArchTypeNlogo';
 import { TypographyVariant } from 'types/Typography';
 import Input from 'components/_common/Input';
 import { FormVariant } from 'types/Form';
@@ -55,10 +54,14 @@ const ResetPage: NextPage = () => {
 
   useEffect(() => {
     if (isAuthLoading) return;
-    if (currentUser && !currentUser.emailVerified) {
-      router.push(ROUTES.AUTH.VERIFY);
+    if (
+      currentUser &&
+      !currentUser.emailVerified &&
+      !currentUser?.providerId?.includes('github')
+    ) {
+      void router.push(ROUTES.AUTH.VERIFY);
     } else if (currentUser) {
-      router.push(ROUTES.SETTINGS.SETTINGS);
+      void router.push(ROUTES.SETTINGS.SETTINGS);
     }
   }, [currentUser, isAuthLoading, router]);
 
@@ -66,11 +69,7 @@ const ResetPage: NextPage = () => {
     <AuthLayout title="Reset password">
       <div className="w-full h-full flex flex-col justify-center">
         <div className="flex flex-col space-y-4">
-          <ArcheTypeLogo
-            variant={LogoVariant.darkText}
-            className="w-20 mx-auto mb-20"
-            direction="vertical"
-          />
+          <ArcheTypeNlogo className="w-20 mx-auto mb-20" />
           <Title variant={TypographyVariant.dark}>Password Reset</Title>
           <div className="flex space-x-2 justify-center items-center">
             <Paragraph

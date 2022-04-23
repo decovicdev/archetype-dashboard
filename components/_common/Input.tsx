@@ -1,27 +1,54 @@
-import { forwardRef } from 'react';
+import {
+  ChangeEventHandler,
+  FocusEventHandler,
+  forwardRef,
+  ReactNode
+} from 'react';
 import { FormVariant } from 'types/Form';
 
 type Props = {
   placeholder: string;
   variant?: FormVariant;
-  label?: string;
+  label?: ReactNode;
   name: string;
   className?: string;
+  autoComplete?: string;
+  value?: string | number;
+  htmlType?: string;
+  disabled?: boolean;
+  labelClassName?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
+  onFocus?: FocusEventHandler<HTMLInputElement>;
 };
 
 const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
   function Input(
-    { placeholder, variant, label, name, className, ...props },
+    {
+      variant,
+      label,
+      name,
+      labelClassName,
+      htmlType = 'text',
+      className,
+      ...props
+    },
     ref
   ) {
     return label ? (
       <label htmlFor={name} className={`w-full ${className}`}>
-        <span className="text-sm text-tblack-400 mb-3 font-sans">{label}</span>
+        <span
+          className={`text-sm font-sans flex items-center ${
+            labelClassName ?? 'text-tblack-400 mb-3'
+          }`}
+        >
+          {label}
+        </span>
         <input
           name={name}
           className={`w-full rounded-md bg-white text-tblack-700 placeholder:text-tblack-200 py-3 px-4 font-sans ${variant}`}
-          placeholder={placeholder}
           ref={ref}
+          type={htmlType}
           {...props}
         />
       </label>
@@ -29,8 +56,8 @@ const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
       <input
         name={name}
         className={`w-full rounded-md bg-white text-tblack-700 placeholder:text-tblack-200 py-3 px-4 font-sans ${variant} ${className}`}
-        placeholder={placeholder}
         ref={ref}
+        type={htmlType}
         {...props}
       />
     );

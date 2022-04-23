@@ -9,8 +9,7 @@ import Button from 'components/_common/Button';
 import { ButtonVariant } from 'types/Button';
 import Title from 'components/_typography/Title';
 import Paragraph from 'components/_typography/Paragraph';
-import ArcheTypeLogo from 'components/_icons/ArcheTypeLogo';
-import { LogoVariant } from 'types/ArcheTypeLogo';
+import ArcheTypeNlogo from 'components/_icons/ArchTypeNlogo';
 import { TypographyVariant } from 'types/Typography';
 import Input from 'components/_common/Input';
 import { FormVariant } from 'types/Form';
@@ -21,6 +20,8 @@ import { AuthFormData } from 'types/Auth';
 import AuthLayout from 'components/_layout/AuthLayout';
 import { ROUTES } from 'constant/routes';
 import { useAuth } from 'context/AuthProvider';
+import GoogleIcon from 'components/_icons/GoogleIcon';
+import GithubIcon from 'components/_icons/GithubIcon';
 
 const schema = yup
   .object({
@@ -63,16 +64,20 @@ const SignupPage: NextPage = () => {
 
   useEffect(() => {
     if (isAuthLoading) return;
-    if (currentUser && !currentUser.emailVerified) {
-      router.push(ROUTES.AUTH.VERIFY);
+    if (
+      currentUser &&
+      !currentUser.emailVerified &&
+      !currentUser?.providerId?.includes('github')
+    ) {
+      void router.push(ROUTES.AUTH.VERIFY);
     } else if (currentUser) {
-      router.push(ROUTES.SETTINGS.SETTINGS);
+      void router.push(ROUTES.SETTINGS.SETTINGS);
     }
   }, [currentUser, router, isAuthLoading]);
 
   return (
     <AuthLayout title="Sign up">
-      <ArcheTypeLogo variant={LogoVariant.darkText} className="w-40 mx-auto" />
+      <ArcheTypeNlogo variant="dark" className="w-40 mx-auto" />
       <div className="flex flex-col space-y-4">
         <Title variant={TypographyVariant.dark}>Create an Account</Title>
         <div className="flex space-x-2 justify-center items-center">
@@ -112,6 +117,7 @@ const SignupPage: NextPage = () => {
         <Input
           name="password"
           label="Password"
+          htmlType="password"
           variant={FormVariant.outlined}
           placeholder="Create Password"
           {...register('password')}
@@ -121,11 +127,19 @@ const SignupPage: NextPage = () => {
           Register
         </Button>
         <div className="flex justify-center items-center">
-          <Button variant={ButtonVariant.link} className="!p-0">
+          <Button
+            url={ROUTES.TERMS}
+            variant={ButtonVariant.link}
+            className="!p-0"
+          >
             Terms of Service
           </Button>
           <Divider direction="vertical" className="mx-2 h-5" />
-          <Button variant={ButtonVariant.link} className="!p-0">
+          <Button
+            url={ROUTES.PRIVACY}
+            variant={ButtonVariant.link}
+            className="!p-0"
+          >
             Privacy Policy
           </Button>
         </div>
@@ -133,8 +147,20 @@ const SignupPage: NextPage = () => {
         <Paragraph variant={TypographyVariant.darkFaint} level={2}>
           Or create an account using:
         </Paragraph>
-        <Button variant={ButtonVariant.outlined}>Continue with Google</Button>
-        <Button variant={ButtonVariant.outlined}>Continue with GitHub</Button>
+        <Button
+          variant={ButtonVariant.outlined}
+          onClick={AuthService.loginWithGoogle}
+        >
+          <GoogleIcon className="mr-2" />
+          Continue with Google
+        </Button>
+        <Button
+          variant={ButtonVariant.outlined}
+          onClick={AuthService.loginWithGithub}
+        >
+          <GithubIcon className="mr-2" />
+          Continue with GitHub
+        </Button>
       </form>
     </AuthLayout>
   );

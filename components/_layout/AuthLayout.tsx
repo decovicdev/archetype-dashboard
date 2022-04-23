@@ -24,8 +24,8 @@ const AuthLayout: React.FC<Props> = ({ children, title }) => {
         </Head>
       ) : null}
       <MainLayout>
-        <div className="w-full h-full grid grid-cols-2 gap-x-20 items-center px-60 py-32">
-          <div className="w-full h-full flex flex-col justify-center items-start space-y-6">
+        <div className="w-full h-full grid lg:grid-cols-2 gap-x-20 items-center px-10 justify-center lg:px-20 xl:px-60 py-20">
+          <div className="hidden w-full h-full lg:flex flex-col justify-center items-start space-y-6">
             <Paragraph className="!text-left">Archetype handles</Paragraph>
             <List className="space-y-6">
               <li>infrastructure for creating plans</li>

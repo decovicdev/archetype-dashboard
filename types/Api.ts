@@ -1,0 +1,23 @@
+export type Api = {
+  app_id?: string;
+  archetype_tier?: string;
+  auth_type?: string;
+  company?: string;
+  deleted_at?: string;
+  email?: string;
+  free_default_tier_id?: string;
+  has_completed_checkout?: boolean;
+  has_free_default?: boolean;
+  is_active?: boolean;
+  is_registering?: boolean;
+  name?: string;
+  owner?: string;
+  public_key?: string;
+  redirect_url?: string;
+  return_url?: string;
+  secret_keys?: string[];
+  stripe_app_id?: string;
+  team?: string[];
+  tiers?: string[];
+  url?: string;
+};

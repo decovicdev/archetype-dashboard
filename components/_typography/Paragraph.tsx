@@ -19,7 +19,9 @@ const Paragraph: React.FC<Props> = ({
   level
 }) => (
   <p
-    className={`w-full text-center font-normal font-sans m-0 p-0 ${levels[level]} ${variant} ${className}`}
+    className={`w-full font-normal font-sans m-0 p-0 ${
+      levels[level]
+    } ${variant} ${className || 'text-center'}`}
   >
     {children}
   </p>

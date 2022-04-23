@@ -8,8 +8,7 @@ import Button from 'components/_common/Button';
 import { ButtonVariant } from 'types/Button';
 import Title from 'components/_typography/Title';
 import Paragraph from 'components/_typography/Paragraph';
-import ArcheTypeLogo from 'components/_icons/ArcheTypeLogo';
-import { LogoVariant } from 'types/ArcheTypeLogo';
+import ArcheTypeNlogo from 'components/_icons/ArchTypeNlogo';
 import { TypographyVariant } from 'types/Typography';
 import Input from 'components/_common/Input';
 import { FormVariant } from 'types/Form';
@@ -20,6 +19,8 @@ import { AuthFormData } from 'types/Auth';
 import AuthLayout from 'components/_layout/AuthLayout';
 import { ROUTES } from 'constant/routes';
 import { useAuth } from 'context/AuthProvider';
+import GoogleIcon from 'components/_icons/GoogleIcon';
+import GithubIcon from 'components/_icons/GithubIcon';
 
 const schema = yup
   .object({
@@ -38,13 +39,13 @@ const LoginPage: NextPage = () => {
     formState: { errors }
   } = useForm<AuthFormData>({ resolver: yupResolver(schema) });
 
-  const [networkError, setNetworkError] = useState(null);
+  const [networkError, setNetworkError] = useState<Error>(null);
 
   const onSubmit = async (values: AuthFormData) => {
     try {
       await AuthService.login(values);
     } catch (err) {
-      setNetworkError(err);
+      setNetworkError(err as Error);
     }
   };
 
@@ -53,21 +54,21 @@ const LoginPage: NextPage = () => {
 
   useEffect(() => {
     if (isAuthLoading) return;
-    if (currentUser && !currentUser.emailVerified) {
-      router.push(ROUTES.AUTH.VERIFY);
+    if (
+      currentUser &&
+      !currentUser.emailVerified &&
+      !currentUser?.providerId?.includes('github')
+    ) {
+      void router.push(ROUTES.AUTH.VERIFY);
     } else if (currentUser) {
-      router.push(ROUTES.SETTINGS.SETTINGS);
+      void router.push(ROUTES.SETTINGS.SETTINGS);
     }
   }, [currentUser, isAuthLoading, router]);
 
   return (
     <AuthLayout title="Login">
       <div className="flex flex-col space-y-4">
-        <ArcheTypeLogo
-          variant={LogoVariant.darkText}
-          className="w-20 mx-auto"
-          direction="vertical"
-        />
+        <ArcheTypeNlogo className="w-20 mx-auto" variant="dark" />
         <Title variant={TypographyVariant.dark}>Sign In</Title>
         <div className="flex space-x-2 justify-center items-center">
           <Paragraph
@@ -106,6 +107,7 @@ const LoginPage: NextPage = () => {
         <Input
           name="password"
           label="Password"
+          htmlType="password"
           variant={FormVariant.outlined}
           placeholder="Enter Password"
           {...register('password')}
@@ -128,8 +130,20 @@ const LoginPage: NextPage = () => {
         <Paragraph variant={TypographyVariant.darkFaint} level={2}>
           Or sign in using:
         </Paragraph>
-        <Button variant={ButtonVariant.outlined}>Continue with Google</Button>
-        <Button variant={ButtonVariant.outlined}>Continue with GitHub</Button>
+        <Button
+          variant={ButtonVariant.outlined}
+          onClick={AuthService.loginWithGoogle}
+        >
+          <GoogleIcon className="mr-2" />
+          Continue with Google
+        </Button>
+        <Button
+          variant={ButtonVariant.outlined}
+          onClick={AuthService.loginWithGithub}
+        >
+          <GithubIcon className="mr-2" />
+          Continue with GitHub
+        </Button>
       </form>
     </AuthLayout>
   );

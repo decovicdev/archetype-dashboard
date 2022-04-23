@@ -1,32 +1,23 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import config from '../config';
 import Profile from '../components/Profile';
 import DashboardLayout from 'components/_layout/DashboardLayout';
+import BreadCrumbs from 'components/_common/BreadCrumbs';
+import { ROUTES } from 'constant/routes';
 
 const Component = () => (
   <DashboardLayout>
     <Head>
       <title>User Profile - {config.meta.title}</title>
     </Head>
-    <div className="page profile-page">
-      <div className="content with-lines">
-        <ul className="tabs">
-          <li className="tab">
-            <Link href="/settings">
-              <a>Settings</a>
-            </Link>
-          </li>
-          <li className="tab active">
-            <Link href="/profile">
-              <a>Profile</a>
-            </Link>
-          </li>
-        </ul>
-        <div className="tab-content">
-          <Profile />
-        </div>
-      </div>
+    <div className="flex flex-col space-y-2">
+      <BreadCrumbs
+        links={[
+          { url: ROUTES.SETTINGS.SETTINGS, title: 'Settings' },
+          { url: ROUTES.SETTINGS.ACCOUNT_SETTINGS, title: 'Profile' }
+        ]}
+      />
+      <Profile />
     </div>
   </DashboardLayout>
 );

@@ -5,7 +5,8 @@ export const ROUTES = {
     LOGIN: '/auth/login',
     VERIFY: '/auth/verify-email',
     RESET: '/auth/reset-password',
-    LOGOUT: '/auth/logout'
+    LOGOUT: '/auth/logout',
+    ONBOARD: '/auth/onboard'
   },
   DASHBOARD: {
     DASHBOARD: '/dashboard',
@@ -13,8 +14,9 @@ export const ROUTES = {
     ENDPOINTS: '/endpoints',
     USERS: '/users',
     ANALYTICS: '/analytics',
-    INTEGRTION: '/integrtion',
-    DOCUMENTATIONS: '/docs'
+    // INTEGRTION: '/integrtion',
+    DOCUMENTATIONS: '/docs',
+    DIMENSIONS: '/dimensions'
   },
   USER_MANUAL: {
     WALKTHROUGH: '/walkthrough',
@@ -23,5 +25,22 @@ export const ROUTES = {
   SETTINGS: {
     ACCOUNT_SETTINGS: '/profile',
     SETTINGS: '/settings'
-  }
+  },
+  PRODUCTS: {
+    BASE_URL: '/products',
+    ADD: '/products/add',
+    EDIT: '/products/edit'
+  },
+  ENDPOINTS: {
+    BASE_URL: '/endpoints',
+    ADD: '/endpoints/add',
+    EDIT: '/endpoints/edit'
+  },
+  USERS: {
+    BASE_URL: '/users',
+    ADD: '/users/add',
+    EDIT: '/users/edit'
+  },
+  TERMS: '/terms-of-service',
+  PRIVACY: '/privacy-policy'
 };

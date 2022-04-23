@@ -10,6 +10,7 @@ import AccountService from '../../../services/account.service.js';
 
 import { useHelpers } from '../../../context/HelperProvider';
 import { useAuth } from '../../../context/AuthProvider';
+import { ROUTES } from 'constant/routes';
 
 const Component = () => {
   const router = useRouter();
@@ -65,7 +66,7 @@ const Component = () => {
       setAuthEmail('');
       setAuthPassword('');
 
-      router.push('/account/signup/next');
+      router.push(ROUTES.AUTH.SIGNUP);
     } catch (e) {
       showAlert(e.message);
     } finally {

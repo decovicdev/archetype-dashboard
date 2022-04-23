@@ -1,34 +1,34 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 // import App from 'next/app';
 import Head from 'next/head';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 // import dynamic from 'next/dynamic';
 import debounce from 'lodash.debounce';
 
 import 'styles/index.scss';
-
+import { QueryClientProvider } from 'react-query';
 // const Header = dynamic(() => import('components/_layout/header'));
 // const Footer = dynamic(() => import('components/_layout/footer/Footer'));
 import { ErrorBoundary } from 'react-error-boundary';
 import InternalErrorPage from './500';
 import ScrollTop from 'components/_common/ScrollTop';
-import Spinner from 'components/_common/Spinner';
+// import Spinner from 'components/_common/Spinner';
 
 import Analytics from 'helpers/analytics';
-
+import { queryClient } from 'services/queryClient.service';
 import { AuthProvider } from 'context/AuthProvider';
 import { AuthProvider as OldAuthProvider } from 'context/auth';
 import { HelperProvider } from 'context/HelperProvider';
-import MainLayout from 'components/_layout/MainLayout';
-// import { ROUTES } from 'constant/routes';
+// import MainLayout from 'components/_layout/MainLayout';
+import { ROUTES } from 'constant/routes';
 
 const Layout = ({ children }) => {
   const router = useRouter();
 
-  const [isLoading, setLoading] = useState(false);
+  // const [isLoading, setLoading] = useState(false);
 
   const onApiNotFoundErr = useCallback(() => {
-    router.push('/account/signup/next');
+    router.push(ROUTES.AUTH.SIGNUP);
   }, [router]);
 
   useEffect(() => {
@@ -36,9 +36,9 @@ const Layout = ({ children }) => {
 
     window.addEventListener('apiNotFoundErr', apiNotFoundErr);
 
-    Router.events.on('routeChangeStart', () => setLoading(true));
-    Router.events.on('routeChangeComplete', () => setLoading(false));
-    Router.events.on('routeChangeError', () => setLoading(false));
+    // Router.events.on('routeChangeStart', () => setLoading(true));
+    // Router.events.on('routeChangeComplete', () => setLoading(false));
+    // Router.events.on('routeChangeError', () => setLoading(false));
 
     // document.documentElement.style.setProperty(
     //   '--fullHeight',
@@ -68,17 +68,18 @@ const Layout = ({ children }) => {
     };
   }, [router.events]);
 
-  return isLoading ? (
-    <MainLayout>
-      <Spinner className="!text-tblue-100 !w-60 !h-60" />
-    </MainLayout>
-  ) : (
-    children
-  );
+  // return isLoading ? (
+  //   <MainLayout>
+  //     <Spinner className="!text-tblue-100 !w-60 !h-60" />
+  //   </MainLayout>
+  // ) : (
+  //   children
+  // );
+  return children;
 };
 
 const App = ({ Component, pageProps }) => (
-  <>
+  <QueryClientProvider client={queryClient}>
     <Head>
       <link rel="icon" href="/favicon.ico" />
       <link
@@ -118,7 +119,7 @@ const App = ({ Component, pageProps }) => (
       </AuthProvider>
     </ErrorBoundary>
     <ScrollTop />
-  </>
+  </QueryClientProvider>
 );
 
 export default App;

@@ -5,13 +5,15 @@ import React, {
   createContext,
   useContext
 } from 'react';
-import { useRouter } from 'next/router';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import AuthService, { auth } from 'services/auth.service';
 
-const signupPages = ['/auth/signup', '/auth/signup/next'];
+type AuthContextValue = {
+  isAuthLoading: boolean;
+  currentUser?: User | null;
+};
 
-export const AuthContext = createContext({
+export const AuthContext = createContext<AuthContextValue>({
   isAuthLoading: false,
   currentUser: null
 });
@@ -19,48 +21,40 @@ export const AuthContext = createContext({
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const router = useRouter();
   const [isAuthLoading, setIsAuthLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState<User>(null);
 
   const init = useCallback(() => {
     try {
-      onAuthStateChanged(auth, (user) => {
-        setCurrentUser(user);
-        if (!user) {
-          sessionStorage.clear();
-          return setIsAuthLoading(false);
-        }
-        user
-          .getIdToken()
-          .then((token) => {
-            sessionStorage.setItem('token', token);
-            if (
-              !sessionStorage.getItem('appId') &&
-              !signupPages.includes(router.pathname)
-            ) {
-              return AuthService.getDetails();
-            }
-          })
-          .then((response) => {
+      onAuthStateChanged(auth, async (user) => {
+        try {
+          setCurrentUser(user);
+          if (!user) {
+            sessionStorage.clear();
+            return setIsAuthLoading(false);
+          }
+          const token = await user?.getIdToken();
+          sessionStorage.setItem('token', token);
+          if (!sessionStorage.getItem('appId')) {
+            const response = await AuthService.getDetails();
             if (response?.app_id) {
               sessionStorage.setItem('appId', response.app_id);
             }
-            setIsAuthLoading(false);
-          })
-          .catch(() => {
-            setIsAuthLoading(false);
-          });
+          }
+          return setIsAuthLoading(false);
+        } catch {
+          return setIsAuthLoading(false);
+        }
       });
     } catch {
-      setIsAuthLoading(false);
+      return setIsAuthLoading(false);
     }
-  }, [router.pathname]);
+  }, []);
 
   useEffect(() => {
     init();
   }, [init]);
-  console.log(currentUser);
+
   return (
     <AuthContext.Provider value={{ isAuthLoading, currentUser }}>
       {children}
