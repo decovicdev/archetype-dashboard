@@ -40,7 +40,6 @@ const Component = () => {
     const { message, status } = router.query;
 
     if (message) {
-      showAlert(message, status === 'success');
       router.replace('/profile');
     }
   }, [router, showAlert]);
