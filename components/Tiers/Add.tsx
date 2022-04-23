@@ -78,11 +78,11 @@ const Component = () => {
         usage_tiers: fields.plans
           ?.map(({ id, ...tier }) => ({
             ...tier,
-            unit_amount: parseFloat(tier.unit_amount)
+            unit_amount_decimal: parseFloat(tier.unit_amount_decimal)
           }))
           ?.concat({
             up_to: 'inf',
-            unit_amount: parseFloat(fields.plans.at(-1).unit_amount)
+            unit_amount_decimal: parseFloat(fields.plans.at(-1).unit_amount_decimal)
           })
       });
     },
