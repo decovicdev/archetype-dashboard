@@ -72,7 +72,9 @@ const SettingsComponent = () => {
     }
   );
 
-  const { data } = useQuery('stripeCheckout', ApiService.stripeCheckout);
+  const { data } = useQuery('stripeCheckout', ApiService.stripeCheckout, {
+    enabled: !!sessionStorage.getItem('appId') && !api?.has_completed_checkout
+  });
 
   const connectStripe = useCallback(async () => {
     try {

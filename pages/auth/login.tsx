@@ -50,20 +50,17 @@ const LoginPage: NextPage = () => {
   };
 
   const router = useRouter();
-  const { isAuthLoading, currentUser } = useAuth();
+  const { isAuthLoading, currentUser, isGithubAuth } = useAuth();
+
 
   useEffect(() => {
     if (isAuthLoading) return;
-    if (
-      currentUser &&
-      !currentUser.emailVerified &&
-      !currentUser?.providerId?.includes('github')
-    ) {
+    if (currentUser && !currentUser.emailVerified && !isGithubAuth) {
       void router.push(ROUTES.AUTH.VERIFY);
     } else if (currentUser) {
       void router.push(ROUTES.SETTINGS.SETTINGS);
     }
-  }, [currentUser, isAuthLoading, router]);
+  }, [currentUser, isAuthLoading, isGithubAuth, router]);
 
   return (
     <AuthLayout title="Login">

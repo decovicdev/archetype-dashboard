@@ -8,7 +8,7 @@ const config = {
     keywords: 'api'
   },
   axios: {
-    baseURL: publicRuntimeConfig.API_BASE_URL,
+    // baseURL: publicRuntimeConfig.API_BASE_URL,
     timeout: parseInt(publicRuntimeConfig.API_TIMEOUT)
   },
   firebase: {
@@ -25,7 +25,11 @@ const config = {
   },
   google_analytics: publicRuntimeConfig.GOOGLE_ANALYTICS,
   google_tag_manager: publicRuntimeConfig.GOOGLE_TAG_MANAGER,
-  clearbit: publicRuntimeConfig.CLEARBIT
+  clearbit: publicRuntimeConfig.CLEARBIT,
+  apiUrls: {
+    test: 'https://test.archetype.dev/v1/',
+    production: 'https://api.archetype.dev/v1/'
+  }
 };
 
 export default config;

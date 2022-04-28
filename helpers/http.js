@@ -1,7 +1,29 @@
+/* eslint-disable no-undef */
 import axios from 'axios';
 import config from '../config';
+import { auth } from 'services/firebaseAuth.service';
 
-const $api = axios.create(config.axios);
+const getMode = () => {
+  if (typeof window !== 'undefined') {
+    const user = auth.currentUser;
+    if (!user) return 'production';
+
+    return (
+      localStorage.getItem(`${user.uid}-mode`) ||
+      (localStorage.setItem(`${user.uid}-mode`, 'production') && 'production')
+    );
+  }
+
+  return 'production';
+};
+
+const baseUrl =
+  getMode() === 'production' ? config.apiUrls.production : config.apiUrls.test;
+
+export const $api = axios.create({
+  ...config.axios,
+  baseURL: baseUrl
+});
 
 $api.interceptors.request.use((config) => {
   if (typeof window === 'undefined') {
@@ -26,9 +48,7 @@ $api.interceptors.response.use(
   (err) => {
     if (err.response) {
       if (err.response.status === 404) {
-        if (
-          err.response.request.responseURL !== `${config.axios.baseURL}lost-api`
-        ) {
+        if (err.response.request.responseURL !== `${baseUrl}lost-api`) {
           window.dispatchEvent(new CustomEvent('apiNotFoundErr'));
         }
       }

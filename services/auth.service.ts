@@ -1,6 +1,4 @@
-import { initializeApp } from 'firebase/app';
 import {
-  getAuth,
   setPersistence,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -11,15 +9,15 @@ import {
   sendPasswordResetEmail,
   GoogleAuthProvider,
   GithubAuthProvider,
-  signInWithPopup
+  signInWithPopup,
+  fetchSignInMethodsForEmail,
+  linkWithCredential
 } from 'firebase/auth';
 import type { AxiosResponse } from 'axios';
 import http from '../helpers/http';
 import config from '../config';
+import { auth } from './firebaseAuth.service';
 import { AuthFormData } from 'types/Auth';
-
-const app = initializeApp(config.firebase);
-export const auth = getAuth(app);
 
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
@@ -27,7 +25,32 @@ export default class AuthService {
   static async getDetails(): Promise<
     AxiosResponse<{ app_id: string }>['data']
   > {
-    return await http.get(`lost-api`);
+    const user = auth.currentUser;
+    const mode =
+      typeof window !== 'undefined'
+        ? localStorage.getItem(`${user?.uid}-mode`)
+        : 'production';
+    try {
+      const response = await http.get(`lost-api`, {
+        baseURL:
+          mode === 'production'
+            ? config.apiUrls.production
+            : config.apiUrls.test
+      });
+      // if (typeof window !== 'undefined' && (response as any)?.app_id) {
+      //   await sessionStorage.setItem('appId', (response as any).app_id);
+      // }
+      return response as unknown as { app_id: string };
+    } catch (err) {
+      console.log(err);
+      // if (err?.message?.includes('status code: 500') && mode === 'test') {
+      //   const api = await http.get('lost-api', {
+      //     baseURL: config.apiUrls.production
+      //   });
+      //   const testApi = await http.post('create-api', api);
+      //   console.log(testApi);
+      // }
+    }
   }
 
   static async signup({ email, password }: AuthFormData) {
@@ -38,13 +61,23 @@ export default class AuthService {
       password
     );
     await sendEmailVerification(response.user, {
-      url: process.env.NEXT_PUBLIC_REDIRECT_URL
+      url:
+        process.env.NEXT_PUBLIC_REDIRECT_URL ||
+        'https://beta.archetype.dev/auth/onboard?confirm_email=true'
     });
   }
 
   static async login({ email, password }: AuthFormData) {
     await setPersistence(auth, browserLocalPersistence);
-    await signInWithEmailAndPassword(auth, email, password);
+    const user = await signInWithEmailAndPassword(auth, email, password);
+    if (
+      typeof window !== 'undefined' &&
+      user &&
+      !localStorage.getItem(`${user.user.uid}-mode`)
+    ) {
+      await localStorage.setItem(`${user.user.uid}-mode`, 'production');
+    }
+    return user;
   }
 
   static async loginWithGoogle() {
@@ -53,8 +86,25 @@ export default class AuthService {
   }
 
   static async loginWithGithub() {
-    await signInWithPopup(auth, githubProvider);
-    // const credential = GithubAuthProvider.credentialFromResult(result);
+    await signInWithPopup(auth, githubProvider).catch((error) => {
+      if (error.code === 'auth/account-exists-with-different-credential') {
+        const pendingCred = error.credential;
+        const email = error.email || error.customData?.email;
+        // Get sign-in methods for this email.
+        fetchSignInMethodsForEmail(auth, email).then(async function (methods) {
+          if (methods[0] === 'password') {
+            const password = await prompt(`Please enter password for ${email}`); // TODO: implement promptUserForPassword.
+
+            signInWithEmailAndPassword(auth, email, password).then(function (
+              result
+            ) {
+              return linkWithCredential(result.user, pendingCred);
+            });
+            return;
+          }
+        });
+      }
+    });
   }
 
   static async logout() {
@@ -63,7 +113,9 @@ export default class AuthService {
 
   static async sendVerificationEmail({ user }) {
     return await sendEmailVerification(user, {
-      url: process.env.NEXT_PUBLIC_REDIRECT_URL
+      url:
+        process.env.NEXT_PUBLIC_REDIRECT_URL ||
+        'https://beta.archetype.dev/auth/onboard?confirm_email=true'
     });
   }
 

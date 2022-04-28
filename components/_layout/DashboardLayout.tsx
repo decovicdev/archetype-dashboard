@@ -20,6 +20,11 @@ import ChartIcon from 'components/_icons/ChartIcon';
 import ChatIcon from 'components/_icons/ChatIcon';
 import UserIcon from 'components/_icons/UserIcon';
 import SettingsIcon from 'components/_icons/SettingsIcon';
+import { useEffect, useMemo, useState } from 'react';
+import Switch from 'components/_common/Switch';
+import $api from 'helpers/http';
+import config from 'config';
+import { useAuth } from 'context/AuthProvider';
 // import { useApi } from 'hooks/useApi';
 // import AuthService from 'services/auth.service';
 // import { useQuery } from 'react-query';
@@ -59,6 +64,22 @@ const formatUrlName = (name: string) =>
 
 const DashboardLayout = ({ children }) => {
   const router = useRouter();
+  const { currentUser } = useAuth();
+  const env = useMemo(
+    () =>
+      typeof window !== 'undefined'
+        ? localStorage.getItem(`${currentUser?.uid}-mode`) || 'production'
+        : 'production',
+    [currentUser?.uid]
+  );
+  const isTestEnv = env === 'test';
+
+  useEffect(() => {
+    $api.defaults.baseURL = isTestEnv
+      ? config.apiUrls.test
+      : config.apiUrls.production;
+  }, [isTestEnv]);
+
   // const { data: api, isLoading } = useQuery('lostApi', AuthService.getDetails);
   // const { data: products } = useProducts({ enabled: !isLoading && !!api });
   // const { data: endpoints } = useEndpoints({ enabled: !isLoading && !!api });
@@ -139,7 +160,31 @@ const DashboardLayout = ({ children }) => {
               className="w-full m-0"
             />
           </div> */}
-          <div className="py-6 pl-6 pr-12 h-full overflow-y-auto">
+          <div className="py-6 pl-6 pr-12 h-full overflow-y-auto relative">
+            <div
+              className={`w-full rounded-md text-white flex items-center justify-between mb-4 ${
+                isTestEnv ? 'bg-red-400 py-2 px-4' : 'bg-transparent'
+              }`}
+            >
+              {isTestEnv ? (
+                <p>You are currently running in test mode.</p>
+              ) : null}
+              <Switch
+                label={`Switch to ${isTestEnv ? 'production' : 'test'} mode`}
+                className="ml-auto"
+                checked={isTestEnv}
+                onChange={async () => {
+                  if (typeof window !== 'undefined' && currentUser) {
+                    localStorage.setItem(
+                      `${currentUser.uid}-mode`,
+                      isTestEnv ? 'production' : 'test'
+                    );
+                    await sessionStorage.removeItem('appId');
+                    await window.location.reload();
+                  }
+                }}
+              />
+            </div>
             {children}
           </div>
         </div>

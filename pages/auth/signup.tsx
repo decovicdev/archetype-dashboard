@@ -15,13 +15,14 @@ import Input from 'components/_common/Input';
 import { FormVariant } from 'types/Form';
 import Divider from 'components/_common/Divider';
 import ErrorText from 'components/_typography/ErrorText';
-import AuthService, { auth } from 'services/auth.service';
+import AuthService from 'services/auth.service';
 import { AuthFormData } from 'types/Auth';
 import AuthLayout from 'components/_layout/AuthLayout';
 import { ROUTES } from 'constant/routes';
 import { useAuth } from 'context/AuthProvider';
 import GoogleIcon from 'components/_icons/GoogleIcon';
 import GithubIcon from 'components/_icons/GithubIcon';
+import { auth } from 'services/firebaseAuth.service';
 
 const schema = yup
   .object({
@@ -60,20 +61,16 @@ const SignupPage: NextPage = () => {
   };
 
   const router = useRouter();
-  const { currentUser, isAuthLoading } = useAuth();
+  const { currentUser, isAuthLoading, isGithubAuth } = useAuth();
 
   useEffect(() => {
     if (isAuthLoading) return;
-    if (
-      currentUser &&
-      !currentUser.emailVerified &&
-      !currentUser?.providerId?.includes('github')
-    ) {
+    if (currentUser && !currentUser.emailVerified && !isGithubAuth) {
       void router.push(ROUTES.AUTH.VERIFY);
     } else if (currentUser) {
       void router.push(ROUTES.SETTINGS.SETTINGS);
     }
-  }, [currentUser, router, isAuthLoading]);
+  }, [currentUser, router, isAuthLoading, isGithubAuth]);
 
   return (
     <AuthLayout title="Sign up">
@@ -154,7 +151,7 @@ const SignupPage: NextPage = () => {
           <GoogleIcon className="mr-2" />
           Continue with Google
         </Button>
-        {/* 
+
         <Button
           variant={ButtonVariant.outlined}
           onClick={AuthService.loginWithGithub}
@@ -162,7 +159,6 @@ const SignupPage: NextPage = () => {
           <GithubIcon className="mr-2" />
           Continue with GitHub
         </Button>
-        */}
       </form>
     </AuthLayout>
   );

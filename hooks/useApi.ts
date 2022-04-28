@@ -12,7 +12,8 @@ export const useApi = ({ onError }: { onError?: (err: any) => void } = {}) => {
       ((err: any) => {
         showAlert(err?.message);
       }),
-    enabled: !!currentUser && !isAuthLoading
+    enabled:
+      !!currentUser && !isAuthLoading && !!sessionStorage.getItem('appId')
   });
   return { data, isLoading, isError };
 };
