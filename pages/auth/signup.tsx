@@ -15,13 +15,14 @@ import Input from 'components/_common/Input';
 import { FormVariant } from 'types/Form';
 import Divider from 'components/_common/Divider';
 import ErrorText from 'components/_typography/ErrorText';
-import AuthService, { auth } from 'services/auth.service';
+import AuthService from 'services/auth.service';
 import { AuthFormData } from 'types/Auth';
 import AuthLayout from 'components/_layout/AuthLayout';
 import { ROUTES } from 'constant/routes';
 import { useAuth } from 'context/AuthProvider';
 import GoogleIcon from 'components/_icons/GoogleIcon';
 import GithubIcon from 'components/_icons/GithubIcon';
+import { auth } from 'services/firebaseAuth.service';
 
 const schema = yup
   .object({

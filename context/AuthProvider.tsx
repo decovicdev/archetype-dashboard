@@ -7,7 +7,8 @@ import React, {
   useMemo
 } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import AuthService, { auth } from 'services/auth.service';
+import AuthService from 'services/auth.service';
+import { auth } from 'services/firebaseAuth.service';
 
 type AuthContextValue = {
   isAuthLoading: boolean;
@@ -38,11 +39,9 @@ export const AuthProvider = ({ children }) => {
           }
           const token = await user?.getIdToken();
           sessionStorage.setItem('token', token);
-          if (!sessionStorage.getItem('appId')) {
-            const response = await AuthService.getDetails();
-            if (response?.app_id) {
-              sessionStorage.setItem('appId', response.app_id);
-            }
+          const response = await AuthService.getDetails();
+          if (response?.app_id) {
+            sessionStorage.setItem('appId', response.app_id);
           }
           return setIsAuthLoading(false);
         } catch {

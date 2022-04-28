@@ -24,6 +24,7 @@ import { useEffect, useMemo, useState } from 'react';
 import Switch from 'components/_common/Switch';
 import $api from 'helpers/http';
 import config from 'config';
+import { useAuth } from 'context/AuthProvider';
 // import { useApi } from 'hooks/useApi';
 // import AuthService from 'services/auth.service';
 // import { useQuery } from 'react-query';
@@ -63,12 +64,13 @@ const formatUrlName = (name: string) =>
 
 const DashboardLayout = ({ children }) => {
   const router = useRouter();
+  const { currentUser } = useAuth();
   const env = useMemo(
     () =>
       typeof window !== 'undefined'
-        ? localStorage.getItem('mode') || 'production'
+        ? localStorage.getItem(`${currentUser?.uid}-mode`) || 'production'
         : 'production',
-    []
+    [currentUser?.uid]
   );
   const isTestEnv = env === 'test';
 
@@ -172,11 +174,12 @@ const DashboardLayout = ({ children }) => {
                 className="ml-auto"
                 checked={isTestEnv}
                 onChange={async () => {
-                  if (typeof window !== 'undefined') {
+                  if (typeof window !== 'undefined' && currentUser) {
                     localStorage.setItem(
-                      'mode',
+                      `${currentUser.uid}-mode`,
                       isTestEnv ? 'production' : 'test'
                     );
+                    await sessionStorage.removeItem('appId');
                     await window.location.reload();
                   }
                 }}

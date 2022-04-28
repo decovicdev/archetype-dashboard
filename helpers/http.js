@@ -1,17 +1,24 @@
 /* eslint-disable no-undef */
 import axios from 'axios';
 import config from '../config';
+import { auth } from 'services/firebaseAuth.service';
 
-const mode =
-  typeof window !== 'undefined'
-    ? localStorage.getItem('mode') ||
-      (localStorage.setItem('mode', 'production') && 'production')
-    : 'production';
+const getMode = () => {
+  if (typeof window !== 'undefined') {
+    const user = auth.currentUser;
+    if (!user) return 'production';
+
+    return (
+      localStorage.getItem(`${user.uid}-mode`) ||
+      (localStorage.setItem(`${user.uid}-mode`, 'production') && 'production')
+    );
+  }
+
+  return 'production';
+};
 
 const baseUrl =
-  mode === 'production'
-    ? config.apiUrls.production
-    : config.apiUrls.test;
+  getMode() === 'production' ? config.apiUrls.production : config.apiUrls.test;
 
 export const $api = axios.create({
   ...config.axios,

@@ -18,10 +18,8 @@ import {
 import type { AxiosResponse } from 'axios';
 import http from '../helpers/http';
 import config from '../config';
+import { auth } from './firebaseAuth.service';
 import { AuthFormData } from 'types/Auth';
-
-const app = initializeApp(config.firebase);
-export const auth = getAuth(app);
 
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
@@ -29,19 +27,31 @@ export default class AuthService {
   static async getDetails(): Promise<
     AxiosResponse<{ app_id: string }>['data']
   > {
+    const user = auth.currentUser;
+    const mode =
+      typeof window !== 'undefined'
+        ? localStorage.getItem(`${user?.uid}-mode`)
+        : 'production';
     try {
-      const response = await http.get(`lost-api`);
+      const response = await http.get(`lost-api`, {
+        baseURL:
+          mode === 'production'
+            ? config.apiUrls.production
+            : config.apiUrls.test
+      });
+      // if (typeof window !== 'undefined' && (response as any)?.app_id) {
+      //   await sessionStorage.setItem('appId', (response as any).app_id);
+      // }
       return response as unknown as { app_id: string };
     } catch (err) {
-      const mode =
-        typeof window !== 'undefined' ? localStorage.getItem('mode') : null;
-      if (err?.message?.includes('status code: 500') && mode === 'test') {
-        const api = await http.get('lost-api', {
-          baseURL: config.apiUrls.production
-        });
-        const testApi = await http.post('create-api', api);
-        console.log(testApi);
-      }
+      console.log(err);
+      // if (err?.message?.includes('status code: 500') && mode === 'test') {
+      //   const api = await http.get('lost-api', {
+      //     baseURL: config.apiUrls.production
+      //   });
+      //   const testApi = await http.post('create-api', api);
+      //   console.log(testApi);
+      // }
     }
   }
 
@@ -59,7 +69,15 @@ export default class AuthService {
 
   static async login({ email, password }: AuthFormData) {
     await setPersistence(auth, browserLocalPersistence);
-    await signInWithEmailAndPassword(auth, email, password);
+    const user = await signInWithEmailAndPassword(auth, email, password);
+    if (
+      typeof window !== 'undefined' &&
+      user &&
+      !localStorage.getItem(`${user.user.uid}-mode`)
+    ) {
+      await localStorage.setItem(`${user.user.uid}-mode`, 'production');
+    }
+    return user;
   }
 
   static async loginWithGoogle() {
