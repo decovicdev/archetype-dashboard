@@ -1,7 +1,22 @@
+/* eslint-disable no-undef */
 import axios from 'axios';
 import config from '../config';
 
-const $api = axios.create(config.axios);
+const mode =
+  typeof window !== 'undefined'
+    ? localStorage.getItem('mode') ||
+      (localStorage.setItem('mode', 'production') && 'production')
+    : 'production';
+
+const baseUrl =
+  mode === 'production'
+    ? config.apiUrls.production
+    : config.apiUrls.test;
+
+export const $api = axios.create({
+  ...config.axios,
+  baseURL: baseUrl
+});
 
 $api.interceptors.request.use((config) => {
   if (typeof window === 'undefined') {
@@ -26,9 +41,7 @@ $api.interceptors.response.use(
   (err) => {
     if (err.response) {
       if (err.response.status === 404) {
-        if (
-          err.response.request.responseURL !== `${config.axios.baseURL}lost-api`
-        ) {
+        if (err.response.request.responseURL !== `${baseUrl}lost-api`) {
           window.dispatchEvent(new CustomEvent('apiNotFoundErr'));
         }
       }

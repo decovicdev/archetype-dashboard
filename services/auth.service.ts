@@ -11,7 +11,9 @@ import {
   sendPasswordResetEmail,
   GoogleAuthProvider,
   GithubAuthProvider,
-  signInWithPopup
+  signInWithPopup,
+  fetchSignInMethodsForEmail,
+  linkWithCredential
 } from 'firebase/auth';
 import type { AxiosResponse } from 'axios';
 import http from '../helpers/http';
@@ -27,7 +29,20 @@ export default class AuthService {
   static async getDetails(): Promise<
     AxiosResponse<{ app_id: string }>['data']
   > {
-    return await http.get(`lost-api`);
+    try {
+      const response = await http.get(`lost-api`);
+      return response as unknown as { app_id: string };
+    } catch (err) {
+      const mode =
+        typeof window !== 'undefined' ? localStorage.getItem('mode') : null;
+      if (err?.message?.includes('status code: 500') && mode === 'test') {
+        const api = await http.get('lost-api', {
+          baseURL: config.apiUrls.production
+        });
+        const testApi = await http.post('create-api', api);
+        console.log(testApi);
+      }
+    }
   }
 
   static async signup({ email, password }: AuthFormData) {
@@ -53,8 +68,25 @@ export default class AuthService {
   }
 
   static async loginWithGithub() {
-    await signInWithPopup(auth, githubProvider);
-    // const credential = GithubAuthProvider.credentialFromResult(result);
+    await signInWithPopup(auth, githubProvider).catch((error) => {
+      if (error.code === 'auth/account-exists-with-different-credential') {
+        const pendingCred = error.credential;
+        const email = error.email || error.customData?.email;
+        // Get sign-in methods for this email.
+        fetchSignInMethodsForEmail(auth, email).then(async function (methods) {
+          if (methods[0] === 'password') {
+            const password = await prompt(`Please enter password for ${email}`); // TODO: implement promptUserForPassword.
+
+            signInWithEmailAndPassword(auth, email, password).then(function (
+              result
+            ) {
+              return linkWithCredential(result.user, pendingCred);
+            });
+            return;
+          }
+        });
+      }
+    });
   }
 
   static async logout() {

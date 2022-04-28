@@ -67,7 +67,7 @@ const Table: React.FC<Props> = ({
               ? `${item.trial_length} ${item.trial_time_frame}`
               : '-'}
           </div>
-          <div>{item.users.length} users</div>
+          <div>{item.users?.length} users</div>
 
           <div>{item.quota ? `${item.quota}/day` : `Unlimited`}</div>
           <DropdownMenu
