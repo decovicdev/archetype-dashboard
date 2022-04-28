@@ -1,6 +1,4 @@
-import { initializeApp } from 'firebase/app';
 import {
-  getAuth,
   setPersistence,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -63,7 +61,9 @@ export default class AuthService {
       password
     );
     await sendEmailVerification(response.user, {
-      url: process.env.NEXT_PUBLIC_REDIRECT_URL
+      url:
+        process.env.NEXT_PUBLIC_REDIRECT_URL ||
+        'https://beta.archetype.dev/auth/onboard?confirm_email=true'
     });
   }
 
@@ -113,7 +113,9 @@ export default class AuthService {
 
   static async sendVerificationEmail({ user }) {
     return await sendEmailVerification(user, {
-      url: process.env.NEXT_PUBLIC_REDIRECT_URL
+      url:
+        process.env.NEXT_PUBLIC_REDIRECT_URL ||
+        'https://beta.archetype.dev/auth/onboard?confirm_email=true'
     });
   }
 
