@@ -3,13 +3,15 @@ import { TypographyVariant } from 'types/Typography';
 type Props = {
   variant?: TypographyVariant;
   className?: string;
-  level?: 1 | 2 | 3;
+  level?: 1 | 2 | 3 | 4 | 5;
 };
 
 const levels = {
   1: 'text-4xl',
   2: 'text-3xl',
-  3: 'text-2xl'
+  3: 'text-2xl',
+  4: 'text-xl',
+  5: 'text-lg'
 };
 
 const Title: React.FC<Props> = ({

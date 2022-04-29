@@ -13,6 +13,7 @@ import Paragraph from 'components/_typography/Paragraph';
 import EndpointService from 'services/endpoint.service';
 import CustomerService from 'services/customer.service';
 import Chart from 'components/Dashboard/Chart';
+import Transactions from 'components/Dashboard/Transactions';
 
 type Props = {
   queryName: string;
@@ -29,7 +30,7 @@ const OverviewSection: React.FC<Props> = ({
   addPageUrl
 }) => {
   const { data, isLoading, isError } = useQuery(queryName, queryFn);
-  const newData = data as any
+  const newData = data as any;
   return (
     <div className="flex flex-col mr-4 items-start border-r border-solid border-tblack-100">
       <Button variant={ButtonVariant.link} url={mainPageUrl}>
@@ -92,7 +93,8 @@ const DashboardPage = () => (
         />
       </div>
     </Card>
-    <Chart></Chart>
+    <Chart />
+    <Transactions />
   </DashboardLayout>
 );
 
