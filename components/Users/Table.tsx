@@ -73,10 +73,11 @@ const Table: React.FC<Props> = ({
           <DropdownMenu
             title={<Button variant={ButtonVariant.outlined}>...</Button>}
           >
-            <Button url={`${ROUTES.USERS.EDIT}/${item.custom_uid}`}>
+            <Button url={`${ROUTES.USERS.EDIT}/${item.custom_uid}`} className="w-full mb-2">
               Edit
             </Button>
             <Button
+            className='w-full mb-2'
               onClick={() => {
                 setSelectedId(item.custom_uid);
                 onGKOpen();
@@ -85,6 +86,7 @@ const Table: React.FC<Props> = ({
               Reset API key
             </Button>
             <Button
+            className='w-full'
               variant={ButtonVariant.danger}
               onClick={() => {
                 setSelectedId(item.custom_uid);

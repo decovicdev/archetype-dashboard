@@ -22,7 +22,7 @@ const Component = () => {
   const router = useRouter();
   const { showAlert } = useHelpers();
 
-  const { data, isLoading } = useQuery(
+  const { data, isLoading, error } = useQuery(
     ['user', router.query.userId],
     async () => CustomerService.getById(router.query.userId),
     { onError: (e: any) => showAlert(e.message) }
@@ -32,12 +32,14 @@ const Component = () => {
 
   const { isOpen, onClose, onOpen } = useDisclosure();
 
+  if (error)
+    return <ErrorText>Oops there was an error {error.message}</ErrorText>;
+
   return (
     <div className="text-black">
       <Head>
         <title>Customer Information - {config.meta.title}</title>
       </Head>
-      {isLoading && <Spinner />}
       <BreadCrumbs
         links={[
           { url: ROUTES.USERS.BASE_URL, title: 'Customers' },
@@ -47,7 +49,7 @@ const Component = () => {
           }
         ]}
       />
-      {data ? (
+      {isLoading ? <Spinner/> : (
         <>
           <div className="flex space-x-2 items-center">
             <Title
@@ -109,8 +111,6 @@ const Component = () => {
             Customer history
           </Title>
         </>
-      ) : (
-        <ErrorText>Customer not found.</ErrorText>
       )}
       <DeleteUserModal id="test" isOpen={isOpen} onClose={onClose} />
     </div>
