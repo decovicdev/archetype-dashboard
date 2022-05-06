@@ -73,10 +73,11 @@ const Table: React.FC<Props> = ({
           <DropdownMenu
             title={<Button variant={ButtonVariant.outlined}>...</Button>}
           >
-            <Button url={`${ROUTES.PRODUCTS.EDIT}/${item.tier_id}`}>
+            <Button url={`${ROUTES.PRODUCTS.EDIT}/${item.tier_id}`} className='w-full mb-2'>
               Edit
             </Button>
             <Button
+            className='w-full'
               variant={ButtonVariant.danger}
               onClick={() => {
                 setSelectedTier(item.tier_id);

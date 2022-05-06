@@ -19,6 +19,7 @@ import Title from 'components/_typography/Title';
 import { TypographyVariant } from 'types/Typography';
 import Paragraph from 'components/_typography/Paragraph';
 import Divider from 'components/_common/Divider';
+import ErrorText from 'components/_typography/ErrorText';
 
 const Component = () => {
   const router = useRouter();
@@ -28,7 +29,7 @@ const Component = () => {
   // const [inProgress, setProgress] = useState(false);
   const [fields, setFields] = useState(null);
 
-  const { isLoading } = useQuery(
+  const { isLoading, error } = useQuery(
     ['product', router.query.tierId],
     async () => await TierService.getById(router.query.tierId as string),
     {
@@ -292,13 +293,16 @@ const Component = () => {
   }, [fields, router.query.tierId]);
 
   const { isOpen, onClose } = useDisclosure();
+
+  if (error)
+    return <ErrorText>Oops there was an error {error.message}</ErrorText>;
+    
   return (
     <>
       <div className="page tiers-details-page">
         <Head>
           <title>Product Overview - {config.meta.title}</title>
         </Head>
-        {isLoading && <Spinner />}
         <div className="content">
           <BreadCrumbs
             links={[
@@ -310,7 +314,7 @@ const Component = () => {
             ]}
           />
 
-          {renderContent()}
+          {isLoading ? <Spinner /> : renderContent()}
         </div>
       </div>
       <Modal isOpen={isOpen} onClose={onClose} title="Delete product?">
