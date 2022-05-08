@@ -20,7 +20,7 @@ import ChartIcon from 'components/_icons/ChartIcon';
 import ChatIcon from 'components/_icons/ChatIcon';
 import UserIcon from 'components/_icons/UserIcon';
 import SettingsIcon from 'components/_icons/SettingsIcon';
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import Switch from 'components/_common/Switch';
 import $api from 'helpers/http';
 import config from 'config';
@@ -91,7 +91,7 @@ const DashboardLayout = ({ children }) => {
         <div className="flex flex-col py-8 pl-4 pr-8 bg-tpurple-700 space-y-2">
           <ArcheTypeNlogo />
           {LINKS.map((section) => (
-            <>
+            <Fragment key={section.title}>
               {section.title ? (
                 <Paragraph
                   level={2}
@@ -112,18 +112,16 @@ const DashboardLayout = ({ children }) => {
                         : null
                     }
                     variant={ButtonVariant.navLink}
-                    className={`w-full !justify-start ${
-                      url === ROUTES.AUTH.LOGOUT ? '!mb-0 !mt-auto' : ''
-                    }`}
+                    className={`w-full !justify-start ${url === ROUTES.AUTH.LOGOUT ? '!mb-0 !mt-auto' : ''
+                      }`}
                     active={router.pathname.includes(url)}
                     leftIcon={
                       Icon ? (
                         <Icon
-                          className={`mr-4 ${
-                            router.pathname.includes(url)
-                              ? 'text-white'
-                              : 'text-tblue-700 group-hover:text-white'
-                          }`}
+                          className={`mr-4 ${router.pathname.includes(url)
+                            ? 'text-white'
+                            : 'text-tblue-700 group-hover:text-white'
+                            }`}
                         />
                       ) : null
                     }
@@ -149,7 +147,7 @@ const DashboardLayout = ({ children }) => {
                   </Button>
                 );
               })}
-            </>
+            </Fragment>
           ))}
         </div>
         <div className="h-full overflow-hidden">
@@ -162,9 +160,8 @@ const DashboardLayout = ({ children }) => {
           </div> */}
           <div className="py-6 pl-6 pr-12 h-full overflow-y-auto relative">
             <div
-              className={`w-full rounded-md text-white flex items-center justify-between mb-4 ${
-                isTestEnv ? 'bg-red-400 py-2 px-4' : 'bg-transparent'
-              }`}
+              className={`w-full rounded-md text-white flex items-center justify-between mb-4 ${isTestEnv ? 'bg-red-400 py-2 px-4' : 'bg-transparent'
+                }`}
             >
               {isTestEnv ? (
                 <p>You are currently running in test mode.</p>
