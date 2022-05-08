@@ -67,7 +67,7 @@ const Component = () => {
     }
 
     try {
-      const result = await CustomerService.generatePaymentLinkEmail({ custom_uid: router.query.userId as string, tier_id: id })
+      await CustomerService.generatePaymentLinkEmail({ custom_uid: router.query.userId as string, tier_id: id })
 
       showAlert('Success!', true);
     } catch (error) {
