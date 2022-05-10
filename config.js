@@ -29,7 +29,7 @@ const config = {
   apiUrls: {
     test: 'https://test.archetype.dev/v1/',
     production: 'https://api.archetype.dev/v1/',
-    base: publicRuntimeConfig.API_BASE
+    base: process.env.NEXT_PUBLIC_API_BASE
   }
 };
 
