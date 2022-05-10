@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import DeleteUserModal from './DeleteUserModal';
 import Spinner from 'components/_common/Spinner';
-import CustomerService from 'services/customer.service';
 import { useHelpers } from 'context/HelperProvider';
 import useDisclosure from 'hooks/useDisclosure';
 import { ROUTES } from 'constant/routes';
@@ -16,13 +15,15 @@ import Title from 'components/_typography/Title';
 import { TypographyVariant } from 'types/Typography';
 import { Form, Formik, FormikProvider, useFormik } from 'formik';
 import { object, string } from 'yup';
+import { useApi } from 'context/ApiProvider';
 
 type FormSchema = {
   email: string;
-}
+};
 
 const Component = () => {
   const router = useRouter();
+  const { user } = useApi();
   const { showAlert } = useHelpers();
 
   const formik = useFormik<FormSchema>({
@@ -34,7 +35,7 @@ const Component = () => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        await CustomerService.updateById(router.query.userId, {
+        await user.updateById(router.query.userId as string, {
           email: values.email
         });
 
@@ -44,13 +45,13 @@ const Component = () => {
         showAlert('Something went wrong', false);
       }
     }
-  })
+  });
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { isLoading } = useQuery(
     ['user', router.query.userId],
-    async () => CustomerService.getById(router.query.userId),
+    async () => user.getById(router.query.userId as string),
     {
       onError: (e: any) => showAlert(e.message),
       onSuccess: (user) => {
@@ -59,7 +60,7 @@ const Component = () => {
     }
   );
 
-  if (isLoading) return <Spinner />
+  if (isLoading) return <Spinner />;
 
   return (
     <>
@@ -85,8 +86,11 @@ const Component = () => {
           />
           <ErrorText>{formik.touched.email && formik.errors.email}</ErrorText>
           <div className="w-full flex space-x-2">
-            <Button type='submit'>Save</Button>
-            <Button variant={ButtonVariant.link} url={`${ROUTES.USERS.BASE_URL}/${router.query.userId}`}>
+            <Button type="submit">Save</Button>
+            <Button
+              variant={ButtonVariant.link}
+              url={`${ROUTES.USERS.BASE_URL}/${router.query.userId}`}
+            >
               Cancel
             </Button>
           </div>

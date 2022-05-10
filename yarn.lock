@@ -4032,6 +4032,11 @@
     "jwa" "^2.0.0"
     "safe-buffer" "^5.0.1"
 
+"ky@^0.30.0":
+  "integrity" "sha512-X/u76z4JtDVq10u1JA5UQfatPxgPaVDMYTrgHyiTpGN2z4TMEJkIHsoSBBSg9SWZEIXTKsi9kHgiQ9o3Y/4yog=="
+  "resolved" "https://registry.npmjs.org/ky/-/ky-0.30.0.tgz"
+  "version" "0.30.0"
+
 "language-subtag-registry@~0.3.2":
   "integrity" "sha512-L0IqwlIXjilBVVYKFT37X9Ih11Um5NEl9cbJIuU/SwP/zEEAbBPOnEeeuxVMf45ydWQRDQN3Nqc96OgbH1K+Pg=="
   "resolved" "https://registry.npmjs.org/language-subtag-registry/-/language-subtag-registry-0.3.21.tgz"

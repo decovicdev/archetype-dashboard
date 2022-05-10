@@ -1,22 +1,24 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useRouter } from 'next/router';
 import Modal from 'components/_common/Modal';
-import CustomerService from 'services/customer.service';
+
 import Paragraph from 'components/_typography/Paragraph';
 import { useHelpers } from 'context/HelperProvider';
 import Button from 'components/_common/Button';
 import { ButtonVariant } from 'types/Button';
 import { ROUTES } from 'constant/routes';
+import { useApi } from 'context/ApiProvider';
 
 const DeleteUserModal = ({ id, isOpen, onClose }) => {
   const { showAlert } = useHelpers();
   const queryClient = useQueryClient();
   const router = useRouter();
+  const { user } = useApi();
 
   const { mutate: deleteUser, isLoading: isDeleteUserLoading } = useMutation(
     async () => {
       if (isDeleteUserLoading) return;
-      await CustomerService.deleteById(router.query.userId || id);
+      await user.deleteById(router.query.userId || id);
     },
     {
       onError: (e: any) => showAlert(e.message),

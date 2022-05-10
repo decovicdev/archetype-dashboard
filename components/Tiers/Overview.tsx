@@ -3,12 +3,8 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import config from '../../config';
-
 import Spinner from '../_common/Spinner';
 import Modal from '../_common/Modal';
-
-import TierService from '../../services/tier.service';
-
 import { useHelpers } from '../../context/HelperProvider';
 import { ROUTES } from 'constant/routes';
 import useDisclosure from 'hooks/useDisclosure';
@@ -20,6 +16,7 @@ import { TypographyVariant } from 'types/Typography';
 import Paragraph from 'components/_typography/Paragraph';
 import Divider from 'components/_common/Divider';
 import ErrorText from 'components/_typography/ErrorText';
+import { useApi } from 'context/ApiProvider';
 
 const Component = () => {
   const router = useRouter();
@@ -28,10 +25,11 @@ const Component = () => {
 
   // const [inProgress, setProgress] = useState(false);
   const [fields, setFields] = useState(null);
+  const { tier } = useApi();
 
   const { isLoading, error } = useQuery(
     ['product', router.query.tierId],
-    async () => await TierService.getById(router.query.tierId as string),
+    async () => await tier.getById(router.query.tierId as string),
     {
       onSuccess: (newData) => {
         setFields(newData);
@@ -296,7 +294,7 @@ const Component = () => {
 
   if (error)
     return <ErrorText>Oops there was an error {error.message}</ErrorText>;
-    
+
   return (
     <>
       <div className="page tiers-details-page">

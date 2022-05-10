@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import Spinner from './Spinner';
 import { ROUTES } from 'constant/routes';
 import { useAuth } from 'context/AuthProvider';
-import AuthService from 'services/auth.service';
+import { useApi } from 'context/ApiProvider';
 
 const PrivateRoute = ({
   children
@@ -13,7 +13,14 @@ const PrivateRoute = ({
 }): ReactElement => {
   const router = useRouter();
   const { currentUser, isAuthLoading, isGithubAuth } = useAuth();
-  const { data: api, isLoading } = useQuery('lostApi', AuthService.getDetails);
+  const { auth } = useApi();
+  console.warn('te');
+
+  const {
+    data: api,
+    isLoading,
+    error
+  } = useQuery('lostApi', () => auth.getDetails());
 
   useEffect(() => {
     if (isAuthLoading) return;

@@ -7,8 +7,10 @@ import React, {
   useMemo
 } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import AuthService from 'services/auth.service';
+
 import { auth } from 'services/firebaseAuth.service';
+import Spinner from 'components/_common/Spinner';
+import { useApi } from './ApiProvider';
 
 type AuthContextValue = {
   isAuthLoading: boolean;
@@ -27,6 +29,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<User>(null);
+  const api = useApi();
 
   const init = useCallback(() => {
     try {
@@ -37,9 +40,8 @@ export const AuthProvider = ({ children }) => {
             sessionStorage.clear();
             return setIsAuthLoading(false);
           }
-          const token = await user?.getIdToken();
-          sessionStorage.setItem('token', token);
-          const response = await AuthService.getDetails();
+
+          const response = await api.auth.getDetails();
           if (response?.app_id) {
             sessionStorage.setItem('appId', response.app_id);
           }
@@ -67,7 +69,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ isAuthLoading, currentUser, isGithubAuth }}>
-      {children}
+      {isAuthLoading ? <Spinner /> : children}
     </AuthContext.Provider>
   );
 };

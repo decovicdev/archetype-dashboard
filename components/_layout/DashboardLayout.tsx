@@ -112,16 +112,18 @@ const DashboardLayout = ({ children }) => {
                         : null
                     }
                     variant={ButtonVariant.navLink}
-                    className={`w-full !justify-start ${url === ROUTES.AUTH.LOGOUT ? '!mb-0 !mt-auto' : ''
-                      }`}
+                    className={`w-full !justify-start ${
+                      url === ROUTES.AUTH.LOGOUT ? '!mb-0 !mt-auto' : ''
+                    }`}
                     active={router.pathname.includes(url)}
                     leftIcon={
                       Icon ? (
                         <Icon
-                          className={`mr-4 ${router.pathname.includes(url)
-                            ? 'text-white'
-                            : 'text-tblue-700 group-hover:text-white'
-                            }`}
+                          className={`mr-4 ${
+                            router.pathname.includes(url)
+                              ? 'text-white'
+                              : 'text-tblue-700 group-hover:text-white'
+                          }`}
                         />
                       ) : null
                     }
@@ -160,8 +162,9 @@ const DashboardLayout = ({ children }) => {
           </div> */}
           <div className="py-6 pl-6 pr-12 h-full overflow-y-auto relative">
             <div
-              className={`w-full rounded-md text-white flex items-center justify-between mb-4 ${isTestEnv ? 'bg-red-400 py-2 px-4' : 'bg-transparent'
-                }`}
+              className={`w-full rounded-md text-white flex items-center justify-between mb-4 ${
+                isTestEnv ? 'bg-red-400 py-2 px-4' : 'bg-transparent'
+              }`}
             >
               {isTestEnv ? (
                 <p>You are currently running in test mode.</p>

@@ -8,7 +8,6 @@ import Form from './Form';
 import config from 'config';
 import Spinner from 'components/_common/Spinner';
 import Modal from 'components/_common/Modal';
-import TierService from 'services/tier.service';
 import { useHelpers } from 'context/HelperProvider';
 import { ROUTES } from 'constant/routes';
 import useDisclosure from 'hooks/useDisclosure';
@@ -18,17 +17,19 @@ import Paragraph from 'components/_typography/Paragraph';
 import BreadCrumbs from 'components/_common/BreadCrumbs';
 import { Tier } from 'types/Tiers';
 import { TypographyVariant } from 'types/Typography';
+import { useApi } from 'context/ApiProvider';
 
 const Component = () => {
   const router = useRouter();
 
   const { showAlert } = useHelpers();
 
-  const [fields, setFields] = useState <any>({}) ;
+  const [fields, setFields] = useState<any>({});
+  const { tier } = useApi();
 
   const { isLoading } = useQuery(
     ['product', router.query.tierId],
-    async () => TierService.getById(router.query.tierId as string),
+    async () => tier.getById(router.query.tierId as string),
     {
       onError: (e: any) => showAlert(e.message),
       onSuccess: (newData: Tier) => {
@@ -85,7 +86,7 @@ const Component = () => {
   const { mutate: submitForm, isLoading: isMutationLoading } = useMutation(
     async () => {
       if (isMutationLoading) return;
-      await TierService.updateById(router.query.tierId as string, {
+      await tier.updateById(router.query.tierId as string, {
         name: fields.name,
         description:
           !fields.hasTrial && !fields.description

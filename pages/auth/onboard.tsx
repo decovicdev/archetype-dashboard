@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { FormProvider, useForm } from 'react-hook-form';
 import config from 'config';
-import ApiService from 'services/api.service';
+
 import { useAuth } from 'context/AuthProvider';
 import { useHelpers } from 'context/HelperProvider';
 import OnboardingLayout from 'components/_layout/OnboardingLayout';
@@ -13,11 +13,12 @@ import StepOneWelcome from 'components/Onboard/StepOneWelcome';
 import StepTwoForm from 'components/Onboard/StepTwoForm';
 import StepThreeAuth from 'components/Onboard/StepThreeAuth';
 import Spinner from 'components/_common/Spinner';
-import AuthService from 'services/auth.service';
+import { useApi } from 'context/ApiProvider';
 
 const Component = () => {
   const router = useRouter();
   const { currentUser, isAuthLoading } = useAuth();
+  const { auth, api: apiService } = useApi();
 
   const { showAlert } = useHelpers();
 
@@ -28,7 +29,7 @@ const Component = () => {
   }, [currentUser, isAuthLoading, router]);
 
   const [step, setStep] = useState(0);
-  const { data: api, isLoading } = useQuery('lostApi', AuthService.getDetails);
+  const { data: api, isLoading } = useQuery('lostApi', auth.getDetails);
 
   useEffect(() => {
     if (
@@ -53,7 +54,7 @@ const Component = () => {
       if (!data.company) {
         throw new Error('Company is required');
       }
-      await ApiService.createNew(data);
+      await apiService.createNew(data);
     },
     {
       onError: (e: any) => showAlert(e.message),
