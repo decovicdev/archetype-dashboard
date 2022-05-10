@@ -17,8 +17,7 @@ const getMode = () => {
   return 'production';
 };
 
-const baseUrl =
-  getMode() === 'production' ? config.apiUrls.production : config.apiUrls.test;
+const baseUrl = config.apiUrls.base;
 
 export const $api = axios.create({
   ...config.axios,
@@ -47,11 +46,6 @@ $api.interceptors.response.use(
   (res) => res.data,
   (err) => {
     if (err.response) {
-      if (err.response.status === 404) {
-        if (err.response.request.responseURL !== `${baseUrl}lost-api`) {
-          window.dispatchEvent(new CustomEvent('apiNotFoundErr'));
-        }
-      }
 
       if (err.response.status !== 200) {
         return Promise.reject({

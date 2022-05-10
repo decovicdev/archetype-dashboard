@@ -28,7 +28,8 @@ const config = {
   clearbit: publicRuntimeConfig.CLEARBIT,
   apiUrls: {
     test: 'https://test.archetype.dev/v1/',
-    production: 'https://api.archetype.dev/v1/'
+    production: 'https://api.archetype.dev/v1/',
+    base: publicRuntimeConfig.API_BASE
   }
 };
 

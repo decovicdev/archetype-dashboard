@@ -13,8 +13,7 @@ const Payments: FC = () => {
     queryKey: ['checkoutSessionId'],
     queryFn: () => PaymentService.generateCheckoutLink({ checkout_session_id: router.query.checkout_session_id as string }),
     onSuccess: (data) => { window.location.replace(data.url) },
-    onError: (error) => {
-      console.error(error);
+    onError: () => {
       showAlert('Something went wrong', false)
     },
     enabled: !!router.query.checkout_session_id
