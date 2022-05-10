@@ -32,5 +32,5 @@ const config = {
     base: process.env.NEXT_PUBLIC_API_BASE
   }
 };
-
+console.info(process.env.NEXT_PUBLIC_API_BASE)
 export default config;
