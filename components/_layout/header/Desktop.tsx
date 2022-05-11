@@ -1,17 +1,17 @@
 import { useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
-import AccountService from '../../../services/account.service';
-
 import { useAuth } from '../../../context/AuthProvider';
 import { useHelpers } from '../../../context/HelperProvider';
 import Links from './links';
+import { useApi } from 'context/ApiProvider';
 
 const Component = () => {
   const _header = useRef(null);
 
   const { currentUser } = useAuth();
   const { showAlert } = useHelpers();
+  const { auth } = useApi();
 
   const updatePostion = useCallback(() => {
     if (!window || !_header.current) {
@@ -40,7 +40,7 @@ const Component = () => {
   }, [updatePostion]);
 
   const clickSignOut = useCallback(async () => {
-    await AccountService.logout();
+    await auth.logout();
 
     showAlert('Logged out', true);
   }, [showAlert]);
