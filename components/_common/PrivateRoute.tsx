@@ -14,7 +14,6 @@ const PrivateRoute = ({
   const router = useRouter();
   const { currentUser, isAuthLoading, isGithubAuth } = useAuth();
   const { auth } = useApi();
-  console.warn('te');
 
   const {
     data: api,

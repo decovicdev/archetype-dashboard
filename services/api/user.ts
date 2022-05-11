@@ -13,7 +13,7 @@ class UserService {
   }
 
   public addNew(params) {
-    return this._http.request('create-user', params);
+    return this._http.request('create-user', { method: 'post', json: params });
   }
 
   public updateById(id: string, params: Partial<User>) {

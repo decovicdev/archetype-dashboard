@@ -1,3 +1,4 @@
+import config from 'config';
 import ky, { Options } from 'ky';
 
 import { auth } from '../firebaseAuth.service';
@@ -16,9 +17,13 @@ class HttpService {
     url: string,
     kyConfig: Options = {}
   ): Promise<V> {
-    const baseUrl = process.env.NEXT_PUBLIC_API_BASE;
-
     const token = await auth.currentUser.getIdToken();
+
+    const baseUrl =
+      this.getMode(auth.currentUser.uid) === 'production'
+        ? config.apiUrls.production
+        : config.apiUrls.test;
+
     try {
       const response = await ky(url, {
         prefixUrl: baseUrl,
@@ -38,6 +43,15 @@ class HttpService {
 
   public getAppId() {
     return sessionStorage.getItem('appId');
+  }
+
+  /**
+   * NOTE: By default we use test mode url
+   */
+  public getMode(uid: string) {
+    const mode = localStorage.getItem(`${uid}-mode`) || 'test';
+
+    return mode as 'test' | 'production';
   }
 }
 
