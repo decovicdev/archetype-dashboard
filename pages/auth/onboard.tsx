@@ -29,7 +29,7 @@ const Component = () => {
   }, [currentUser, isAuthLoading, router]);
 
   const [step, setStep] = useState(0);
-  const { data: api, isLoading } = useQuery('lostApi', auth.getDetails);
+  const { data: api, isLoading } = useQuery('lostApi', () => auth.getDetails);
 
   useEffect(() => {
     if (
