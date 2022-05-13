@@ -19,7 +19,7 @@ const PrivateRoute = ({
     data: api,
     isLoading,
     error
-  } = useQuery('lostApi', () => auth.getDetails());
+  } = useQuery('api', () => auth.getDetails());
 
   useEffect(() => {
     if (isAuthLoading) return;
