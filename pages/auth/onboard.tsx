@@ -14,22 +14,50 @@ import StepTwoForm from 'components/Onboard/StepTwoForm';
 import StepThreeAuth from 'components/Onboard/StepThreeAuth';
 import Spinner from 'components/_common/Spinner';
 import { useApi } from 'context/ApiProvider';
+import { object, string } from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+type InputValues = {
+  name: string;
+  company: string;
+  url: string;
+  auth_type: string;
+  redirect_url: string;
+  return_url: string;
+};
+
+const validationSchema = object().shape({
+  name: string().required(),
+  company: string().required(),
+  url: string().url().required(),
+  auth_type: string().required(),
+  redirect_url: string().url().required(),
+  return_url: string().url().required()
+});
 
 const Component = () => {
   const router = useRouter();
   const { currentUser, isAuthLoading } = useAuth();
   const { auth, api: apiService } = useApi();
-
   const { showAlert } = useHelpers();
+  const { data: api, isLoading } = useQuery('lostApi', () => auth.getDetails());
+  const queryClient = useQueryClient();
+
+  const [step, setStep] = useState(0);
+  const [initialValues, setInitialValues] = useState({
+    name: '',
+    company: '',
+    url: '',
+    auth_type: '',
+    redirect_url: '',
+    return_url: ''
+  });
 
   useEffect(() => {
     if (!currentUser && !isAuthLoading) {
       void router.push(ROUTES.AUTH.SIGNUP);
     }
   }, [currentUser, isAuthLoading, router]);
-
-  const [step, setStep] = useState(0);
-  const { data: api, isLoading } = useQuery('lostApi', () => auth.getDetails);
 
   useEffect(() => {
     if (
@@ -38,12 +66,9 @@ const Component = () => {
         currentUser?.providerId?.includes('github')) &&
       api
     ) {
-      void router.push(ROUTES.SETTINGS.SETTINGS);
+      // void router.push(ROUTES.SETTINGS.SETTINGS);
     }
   }, [api, currentUser, isAuthLoading, router]);
-
-  const methods = useForm({ defaultValues: api });
-  const queryClient = useQueryClient();
 
   const { mutate: submitForm, isLoading: isMutationLoading } = useMutation(
     async (data: any) => {
@@ -65,18 +90,58 @@ const Component = () => {
       }
     }
   );
+  const hanlde = (data) => submitForm(data);
 
-  const onSubmit = (data) => submitForm(data);
+  const handlePrev = () => {
+    setStep(step - 1);
+  };
+
+  const handleS = (values?: Partial<typeof initialValues>) => {
+    switch (step) {
+      case 1:
+        setInitialValues({ ...initialValues, ...values });
+        setStep(step + 1);
+        break;
+
+      case 2:
+        setInitialValues({ ...initialValues, ...values });
+        hanlde({ ...initialValues, ...values });
+        break;
+
+      default:
+        setStep(step + 1);
+    }
+  };
 
   if (isAuthLoading || isLoading) return <Spinner fullPage />;
+
+  const renderStep = () => {
+    switch (step) {
+      case 1:
+        return <StepTwoForm handleSubmit={handleS} values={initialValues} />;
+
+      case 2:
+        return (
+          <StepThreeAuth
+            handleSubmit={handleS}
+            values={initialValues}
+            handlePrev={handlePrev}
+          />
+        );
+
+      default:
+        return <StepOneWelcome onClick={handleS} />;
+    }
+  };
 
   return (
     <OnboardingLayout>
       <Head>
         <title>Create API - {config.meta.title}</title>
       </Head>
+      {renderStep()}
 
-      {step === 0 ? (
+      {/* {step === 0 ? (
         <StepOneWelcome
           onClick={() => {
             setStep(1);
@@ -95,7 +160,7 @@ const Component = () => {
             {step === 2 ? <StepThreeAuth onClick={() => setStep(1)} /> : null}
           </form>
         </FormProvider>
-      ) : null}
+      ) : null} */}
     </OnboardingLayout>
   );
 };
