@@ -25,6 +25,7 @@ import Switch from 'components/_common/Switch';
 import $api from 'helpers/http';
 import config from 'config';
 import { useAuth } from 'context/AuthProvider';
+import { useQueryClient } from 'react-query';
 // import { useApi } from 'hooks/useApi';
 // import AuthService from 'services/auth.service';
 // import { useQuery } from 'react-query';
@@ -84,6 +85,17 @@ const DashboardLayout = ({ children }) => {
   // const { data: products } = useProducts({ enabled: !isLoading && !!api });
   // const { data: endpoints } = useEndpoints({ enabled: !isLoading && !!api });
   // const { data: users } = useUsers({ enabled: !isLoading && !!api });
+
+  const handleSwitch = () => {
+    localStorage.setItem(
+      `${currentUser.uid}-mode`,
+      isTestEnv ? 'production' : 'test'
+    );
+    sessionStorage.removeItem('appId');
+    window.location.replace(
+      window.location.origin + ROUTES.DASHBOARD.DASHBOARD
+    );
+  };
 
   return (
     <PrivateRoute>
@@ -173,16 +185,7 @@ const DashboardLayout = ({ children }) => {
                 label={`Switch to ${isTestEnv ? 'production' : 'test'} mode`}
                 className="ml-auto"
                 checked={isTestEnv}
-                onChange={async () => {
-                  if (typeof window !== 'undefined' && currentUser) {
-                    localStorage.setItem(
-                      `${currentUser.uid}-mode`,
-                      isTestEnv ? 'production' : 'test'
-                    );
-                    await sessionStorage.removeItem('appId');
-                    await window.location.reload();
-                  }
-                }}
+                onChange={handleSwitch}
               />
             </div>
             {children}
