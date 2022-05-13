@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useMutation, useQuery } from 'react-query';
 import config from 'config';
 
 import { useAuth } from 'context/AuthProvider';
@@ -14,8 +13,6 @@ import StepTwoForm from 'components/Onboard/StepTwoForm';
 import StepThreeAuth from 'components/Onboard/StepThreeAuth';
 import Spinner from 'components/_common/Spinner';
 import { useApi } from 'context/ApiProvider';
-import { object, string } from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 type InputValues = {
   name: string;
@@ -26,22 +23,16 @@ type InputValues = {
   return_url: string;
 };
 
-const validationSchema = object().shape({
-  name: string().required(),
-  company: string().required(),
-  url: string().url().required(),
-  auth_type: string().required(),
-  redirect_url: string().url().required(),
-  return_url: string().url().required()
-});
-
 const Component = () => {
   const router = useRouter();
   const { currentUser, isAuthLoading } = useAuth();
   const { auth, api: apiService } = useApi();
   const { showAlert } = useHelpers();
-  const { data: api, isLoading } = useQuery('lostApi', () => auth.getDetails());
-  const queryClient = useQueryClient();
+  const {
+    data: api,
+    isLoading,
+    refetch
+  } = useQuery('api', () => auth.getDetails());
 
   const [step, setStep] = useState(0);
   const [initialValues, setInitialValues] = useState({
@@ -55,7 +46,7 @@ const Component = () => {
 
   useEffect(() => {
     if (!currentUser && !isAuthLoading) {
-      void router.push(ROUTES.AUTH.SIGNUP);
+      router.push(ROUTES.AUTH.SIGNUP);
     }
   }, [currentUser, isAuthLoading, router]);
 
@@ -66,27 +57,18 @@ const Component = () => {
         currentUser?.providerId?.includes('github')) &&
       api
     ) {
-      // void router.push(ROUTES.SETTINGS.SETTINGS);
+      router.push(ROUTES.SETTINGS.SETTINGS);
     }
   }, [api, currentUser, isAuthLoading, router]);
 
-  const { mutate: submitForm, isLoading: isMutationLoading } = useMutation(
-    async (data: any) => {
-      if (isMutationLoading) return;
-      if (!data.name) {
-        throw new Error('Name is required');
-      }
-      if (!data.company) {
-        throw new Error('Company is required');
-      }
-      await apiService.createNew(data);
-    },
+  const { mutate: submitForm } = useMutation(
+    (data) => apiService.createNew(data),
     {
       onError: (e: any) => showAlert(e.message),
       onSuccess: async () => {
-        await queryClient.invalidateQueries('api');
         showAlert('API is successfully created', true);
-        void router.push(ROUTES.SETTINGS.SETTINGS);
+        router.push(ROUTES.SETTINGS.SETTINGS);
+        refetch();
       }
     }
   );
