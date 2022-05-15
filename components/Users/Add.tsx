@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from 'react-query';
 import config from 'config';
 import Spinner from 'components/_common/Spinner';
-import CustomerService from 'services/customer.service';
 import { getHash } from 'helpers/utils';
 import { useHelpers } from 'context/HelperProvider';
 import { ROUTES } from 'constant/routes';
@@ -15,10 +14,12 @@ import Divider from 'components/_common/Divider';
 import Title from 'components/_typography/Title';
 import BreadCrumbs from 'components/_common/BreadCrumbs';
 import { TypographyVariant } from 'types/Typography';
+import { useApi } from 'context/ApiProvider';
 
 const Component = () => {
   const router = useRouter();
   const { showAlert } = useHelpers();
+  const { user } = useApi();
   const [fields, setFields] = useState({
     id: getHash(20),
     name: '',
@@ -57,7 +58,7 @@ const Component = () => {
         return showAlert('Email is required field');
       }
 
-      await CustomerService.addNew({
+      await user.addNew({
         uid: fields.id,
         // attrs: { name: fields.name },
         name: fields.name,

@@ -14,13 +14,13 @@ import Input from 'components/_common/Input';
 import { FormVariant } from 'types/Form';
 import Divider from 'components/_common/Divider';
 import ErrorText from 'components/_typography/ErrorText';
-import AuthService from 'services/auth.service';
 import { AuthFormData } from 'types/Auth';
 import AuthLayout from 'components/_layout/AuthLayout';
 import { ROUTES } from 'constant/routes';
 import { useAuth } from 'context/AuthProvider';
 import GoogleIcon from 'components/_icons/GoogleIcon';
 import GithubIcon from 'components/_icons/GithubIcon';
+import { useApi } from 'context/ApiProvider';
 
 const schema = yup
   .object({
@@ -38,12 +38,13 @@ const LoginPage: NextPage = () => {
     handleSubmit,
     formState: { errors }
   } = useForm<AuthFormData>({ resolver: yupResolver(schema) });
+  const api = useApi();
 
   const [networkError, setNetworkError] = useState<Error>(null);
 
   const onSubmit = async (values: AuthFormData) => {
     try {
-      await AuthService.login(values);
+      await api.auth.login(values);
     } catch (err) {
       setNetworkError(err as Error);
     }
@@ -51,7 +52,6 @@ const LoginPage: NextPage = () => {
 
   const router = useRouter();
   const { isAuthLoading, currentUser, isGithubAuth } = useAuth();
-
 
   useEffect(() => {
     if (isAuthLoading) return;
@@ -129,14 +129,14 @@ const LoginPage: NextPage = () => {
         </Paragraph>
         <Button
           variant={ButtonVariant.outlined}
-          onClick={AuthService.loginWithGoogle}
+          onClick={api.auth.loginWithGoogle}
         >
           <GoogleIcon className="mr-2" />
           Continue with Google
         </Button>
         <Button
           variant={ButtonVariant.outlined}
-          onClick={AuthService.loginWithGithub}
+          onClick={api.auth.loginWithGithub}
         >
           <GithubIcon className="mr-2" />
           Continue with GitHub

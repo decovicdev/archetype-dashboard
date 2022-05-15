@@ -6,15 +6,16 @@ import Spinner from '../_common/Spinner';
 import { TIME_FRAMES_OPTIONS } from './assets';
 import Form from './Form';
 import config from 'config';
-import TierService from 'services/tier.service';
 import { useHelpers } from 'context/HelperProvider';
 import { ROUTES } from 'constant/routes';
 import BreadCrumbs from 'components/_common/BreadCrumbs';
+import { useApi } from 'context/ApiProvider';
 
 const Component = () => {
   const router = useRouter();
   const { showAlert } = useHelpers();
   const queryClient = useQueryClient();
+  const { tier } = useApi();
 
   const [fields, setFields] = useState({
     name: '',
@@ -61,7 +62,7 @@ const Component = () => {
       if (!fields.plans?.length && fields.pricingModel?.id !== 'subscription')
         throw new Error('At least one tier is required');
 
-      await TierService.addNew({
+      await tier.addNew({
         name: fields.name,
         description:
           !fields.hasTrial && !fields.description

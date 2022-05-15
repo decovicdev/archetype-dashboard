@@ -6,14 +6,15 @@ import config from '../../../config';
 
 import Spinner from '../../_common/Spinner';
 
-import ApiService from '../../../services/api.service';
 
 import { useAuth } from '../../../context/AuthProvider';
 import { useHelpers } from '../../../context/HelperProvider';
 import { AUTH_TYPES } from './assets';
+import { useApi } from 'context/ApiProvider';
 
 const Component = () => {
   const router = useRouter();
+  const api = useApi()
 
   const { currentUser, isAuthLoading } = useAuth();
 
@@ -45,7 +46,7 @@ const Component = () => {
 
       setProgress(true);
 
-      await ApiService.createNew({
+      await api.api.createNew({
         name: apiName,
         company: companyName,
         auth_type: authType,

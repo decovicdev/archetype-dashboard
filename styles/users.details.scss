@@ -1,88 +1,9 @@
 .users-details-page {
-  .top-block {
-    @include flexbox($justify-content: space-between, $align-items: center);
+  & .link a {
+    color: rgb(30 94 255 / var(--tw-bg-opacity));
 
-    h2 {
-      font-size: 28px;
-      font-weight: 500;
-      line-height: 36px;
-      color: #ffffff;
+    &:hover {
+      color: rgb(27 237 73 / var(--tw-bg-opacity))
     }
-
-    .dropdown {
-      .edit-btn,
-      .delete-btn {
-        background-repeat: no-repeat;
-        background-position: 0 50%;
-        background-size: 16px 16px;
-        display: block;
-        margin: 7px 0;
-        padding-left: 25px;
-        font-size: 18px;
-        line-height: 26px;
-        color: $light-blue;
-      }
-
-      .edit-btn {
-        background-image: url('../public/icons/edit.svg');
-      }
-
-      .delete-btn {
-        background-image: url('../public/icons/delete.svg');
-      }
-    }
-  }
-
-  .line {
-    width: 100%;
-    height: 1px;
-    background: #2f3a71;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-
-  .content-block {
-    h3 {
-      font-size: 18px;
-      font-weight: 500;
-      line-height: 26px;
-      color: #ffffff;
-    }
-
-    .profile-pic {
-      width: 68px;
-      height: 68px;
-      background-image: url('../public/icons/user.svg');
-      background-position: center;
-      background-size: 50%;
-      background-color: $light-blue;
-      background-repeat: no-repeat;
-      margin-top: 10px;
-      border-radius: 6px;
-    }
-
-    .field {
-      @include flexbox($justify-content: flex-start, $align-items: center);
-      margin-top: 10px;
-
-      .name {
-        width: 200px;
-        font-size: 14px;
-        line-height: 22px;
-        color: $second-text;
-      }
-
-      .value {
-        font-size: 14px;
-        line-height: 22px;
-        color: color;
-      }
-    }
-  }
-
-  @media screen and (max-width: 767px) {
-  }
-
-  @media screen and (max-width: 428px) {
   }
 }

@@ -1,15 +1,16 @@
 import { useQuery } from 'react-query';
 import { useHelpers } from 'context/HelperProvider';
-import TierService from 'services/tier.service';
+import { useApi } from 'context/ApiProvider';
 
 export const useProducts = ({
   onError,
   enabled = true
 }: { onError?: (err: any) => void; enabled?: boolean } = {}) => {
   const { showAlert } = useHelpers();
+  const { tier } = useApi();
   const { data, isLoading, isError } = useQuery(
     'products',
-    TierService.getList,
+    () => tier.getList(),
     {
       onError:
         onError ??

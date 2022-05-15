@@ -6,14 +6,14 @@ import config from '../../../config';
 
 import Spinner from '../../_common/Spinner';
 
-import AccountService from '../../../services/account.service.js';
-
 import { useHelpers } from '../../../context/HelperProvider';
 import { useAuth } from '../../../context/AuthProvider';
 import { ROUTES } from 'constant/routes';
+import { useApi } from 'context/ApiProvider';
 
 const Component = () => {
   const router = useRouter();
+  const api = useApi()
 
   const { currentUser } = useAuth();
   const { authEmail, setAuthEmail, authPassword, setAuthPassword, showAlert } =
@@ -56,7 +56,7 @@ const Component = () => {
 
       setProgress(true);
 
-      await AccountService.signUp(authEmail, authPassword, fullName);
+      await api.auth.signUp(authEmail, authPassword, fullName);
 
       showAlert(
         'We have sent a confirmation email to verify your account',

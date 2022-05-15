@@ -1,39 +1,52 @@
-import http from '../helpers/http';
-import { auth } from './firebaseAuth.service';
-import type { Api } from 'types/Api';
-import config from 'config';
+import {
+  AnalyticsService,
+  AuthService,
+  ApiService as RemoteApiService,
+  EndpointService,
+  PaymentService,
+  TierService,
+  UserService
+} from './api';
 
-export default class ApiService {
-  static async createNew(params) {
-    const user = auth.currentUser;
-    const env =
-      typeof window !== 'undefined'
-        ? localStorage.getItem(`${user?.uid}-mode`) || 'production'
-        : 'production';
-    const result: { app_id?: string } = await http.post('create-api', params, {
-      baseURL:
-        env === 'production' ? config.apiUrls.production : config.apiUrls.test
-    });
-    // Create the same api in the other environment as well
-    await http.post('create-api', params, {
-      baseURL: env === 'test' ? config.apiUrls.production : config.apiUrls.test
-    });
-    if (result.app_id) {
-      sessionStorage.setItem('appId', result.app_id);
-    }
-  }
+import { HttpService } from './http';
 
-  static async getCurrent() {
-    const result: Api = await http.get('api');
-    return result;
-  }
+class ApiService {
+  constructor(private readonly _http: HttpService) {}
 
-  static async stripeCheckout() {
-    const result: { connect_url?: string } = await http.post('api/checkout');
-    return result;
-  }
+  /**
+   * Auth routes and services
+   */
+  public auth = new AuthService(this._http);
 
-  static async update(params) {
-    return http.put('api', params);
-  }
+  /**
+   * Analytics routes
+   */
+  public analytics = new AnalyticsService(this._http);
+
+  /**
+   * Api routes
+   */
+  public api = new RemoteApiService(this._http);
+
+  /**
+   * Endpoint routes
+   */
+  public endpoint = new EndpointService(this._http);
+
+  /**
+   * Payment routes
+   */
+  public payment = new PaymentService(this._http);
+
+  /**
+   * Tier routes
+   */
+  public tier = new TierService(this._http);
+
+  /**
+   * User routes
+   */
+  public user = new UserService(this._http);
 }
+
+export { ApiService };

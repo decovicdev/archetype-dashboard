@@ -1,17 +1,17 @@
 import { useCallback } from 'react';
 import Link from 'next/link';
 
-import AccountService from '../../../services/account.service';
-
 import { useAuth } from '../../../context/AuthProvider';
 import { useHelpers } from '../../../context/HelperProvider';
+import { useApi } from 'context/ApiProvider';
 
 const Footer = () => {
   const { currentUser } = useAuth();
   const { isMobile, showAlert } = useHelpers();
+  const { auth } = useApi();
 
   const clickSignOut = useCallback(async () => {
-    await AccountService.logout();
+    await auth.logout();
 
     showAlert('Logged out', true);
   }, [showAlert]);

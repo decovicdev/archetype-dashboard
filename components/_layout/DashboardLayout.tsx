@@ -20,11 +20,12 @@ import ChartIcon from 'components/_icons/ChartIcon';
 import ChatIcon from 'components/_icons/ChatIcon';
 import UserIcon from 'components/_icons/UserIcon';
 import SettingsIcon from 'components/_icons/SettingsIcon';
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import Switch from 'components/_common/Switch';
 import $api from 'helpers/http';
 import config from 'config';
 import { useAuth } from 'context/AuthProvider';
+import { useQueryClient } from 'react-query';
 // import { useApi } from 'hooks/useApi';
 // import AuthService from 'services/auth.service';
 // import { useQuery } from 'react-query';
@@ -85,13 +86,24 @@ const DashboardLayout = ({ children }) => {
   // const { data: endpoints } = useEndpoints({ enabled: !isLoading && !!api });
   // const { data: users } = useUsers({ enabled: !isLoading && !!api });
 
+  const handleSwitch = () => {
+    localStorage.setItem(
+      `${currentUser.uid}-mode`,
+      isTestEnv ? 'production' : 'test'
+    );
+    sessionStorage.removeItem('appId');
+    window.location.replace(
+      window.location.origin + ROUTES.DASHBOARD.DASHBOARD
+    );
+  };
+
   return (
     <PrivateRoute>
       <div className="grid grid-cols-aside w-screen h-screen overflow-hidden bg-twhite-700">
         <div className="flex flex-col py-8 pl-4 pr-8 bg-tpurple-700 space-y-2">
           <ArcheTypeNlogo />
           {LINKS.map((section) => (
-            <>
+            <Fragment key={section.title}>
               {section.title ? (
                 <Paragraph
                   level={2}
@@ -149,7 +161,7 @@ const DashboardLayout = ({ children }) => {
                   </Button>
                 );
               })}
-            </>
+            </Fragment>
           ))}
         </div>
         <div className="h-full overflow-hidden">
@@ -173,16 +185,7 @@ const DashboardLayout = ({ children }) => {
                 label={`Switch to ${isTestEnv ? 'production' : 'test'} mode`}
                 className="ml-auto"
                 checked={isTestEnv}
-                onChange={async () => {
-                  if (typeof window !== 'undefined' && currentUser) {
-                    localStorage.setItem(
-                      `${currentUser.uid}-mode`,
-                      isTestEnv ? 'production' : 'test'
-                    );
-                    await sessionStorage.removeItem('appId');
-                    await window.location.reload();
-                  }
-                }}
+                onChange={handleSwitch}
               />
             </div>
             {children}

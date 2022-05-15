@@ -26,6 +26,7 @@ module.exports = withPlugins(
         URL: process.env.URL,
         API_BASE_URL: process.env.API_BASE_URL,
         API_TIMEOUT: process.env.API_TIMEOUT,
+        API_BASE: process.env.API_BASE,
 
         FIREBASE_KEY: process.env.FIREBASE_KEY,
         FIREBASE_DOMAIN: process.env.FIREBASE_DOMAIN,

@@ -1,18 +1,19 @@
 import React from 'react';
 import { useMutation } from 'react-query';
 import Modal from '../_common/Modal';
-import TierService from '../../services/tier.service';
 import { useHelpers } from '../../context/HelperProvider';
 import Button from 'components/_common/Button';
 import { ButtonVariant } from 'types/Button';
+import { useApi } from 'context/ApiProvider';
 
 const Component = ({ id, onSuccess, isOpen, onClose }) => {
   const { showAlert } = useHelpers();
+  const { tier } = useApi();
 
   const { mutate: submitForm, isLoading: isMutationLoading } = useMutation(
     async () => {
       if (isMutationLoading) return;
-      await TierService.deleteById(id);
+      await tier.deleteById(id);
     },
     {
       onSuccess: () => {

@@ -7,7 +7,6 @@ import config from '../config';
 import KeyIcon from '../public/icons/key.svg';
 import AuthIcon from '../public/icons/auth.svg';
 import { useHelpers } from '../context/HelperProvider';
-import ApiService from '../services/api.service';
 import DeleteIcon from 'components/_icons/DeleteIcon';
 import Spinner from 'components/_common/Spinner';
 import Modal from 'components/_common/Modal';
@@ -23,7 +22,7 @@ import BreadCrumbs from 'components/_common/BreadCrumbs';
 import { ROUTES } from 'constant/routes';
 import { AUTH_TYPES } from 'types/Auth';
 import { RadioOption } from 'types/Form';
-import { useApi } from 'hooks/useApi';
+import { useApi } from 'context/ApiProvider';
 
 const radioOptions: RadioOption[] = [
   { id: 'none', label: 'No auth', value: AUTH_TYPES.none },
@@ -37,8 +36,11 @@ const SettingsComponent = () => {
   const { showAlert } = useHelpers();
   const [isDeleting, setDeleting] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { api: apiService } = useApi();
 
-  const { data: api, isLoading } = useApi();
+  const { data: api, isLoading } = useQuery('api', () =>
+    apiService.getCurrent()
+  );
 
   const [authType, setAuthType] = useState(api?.auth_type);
   const [redirectUrl, setRedirectUrl] = useState(api?.url || api?.redirect_url);
@@ -60,7 +62,7 @@ const SettingsComponent = () => {
 
   const { mutate: saveForm } = useMutation(
     async () => {
-      await ApiService.update({
+      await apiService.update({
         auth_type: authType,
         url: redirectUrl,
         return_url: returnUrl
@@ -72,9 +74,13 @@ const SettingsComponent = () => {
     }
   );
 
-  const { data } = useQuery('stripeCheckout', ApiService.stripeCheckout, {
-    enabled: !!sessionStorage.getItem('appId') && !api?.has_completed_checkout
-  });
+  const { data } = useQuery(
+    'stripeCheckout',
+    () => apiService.stripeCheckout(),
+    {
+      enabled: !!sessionStorage.getItem('appId') && !api?.has_completed_checkout
+    }
+  );
 
   const connectStripe = useCallback(async () => {
     try {

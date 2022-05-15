@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import config from '../../config';
 
-import AccountService from '../../services/account.service.js';
+import { useApi } from 'context/ApiProvider';
 
 import Spinner from '../_common/Spinner';
 
@@ -13,6 +13,7 @@ import { useAuth } from '../../context/AuthProvider';
 
 const Component = () => {
   const router = useRouter();
+  const api = useApi()
 
   const { currentUser } = useAuth();
   const { showAlert } = useHelpers();
@@ -36,7 +37,7 @@ const Component = () => {
         }
         setProgress(true);
 
-        await AccountService.verifyEmail(oobCode);
+        await api.auth.verifyEmail(oobCode);
 
         showAlert('Your email is now verified', true);
 

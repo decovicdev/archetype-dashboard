@@ -10,10 +10,10 @@ import { TypographyVariant } from 'types/Typography';
 import Divider from 'components/_common/Divider';
 import AuthLayout from 'components/_layout/AuthLayout';
 import { useAuth } from 'context/AuthProvider';
-import AuthService from 'services/auth.service';
 import { ROUTES } from 'constant/routes';
 import ErrorText from 'components/_typography/ErrorText';
 import SuccessText from 'components/_typography/SuccessText';
+import { useApi } from 'context/ApiProvider';
 
 const VerifyPage: NextPage = () => {
   const [networkError, setNetworkError] = useState(null);
@@ -21,6 +21,7 @@ const VerifyPage: NextPage = () => {
 
   const router = useRouter();
   const { currentUser, isAuthLoading } = useAuth();
+  const { auth } = useApi();
 
   useEffect(() => {
     if (isAuthLoading) return;
@@ -74,7 +75,7 @@ const VerifyPage: NextPage = () => {
                   className="!p-0 text-sm"
                   onClick={async () => {
                     try {
-                      await AuthService.sendVerificationEmail({
+                      await auth.sendVerificationEmail({
                         user: currentUser
                       });
                       setEmailSent(true);
@@ -100,7 +101,7 @@ const VerifyPage: NextPage = () => {
               variant={ButtonVariant.link}
               className="!p-0 text-sm"
               onClick={async () => {
-                await AuthService.logout();
+                await auth.logout();
                 router.push(ROUTES.AUTH.SIGNUP);
               }}
             >

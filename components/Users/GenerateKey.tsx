@@ -2,12 +2,12 @@ import { useCallback, useState } from 'react';
 
 import Modal from '../_common/Modal';
 
-import CustomerService from '../../services/customer.service';
-
 import { useHelpers } from '../../context/HelperProvider';
+import { useApi } from 'context/ApiProvider';
 
 const Component = ({ id, onSuccess, isOpen, onClose }) => {
   const { showAlert } = useHelpers();
+  const { user } = useApi();
 
   const [inProgress, setProgress] = useState(false);
 
@@ -18,7 +18,7 @@ const Component = ({ id, onSuccess, isOpen, onClose }) => {
       }
       setProgress(true);
 
-      await CustomerService.resetApiKey(id);
+      await user.resetApiKey(id);
 
       showAlert('Success', true);
 
