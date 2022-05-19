@@ -53,6 +53,16 @@ class UserService {
       `user/${params.custom_uid}/send-product-link-email/${params.tier_id}`
     );
   }
+
+  public cancelSubscription(body: {
+    custom_uid: string;
+    cancel_immediately: boolean;
+  }) {
+    return this._http.request('user/cancel-subscription', {
+      method: 'post',
+      json: body
+    });
+  }
 }
 
 export { UserService };

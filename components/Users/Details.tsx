@@ -18,6 +18,7 @@ import { Tier } from 'types/Tiers';
 import { useState } from 'react';
 import GeneratePaymentLinkModal from './GeneratePaymentLinkModal';
 import { useApi } from 'context/ApiProvider';
+import CancelSubscriptionModal from './CancelSubscriptionModal';
 
 const Component = () => {
   const router = useRouter();
@@ -26,6 +27,7 @@ const Component = () => {
 
   const [isGeneratePaymentModalOpen, setIsGeneratePaymentModalOpen] =
     useState(false);
+  const [isCSModalOpen, setIsCSModalOpen] = useState(false);
   const [paymentLink, setPaymentLink] = useState('');
 
   const { data, isLoading, error, refetch } = useQuery(
@@ -84,6 +86,22 @@ const Component = () => {
     } catch (error) {
       console.error(error);
       showAlert('Something went wrong', false);
+    }
+  };
+
+  const handleCancelSubscription = async () => {
+    if (data.status === 'sandbox' || data.status === 'sandox') {
+      try {
+        const res = await user.cancelSubscription({
+          custom_uid: router.query.userId as string,
+          cancel_immediately: true
+        });
+        refetch();
+      } catch (error) {
+        showAlert('Something went wrong', false);
+      }
+    } else {
+      setIsCSModalOpen(true);
     }
   };
 
@@ -225,13 +243,22 @@ const Component = () => {
                     Payment link
                   </Button>
                   <Button
-                    className="w-full"
+                    className="w-full mb-2"
                     onClick={() => {
                       handleSendInvoice(tier.tier_id);
                     }}
                   >
                     Send invoice
                   </Button>
+                  {data.tier_id === tier.tier_id && (
+                    <Button
+                      variant={ButtonVariant.danger}
+                      className="w-full"
+                      onClick={handleCancelSubscription}
+                    >
+                      Cancel subscription
+                    </Button>
+                  )}
                 </DropdownMenu>
               </td>
             </tr>
@@ -253,6 +280,13 @@ const Component = () => {
         onClose={() => {
           setIsGeneratePaymentModalOpen(!isGeneratePaymentModalOpen);
         }}
+      />
+      <CancelSubscriptionModal
+        isOpen={isCSModalOpen}
+        onClose={() => {
+          setIsCSModalOpen(!isCSModalOpen);
+        }}
+        refetch={refetch}
       />
     </div>
   );
