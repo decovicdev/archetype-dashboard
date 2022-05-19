@@ -92,9 +92,7 @@ const DashboardLayout = ({ children }) => {
       isTestEnv ? 'production' : 'test'
     );
     sessionStorage.removeItem('appId');
-    window.location.replace(
-      window.location.origin + ROUTES.DASHBOARD.DASHBOARD
-    );
+    window.location.reload();
   };
 
   return (
