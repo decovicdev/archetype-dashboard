@@ -28,10 +28,18 @@ const Component = () => {
     useState(false);
   const [paymentLink, setPaymentLink] = useState('');
 
+  const onError = (e: any) => {
+    if (e.response?.status === 404) {
+      router.push(ROUTES.USERS.BASE_URL);
+    } else {
+      showAlert('Something went wrong', false);
+    }
+  };
+
   const { data, isLoading, error, refetch } = useQuery(
     ['user', router.query.userId],
     () => user.getById(router.query.userId as string),
-    { onError: (e: any) => showAlert(e.message) }
+    { onError }
   );
 
   const { data: tiers = [] } = useProducts();

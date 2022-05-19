@@ -1,5 +1,5 @@
 import config from 'config';
-import ky, { Options } from 'ky';
+import ky, { Options, HTTPError } from 'ky';
 
 import { auth } from '../firebaseAuth.service';
 
@@ -24,21 +24,16 @@ class HttpService {
         ? config.apiUrls.production
         : config.apiUrls.test;
 
-    try {
-      const response = await ky(url, {
-        prefixUrl: baseUrl,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'X-Archetype-AppID': this.getAppId()
-        },
-        ...kyConfig
-      }).json<V>();
+    const response = await ky(url, {
+      prefixUrl: baseUrl,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'X-Archetype-AppID': this.getAppId()
+      },
+      ...kyConfig
+    }).json<V>();
 
-      return response;
-    } catch (error) {
-      console.info(error.message);
-      throw new Error(error);
-    }
+    return response;
   }
 
   public getAppId() {
