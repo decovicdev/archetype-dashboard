@@ -30,7 +30,7 @@ const Component = () => {
   const [isCSModalOpen, setIsCSModalOpen] = useState(false);
   const [paymentLink, setPaymentLink] = useState('');
 
-  const { data, isLoading, error, refetch } = useQuery(
+  let { data, isLoading, error, refetch } = useQuery(
     ['user', router.query.userId],
     () => user.getById(router.query.userId as string),
     { onError: (e: any) => showAlert(e.message) }
@@ -129,6 +129,15 @@ const Component = () => {
           >
             Edit
           </Button>
+          {data.status !== 'not_subscribed' && data.status !== 'canceled' && (
+            <Button
+              variant={ButtonVariant.danger}
+              className="w-full mb-2"
+              onClick={handleCancelSubscription}
+            >
+              Cancel subscription
+            </Button>
+          )}
           <Button
             variant={ButtonVariant.danger}
             onClick={onOpen}
