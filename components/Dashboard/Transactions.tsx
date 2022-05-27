@@ -2,6 +2,7 @@ import Button from 'components/_common/Button';
 import Card from 'components/_common/Card';
 import Paragraph from 'components/_typography/Paragraph';
 import Title from 'components/_typography/Title';
+import { ButtonVariant } from 'types/Button';
 import { TypographyVariant } from 'types/Typography';
 
 const Transactions: React.FC = () => (
@@ -15,7 +16,10 @@ const Transactions: React.FC = () => (
         >
           Get started
         </Title>
-        <Button className="bg-blue-100/75 text-sky-700 py-1	px-1.5 rounded ">
+        <Button
+          className="bg-blue-100/75 text-sky-700 py-1	px-1.5 rounded "
+          variant={ButtonVariant.outlined}
+        >
           Documentation
         </Button>
       </div>
@@ -47,7 +51,10 @@ const Transactions: React.FC = () => (
         >
           Recent Transactions
         </Title>
-        <Button className="bg-blue-100/75 text-sky-700 py-1	px-1.5 rounded ">
+        <Button
+          className="bg-blue-100/75 text-sky-700 py-1	px-1.5 rounded "
+          variant={ButtonVariant.outlined}
+        >
           Documentation
         </Button>
       </div>
