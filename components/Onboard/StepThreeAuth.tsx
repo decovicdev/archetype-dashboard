@@ -8,6 +8,7 @@ import { ButtonVariant } from 'types/Button';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { object, string } from 'yup';
 import ErrorText from 'components/_typography/ErrorText';
+import { useEffect } from 'react';
 
 const AuthOptions = [
   {
@@ -31,12 +32,14 @@ type Props = {
   handleSubmit: (values) => void;
   values: { auth_type: string; redirect_url: string; return_url: string };
   handlePrev: () => void;
+  isLoading: boolean;
 };
 
 const StepThreeAuth: React.FC<Props> = ({
   handleSubmit,
   handlePrev,
-  values: init
+  values: init,
+  isLoading
 }) => {
   const formik = useFormik({
     initialValues: init,
@@ -45,7 +48,7 @@ const StepThreeAuth: React.FC<Props> = ({
       redirect_url: string().url().required('Redirect url is required'),
       return_url: string().url().required('Return url is required')
     }),
-    onSubmit: (values, helpers) => {
+    onSubmit: async (values, helpers) => {
       handleSubmit(values);
     }
   });
@@ -146,7 +149,9 @@ const StepThreeAuth: React.FC<Props> = ({
               >
                 Back
               </Button>
-              <Button type="submit">Next</Button>
+              <Button type="submit" disabled={isLoading}>
+                Next
+              </Button>
             </div>
           </Form>
         </FormikProvider>

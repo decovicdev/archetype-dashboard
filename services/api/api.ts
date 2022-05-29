@@ -24,7 +24,7 @@ class ApiService {
 
       sessionStorage.setItem('appId', prodApp.app_id);
     } catch (error) {
-      console.info(error);
+      throw new Error(error);
     }
   }
 
