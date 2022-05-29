@@ -61,18 +61,18 @@ const Component = () => {
     }
   }, [api, currentUser, isAuthLoading, router]);
 
-  const { mutate: submitForm } = useMutation(
-    (data) => apiService.createNew(data),
-    {
-      onError: (e: any) => showAlert(e.message),
-      onSuccess: async () => {
-        showAlert('API is successfully created', true);
-        router.push(ROUTES.SETTINGS.SETTINGS);
-        refetch();
-      }
+  const { mutate, isLoading: isApiLoading } = useMutation<
+    unknown,
+    unknown,
+    typeof initialValues
+  >((data) => apiService.createNew(data), {
+    onError: (e: any) => showAlert(e.message),
+    onSuccess: () => {
+      showAlert('API is successfully created', true);
+      router.push(ROUTES.SETTINGS.SETTINGS);
+      refetch();
     }
-  );
-  const hanlde = (data) => submitForm(data);
+  });
 
   const handlePrev = () => {
     setStep(step - 1);
@@ -86,8 +86,8 @@ const Component = () => {
         break;
 
       case 2:
+        mutate({ ...initialValues, ...values });
         setInitialValues({ ...initialValues, ...values });
-        hanlde({ ...initialValues, ...values });
         break;
 
       default:
@@ -108,6 +108,7 @@ const Component = () => {
             handleSubmit={handleS}
             values={initialValues}
             handlePrev={handlePrev}
+            isLoading={isApiLoading}
           />
         );
 

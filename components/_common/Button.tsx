@@ -30,6 +30,7 @@ type Props = {
   externalUrl?: string;
   active?: boolean;
   type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
 };
 
 const Button: React.FC<Props> = ({
@@ -41,6 +42,7 @@ const Button: React.FC<Props> = ({
   url,
   externalUrl,
   active,
+  disabled,
   ...props
 }) =>
   externalUrl ? (
@@ -86,6 +88,7 @@ const Button: React.FC<Props> = ({
       type={props.type || 'button'}
       onClick={onClick}
       {...props}
+      disabled={disabled}
     >
       {leftIcon ? (
         <leftIcon.type
