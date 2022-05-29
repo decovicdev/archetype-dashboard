@@ -13,10 +13,11 @@ export const ROUTES = {
     PRODUCTS: '/products',
     ENDPOINTS: '/endpoints',
     USERS: '/users',
-    ANALYTICS: '/analytics',
+    // ANALYTICS: '/analytics',
     // INTEGRTION: '/integrtion',
     DOCUMENTATIONS: '/docs',
-    DIMENSIONS: '/dimensions'
+    DIMENSIONS: '/dimensions',
+    CHARTS: '/charts'
   },
   USER_MANUAL: {
     WALKTHROUGH: '/walkthrough',
